@@ -1,2 +1,3 @@
 # zephyr.txt
-Documents related to the development of Zephyr
+
+Documents related to the development of Zephyr.
