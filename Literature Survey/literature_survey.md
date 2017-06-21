@@ -14,7 +14,7 @@
 
 ## Themes
 - Machine Learning
-- Artificial Neural Networks
+- Artificial Neural Networks (ANN)
 - Evolutionary Models
 - Genetic Algorithms
 - Draughts (Checkers)
@@ -41,19 +41,15 @@ _M. Kusiak, K. Waledzik, J. Mandziuk, Warsaw U. of Technology_
 
 This paper mentions 25 heuristics that that can be used together to create a linear combination. We could potentially use these heuristics in unison to create the evaluation function.
 
-These heuristics can be grouped depending on the state of the game. For instance, some heuristics would be more useful during the early-mid game, whereas other heuristics would be only useful for the end game. The paper suggests that this performs the strongest out of their options.
+These heuristics can be grouped depending on the state of the game. For instance, some heuristics would be more useful during the early-mid game, whereas other heuristics would be only useful for the end game. The paper suggests that this performs the strongest out of their options. 
 
-> Not surprisingly, the best of all tested heuristics is E3Ph − a nonlinear 3phase heuristic. This result conﬁrms the common knowledge in game research thatit is advantageous to divide the entire game into phases anddevelopseparate heuristics for each part of the game. Speciﬁcally it was also observed that game phases need to partition board positions space into disjoint sets. Otherwise the genetic process may have diﬃculties in assigning coeﬃcients for the features shared by two or more game phases. 
+The paper goes into further detail, suggesting that a 3-phase heuristic performs "unsurprisingly" the best out of the tested heuristics. 
 
-The population will consist of coefficients of these heuristics.
+>This result conﬁrms the common knowledge in game research that it is advantageous to divide the entire game into phases and develop separate heuristics for each part of the game. Speciﬁcally it was also observed that game phases need to partition board positions space into disjoint sets. Otherwise the genetic process may have difficulties in assigning coefficients for the features shared by two or more game phases. 
 
->  All coeﬃcients of the heuristics were represented as a vector of real numbers whereby each number denoted a single gene (one coeﬃcient). In case of nonlinear heuristics, the conditions that nonlinear components consisted of were not modiﬁed by the process of evolution.
+The population will consist of coefficients of these heuristics. Selection is managed by tournaments. The winners of two tournaments are coupled and crossbred.
 
-Selection is managed by tournaments. winners of two tournaments are coupled and crossbred.
-
-Crossover is managed by a random partition of its coefficients, with random assignments from each parent. The offspring would replace the weakest specimen in the population. 
-
-Mutation occurs here are simple math operations on the coefficients.
+Crossover is managed by a random partition of its coefficients, with random assignments from each parent. The offspring would replace the weakest specimen in the population. Mutation occurs here are simple math operations on the coefficients.
 
 The Fitness Function becomes a little tricky here.
 
@@ -73,51 +69,51 @@ _S. Perez, UC Irvine_
 
 This paper discusses comparisons between the possible approaches that would improve the quality of weights on the neural network: Back Propagation and Genetic Algorithms. The comparisons would be measured using a Balance Scale.
 
-The test data used was split into two sets. One set is used to feed into the neural network as training data, with its performance tested. The set is then used as test data for comparison.
-Hidden layers are necessary for the comparison in order to make the comparison fair.
+The test data used was split into two sets. One set is used to feed into the neural network as training data, with its performance tested. The set is then used as test data for comparison. Hidden layers are necessary for the comparison in order to make the measurements fair.
 
+The paper suggests that the GA approach proposes better results "as expected":
 
-> As expected, the GA approach gives better results than the back-propagation method with almost all the iterations used (using 6% and 50% as mutation and crossover probab
-> ilities).  Only when the number of iterations is very small, the back-propagation method gives better precision performance.
+> As expected, the GA approach gives better results than the back-propagation method with almost all the iterations used (using 6% and 50% as mutation and crossover probabilities).  Only when the number of iterations is very small, the back-propagation method gives better precision performance.
 
-The paper suggests possible downfalls to a genetic algorithm approach.
+The paper suggests possible downfalls to a genetic algorithm approach, where its search space is dramatically larger in the event that the margin of the weights aren't known. This is not relevant as we should know what they are. 
 
 > What would have happened if the margin of the weights was not known?  The search space for the genetic algorithm would be much larger that the one that we were supposed to search, and the solution not only will converge slowly, but also with less precision.
 
 **Evolving Neural Networks to Play Checkers without Relying on Expert Knowledge**
 _Kumar Chellapilla, UC San Diego; David B. Fogel, Natural Selection, Inc._
 
-Fogel's paper describes a method that has solved what we are attempting to do. 
-- Try a different approach to implementing it.
+Fogel's paper describes an implementation of an evolutionary NN that plays checkers. This may propose a problem wherein the project would need to be sufficently distant from the methods described in the paper.
 
-The paper describes a perspective on an approach that can be used to solve the problem described. It consists of a min-max algorithm with alpha-beta pruning. The 
+The paper describes a perspective on an approach that can be used to solve the problem described. It consists of a min-max algorithm with alpha-beta pruning. The algorithm determines the quality of its potential moves, with it choosing the best move out of it.
 
-It uses an 'evolutionary algorithm' (which is assumed to be a genetic algorithm), with the neural network as the population. The individual weights of the neural networks were measured against each other using a tournament, where each neural network plays against each other in a simulated game of checkers. The best neural networks stay on.
+Therefore, its evaulation function consists of a neural network: A possible board move is the input, and the output is a score value of how good the board is.
 
-They used 250 generations, of 150 games per generation, with a population of 15 neural networks.
+It uses an evolutionary algorithm (which is assumed to be a genetic algorithm), with the neural network as the population. The individual weights of the neural networks were measured against each other using a tournament, where each neural network plays against each other in a simulated game of checkers. The best neural networks stay on.
 
+They used 250 generations, of 150 games per generation, with a population of 15 neural networks. The bot was then used to play against players on the gaming site `zone.net`, where it achieved an ELO of 1914.
 
-The bot 
+It mentions that some pitfalls of the bot were dependent on the ply (depth level of node expansion), where a shallow depth doesn't provide decent results, and that a large depth would be computationally infeasible. It also suggests that a min-max strategy may not suggest the best move (although it is the accepted standard.)
 
 # Proposed Direction of the Project (Page 5)
 
-The main concern is to try and differ the project away from the method described by Chellapilla & Fogel, whilst attempting to achieve the same objective. 
+The approach that would be similar to _Chellapilla_ and _Fogel's_ paper.
 
-The approach that would be taken consists of again,
+The neural networks would take as input a board, and outputs a value that determines the effectiveness of that board. The number of hidden layers are dependent on the heuristics, proposed by _M. Kusiak_ and _K. Waledzik,_ in their paper **Evolutionary approach to the game of checkers**. This is left for experimentation during the implementation of the project.
 
-the genetic algorithm 
+The genetic algorithm would be used to improve the quality of the weights of the neural networks. We will need a
 
-While it is our primary focus to build an effective 
+This is fortunately where the similarities end; as the devils are in the details so to speak, experimentation would be conducted with these parts.
 
-This is determined by the performance of these parts of the system:
-
+- Effectiveness of the min-max algorithm
 - Genetic Crossover Algorithm
 - Genetic Mutation Algorithm
 - Effectiveness of the Neural Network
 
-Fortunately 
+Fortunately in _Chellapilla_ and _Fogel's_ paper, 
 
 # Conclusion (Page 6)
+
+In order to work 
 
 # References
 
