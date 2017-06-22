@@ -117,19 +117,18 @@ reading.}\label{important-issues-of-identified-themes-from-results-of-reading.}
 \textbf{Evolutionary approach to the game of checkers} \emph{M. Kusiak,
 K. Waledzik, J. Mandziuk, Warsaw U. of Technology} {[}2{]}
 
+The paper described a genetic algorithm that would be used to evolve an 
+evaluation function, which are used to determine the worth of a board 
+during a minimax search in checkers.
+
 This paper mentions 25 heuristics that that can be used together to
-create a linear combination. We could potentially use these heuristics
-in unison to create the evaluation function.
+create a linear combination. These heuristics can be grouped depending
+on the state of the game. For instance, some heuristics would be more 
+useful during the early-mid game, whereas other heuristics would be only 
+useful for the end game. As described in the paper, they suggest that this 
+method performs the strongest out of their options. 
 
-These heuristics can be grouped depending on the state of the game. For
-instance, some heuristics would be more useful during the early-mid
-game, whereas other heuristics would be only useful for the end game.
-The paper suggests that this performs the strongest out of their
-options. The paper goes into further detail, suggesting that a 3-phase
-heuristic performs ``unsurprisingly'' the best out of the tested
-heuristics.
-
-The population will consist of coefficients of these heuristics.
+The population would consist of coefficients of these heuristics.
 Selection is managed by tournaments. The winners of two tournaments are
 coupled and crossbred. Crossover is managed by a random partition of its
 coefficients, with random assignments from each parent. The offspring
@@ -166,6 +165,7 @@ of all the test boards came from the stage of the game closest to the
 beginning (i.e.~the stage considered most recently). In the first step
 positions obtained in between 82 and 86 moves were considered.
 \end{quote}
+
 
 \textbf{Apply genetic algorithm to the learning phase of a neural
 network} \emph{S. Perez, UC Irvine} {[}3{]}
