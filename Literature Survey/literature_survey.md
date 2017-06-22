@@ -109,11 +109,13 @@ This is fortunately where the similarities end; as the devils are in the details
 - Genetic Mutation Algorithm
 - Effectiveness of the Neural Network
 
-Fortunately in _Chellapilla_ and _Fogel's_ paper, 
+Fortunately in _Chellapilla_ and _Fogel's_ paper, they have discussed their evolutionary approach 
+
+which would otherwise defeat the originality of the project.
 
 # Conclusion (Page 6)
 
-In order to work 
+In order to go forward with this project, It would be wise to look into effective approaches of setting up 
 
 # References
 
