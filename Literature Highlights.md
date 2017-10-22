@@ -9,7 +9,7 @@ This paper mentions 25 heuristics that that can be used together to create a lin
 
 These heuristics can be grouped depending on the state of the game. For instance, some heuristics would be more useful during the early-mid game, whereas other heuristics would be only useful for the end game. The paper suggests that this performs the strongest out of their options.
 
-
+P
 > Not surprisingly, the best of all tested heuristics is E3Ph − a nonlinear 3phase heuristic. This result conﬁrms the common knowledge in game research that it is advantageous to divide the entire game into phases and develop separate heuristics for each part of the game. Specifically it was also observed that game phases need to partition board positions space into disjoint sets. Otherwise the genetic process may have difficulties in assigning coefficients for the features shared by two or more game phases. 
 
 The population will consist of coefficients of these heuristics.
@@ -69,14 +69,16 @@ Moves are chosen where the evaluated boards show to afford the oppoment to do th
 
 The evolutionary process, from a population of randomly weighted neural networks, was iterated 250 times. From there, the best neural network was chosen to play against human oppoments.
 
+In the end, 90 games were played against humans over the span of 2 weeks. 47 games were played as Red (black equivalent), where their ply depth was 6,8, and in some cases 10. The corresponding mean rating achieved though this was an ELO of 1901.98. It reached a maximum of 2006.39. 
+
 ### Machine Learning Using a Genetic Algorithm to Optimise a Draughts Program Board Evaluation Function
 Kenneth J. Chisholm and Peter V.G Bradbeer,
 Napier University, 1997
 
-The paper discusses the comparison between back propagation and genetic algorithms, using a checkerboard as an evaluation. Both techniques are used to optimise the weights of a deep learning neural network, where it takes as input, the positions of the pieces on a board, and outputs the score of the board.
+The paper discusses the use of genetic algorithms in order to improve the weights of a neural network, using a checkerboard as an evaluation. Both techniques are used to optimise the weights of a deep learning neural network, where it takes as input, the positions of the pieces on a board, and outputs the score of the board.
 
 They conclude with:
-> a relatively unsophisticated GA can determine a good set of board-evaluation weights to play draughts without the addition of any domain-specific information. ...
+> a relatively unsophisticated GA can determine a good set of board-evaluation weights to play draughts without the addition of any domain-specific information.
 
 
 ### Evolutionary algorithms in theory and practice
