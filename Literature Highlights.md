@@ -1,6 +1,6 @@
 # Literature Survey
 
-**Evolutionary approach to the game of checkers**
+### Evolutionary approach to the game of checkers
 M. Kusiak, K. Waledzik, J. Mandziuk, Warsaw U. of Technology
 
 https://www.dropbox.com/s/5wzlp61pqwt30mf/ICANNGA07-1.pdf?dl=0
@@ -39,12 +39,10 @@ The Fitness Function becomes a little tricky here.
 
 ----------
 
-**Apply genetic algorithm to the learning phase of a neural network**
+### Apply genetic algorithm to the learning phase of a neural network
 S. Perez, UC Irvine
-
-
+	
 https://www.dropbox.com/s/zz63cv82lkgr8ft/sperez1_GANN.pdf?dl=0
-
 
 This paper discusses comparisons between the possible approaches that would improve the quality of weights on the neural network: Back Propagation and Genetic Algorithms. The comparisons would be measured using a Balance Scale.
 
@@ -57,7 +55,7 @@ The paper suggests possible downfalls to a genetic algorithm approach.
 > What would have happened if the margin of the weights was not known?  The search space for the genetic algorithm would be much larger that the one that we were supposed to search, and the solution not only will converge slowly, but also with less precision.
 
 
-**Evolving Neural Networks to Play Checkers without Relying on Expert Knowledge**
+### Evolving Neural Networks to Play Checkers without Relying on Expert Knowledge
 Kumar Chellapilla, UC San Diego; David B. Fogel, Natural Selection, Inc.
 
 https://www.dropbox.com/s/4gkzt28emsipprd/TNNKChellapillaAndDBFogelText.pdf?dl=0
@@ -66,8 +64,12 @@ This paper describes the creation of Blondie24. Their intentions behind this was
 
 - Its weights for the king pieces were generated (and not assigned)
 
+The games are played using a fail-soft alpha-beta search of the game tree.
+Moves are chosen where the evaluated boards show to afford the oppoment to do the least damage. In the event that forced moves occured, the search depth of the tree was extended as the player doesn't really have a real position to make.
 
-**Machine Learning Using a Genetic Algorithm to Optimise a Draughts Program Board Evaluation Function**
+The evolutionary process, from a population of randomly weighted neural networks, was iterated 250 times. From there, the best neural network was chosen to play against human oppoments.
+
+### Machine Learning Using a Genetic Algorithm to Optimise a Draughts Program Board Evaluation Function
 Kenneth J. Chisholm and Peter V.G Bradbeer,
 Napier University, 1997
 
@@ -77,12 +79,12 @@ They conclude with:
 > a relatively unsophisticated GA can determine a good set of board-evaluation weights to play draughts without the addition of any domain-specific information. ...
 
 
-**Evolutionary algorithms in theory and practice**
+### Evolutionary algorithms in theory and practice
 Fogel, David B. • 1997
 
 https://www.dropbox.com/s/h5t5xcr8a9ntug9/Fogel-1997-Complexity.pdf?dl=0
 
-**Evolving a checkers player without relying on human experience**
+### Evolving a checkers player without relying on human experience
 David B. Fogel
 intelligence, 01 June 2000, Vol.11(2), pp.20-27
 
@@ -92,14 +94,14 @@ https://www.dropbox.com/s/914bao2e3uq4qaj/p20-fogel.pdf?dl=0
 https://www.dropbox.com/s/e6qa7gg7ula40vv/1703.01513.pdf?dl=0
 
 
-**Genetic CNN**
+### Genetic CNN
 Lingxi Xie, Alan Yuille
 Center for Imaging Science, The Johns Hopkins University, Baltimore, MD, USA
 
 https://www.dropbox.com/s/cadxzt4f35c0snn/is%20good%20defense%20the%20best%20offence.pdf?dl=0
 
 
-**Is A Good Offensive Always the Best Defense?**
+### Is A Good Offensive Always the Best Defense?
 J. QUETZALCOATL TOLEDO-MARIN, ROGELIO DIAZ-MENDEZ, MARCELO DEL CASTILLO MUSSOT, Universidad Nacional Auto ́noma de M ́exico,
 
 https://rmflight.github.io/posts/2014/03/saga_blogPost.html
