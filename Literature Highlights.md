@@ -1,29 +1,24 @@
 # Literature Survey
 
+
 ### Evolutionary approach to the game of checkers
 M. Kusiak, K. Waledzik, J. Mandziuk, Warsaw U. of Technology
 
 https://www.dropbox.com/s/5wzlp61pqwt30mf/ICANNGA07-1.pdf?dl=0
 
-This paper mentions 25 heuristics that that can be used together to create a linear combination. We could potentially use these heuristics in unison to create the evaluation function.
+This paper mentions 25 heuristics that that can be used together to create a linear combination. 
 
 These heuristics can be grouped depending on the state of the game. For instance, some heuristics would be more useful during the early-mid game, whereas other heuristics would be only useful for the end game. The paper suggests that this performs the strongest out of their options.
 
-P
 > Not surprisingly, the best of all tested heuristics is E3Ph − a nonlinear 3phase heuristic. This result conﬁrms the common knowledge in game research that it is advantageous to divide the entire game into phases and develop separate heuristics for each part of the game. Specifically it was also observed that game phases need to partition board positions space into disjoint sets. Otherwise the genetic process may have difficulties in assigning coefficients for the features shared by two or more game phases. 
 
 The population will consist of coefficients of these heuristics.
-
 
 >  All coefficients of the heuristics were represented as a vector of real numbers whereby each number denoted a single gene (one coefficient). In case of nonlinear heuristics, the conditions that nonlinear components consisted of were not modified by the process of evolution.
 
 Selection is managed by tournaments. winners of two tournaments are coupled and crossbred.
 
-Crossover is managed by a random partition of its coefficients, with random assignments from each parent. The offspring would replace the weakest specimen in the population. 
-
-Mutation occurs here are simple math operations on the coefficients.
-
-The Fitness Function becomes a little tricky here.
+Crossover is managed by a random partition of its coefficients, with random assignments from each parent. The offspring would replace the weakest specimen in the population. Mutation occurs here are simple math operations on the coefficients. The Fitness Function becomes a little tricky here.
 
 
 > One of the diﬃculties encountered while designing a genetic algorithm was deﬁning ﬁtness function for the heuristics. In order to solve this problem the general idea presented in [9] was followed. The game was partitioned into several disjoint stages according to the number of moves already performed. During the ﬁrst phase of the algorithm a heuristic that would be able to assess correctly situations close to the end of the game was to be obtained. In order to achieve this, alpha-beta algorithm with no heuristic was used to assess a number of randomly generated positions close to the leaves of the game tree. All positions beyond the depth of alpha-beta algorithm were considered a draw. 
