@@ -1,0 +1,331 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrartcl
+\use_default_options true
+\begin_modules
+eqs-within-sections
+figs-within-sections
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Literature Survey
+\end_layout
+
+\begin_layout Author
+Thien Nguyen
+\end_layout
+
+\begin_layout Subject
+Supervisor: Stefan Dantchev
+\end_layout
+
+\begin_layout Subject
+Durham University
+\end_layout
+
+\begin_layout Date
+26th October 2017
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Problem Background
+\end_layout
+
+\begin_layout Standard
+The purpose of this project is to explore alternative approaches to tackle
+ the game of english Draughts via the use of contemporary machine learning
+ approaches.
+ We will be measuring 
+\end_layout
+
+\begin_layout Subsection
+Terms
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Genetic Algorithm
+\series default
+ An evolutionary method that solves optimisation problems.
+ This is based on Darwin's theorem of perpetually evolving populations of
+ solutions.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Neural Network
+\series default
+ A computational model based on the operations of "interconnected processing
+ elements, which process information by their dynamic state response to
+ external inputs." [1]
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Draughts
+\series default
+ In this project we will be using the British Draughts (American Checkers)
+ rules.
+ For the sake of clarity these rules will be enforced:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The game is played on an 8x8 checkerboard.
+\end_layout
+
+\begin_layout Enumerate
+Jumps are enforced in the event that it is possible for a player to make
+ one.
+\end_layout
+
+\begin_layout Enumerate
+Multiple jumps are enforced.
+\end_layout
+
+\begin_layout Enumerate
+In the event that a piece performs a multiple jump, if it lands on a promotion
+ row (where a piece is promoted into a king), then its move is terminated.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Ply
+\series default
+: a ply refers to one turn taken by one of the players.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ELO: 
+\series default
+A rating system that measures the relative performance between players in
+ a given game.
+\end_layout
+
+\begin_layout Section
+Themes
+\end_layout
+
+\begin_layout Standard
+Historically, Draughts has been used as a testing ground for artificial
+ intelligence since the concept.
+ In 1959, Arthur Samuel devised an evaluator for Draughts, and created an
+ early concept of what is now described as Alpha Beta Pruning.
+ 
+\end_layout
+
+\begin_layout Standard
+To date, the game of draughts has been described to be weakly solved by
+ Schaeffer et al.
+ The use of machine learning has leaned towards applications in more difficult
+ zero-sum games such as Chess, and, more recently, Go.
+\end_layout
+
+\begin_layout Standard
+In 2001, B.
+ Fogel and Cheliapelia took a different approach towards playing draughts
+ using feed-forward convolutional neural networks and genetic algorithms.
+ Their resulting player, Blondie24
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Fogel2001"
+
+\end_inset
+
+ reached an average ELO rating of 1901.
+ This was accomplished by using a feed-forward neural network that takes
+ in 32 inputs (each input representing a position on the board), with a
+ single output.
+ Two hidden layers exist between the input and output layers.
+ This resulting neural network was used to evaluate the status of the board,
+ determining the overall performance scaling from -1 to 1 that suggests
+ which player has the advantage.
+\end_layout
+
+\begin_layout Standard
+A variety of methods to either play the game fo draughts, or to determine
+ its solvability has been devised.
+ The use of genetic algorithms has been commonly overshadowed by other contempor
+ary methods in Machine Learning.
+ One paper describes the use of genetic algorithms to evolve weights for
+ a convolutional neural network as a more viable and stronger alternative
+ to back-propagation.
+\end_layout
+
+\begin_layout Standard
+Some_Dude, attempts to use pure genetic algorithms a the premise to evaluate
+ the board.
+ they describe the use of heuristics that, when used together, can provide
+ indicators in terms of the performance of a given game.
+\end_layout
+
+\begin_layout Section
+Proposed Direction
+\end_layout
+
+\begin_layout Standard
+The approach taken would follow the a similar framework as described for
+ Blondie24, but we will be considering seperate weights for the different
+ stages of the game.
+\end_layout
+
+\begin_layout Standard
+The neural networks would take as input a board, and outputs a value that
+ determines the effectiveness of that board.
+ The number of hidden layers are dependent on the heuristics, proposed by
+ M.
+ Kusiak and K.
+ Waledzik.
+ This is left for experimentation during the implementation of the project.
+\end_layout
+
+\begin_layout Standard
+The genetic algorithm would be used to improve the quality of the weights
+ of the neural networks.
+ We will need a population of neural networks (which have varying weights),
+ with a round-robin style tournament as the evaluation function.
+ Finalists are chosen as the basis for the next generation.
+ 
+\end_layout
+
+\begin_layout Standard
+Experimentation of techniques would be conducted in these areas, and I could
+ imagine that they would be tested independently of each other.
+\end_layout
+
+\begin_layout Standard
+- Effectiveness of the min-max algorithm 
+\end_layout
+
+\begin_layout Standard
+- Genetic Crossover Algorithm 
+\end_layout
+
+\begin_layout Standard
+- Genetic Mutation Algorithm 
+\end_layout
+
+\begin_layout Standard
+- Effectiveness of the Neural Network - When/where to perform the genetic
+ algorithm
+\end_layout
+
+\begin_layout Standard
+An interface is also needed in order to test the AI.
+ There are multiple options for this; It could be built for the web, with
+ a `node.js` backend, which would interact with the AI, or we can simply
+ use a program built locally for it.
+\end_layout
+
+\begin_layout Standard
+In order to test it's performance, we could, like Chellapilla and Fogel's
+ paper, make an account for the AI at a popular gaming site and act as the
+ intermediary for it.
+ This would provide a lot of benefits, such as a relative ELO amongst other
+ players on the site.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+We can see here that sdjhfalkdsf kjdsflkadsf lakdjf lksadhf akjdsfhalkds
+ halkdsjfhalkjfhasdlkfj halkf ajsd.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "references"
+options "bibtotoc,acm"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
