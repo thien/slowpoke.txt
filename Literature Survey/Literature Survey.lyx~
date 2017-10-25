@@ -202,12 +202,28 @@ Complete Information
 \end_layout
 
 \begin_layout Itemize
-Zero-Sum Game: A situation where one players benefit is offset by the loss
- of another player.
+
+\series bold
+Zero-Sum Game
+\series default
+: A situation where one players benefit is offset by the loss of another
+ player.
 \end_layout
 
 \begin_layout Section
 Themes
+\end_layout
+
+\begin_layout Standard
+Checkers occupies a fundamental place in game theory - It is the most complex
+ game ever solved to date.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Toledo-Marin2016,Mullins2007"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -254,7 +270,7 @@ key "Schaeffer1997,Fogel2000"
 
 \begin_layout Standard
 Schaeffer took this further and produced a paper in 1992 describing how
- Checkers can be theoretically solved.
+ Checkers can be solved.
 \end_layout
 
 \begin_layout Standard
@@ -273,7 +289,17 @@ Schaeffer took this further and finally proved a weak solution to Draughts
 \begin_inset Formula $10^{14}$
 \end_inset
 
- calculations of end game positions, with less than 10 pieces on the board.[Cite]
+ calculations of end game positions, with less than 10 pieces on the board.
+ Shaeffer then goes on to prove, using numerical calculations that for two
+ draughts players making no wrong moves, the game always ends in a draw.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mullins2007"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -318,6 +344,13 @@ M.
  Waledzik and J.
  Mandziuk have devised the use of pure genetic algorithms as the premise
  to evaluate the board.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kusiak2007"
+
+\end_inset
+
  they describe the use of 25 heuristics that, when used in unison, can determine
  the evaluation of a given board.
  They continue to go further on and specify that various combinations of
@@ -342,6 +375,28 @@ In 2016, J.
  Quetzalcoatl Toledo-Marin et al.
  performed studies on attacking strategies using the game of checkers as
  a reference (which however can be applied to any other zero-sum game)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Toledo-Marin2016"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using genetic algorithms to improve neural networks is not a novel feature.
+ In 2017 Lingxi Xie et al.
+ discussed using genetic algorithms to compute optimal deep learning structures
+ automatically, using an image recognition dataset as the benchmark for
+ competitiveness against the networks.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xie2017"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
