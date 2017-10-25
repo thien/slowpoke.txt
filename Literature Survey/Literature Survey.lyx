@@ -85,11 +85,7 @@ Literature Survey
 Thien Nguyen
 \end_layout
 
-\begin_layout Subject
-Supervisor: Stefan Dantchev
-\end_layout
-
-\begin_layout Subject
+\begin_layout Publishers
 Durham University
 \end_layout
 
@@ -127,6 +123,15 @@ Genetic Algorithm
  An evolutionary method that solves optimisation problems.
  This is based on Darwin's theorem of perpetually evolving populations of
  solutions.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Machine Learning
+\series default
+: computer algorithms related to a branch of computional learning theory.
+ It allows computers to learn.
 \end_layout
 
 \begin_layout Itemize
@@ -187,12 +192,13 @@ A rating system devised by Arpad Elo.
  It is commonly used in Chess, American college football and Scrabble.
 \end_layout
 
-\begin_layout Section
-Themes
+\begin_layout Itemize
+Complete Information: Compoments and the status of the game are wholly shown
+ throughout, to the players.
 \end_layout
 
-\begin_layout Subsection
-Draughts
+\begin_layout Section
+Themes
 \end_layout
 
 \begin_layout Standard
@@ -200,6 +206,8 @@ Historically, Draughts has been used as a testing ground for artificial
  intelligence since the concept.
  In 1959, Arthur Samuel devised an evaluator for Draughts, and created an
  early concept of what is now described as Alpha Beta Pruning.
+ The rationale behind his decision was that Checkers provided complete informati
+on, and is computaitonally sufficent in terms of depth.
  
 \end_layout
 
@@ -223,10 +231,6 @@ Schaeffer took this further and finally proved a weak solution to Draughts
 \end_inset
 
  calculations of end game positions, with less than 10 pieces on the board.[Cite]
-\end_layout
-
-\begin_layout Subsection
-Machine Intelligence
 \end_layout
 
 \begin_layout Standard
@@ -258,10 +262,6 @@ ary methods in Machine Learning.
  
 \end_layout
 
-\begin_layout Subsection
-Applications in Draughts
-\end_layout
-
 \begin_layout Standard
 Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve
  weights for a convolutional neural network as a more performant alternative
@@ -282,6 +282,18 @@ M.
  most promising of outcomes.
 \end_layout
 
+\begin_layout Standard
+Nelis Franken and Andries Engelbrecht similarly used draughtsboards as an
+ evaluator for their rendition of an AI through Particle Swarm Optimisations.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Franken2003"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Proposed Direction
 \end_layout
@@ -293,13 +305,11 @@ The approach taken would follow the a similar framework as described for
 \end_layout
 
 \begin_layout Standard
-The neural networks would take as input a board, and outputs a value that
- determines the effectiveness of that board.
- The number of hidden layers are dependent on the heuristics, proposed by
- M.
- Kusiak and K.
- Waledzik.
- This is left for experimentation during the implementation of the project.
+Like Blondie24, a convolutional neural network would be used to evaluate
+ the board.
+ However, it is undecided whether to use one network with three outputs,
+ or to have separate neural networks that will evaluate the board contingent
+ on the phase of the game.
 \end_layout
 
 \begin_layout Standard
@@ -308,7 +318,6 @@ The genetic algorithm would be used to improve the quality of the weights
  We will need a population of neural networks (which have varying weights),
  with a round-robin style tournament as the evaluation function.
  Finalists are chosen as the basis for the next generation.
- 
 \end_layout
 
 \begin_layout Standard
@@ -316,28 +325,31 @@ Experimentation of techniques would be conducted in these areas, and I could
  imagine that they would be tested independently of each other.
 \end_layout
 
-\begin_layout Standard
-- Effectiveness of the min-max algorithm 
+\begin_layout Itemize
+Effectiveness of the min-max algorithm 
 \end_layout
 
-\begin_layout Standard
-- Genetic Crossover Algorithm 
+\begin_layout Itemize
+Genetic Crossover Algorithm 
 \end_layout
 
-\begin_layout Standard
-- Genetic Mutation Algorithm 
+\begin_layout Itemize
+Genetic Mutation Algorithm 
 \end_layout
 
-\begin_layout Standard
-- Effectiveness of the Neural Network - When/where to perform the genetic
- algorithm
+\begin_layout Itemize
+Effectiveness of the Neural Network 
+\end_layout
+
+\begin_layout Itemize
+When/where to perform the genetic algorithm.
 \end_layout
 
 \begin_layout Standard
 An interface is also needed in order to test the AI.
- There are multiple options for this; It could be built for the web, with
- a `node.js` backend, which would interact with the AI, or we can simply
- use a program built locally for it.
+ There are multiple options for this; It could be built for the web, which
+ would interact with the AI, or we can simply use a program built locally
+ for it.
 \end_layout
 
 \begin_layout Standard
@@ -346,6 +358,12 @@ In order to test it's performance, we could, like Chellapilla and Fogel's
  intermediary for it.
  This would provide a lot of benefits, such as a relative ELO amongst other
  players on the site.
+ 
+\end_layout
+
+\begin_layout Standard
+Considerations will need to be made such that the game does not strictly
+ overtrain itself to play in a particular manner.
 \end_layout
 
 \begin_layout Standard
