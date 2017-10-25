@@ -205,11 +205,42 @@ Themes
 Historically, Draughts has been used as a testing ground for artificial
  intelligence since the concept.
  In 1959, Arthur Samuel devised a playing algorithm for Draughts.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Samuel2000"
+
+\end_inset
+
  His algorithm revolved around using a linear combination of several weighted
  features the board contained.
  Samuel also described an early concept of what is now coined as Alpha Beta
  Pruning.
  The weights were then trained by the algorithm playing itself.
+ Later investigation by a checkers magazine evaluated Samuel's player to
+ 
+\begin_inset Quotes eld
+\end_inset
+
+..below Class B
+\begin_inset Quotes erd
+\end_inset
+
+, where Class B being categorised with an ELO range of 
+\begin_inset Quotes eld
+\end_inset
+
+1600-1799
+\begin_inset Quotes erd
+\end_inset
+
+.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schaeffer1997,Fogel2000"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
