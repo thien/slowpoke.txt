@@ -193,8 +193,21 @@ A rating system devised by Arpad Elo.
 \end_layout
 
 \begin_layout Itemize
-Complete Information: Compoments and the status of the game are wholly shown
- throughout, to the players.
+
+\series bold
+Complete Information
+\series default
+: Compoments and the status of the game are wholly shown throughout, to
+ the players.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Zero-Sum Game
+\series default
+: A situation where one players benefit is offset by the loss of another
+ player.
 \end_layout
 
 \begin_layout Section
@@ -326,6 +339,13 @@ key "Franken2003"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+In 2016, J.
+ Quetzalcoatl Toledo-Marin et al.
+ performed studies on attacking strategies using the game of checkers as
+ a reference (which however can be applied to any other zero-sum game)
 \end_layout
 
 \begin_layout Section

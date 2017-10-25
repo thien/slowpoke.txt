@@ -193,8 +193,17 @@ A rating system devised by Arpad Elo.
 \end_layout
 
 \begin_layout Itemize
-Complete Information: Compoments and the status of the game are wholly shown
- throughout, to the players.
+
+\series bold
+Complete Information
+\series default
+: Compoments and the status of the game are wholly shown throughout, to
+ the players.
+\end_layout
+
+\begin_layout Itemize
+Zero-Sum Game: A situation where one players benefit is offset by the loss
+ of another player.
 \end_layout
 
 \begin_layout Section
@@ -225,7 +234,14 @@ key "Samuel2000"
 \begin_inset Quotes erd
 \end_inset
 
-, where Class B being categorised with an ELO range of 
+,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schaeffer1997,Fogel2000"
+
+\end_inset
+
+ where Class B being categorised with an ELO range of 
 \begin_inset Quotes eld
 \end_inset
 
@@ -234,13 +250,6 @@ key "Samuel2000"
 \end_inset
 
 .
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Schaeffer1997,Fogel2000"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -326,6 +335,13 @@ key "Franken2003"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+In 2016, J.
+ Quetzalcoatl Toledo-Marin et al.
+ performed studies on attacking strategies using the game of checkers as
+ a reference (which however can be applied to any other zero-sum game)
 \end_layout
 
 \begin_layout Section
