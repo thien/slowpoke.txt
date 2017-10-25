@@ -258,9 +258,10 @@ key "Samuel2000"
 
 \end_inset
 
-, where his algorithm revolved around using a linear combination of weighted
- features the board contained, such as the number of pawns, number of pawns
- positioned along the central diagonal, and so on.
+ (who also coined the term 'Machine Learning'), where his algorithm revolved
+ around using a linear combination of weighted features the board contained,
+ such as the number of pawns, number of pawns positioned along the central
+ diagonal, and so on.
  During its design, Samuel also described an early concept of Alpha Beta
  Pruning.
  The weights were then trained by the algorithm playing itself in a form
@@ -340,8 +341,9 @@ While it is not disputed that Chinook is a landmark in computational limits
 
 \begin_layout Standard
 Fogel et al.
- (2001) took a different approach towards playing draughts, where they used
- feed-forward convolutional neural networks and genetic algorithms.
+ (2001) used Samuel's system as a premise; improving it's evaluation method,
+ using feed-forward convolutional neural networks instead of a linear combinatio
+n.
  Their resulting player, Blondie24
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -350,7 +352,10 @@ key "Fogel2001"
 \end_inset
 
 , was then taught to play without priori knowledge.
- This was accomplished by using a convolutional neural network that takes
+\end_layout
+
+\begin_layout Standard
+This was accomplished by using a convolutional neural network that takes
  in 32 inputs (each input representing a position on the board), with a
  single output.
  Two hidden layers exist between the input and output layers.
@@ -363,6 +368,11 @@ key "Fogel2001"
 \begin_layout Standard
 Blondie24 reached an average ELO rating of 1901.
  
+\end_layout
+
+\begin_layout Standard
+Since Blondie24, the field of machine learning has dramatically evolved,
+ most notably since the introduction of AlphaGo and
 \end_layout
 
 \begin_layout Standard

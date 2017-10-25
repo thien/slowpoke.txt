@@ -258,9 +258,10 @@ key "Samuel2000"
 
 \end_inset
 
-, where his algorithm revolved around using a linear combination of weighted
- features the board contained, such as the number of pawns, number of pawns
- positioned along the central diagonal, and so on.
+ (who also coined the term 'Machine Learning'), where his algorithm revolved
+ around using a linear combination of weighted features the board contained,
+ such as the number of pawns, number of pawns positioned along the central
+ diagonal, and so on.
  During its design, Samuel also described an early concept of Alpha Beta
  Pruning.
  The weights were then trained by the algorithm playing itself in a form
@@ -367,6 +368,11 @@ This was accomplished by using a convolutional neural network that takes
 \begin_layout Standard
 Blondie24 reached an average ELO rating of 1901.
  
+\end_layout
+
+\begin_layout Standard
+Since Blondie24, the field of machine learning has dramatically evolved,
+ most notably since the 2010's.
 \end_layout
 
 \begin_layout Standard
