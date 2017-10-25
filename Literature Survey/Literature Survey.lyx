@@ -107,13 +107,16 @@ Problem Background
 
 \begin_layout Standard
 The purpose of this project is to explore alternative approaches to tackle
- the game of english Draughts via the use of contemporary machine learning
- approaches.
- We will be measuring 
+ the game of English Draughts via the use of contemporary machine learning
+ techniques.
+ We will be measuring their relative performance against historical implementati
+ons, and explore the different attributes of the system in order to optimise
+ its output.
 \end_layout
 
 \begin_layout Subsection
-Terms
+Terms\SpecialChar softhyphen
+
 \end_layout
 
 \begin_layout Itemize
@@ -141,9 +144,9 @@ Neural Network
 \series bold
 Draughts
 \series default
- In this project we will be using the British Draughts (American Checkers)
+ In this project we will be using the British Draughts (or, American Checkers)
  rules.
- For the sake of clarity these rules will be enforced:
+ For the sake of clarity these arguments will be enforced:
 \end_layout
 
 \begin_deeper
@@ -179,12 +182,17 @@ Ply
 \series bold
 ELO: 
 \series default
-A rating system that measures the relative performance between players in
- a given game.
+A rating system devised by Arpad Elo.
+ It measures the relative skill levels of players in competitive games.
+ It is commonly used in Chess, American college football and Scrabble.
 \end_layout
 
 \begin_layout Section
 Themes
+\end_layout
+
+\begin_layout Subsection
+Draughts
 \end_layout
 
 \begin_layout Standard
@@ -196,10 +204,29 @@ Historically, Draughts has been used as a testing ground for artificial
 \end_layout
 
 \begin_layout Standard
+Schaeffer took this further and produced a paper in 1992 describing how
+ Checkers can be theoretically solved.
+\end_layout
+
+\begin_layout Standard
 To date, the game of draughts has been described to be weakly solved by
  Schaeffer et al.
- The use of machine learning has leaned towards applications in more difficult
- zero-sum games such as Chess, and, more recently, Go.
+ in 2007 with their introduction of Chinook.
+ As of writing, Chinook remains the worlds strongest American checkers player.
+ 
+\end_layout
+
+\begin_layout Standard
+Schaeffer took this further and finally proved a weak solution to Draughts
+ after 
+\begin_inset Formula $10^{14}$
+\end_inset
+
+ calculations of end game positions, with less than 10 pieces on the board.[Cite]
+\end_layout
+
+\begin_layout Subsection
+Machine Intelligence
 \end_layout
 
 \begin_layout Standard
@@ -224,21 +251,35 @@ key "Fogel2001"
 \end_layout
 
 \begin_layout Standard
-A variety of methods to either play the game fo draughts, or to determine
+A variety of methods to either play the game of draughts, or to determine
  its solvability has been devised.
  The use of genetic algorithms has been commonly overshadowed by other contempor
 ary methods in Machine Learning.
- One paper describes the use of genetic algorithms to evolve weights for
- a convolutional neural network as a more viable and stronger alternative
- to back-propagation.
+ 
+\end_layout
+
+\begin_layout Subsection
+Applications in Draughts
 \end_layout
 
 \begin_layout Standard
-Some_Dude, attempts to use pure genetic algorithms a the premise to evaluate
- the board.
- they describe the use of heuristics that, when used together, can provide
- indicators in terms of the performance of a given game.
- 
+Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve
+ weights for a convolutional neural network as a more performant alternative
+ to back-propagation, in nearly all situations, other than when the number
+ of generations generated for neural networks are small.
+\end_layout
+
+\begin_layout Standard
+M.
+ Kusiak, K.
+ Waledzik and J.
+ Mandziuk have devised the use of pure genetic algorithms as the premise
+ to evaluate the board.
+ they describe the use of 25 heuristics that, when used in unison, can determine
+ the evaluation of a given board.
+ They continue to go further on and specify that various combinations of
+ heuristics, when used in different stages of the game, prove to be the
+ most promising of outcomes.
 \end_layout
 
 \begin_layout Section
@@ -305,15 +346,6 @@ In order to test it's performance, we could, like Chellapilla and Fogel's
  intermediary for it.
  This would provide a lot of benefits, such as a relative ELO amongst other
  players on the site.
-\end_layout
-
-\begin_layout Section
-Conclusion
-\end_layout
-
-\begin_layout Standard
-We can see here that sdjhfalkdsf kjdsflkadsf lakdjf lksadhf akjdsfhalkds
- halkdsjfhalkjfhasdlkfj halkf ajsd.
 \end_layout
 
 \begin_layout Standard
