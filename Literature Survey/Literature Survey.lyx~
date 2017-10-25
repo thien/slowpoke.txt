@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass scrartcl
+\textclass IEEEtran
 \use_default_options true
 \begin_modules
 eqs-within-sections
@@ -85,10 +85,6 @@ Literature Survey
 Thien Nguyen
 \end_layout
 
-\begin_layout Publishers
-Durham University
-\end_layout
-
 \begin_layout Date
 26th October 2017
 \end_layout
@@ -102,12 +98,12 @@ Problem Background
 \end_layout
 
 \begin_layout Standard
-The purpose of this project is to explore alternative approaches to tackle
- the game of English Draughts via the use of contemporary machine learning
- techniques.
- We will be measuring their relative performance against historical implementati
-ons, and explore the different attributes of the system in order to optimise
- its output.
+The purpose of this project is to explore approaches to tackle the game
+ of English Draughts via the use of contemporary machine learning techniques.
+ First, we will study previous historical successes in the field, and look
+ at the compoments that helped build their systems.
+ Then, we will look at contempoary methods of computer science that could
+ be used to evolve the historical systems.
 \end_layout
 
 \begin_layout Subsection
@@ -210,43 +206,71 @@ Zero-Sum Game
  player.
 \end_layout
 
+\begin_layout Itemize
+
+\series bold
+Game Theory
+\series default
+: The science of strategy, or in more general, the decision-making of independen
+t and competing actors in a strategic setting.
+ 
+\end_layout
+
 \begin_layout Section
 Themes
 \end_layout
 
 \begin_layout Standard
-Checkers occupies a fundamental place in game theory - It is the most complex
- game ever solved to date.
+The use of machine learning and zero sum board games is not novel; Research
+ has currently moved on to tackle games with larger search spaces, most
+ notably Chess 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Toledo-Marin2016,Mullins2007"
+key "Lai2015"
 
 \end_inset
 
+, and Go
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Silver2017"
 
-\end_layout
+\end_inset
 
-\begin_layout Standard
-Historically, Draughts has been used as a testing ground for artificial
- intelligence since the concept.
- In 1959, Arthur Samuel devised a playing algorithm for Draughts.
+.
+ Draughts, however, occupies a fundamental place in game theory - It is
+ the most complex game ever solved to date 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mullins2007,Toledo-Marin2016"
+
+\end_inset
+
+.
+ Historically, Draughts has been used as a testing ground for artificial
+ intelligence and computional performance since the early introduction of
+ computers.
+ An early design of machine learning to play Draughts was devised by Samuel
+ (1959)
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Samuel2000"
 
 \end_inset
 
- His algorithm revolved around using a linear combination of several weighted
- features the board contained.
- Samuel also described an early concept of what is now coined as Alpha Beta
+, where his algorithm revolved around using a linear combination of weighted
+ features the board contained, such as the number of pawns, number of pawns
+ positioned along the central diagonal, and so on.
+ During its design, Samuel also described an early concept of Alpha Beta
  Pruning.
- The weights were then trained by the algorithm playing itself.
- Later investigation by a checkers magazine evaluated Samuel's player to
- 
+ The weights were then trained by the algorithm playing itself in a form
+ of genetic programming.
+ A later investigation by a checkers magazine evaluated Samuel's player
+ to 
 \begin_inset Quotes eld
 \end_inset
 
-..below Class B
+below Class B
 \begin_inset Quotes erd
 \end_inset
 
@@ -269,29 +293,32 @@ key "Schaeffer1997,Fogel2000"
 \end_layout
 
 \begin_layout Standard
-Schaeffer took this further and produced a paper in 1992 describing how
- Checkers can be solved.
+Schaeffer et\SpecialChar softhyphen
+ al.
+ took the concept of solving Draughts further, and produced a paper that
+ describes how the game could be be weakly solved using mathematical calculation
+s in 1996, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schaeffer1996"
+
+\end_inset
+
+ with their introduction of Chinook.
+ This was made possible by using a vast database of games pre-played from
+ grandmaster tournaments.
+ Chinook also uses a dictionary of end games, containing all possible moves
+ for a board containing at most 8 pieces.
 \end_layout
 
 \begin_layout Standard
-To date, the game of draughts has been described to be weakly solved by
- Schaeffer et al.
- in 1996 with their introduction of Chinook.
- As of writing, Chinook remains the worlds strongest American checkers player.
- This was made possible by using a vast database of games played by grandmasters.
- Chinook also uses a dictionary of end games, for all possible moves for
- a board containing at most 8 pieces.
-\end_layout
-
-\begin_layout Standard
-Schaeffer took this further and finally proved a weak solution to Draughts
- after 
+Schaeffer took this further, proving a weak solution to Draughts after 
 \begin_inset Formula $10^{14}$
 \end_inset
 
- calculations of end game positions, with less than 10 pieces on the board.
- Shaeffer then goes on to prove, using numerical calculations that for two
- draughts players making no wrong moves, the game always ends in a draw.
+ calculations of end-game positions.
+ Using numerical calculations, it is mathematicall y proven that for two
+ draughts players making no wrong moves, the game always ends in a draw
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -299,13 +326,22 @@ key "Mullins2007"
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
-In 2001, B.
- Fogel and Cheliapelia took a different approach towards playing draughts
- using feed-forward convolutional neural networks and genetic algorithms.
+While it is not disputed that Chinook is a landmark in computational limits
+ - as of writing, Chinook remains the worlds strongest American checkers
+ player with an ELO of 2890 - Chinook was largely made possible through
+ human intervention; the player was effectively told to play in a particular
+ manner.
+ 
+\end_layout
+
+\begin_layout Standard
+Fogel et al.
+ (2001) took a different approach towards playing draughts, where they used
+ feed-forward convolutional neural networks and genetic algorithms.
  Their resulting player, Blondie24
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -313,21 +349,19 @@ key "Fogel2001"
 
 \end_inset
 
- reached an average ELO rating of 1901.
- This was accomplished by using a feed-forward neural network that takes
+, was then taught to play without priori knowledge.
+ This was accomplished by using a convolutional neural network that takes
  in 32 inputs (each input representing a position on the board), with a
  single output.
  Two hidden layers exist between the input and output layers.
  This resulting neural network was used to evaluate the status of the board,
  determining the overall performance scaling from -1 to 1 that suggests
  which player has the advantage.
+ 
 \end_layout
 
 \begin_layout Standard
-A variety of methods to either play the game of draughts, or to determine
- its solvability has been devised.
- The use of genetic algorithms has been commonly overshadowed by other contempor
-ary methods in Machine Learning.
+Blondie24 reached an average ELO rating of 1901.
  
 \end_layout
 
@@ -336,14 +370,19 @@ Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve
  weights for a convolutional neural network as a more performant alternative
  to back-propagation, in nearly all situations, other than when the number
  of generations generated for neural networks are small.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Perez"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-M.
- Kusiak, K.
- Waledzik and J.
- Mandziuk have devised the use of pure genetic algorithms as the premise
- to evaluate the board.
+Kusiak et al.
+ (2007) have devised the use of pure genetic algorithms as the premise to
+ evaluate the board.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -359,8 +398,11 @@ key "Kusiak2007"
 \end_layout
 
 \begin_layout Standard
-Nelis Franken and Andries Engelbrecht similarly used draughtsboards as an
- evaluator for their rendition of an AI through Particle Swarm Optimisations.
+Alternative contemporary machine learning techniques have been exercised
+ against Draughts.
+ Franken et al.
+ (2003) used draughtsboards as an evaluator for their rendition of an AI
+ through Particle Swarm Optimisations.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Franken2003"
@@ -371,10 +413,11 @@ key "Franken2003"
 \end_layout
 
 \begin_layout Standard
-In 2016, J.
- Quetzalcoatl Toledo-Marin et al.
- performed studies on attacking strategies using the game of checkers as
- a reference (which however can be applied to any other zero-sum game)
+Quetzalcoatl Toledo-Marin et al.
+ (2016) performed studies on attacking strategies using the game of checkers
+ as a reference (which however can be applied to any other zero-sum game),
+ where they mathematically prove that for an offensive player, maximising
+ the offensive improves their probability to win.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Toledo-Marin2016"
@@ -399,8 +442,35 @@ key "Xie2017"
 
 \end_layout
 
+\begin_layout Standard
+Cobbe, et al.
+ improves Blondie24 by using an evaluation function that consists of Support
+ Vector Machines, which achieves locally optimal performance in approximately
+ a third as many generations than its typical evolution.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cobbe"
+
+\end_inset
+
+ Interestingly, they suggest the use of the ELO algorithm as the tournament
+ rating system.
+ This could prove to be useful background information as it would provide
+ an reliable relative rating of a given agent, using fewer games.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Section
 Proposed Direction
+\end_layout
+
+\begin_layout Standard
+At the end of the chapter you should briefly explain how your own work builds
+ on and differs from the work that has gone before it.
 \end_layout
 
 \begin_layout Standard
