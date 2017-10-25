@@ -204,11 +204,30 @@ Themes
 \begin_layout Standard
 Historically, Draughts has been used as a testing ground for artificial
  intelligence since the concept.
- In 1959, Arthur Samuel devised an evaluator for Draughts, and created an
- early concept of what is now described as Alpha Beta Pruning.
- The rationale behind his decision was that Checkers provided complete informati
-on, and is computaitonally sufficent in terms of depth.
+ In 1959, Arthur Samuel devised a playing algorithm for Draughts.
+ His algorithm revolved around using a linear combination of several weighted
+ features the board contained.
+ Samuel also described an early concept of what is now coined as Alpha Beta
+ Pruning.
+ The weights were then trained by the algorithm playing itself.
+ Later investigation by a checkers magazine evaluated Samuel's player to
  
+\begin_inset Quotes eld
+\end_inset
+
+..below Class B
+\begin_inset Quotes erd
+\end_inset
+
+, where Class B being categorised with an ELO range of 
+\begin_inset Quotes eld
+\end_inset
+
+1600-1799
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -219,9 +238,11 @@ Schaeffer took this further and produced a paper in 1992 describing how
 \begin_layout Standard
 To date, the game of draughts has been described to be weakly solved by
  Schaeffer et al.
- in 2007 with their introduction of Chinook.
+ in 1996 with their introduction of Chinook.
  As of writing, Chinook remains the worlds strongest American checkers player.
- 
+ This was made possible by using a vast database of games played by grandmasters.
+ Chinook also uses a dictionary of end games, for all possible moves for
+ a board containing at most 8 pieces.
 \end_layout
 
 \begin_layout Standard
