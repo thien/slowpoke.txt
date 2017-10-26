@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass IEEEtran
+\textclass article-beamer
 \use_default_options true
 \begin_modules
 eqs-within-sections
@@ -372,7 +372,7 @@ Blondie24 reached an average ELO rating of 1901.
 
 \begin_layout Standard
 Since Blondie24, the field of machine learning has dramatically evolved,
- most notably since the introduction of AlphaGo and
+ most notably since the 2010's.
 \end_layout
 
 \begin_layout Standard
@@ -449,7 +449,7 @@ key "Xie2017"
 
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Standard
@@ -471,6 +471,35 @@ key "Cobbe"
 \end_layout
 
 \begin_layout Standard
+Fogel's board was used as the premise for Al-Khateeb's Thesis (Ph.D)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-Khateeb2011"
+
+\end_inset
+
+, conducting a through evaluation of the different components that make
+ Blondie24, including the Look-ahead Depth
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-Khateeb2012"
+
+\end_inset
+
+, The tournament approaches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-Khateeb2009"
+
+\end_inset
+
+, the value of piece differences 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Al-khateeb"
+
+\end_inset
+
 
 \end_layout
 
