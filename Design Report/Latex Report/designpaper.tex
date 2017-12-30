@@ -1,0 +1,100 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{times}
+\usepackage{durhampaper}
+\usepackage{harvard}
+
+\citationmode{abbr}
+\bibliographystyle{agsm}
+
+\title{Improving CNN Draughts Evaluators using Genetic Algorithms}
+\author{Thien P. Nguyen}
+\student{Thien P. Nguyen}
+\supervisor{Stefan Dantchev}
+\degree{BSc Computer Science}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+% Use the headings as given in the template
+% Between half and one page
+
+{\bf Background}
+
+Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require manual modifications in order to improve its performance. This is due to their dependency on pre-defined move databases, where optimal moves are pre-calculated, and recalled when necessary. By combining Neural Networks and Genetic Algorithms, this issue could possibly be solved by creating a player that can grow in ability over time, without the dependency on move-banks.
+ 
+{\bf Aims}
+
+ The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of  machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
+ % >The auction system will aim to increase the fairness of the system by attempting to detect unfair behaviours such as shill bidding and trying to prevent reputation manipulation. The usability of the auction system will also be investigated and suitable methods to increase the usability of the system will be implemented. As a secondary aim, an auction software agent will be developed to aid the usability of the site which is capable of monitoring auctions and bidding on a user?s behalf.
+ 
+{\bf Method}
+ 
+% Agents will extend a common base implementation of a player and interact via a game server which will manage the games and communication. Testing will consist of the agents playing against one another to establish whether one agent outperforms the others in most games.
+
+The initial population will consist of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropiate algorithms are implemented to detect the overall development of the system's ability to play Checkers.
+
+{\bf Proposed Solution}.  
+
+The proposed solution starts with designing a neural network that evaluates the probability of a particular side winning, given a given state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts.
+
+
+\end{abstract}
+
+\begin{keywords}
+AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
+
+\end{keywords}
+
+% ----------------
+
+\section{Introduction}
+This section briefly introduces the project, the research question you are addressing.  Do not change the font sizes or line spacing in order to put in more text.
+
+Note that the whole report, including the references, should not be longer than 12 pages in length (there is no penalty for short papers if the required content is included). There should be at least 5 referenced papers.
+
+% ----------------
+
+\section{Design}
+
+This section presents the proposed solutions of the problems in detail. The design details should all be placed in this section. You may create a number of subsections, each focusing on one issue.
+
+This section should be up to 8 pages in length.
+The rest of this section shows the formats of subsections as well as some general formatting information.  You should also consult the Word template. 
+
+\subsection{Main Text}
+
+The font used for the main text should be Times New Roman (Times) and the font size should be 12.  The first line of all paragraphs should be indented by 0.25in, except for the first paragraph of each section, subsection, subsubsection etc. (the paragraph immediately after the header) where no indentation is needed.
+
+\subsection{Figures and Tables}
+In general, figures and tables should not appear before they are cited.  Place figure captions below the figures; place table titles above the tables.  If your figure has two parts, for example, include the labels ``(a)'' and ``(b)'' as part of the artwork.  Please verify that figures and tables you mention in the text actually exist.  make sure that all tables and figures are numbered as shown in Table \ref{units} and Figure 1.
+%sort out your own preferred means of inserting figures
+
+\begin{table}[htb]
+\centering
+\caption{UNITS FOR MAGNETIC PROPERTIES}
+\vspace*{6pt}
+\label{units}
+\begin{tabular}{ccc}\hline\hline
+Symbol & Quantity & Conversion from Gaussian \\ \hline
+\end{tabular}
+\end{table}
+
+% ----------------
+
+\subsection{References}
+
+The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
+
+You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year.
+
+
+
+
+\bibliography{projectpaper}
+
+
+\end{document}
