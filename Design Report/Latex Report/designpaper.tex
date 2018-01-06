@@ -34,10 +34,9 @@
 \supervisor{Stefan Dantchev}
 \degree{BSc Computer Science}
 
+% stuff for checkerboard
 \usetikzlibrary{matrix.skeleton}
-
 \tikzstyle{ball} = [circle, shading=ball, minimum size=1cm]
-
 \newcommand{\bl}{\node [ball, ball color=black!80!white, draw=black!65!white, thin]{};}
 \newcommand{\wh}{\node [ball, ball color=white] {};}
 
@@ -213,8 +212,8 @@ To create the input layer, we treat the checkboard into a 1D array, with the ind
 
 \begin{figure}[ht!]
     \centering
-    
     \begin{tikzpicture}
+    \color{white}
     \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.5cm}] {
      & 31 &&30&&29&&28 \\
      27 &&26&&25&&24&&\\
@@ -231,10 +230,9 @@ To create the input layer, we treat the checkboard into a 1D array, with the ind
     % \wh &     & \wh &     & \wh &     & \wh &     \\
     %     & \wh &     & \wh &     & \wh &     & \wh \\
     };
-    
     \foreach \row in {1, ..., 8} {
       \foreach \col in {1, ..., 8} {
-        \pgfmathparse{Mod(\row + \col, 2) ? "red" : "white"}
+        \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
         \colorlet{squarebg}{\pgfmathresult}
         \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
       }
@@ -245,8 +243,41 @@ To create the input layer, we treat the checkboard into a 1D array, with the ind
 \end{figure}
 
 
-Our sigmoidal function of choice is the hyperbolic tangent.  And here we see figure \ref{overflow}.
+Our sigmoidal function of choice is the hyperbolic tangent.  And here we see figure \ref{sigmoid}.
 
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            legend pos=north west,
+            axis x line=middle,
+            axis y line=middle,
+            x tick label style={/pgf/number format/fixed,
+                                /pgf/number format/fixed zerofill,
+                                /pgf/number format/precision=1},
+            y tick label style={/pgf/number format/fixed,
+                                /pgf/number format/fixed zerofill,
+                                /pgf/number format/precision=1},
+            grid = major,
+            width=8cm,
+            height=4cm,
+            grid style={dashed, gray!30},
+            xmin=-1,     % start the diagram at this x-coordinate
+            xmax= 1,    % end   the diagram at this x-coordinate
+            ymin= 0,     % start the diagram at this y-coordinate
+            ymax= 1,   % end   the diagram at this y-coordinate
+            %axis background/.style={fill=white},
+            xlabel=x,
+            ylabel=y,
+            tick align=outside,
+            enlargelimits=false]
+        % plot the stirling-formulae
+        \addplot[domain=-1:1, red, ultra thick,samples=500] {1/(1+exp(-5*x))};
+        % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-5x}}$ \label{sigmoid}}
+\end{figure}
 
 \begin{figure}[ht!]
     \centering
