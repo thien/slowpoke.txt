@@ -161,8 +161,10 @@ Agents make maximum use of the turn time where appropriate
 
 \subsection*{Choice of Programming Language}
 
-The project is to be written in Python 3.6 due to my familiarity and the support of popular scientific packages including NumPy and other machine learning tools. Python is also very portable with a very wide compatability, being pre-installed on all popular UNIX machines and university support. 
+The project is to be written in Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines.
+
 Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. 
+
 Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
 \subsection*{Tools}
@@ -192,7 +194,7 @@ In order to evaluate the board, we use a feed-forward neural network in the form
 
 \subsubsection{MiniMax Decision Making}
 
-The minimax algorithm revolves around the use of xxyy
+The minimax algorithm revolves around the use of miniMax algorithm to determine the best move to make from a given position. The use of alpha-beta pruning will help to prune unnecessary calls.
 
 \subsubsection{Tournament Method}
 
@@ -222,18 +224,35 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
     \end{algorithmic}
 \end{algorithm}
 
+
+
+\subsubsection{Genetic Algorithm}
+
+The genetic algorithm 
+
 \subsubsection{Children Generation}
-\blindtext
+
+The initial population will consist of randomly generated weights and biases of the neural network, with values from -1,1 inclusive.
+
 \subsubsection{Coefficent Mutation}
+
+
+
 \blindtext
+
 \subsubsection{Crossover Mechanism}
 \blindtext
+
 \subsection*{Testing and Evaluation}
+The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
+
 At the end of a given generation, we measure growth of performance using the champion of the generation. The score is calculated using the following formula, whatever it is.
 
-% Insert random formula here.
+Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
 
-Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions. At the end of the generation run, the end player will be used to compete against human players on ?? in order to determine an accurate ELO rating of the player.
+Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions.
+
+At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
 % The algorithms described above will be evaluated under competition-style conditions. Each agent will play each game a number of times against every other agent to establish the winner. The starting player, number ofmoves and winning player. Each agent will be subject to the same time limit for choosing moves. Failure to return a move for any reason will result in an automatic loss. For each game, agents will play an equal number of rounds as first player. This will take into account any bias towards the player making the first move. For example, Checkers (Schaeffer et al, 2007) and Connect-Four (Allis, 1988) have both been solved, concluding that it is possible for the first player to force a win.
 
@@ -241,11 +260,7 @@ Point Score for the champion games are measured by {1,0,-1} where a Win counts a
 
 % There are two elements to the evaluation of the algorithms. First, I will examine the change in performance affected by changing the balance between the randomised monte-carol simulations and performing pre-computation to cut down the game tree. Second, I will attempt to create a rel- atively strong general game player using various enhancements that should be able to consistently beat the algorithms discussed above.
 
-Several approaches have been considered, ranging from the use of ELO ratings to Championship Knockout approaches, but 
-
-Presently we will use the medians of medians approach. The curren
-
-
+% ---
 
 % I will evaluate my final system in two ways. First I will spend time comparing my system to other systems that are already available. I will select a number of such systems and compare them by a number of criteria that I will layout below which I believe cover the aims of my project. This will ensure that there is no one system that performs better than mine at my stated goals, even if they do outperform my solution in individual areas.
 % The criteria that I use will be as follows:
