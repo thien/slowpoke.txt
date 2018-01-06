@@ -286,6 +286,13 @@ Point Score for the champion games are measured by {1,0,-1} where a Win counts a
 
 At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
+\subsection{Future Work}
+We could potentially build a neural network model that 
+
+The use of ELO could have a precise reprentation of the agents progress. Arpad Elo's algorithm runs as such:
+
+This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness.
+
 % The algorithms described above will be evaluated under competition-style conditions. Each agent will play each game a number of times against every other agent to establish the winner. The starting player, number ofmoves and winning player. Each agent will be subject to the same time limit for choosing moves. Failure to return a move for any reason will result in an automatic loss. For each game, agents will play an equal number of rounds as first player. This will take into account any bias towards the player making the first move. For example, Checkers (Schaeffer et al, 2007) and Connect-Four (Allis, 1988) have both been solved, concluding that it is possible for the first player to force a win.
 
 % A second round of testing will involve having each player choose moves for a predefined set of scenarios to analyse their behaviour and whether they consistently choose good moves (i.e. block an opponent from winning) or miss obvious winning/losing moves.
@@ -337,27 +344,27 @@ At the end of the generation run, the end player will be used to compete against
 % This section should be up to 8 pages in length. The rest of this section shows the formats of subsections as well as some general formatting information.  You should also consult the Word template. 
 
 
-\subsection{Figures and Tables}
-In general, figures and tables should not appear before they are cited.  Place figure captions below the figures; place table titles above the tables.  If your figure has two parts, for example, include the labels ``(a)'' and ``(b)'' as part of the artwork.  Please verify that figures and tables you mention in the text actually exist.  make sure that all tables and figures are numbered as shown in Table \ref{units} and Figure 1.
-%sort out your own preferred means of inserting figures
+% \subsection{Figures and Tables}
+% In general, figures and tables should not appear before they are cited.  Place figure captions below the figures; place table titles above the tables.  If your figure has two parts, for example, include the labels ``(a)'' and ``(b)'' as part of the artwork.  Please verify that figures and tables you mention in the text actually exist.  make sure that all tables and figures are numbered as shown in Table \ref{units} and Figure 1.
+% %sort out your own preferred means of inserting figures
 
-\begin{table}[htb]
-\centering
-\caption{UNITS FOR MAGNETIC PROPERTIES}
-\vspace*{6pt}
-\label{units}
-\begin{tabular}{ccc}\hline\hline
-Symbol & Quantity & Conversion from Gaussian \\ \hline
-\end{tabular}
-\end{table}
+% \begin{table}[htb]
+% \centering
+% \caption{UNITS FOR MAGNETIC PROPERTIES}
+% \vspace*{6pt}
+% \label{units}
+% \begin{tabular}{ccc}\hline\hline
+% Symbol & Quantity & Conversion from Gaussian \\ \hline
+% \end{tabular}
+% \end{table}
 
 % ----------------
 
 \subsection{References}
 
-The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
+% The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
 
-You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year.
+% You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year..
 
 
 \bibliography{projectpaper}
