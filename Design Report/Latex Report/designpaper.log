@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 22:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 22:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -754,7 +754,7 @@ File: cli_humanvsagent.png Graphic file (type png)
 <use cli_humanvsagent.png>
 Package pdftex.def Info: cli_humanvsagent.png  used on input line 355. on input
  line 355.
-Package pdftex.def Info: Requested size: 170.71652pt x 134.51253pt on input lin
+Package pdftex.def Info: Requested size: 284.52756pt x 224.20229pt on input lin
 e 355.
 [7] [8 <./cli_humanvsagent.png>] (./designpaper.bbl) [9] (./designpaper.aux) ) 
 Here is how much of TeX's memory you used:
@@ -764,7 +764,7 @@ Here is how much of TeX's memory you used:
  28501 multiletter control sequences out of 15000+600000
  25418 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,16n,96p,1028b,887s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,16n,96p,1083b,887s stack positions out of 5000i,500n,10000p,200000b,80000s
 {
 /usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-d
@@ -776,7 +776,7 @@ nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on designpaper.pdf (9 pages, 455531 bytes).
+Output written on designpaper.pdf (9 pages, 455788 bytes).
 PDF statistics:
  83 PDF objects out of 1000 (max. 8388607)
  57 compressed objects within 1 object stream

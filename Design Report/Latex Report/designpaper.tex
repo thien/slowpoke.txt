@@ -56,7 +56,7 @@ Presently, competitive Draughts AI players are currently designed to play at a f
  
 {\bf Aims}
 
- The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of  machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
+The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of  machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
  
 {\bf Method}
 
@@ -91,12 +91,12 @@ The intention of this project is to explore the effectiveness of genetic algorit
 
 \subsection*{Draughts}
 
-English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chessboard. Players begin with 12 pieces each, and they are placed on light-coloured squares. Each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposite the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece started with, they are promoted to a 'King' piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns.
+English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chessboard. Players begin with 12 pieces each, and they are placed on light-coloured squares. Each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposite the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece started with, they are promoted to a King piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns. A player wins by capturing all of their opponments pieces. A player loses by having all of their pieces captured. A draw occurs when there is both players agree to draw after a  three-fold repetition, or a player has pieces on the board but cannot move any of them.
 
 \subsection*{Genetic Algorithms}
 
 Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. It borrows techniques from Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. 
-Genetic algorithms are a subset of evolutionary algorithms, where the larger group is also formed of similar strategies not including Evolutionary Programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991].
+Genetic algorithms are a subset of evolutionary algorithms, where the larger group is also formed of similar strategies not including Evolutionary Programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991]. Genetic Algorithms focus on the use of crossover algorithms and mutation methods on a set of genomes. Genomes are a metaphor of genetic information, of which its technical translation typically refers to an 1D array.
 
 \subsection*{Neural Networks}
 
@@ -352,7 +352,7 @@ Note that our intention is to find a performance agent that plays Draughts, so h
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=60mm]{cli_humanvsagent.png}
+    \includegraphics[width=100mm]{cli_humanvsagent.png}
     \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{overflow2}}
 \end{figure}
 
