@@ -34,7 +34,7 @@
 \supervisor{Stefan Dantchev}
 \degree{BSc Computer Science}
 
-\date{}
+% -------------------------------------------------------------------
 
 \begin{document}
 
@@ -130,6 +130,9 @@ Whilst the use of evolutionary algorithms and neural networks have been explored
 \end{itemize}
 
 \subsection*{Related Work}
+Arthur Samuel in the 60's proposed the concept of using AI to evolve checkers, but did not consider the use of neural networks (as it was not conceived at the time). Also, it was dependent on a set of heuristics that he devised. 
+
+Blondie24, proposed by Chelipilia and Fogel, built on Samuel's work by using a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents. However, new agents are made strictly through the use of mutation. Blondie24's neural network structure consists of a {32,40,10,1} set. Spatial awareness is not considered in their paper.
 
 % ----------------
 
@@ -138,22 +141,26 @@ Whilst the use of evolutionary algorithms and neural networks have been explored
 \subsection*{Requirements}
 
 % Functional Requirements
-A checkers gameboard is created
+\subsubsection*{Functional Requirements}
 
-Agents are able to select a legal move
-
-Agents are able to harness neural networks to assist in their move decision
-
-Champions are able to create offspring.
-
-The weights and biases of the Agent's neural network are saved to a form of storage.
+\begin{description}
+    \item [F1] A checkers gameboard is created.
+    \item [F2] Agents are able to harness neural networks to assist in their move decision.
+    \item [F3] Offspring agents can be created using parents.
+    \item [F4] The weights and biases of the Agent's neural network are saved to storage.
+    \item [F5] Humans are able to play against the Agents.
+    
+\end{description}
 
 % Non Functional Requirements
-Agents only choose valid, legal moves
+\subsubsection*{Non-Functional Requirements}
 
-Agents always return a valid, legal move
+\begin{description}  
+    \item [N1] Agents only choose valid, legal moves.
+    \item [N2] Agents always return a valid, legal move.
+    \item [N3] Agents are able to play against other agents.
+\end{description}
 
-Agents make maximum use of the turn time where appropriate
 % Table 1 shows the functional requirements identified for the program(s) that will be required for the project. FR-1 through FR-6 are handled by the server and player implementations in the GGP-Base package. FR-7 will require some modification to the server code in order to output the informationthatwillbeusedintheanalysisanddiscussionoftestingresults.
 % Table 2 shows the non-functional requirements that arise from the rules that will be applied for testing. Any failure of the agent to return a move through either error or timeout should be con- sidered a failure as per the AAAI GGP competition rules. The moves returned should always be valid and legal for the current state of the game. Since agents are given a fixed time period to choose a move, with no penalty or bonus applied so long as the move is returned within the allot- ted time, it makes sense that agents should be designed in such a way as to make best use of the time they are given.
 % The GGP-Base package addresses a number of these requirements and a number of test-games will be played to ensure they are adequately satisfied and the package functions as expected.
@@ -178,8 +185,7 @@ Should include a diagram of the algorithm workflow
 
 \subsection*{Algorithms and Data Structures}
 
-% Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
-% This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
+
 \subsubsection{Neural Network}
 
 In order to evaluate the board, we use a feed-forward neural network in the form of the following node layers {91,40,10,1} where the input layer consists of 32 nodes, with the output node having 1. Our sigmoidal function of choice is the hyperbolic tangent. The input layer is the board, preprocessed to cover all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. And here we see figure \ref{overflow}.
@@ -191,6 +197,8 @@ In order to evaluate the board, we use a feed-forward neural network in the form
 \end{figure}
 
 \subsubsection{MiniMax Decision Making}
+% Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
+% This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
 
 The minimax algorithm revolves around the use of miniMax algorithm to determine the best move to make from a given position. The use of alpha-beta pruning will help to prune unnecessary calls.
 
@@ -204,7 +212,7 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
 
 % add pseudocode here
 \begin{algorithm}
-    \caption{My algorithm}\label{euclid}
+    \caption{My algorithm}
     \begin{algorithmic}[1]
     \Procedure{MyProcedure}{}
     \State $\textit{stringlen} \gets \text{length of }\textit{string}$
@@ -226,9 +234,11 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
     \end{algorithmic}
 \end{algorithm}
 
+\cite{budgen}
+
 \subsubsection{Genetic Algorithm}
 
-The genetic algorithm is the heart of the learning strategy of the system. 
+The genetic algorithm is the heart of the learning strategy of the system. Here we discuss the various algorithms that form the collection of GA stategies.
 
 \subsubsection{Population Generation}
 
@@ -255,7 +265,7 @@ Two offsprings are created per a pair of parents, with each offspring being the 
 
 % add pseudocode here
 \begin{algorithm}
-    \caption{Crossover Strategy}\label{euclid}
+    \caption{Crossover Strategy}
     \begin{algorithmic}[1]
     \Procedure{crossover}{}
     \State $\textit{stringlen} \gets \text{length of }\textit{string}$
@@ -360,12 +370,11 @@ This could be used to categeorise neural networks, and helps us to understand th
 
 % ----------------
 
-\subsection{References}
+\section{References}
 
 % The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
 
 % You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year..
-
 
 \bibliography{projectpaper}
 

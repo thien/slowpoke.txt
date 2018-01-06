@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 16:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 20:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -597,11 +597,7 @@ File: tikzlibraryplotmarks.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.co
 de.tex
 File: pgflibraryplotmarks.code.tex 2015/08/03 v3.0.1a (rcs-revision 1.14)
-))) (./designpaper.aux
-
-LaTeX Warning: Label `euclid' multiply defined.
-
-)
+))) (./designpaper.aux)
 \openout1 = `designpaper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
@@ -617,7 +613,8 @@ LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 39.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -719,47 +716,40 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
 <nnmodel.png, id=19, 853.1875pt x 715.67375pt>
 File: nnmodel.png Graphic file (type png)
 <use nnmodel.png>
-Package pdftex.def Info: nnmodel.png  used on input line 189. on input line 189
+Package pdftex.def Info: nnmodel.png  used on input line 195. on input line 195
 .
 Package pdftex.def Info: Requested size: 284.52756pt x 238.67381pt on input lin
-e 189.
- [4 <./nnmodel.png>] [5]
-Overfull \hbox (0.68433pt too wide) in paragraph at lines 254--255
+e 195.
+ [4] [5 <./nnmodel.png>]
+Overfull \hbox (0.68433pt too wide) in paragraph at lines 264--265
 \OT1/ptm/m/n/12 Two off-springs are cre-ated per a pair of par-ents, with each 
 off-spring be-ing the re-cip-ro-cal crossover
  []
 
-[6] (./designpaper.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [7] (./designpaper.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+[6] (./designpaper.bbl [7]) [8] (./designpaper.aux) ) 
 Here is how much of TeX's memory you used:
- 23147 strings out of 492990
- 588823 string characters out of 6135006
- 798878 words of memory out of 5000000
- 26271 multiletter control sequences out of 15000+600000
+ 23150 strings out of 492990
+ 588867 string characters out of 6135006
+ 800878 words of memory out of 5000000
+ 26274 multiletter control sequences out of 15000+600000
  25418 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,96p,1028b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
-a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on designpaper.pdf (7 pages, 361152 bytes).
+{/usr/share/texlive/texmf-
+dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/time
+s/utmri8a.pfb>
+Output written on designpaper.pdf (8 pages, 363140 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
