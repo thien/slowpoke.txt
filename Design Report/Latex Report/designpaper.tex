@@ -34,6 +34,14 @@
 \supervisor{Stefan Dantchev}
 \degree{BSc Computer Science}
 
+\usetikzlibrary{matrix.skeleton}
+
+\tikzstyle{ball} = [circle, shading=ball, minimum size=1cm]
+
+\newcommand{\bl}{\node [ball, ball color=black!80!white, draw=black!65!white, thin]{};}
+\newcommand{\wh}{\node [ball, ball color=white] {};}
+
+
 % -------------------------------------------------------------------
 
 \begin{document}
@@ -177,9 +185,9 @@ Java is also considered due to my familiarity with the language, but it is simil
 Javascript is a contender; Node.JS is a very powerful and popular package manager, $npm$. It is difficult to write multi-processed programs as Node.JS runs on a single thread by nature. 
 
 
-I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines.
+I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines. Python development will be on Visual Studio Code, which again is a familiar tool and is also suited to the project.
 
-Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. 
+Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the afforance of easier debugging and testing.
 
 Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
@@ -197,7 +205,48 @@ Should include a diagram of the algorithm workflow
 
 \subsubsection{Neural Network}
 
-In order to evaluate the board, we use a feed-forward neural network in the form of the following node layers {91,40,10,1} where the input layer consists of 32 nodes, with the output node having 1. Our sigmoidal function of choice is the hyperbolic tangent. The input layer is the board, preprocessed to cover all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. And here we see figure \ref{overflow}.
+In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
+
+It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
+
+To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
+
+\begin{figure}[ht!]
+    \centering
+    
+    \begin{tikzpicture}
+    \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.5cm}] {
+     & 31 &&30&&29&&28 \\
+     27 &&26&&25&&24&&\\
+     &23&&22&&21&&20\\   
+        19&&18&&17&&16&&\\
+    &15&&14&&13&&12\\
+    11&&10&&9&&8&&\\
+    &7&&6&&5&&4\\
+    3&&2&&1&&0\\
+    % \bl &     & \bl &     &     &     & \bl &     \\
+    %     &     &     & \bl &     &     &     &     \\
+    % \wh &     &     &     &     &     &     &     \\
+    %     &     &     & \wh &     & \wh &     & \wh \\
+    % \wh &     & \wh &     & \wh &     & \wh &     \\
+    %     & \wh &     & \wh &     & \wh &     & \wh \\
+    };
+    
+    \foreach \row in {1, ..., 8} {
+      \foreach \col in {1, ..., 8} {
+        \pgfmathparse{Mod(\row + \col, 2) ? "red" : "white"}
+        \colorlet{squarebg}{\pgfmathresult}
+        \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
+      }
+    }
+    \end{tikzpicture}
+
+    \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
+\end{figure}
+
+
+Our sigmoidal function of choice is the hyperbolic tangent.  And here we see figure \ref{overflow}.
+
 
 \begin{figure}[ht!]
     \centering
@@ -296,6 +345,19 @@ Two offsprings are created per a pair of parents, with each offspring being the 
     \end{algorithmic}
 \end{algorithm}
 
+\subsection*{Interface}
+
+Note that our intention is to find a performance agent that plays Draughts, so having a relatively friendly user interface is not necessarily important. A simple text-based interface will suffice. Due to the inherently computational strain the project will require, an interface would be strictly based around having a command-line interface (CLI) to watch the progress of the system. This allows the system to be quickly up and running, without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project.
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=60mm]{cli_humanvsagent.png}
+    \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{overflow2}}
+\end{figure}
+
+When it comes to humans playing against the agent, the board can be rendered using text, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. 
+
 \subsection*{Testing and Evaluation}
 The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
 
@@ -310,7 +372,7 @@ We could potentially build a neural network model that
 
 The use of ELO could have a precise reprentation of the agents progress. Arpad Elo's algorithm runs as such:
 
-This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness.
+This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness. This could be done by either potentially expanding the size of the neural network, and adding extra heuristics that determine the phase of the game.
 
 % The algorithms described above will be evaluated under competition-style conditions. Each agent will play each game a number of times against every other agent to establish the winner. The starting player, number ofmoves and winning player. Each agent will be subject to the same time limit for choosing moves. Failure to return a move for any reason will result in an automatic loss. For each game, agents will play an equal number of rounds as first player. This will take into account any bias towards the player making the first move. For example, Checkers (Schaeffer et al, 2007) and Connect-Four (Allis, 1988) have both been solved, concluding that it is possible for the first player to force a win.
 
