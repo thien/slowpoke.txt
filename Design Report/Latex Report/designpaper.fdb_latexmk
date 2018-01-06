@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex designpaper"] 1515268959 "designpaper.aux" "designpaper.bbl" "designpaper" 1515268962
+["bibtex designpaper"] 1515270748 "designpaper.aux" "designpaper.bbl" "designpaper" 1515270772
   "/usr/share/texlive/texmf-dist/bibtex/bst/harvard/agsm.bst" 1480098435 25549 e3d0f1ab4ae55e777f7352db30e2c6f7 ""
-  "designpaper.aux" 1515268961 1541 e02c10985cba8a480002d05b6f9ef316 ""
+  "designpaper.aux" 1515270772 1542 93ed8d6d4b737b73722d6f1fa754652a ""
   "designpaper.bcf" 0 -1 0 ""
   "projectpaper.bib" 1515257144 472 7e11cdf7b24e179103d6db929a9a248c ""
   (generated)
-  "designpaper.blg"
   "designpaper.bbl"
-["pdflatex"] 1515268959 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515268962
+  "designpaper.blg"
+["pdflatex"] 1515270771 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515270772
   "/etc/texmf/web2c/texmf.cnf" 1515202924 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515268956 26067 75965bac20603cff7a6d919326ca1166 ""
+  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515270770 27054 7742fb99838a0eba8b21c3de652575a0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -200,12 +200,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1503024366 32036 8f10cb8f6ef259fb5791f09c065d3d13 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1515254936 2377213 8bc19c9e6d8db8e1c35694d1be199981 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1515254959 4130474 4ba72d0d848997a8a8a5070290a468d4 ""
-  "designpaper.aux" 1515268961 1541 e02c10985cba8a480002d05b6f9ef316 ""
-  "designpaper.bbl" 1515268959 190 ac157dff5041f31a1ff75a4ea258482f "bibtex designpaper"
-  "designpaper.tex" 1515268956 26067 75965bac20603cff7a6d919326ca1166 ""
+  "designpaper.aux" 1515270772 1542 93ed8d6d4b737b73722d6f1fa754652a ""
+  "designpaper.bbl" 1515270748 190 ac157dff5041f31a1ff75a4ea258482f "bibtex designpaper"
+  "designpaper.tex" 1515270770 27054 7742fb99838a0eba8b21c3de652575a0 ""
   "durhampaper.sty" 1515202845 2229 2ff83ec57d52d4d004a6047c981d45a8 ""
   "nnmodel.png" 1515202845 316084 de56ddfb21fbb2737090cf467e04e356 ""
   (generated)
-  "designpaper.log"
   "designpaper.aux"
   "designpaper.pdf"
+  "designpaper.log"

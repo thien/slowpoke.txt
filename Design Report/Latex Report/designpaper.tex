@@ -168,7 +168,16 @@ Blondie24, proposed by Chelipilia and Fogel, built on Samuel's work by using a n
 
 \subsection*{Choice of Programming Language}
 
-The project is to be written in Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines.
+There are several contenders, with each having their inherent benefits. C++ is a notable choice due to it's relatively lower level architecture, support for popular machine learning packages (most notably Google's TensorFlow.) In terns of performance, C++ trumps most languages. C++ has notable parallelised packages, (XXX) which can assist in the overall performance of the system. 
+
+However, it would be difficult to write, due to my unfimiliarity with the language. Also, programs written in this language are less portable. It is not suitable for running on university machines without the use of a sandbox. Improperly handled bugs can cause a fatal error on university machines.
+
+Java is also considered due to my familiarity with the language, but it is similarly less portable. Java tends to be less strict
+
+Javascript is a contender; Node.JS is a very powerful and popular package manager, $npm$. It is difficult to write multi-processed programs as Node.JS runs on a single thread by nature. 
+
+
+I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines.
 
 Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. 
 
@@ -236,7 +245,7 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
 
 \cite{budgen}
 
-\subsubsection{Genetic Algorithm}
+\subsubsection{Genetic Algorithms}
 
 The genetic algorithm is the heart of the learning strategy of the system. Here we discuss the various algorithms that form the collection of GA stategies.
 
