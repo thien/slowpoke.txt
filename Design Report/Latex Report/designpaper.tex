@@ -230,18 +230,52 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
 
 The genetic algorithm 
 
-\subsubsection{Children Generation}
+\subsubsection{Population Generation}
 
-The initial population will consist of randomly generated weights and biases of the neural network, with values from -1,1 inclusive.
+The initial population will consist of randomly generated weights and biases of the neural network, with values from -1,1 inclusive. For a population size of 15, the next generation is created using this strategy:
+
+The top five agents from the generation (at the end of the tournament round) are selected for crossover. They will continue to play in the next generation.
+The next 8 players are generated in the following strategy:
+
+The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights. 
+
+The remaining two will be direct mutations of the 4th and 5th place agents.
 
 \subsubsection{Coefficent Mutation}
 
+Each weight of the neural network will be incremented by a random value that is created using the following formula, where $WeightP$ is the current weight, and $K$ represents the number of weights and biases in the neural network:
 
+$$ WeightN = WeightP + \frac{1}{\sqrt{2 * \sqrt{K} }}$$
 
-\blindtext
+The weights, as explained earlier have a hard cap of [-1, 1].
 
-\subsubsection{Crossover Mechanism}
-\blindtext
+\subsubsection{Crossover Strategy}
+
+Two offsprings are created per a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
+
+% add pseudocode here
+\begin{algorithm}
+    \caption{Crossover Strategy}\label{euclid}
+    \begin{algorithmic}[1]
+    \Procedure{crossover}{}
+    \State $\textit{stringlen} \gets \text{length of }\textit{string}$
+    \State $i \gets \textit{patlen}$
+    \BState \emph{top}:
+    \If {$i > \textit{stringlen}$} \Return false
+    \EndIf
+    \State $j \gets \textit{patlen}$
+    \BState \emph{loop}:
+    \If {$\textit{string}(i) = \textit{path}(j)$}
+    \State $j \gets j-1$.
+    \State $i \gets i-1$.
+    \State \textbf{goto} \emph{loop}.
+    \State \textbf{close};
+    \EndIf
+    \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+    \State \textbf{goto} \emph{top}.
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
 
 \subsection*{Testing and Evaluation}
 The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
