@@ -157,7 +157,7 @@ Agents make maximum use of the turn time where appropriate
 % Table 1 shows the functional requirements identified for the program(s) that will be required for the project. FR-1 through FR-6 are handled by the server and player implementations in the GGP-Base package. FR-7 will require some modification to the server code in order to output the informationthatwillbeusedintheanalysisanddiscussionoftestingresults.
 % Table 2 shows the non-functional requirements that arise from the rules that will be applied for testing. Any failure of the agent to return a move through either error or timeout should be con- sidered a failure as per the AAAI GGP competition rules. The moves returned should always be valid and legal for the current state of the game. Since agents are given a fixed time period to choose a move, with no penalty or bonus applied so long as the move is returned within the allot- ted time, it makes sense that agents should be designed in such a way as to make best use of the time they are given.
 % The GGP-Base package addresses a number of these requirements and a number of test-games will be played to ensure they are adequately satisfied and the package functions as expected.
-\blindtext
+
 
 \subsection*{Choice of Programming Language}
 
@@ -175,8 +175,6 @@ The resulting program will be simulated on Durham's MIRA (128-core Intel) distri
 
 Should include a diagram of the algorithm workflow
 
-\blindtext
-\blindtext
 
 \subsection*{Algorithms and Data Structures}
 
@@ -184,7 +182,7 @@ Should include a diagram of the algorithm workflow
 % This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
 \subsubsection{Neural Network}
 
-In order to evaluate the board, we use a feed-forward neural network in the form of the following node layers {91,40,10,1} where the input layer consists of 32 nodes, with the output node having 1. Our sigmoidal function of choice is the hyperbolic tangent. The input layer is the board, preprocessed to cover all possible subsquares of the checkerboard, rangig from a 3x3 kernel to a 8x8. And here we see figure \ref{overflow}.
+In order to evaluate the board, we use a feed-forward neural network in the form of the following node layers {91,40,10,1} where the input layer consists of 32 nodes, with the output node having 1. Our sigmoidal function of choice is the hyperbolic tangent. The input layer is the board, preprocessed to cover all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. And here we see figure \ref{overflow}.
 
 \begin{figure}[ht!]
     \centering
@@ -195,6 +193,10 @@ In order to evaluate the board, we use a feed-forward neural network in the form
 \subsubsection{MiniMax Decision Making}
 
 The minimax algorithm revolves around the use of miniMax algorithm to determine the best move to make from a given position. The use of alpha-beta pruning will help to prune unnecessary calls.
+
+The minimax method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
+
+Once the initial system is ready, we can migrate to a hybrid Minimax and  Monte-Carlo Tree Search proposed by Lorentz, which has shown to dramatically improve performance; especially in the case for games with especially large branching factors.
 
 \subsubsection{Tournament Method}
 
@@ -224,11 +226,9 @@ The tournament algorithm follows the following pseudocode in Algorithm 1.
     \end{algorithmic}
 \end{algorithm}
 
-
-
 \subsubsection{Genetic Algorithm}
 
-The genetic algorithm 
+The genetic algorithm is the heart of the learning strategy of the system. 
 
 \subsubsection{Population Generation}
 
@@ -247,7 +247,7 @@ Each weight of the neural network will be incremented by a random value that is 
 
 $$ WeightN = WeightP + \frac{1}{\sqrt{2 * \sqrt{K} }}$$
 
-The weights, as explained earlier have a hard cap of [-1, 1].
+The weights, as explained earlier will have a hard cap of [-1, 1]. This would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
 
 \subsubsection{Crossover Strategy}
 
@@ -280,9 +280,7 @@ Two offsprings are created per a pair of parents, with each offspring being the 
 \subsection*{Testing and Evaluation}
 The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
 
-At the end of a given generation, we measure growth of performance using the champion of the generation. The score is calculated using the following formula, whatever it is.
-
-Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
+At the end of a given generation, we measure growth of performance using the champion of the generation. Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
 
 Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions.
 

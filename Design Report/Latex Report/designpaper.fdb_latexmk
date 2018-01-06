@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex designpaper"] 1515255489 "designpaper.aux" "designpaper.bbl" "designpaper" 1515255565
+["bibtex designpaper"] 1515256048 "designpaper.aux" "designpaper.bbl" "designpaper" 1515256847
   "/usr/share/texlive/texmf-dist/bibtex/bst/harvard/agsm.bst" 1480098435 25549 e3d0f1ab4ae55e777f7352db30e2c6f7 ""
-  "designpaper.aux" 1515255565 1871 2f3c84eab05a59a57a73490cc3e336a6 ""
+  "designpaper.aux" 1515256847 1871 1f92cbf54211c35b529a08b2ea62b09a ""
   "designpaper.bcf" 0 -1 0 ""
   "projectpaper.bib" 1515202845 800 26cfbd1e85cd2908b3322c94c1db7cda ""
   (generated)
-  "designpaper.blg"
   "designpaper.bbl"
-["pdflatex"] 1515255563 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515255565
+  "designpaper.blg"
+["pdflatex"] 1515256845 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515256847
   "/etc/texmf/web2c/texmf.cnf" 1515202924 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515255563 23774 bda11d389efc8a99b044c4b567e36432 ""
+  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515256845 24627 758380679a46e9e70ee7863c1cecb366 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -35,6 +35,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1480098701 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1480098733 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1480098733 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1480098733 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1480098733 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -199,12 +200,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1503024366 32036 8f10cb8f6ef259fb5791f09c065d3d13 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1515254936 2377213 8bc19c9e6d8db8e1c35694d1be199981 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1515254959 4130474 4ba72d0d848997a8a8a5070290a468d4 ""
-  "designpaper.aux" 1515255565 1871 2f3c84eab05a59a57a73490cc3e336a6 ""
-  "designpaper.bbl" 1515255490 462 1822dbc9b54cab12e34c1d80f4e5c05c "bibtex designpaper"
-  "designpaper.tex" 1515255563 23774 bda11d389efc8a99b044c4b567e36432 ""
+  "designpaper.aux" 1515256847 1871 1f92cbf54211c35b529a08b2ea62b09a ""
+  "designpaper.bbl" 1515256048 462 1822dbc9b54cab12e34c1d80f4e5c05c "bibtex designpaper"
+  "designpaper.tex" 1515256845 24627 758380679a46e9e70ee7863c1cecb366 ""
   "durhampaper.sty" 1515202845 2229 2ff83ec57d52d4d004a6047c981d45a8 ""
   "nnmodel.png" 1515202845 316084 de56ddfb21fbb2737090cf467e04e356 ""
   (generated)
-  "designpaper.aux"
   "designpaper.pdf"
+  "designpaper.aux"
   "designpaper.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  6 JAN 2018 16:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -719,17 +719,17 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
 <nnmodel.png, id=19, 853.1875pt x 715.67375pt>
 File: nnmodel.png Graphic file (type png)
 <use nnmodel.png>
-Package pdftex.def Info: nnmodel.png  used on input line 191. on input line 191
+Package pdftex.def Info: nnmodel.png  used on input line 189. on input line 189
 .
 Package pdftex.def Info: Requested size: 284.52756pt x 238.67381pt on input lin
-e 191.
- [4] [5 <./nnmodel.png>]
+e 189.
+ [4 <./nnmodel.png>] [5]
 Overfull \hbox (0.68433pt too wide) in paragraph at lines 254--255
 \OT1/ptm/m/n/12 Two off-springs are cre-ated per a pair of par-ents, with each 
 off-spring be-ing the re-cip-ro-cal crossover
  []
 
-[6] [7] (./designpaper.bbl) [8] (./designpaper.aux)
+[6] (./designpaper.bbl [7]) [8] (./designpaper.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -745,16 +745,17 @@ Here is how much of TeX's memory you used:
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/time
-s/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on designpaper.pdf (8 pages, 357215 bytes).
+/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
+a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on designpaper.pdf (8 pages, 364022 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
