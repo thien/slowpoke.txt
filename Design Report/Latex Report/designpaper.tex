@@ -197,15 +197,14 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. The use of alpha-beta pruning will help to prune unnecessary moves.
 
-    The minimax method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
+    The mini-max method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
 
-    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) by Lorentz \cite{lorentz_using_2016}. In his paper, the method is shown to dramatically improve performance; especially in the case for games with especially large branching factors. 
-
+    There are some drawbacks to the mini-max approach. Evaluation functions may be difficult to obtain, especially in the case for Checkers, where branching factors can be very large. Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) introduced by Lorentz \cite{lorentz_using_2016}. Monte-Carlo Tree search differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. MCTS-EPT modifies the random playout approach from traditional MCTS. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply.
     
     \begin{figure}[ht!]
         \centering
         \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
-        \includegraphics[width=100mm]{nnmodel.png}
+        \includegraphics[width=60mm]{nnmodel.png}
     \end{figure}
 
     
@@ -250,10 +249,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
-
     \begin{wrapfigure}{l}{0.3\textwidth}
         \centering
-        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-5x}}$ \label{sigmoid}}
         \begin{tikzpicture}
             \begin{axis}[
                 legend pos=north west,
@@ -269,8 +266,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
                 width=5cm,
                 height=4cm,
                 grid style={dashed, gray!30},
-                xmin=-1,     % start the diagram at this x-coordinate
-                xmax= 1,    % end   the diagram at this x-coordinate
+                xmin=-2,     % start the diagram at this x-coordinate
+                xmax= 2,    % end   the diagram at this x-coordinate
                 ymin= 0,     % start the diagram at this y-coordinate
                 ymax= 1,   % end   the diagram at this y-coordinate
                 %axis background/.style={fill=white},
@@ -279,17 +276,17 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
                 tick align=outside,
                 enlargelimits=false]
             % plot the stirling-formulae
-            \addplot[domain=-1:1, red, ultra thick,samples=500] {1/(1+exp(-5*x))};
+            \addplot[domain=-2:2, red, ultra thick,samples=500] {1/(1+e^-x))};
             % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
             \end{axis}
         \end{tikzpicture}
-        
+        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
     \end{wrapfigure}
-
 
     To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
 
-    Our initial choice for the activation function is the hyperbolic tangent (a sigmoid), shown in figure \ref{sigmoid}. As an activation function, it suffices but there are inherent issues, discussed by Hinton.
+    Our initial choice for the activation function is the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project.
+
     
     % Eventually, we will move to  ReLU (Rectified linear unit), proposed by Hinton. ReLU 
 
@@ -361,6 +358,11 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
+\subsection*{Tools}
+
+    Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will occcur on this machine. Once testing has proven to be stable and lacking in errors, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent  connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input.
+
+
 \subsection*{Interface}
 
     \begin{wrapfigure}{r}{0.3\textwidth}
@@ -372,13 +374,9 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
         \vspace{-20pt}
     \end{wrapfigure}
 
-    As our intention is to find an agent that plays Draughts, having a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface will suffice. Due to the inherently computational strain the project requires, an interface based around having a command-line interface (CLI) the system to be quickly up and running, without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project. The simulation would show information such as estimated finishing times, current generation count, scores of players in a given generation and the cummulative score of progress of the system.
+    As our intention is to find an agent that plays Draughts, having a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface will suffice. Due to the inherent computational strain the project requires, an interface based around having a command-line interface (CLI) the system is used. This allows the system to be initiated relatively faster than loading GUIs (Graphical User Interfaces), without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project. The simulation would show information such as estimated finishing times, current generation count, scores of players in a given generation and the cummulative score of progress of the system.
 
     When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
-
-\subsection*{Tools}
-
-    Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will occcur on this machine. Once testing has proven to be stable and lacking in errors, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent  connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input.
 
 \subsection*{Testing and Evaluation}
     The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
