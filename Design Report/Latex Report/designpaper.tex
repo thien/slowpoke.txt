@@ -192,14 +192,12 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 \subsection*{Algorithms and Data Structures}
 
 \subsubsection{MiniMax Decision Making}
-    % Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
-    % This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
 
-    In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. The use of alpha-beta pruning will help to prune unnecessary moves.
+    In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. This algorithm expands the tree of potential moves until some depth is reached. at a given depth, an evaluation function is used to calculate the value of the given move. Best moves in a given set become their parents value. These values propagate upwards to the children of the root node. The use of alpha-beta pruning will help to prune unnecessary moves,  reducing the number of calculations. From here, the best child node is chosen, which represents the best move to make.
 
-    The mini-max method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
+    The mini-max method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game. This expotential growth is the achillies heel to the mini-max approach. Evaluation functions may be difficult to obtain, especially in the case for Checkers, where branching factors can be very large. 
 
-    There are some drawbacks to the mini-max approach. Evaluation functions may be difficult to obtain, especially in the case for Checkers, where branching factors can be very large. Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) introduced by Lorentz \cite{lorentz_using_2016}. Monte-Carlo Tree search differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. MCTS-EPT modifies the random playout approach from traditional MCTS. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply.
+    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) introduced by Lorentz \cite{lorentz_using_2016}. Monte-Carlo Tree search differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. MCTS-EPT modifies the random playout approach from traditional MCTS. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply.
     
     \begin{figure}[ht!]
         \centering
@@ -210,13 +208,13 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     
 \subsubsection{Neural Network}
 
-    In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
 
-    \begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{wrapfigure}{l}{0.37 \textwidth}
         % \begin{center}
+        \vspace{-25pt}
         \centering
             \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
-    
+            \vspace{5pt}
             \begin{tikzpicture}
             \color{white}
             \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
@@ -246,11 +244,24 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
         % \end{center}
       
     \end{wrapfigure}
+
+
+    In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
     
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
-    \begin{wrapfigure}{l}{0.3\textwidth}
+    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
+
+
+
+    
+    % Eventually, we will move to  ReLU (Rectified linear unit), proposed by Hinton. ReLU 
+
+    % Most of time tanh is quickly converge than sigmoid and logistic function, and performs better accuracy [1]. However, recently rectified linear unit (ReLU) is proposed by Hinton [2] which shows ReLU train six times fast than tanh [3] to reach same training error. And you can refer to [4] to see what benefits ReLU provides.
+    
+    \begin{wrapfigure}{r}{0.3\textwidth}
         \centering
+        \vspace{-30pt}
         \begin{tikzpicture}
             \begin{axis}[
                 legend pos=north west,
@@ -281,18 +292,10 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
             \end{axis}
         \end{tikzpicture}
         \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
+        \vspace{-30pt}
     \end{wrapfigure}
-
-    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
-
+    
     Our initial choice for the activation function is the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project.
-
-    
-    % Eventually, we will move to  ReLU (Rectified linear unit), proposed by Hinton. ReLU 
-
-    % Most of time tanh is quickly converge than sigmoid and logistic function, and performs better accuracy [1]. However, recently rectified linear unit (ReLU) is proposed by Hinton [2] which shows ReLU train six times fast than tanh [3] to reach same training error. And you can refer to [4] to see what benefits ReLU provides.
-    
-    
 
 \subsubsection{Genetic Algorithms} 
 
@@ -321,12 +324,26 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     Two offsprings are created per a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
 
+    % for each layer's weights:
+    %     n = number of weights and biases in a given layer
+    %     index1 = random integer[0 to n]
+    %     index2 = random integer[0 to n]
+    %     if index2 < index1:
+    %         swap index1 and index2's values
+    %     Weights(child1) = father[0 to index1] + mother[index1 to index 2] + father[index2 to n]
+    %     Weights(child2) = mother[0 to index1] + father[index1 to index 2] + mother[index2 to n]
+        
+
     % add pseudocode here
     \begin{algorithm}
         \caption{Crossover Strategy}
         \begin{algorithmic}[1]
         \Procedure{crossover}{}
-        \State $\textit{stringlen} \gets \text{length of }\textit{string}$
+        \BState \emph{loop} \text{for each layers weights}:
+        \State $n \gets \text{length of } \textit{weights}$
+        % \State $\textit{stringlen} \gets \text{length of } \textit{string}$
+        \State $index_{1} \gets \textit{random_integer}(0,n-1)$
+        \State $index_{2} \gets \textit{random_integer}(0,n-1)$
         \State $i \gets \textit{patlen}$
         \BState \emph{top}:
         \If {$i > \textit{stringlen}$} \Return false
@@ -362,7 +379,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will occcur on this machine. Once testing has proven to be stable and lacking in errors, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent  connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input.
 
-
 \subsection*{Interface}
 
     \begin{wrapfigure}{r}{0.3\textwidth}
@@ -379,6 +395,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
 
 \subsection*{Testing and Evaluation}
+
     The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 50 moves, where the game is considered a draw if after the game hasn't ended after 50 moves from each player.
 
     At the end of a given generation, we measure growth of performance using the champion of the generation. Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
