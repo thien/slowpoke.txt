@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex designpaper"] 1515316022 "designpaper.aux" "designpaper.bbl" "designpaper" 1515317033
+["bibtex designpaper"] 1515321150 "designpaper.aux" "designpaper.bbl" "designpaper" 1515321262
   "/usr/share/texlive/texmf-dist/bibtex/bst/harvard/agsm.bst" 1480098435 25549 e3d0f1ab4ae55e777f7352db30e2c6f7 ""
-  "designpaper.aux" 1515317032 2112 0ad9cad9501befc1d7c151e490c0a925 ""
+  "designpaper.aux" 1515321153 2209 6815924bc78f31d334806f1132f7fd40 ""
   "designpaper.bcf" 0 -1 0 ""
-  "projectpaper.bib" 1515257144 472 7e11cdf7b24e179103d6db929a9a248c ""
+  "zotero.bib" 1515321095 6302 ccab5034be2b9f1fff4fe52b107fe589 ""
   (generated)
-  "designpaper.blg"
   "designpaper.bbl"
-["pdflatex"] 1515317030 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515317033
+  "designpaper.blg"
+["pdflatex"] 1515321262 "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" "designpaper.pdf" "designpaper" 1515321262
   "/etc/texmf/web2c/texmf.cnf" 1515202924 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515317030 34115 76e4693327bff3f5c6bf9e2cd811b2dc ""
+  "/home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex" 1515321262 30283 e9d3bab515d0582bcff162161420ec1e ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -201,20 +201,21 @@
   "/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1480098837 961 15056f4a61917ceed3a44e4ac11fcc52 ""
   "/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty" 1480098837 857 6c716f26c5eadfb81029fcd6ce2d45e6 ""
   "/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty" 1480098841 4544 8b8f59969458e1c25e0559e8e0ced1a4 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty" 1480098843 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1480098843 55589 34128738f682d033422ca125f82e5d62 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1503024366 32036 8f10cb8f6ef259fb5791f09c065d3d13 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1503024366 32036 8f10cb8f6ef259fb5791f09c065d3d13 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1515254936 2377213 8bc19c9e6d8db8e1c35694d1be199981 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1515254959 4130474 4ba72d0d848997a8a8a5070290a468d4 ""
-  "cli_humanvsagent.png" 1515273468 87670 1c9e008551139cf899868cb26aa941bd ""
-  "designpaper.aux" 1515317032 2112 0ad9cad9501befc1d7c151e490c0a925 ""
-  "designpaper.bbl" 1515316022 190 ac157dff5041f31a1ff75a4ea258482f "bibtex designpaper"
-  "designpaper.tex" 1515317030 34115 76e4693327bff3f5c6bf9e2cd811b2dc ""
+  "cli_humanvsagent.png" 1515319006 58708 f8cec823446dfcf03787da12d6d0d197 ""
+  "designpaper.aux" 1515321153 2209 6815924bc78f31d334806f1132f7fd40 ""
+  "designpaper.bbl" 1515321150 823 821581174e0e58ac297290be9a75bee1 "bibtex designpaper"
+  "designpaper.tex" 1515321262 30283 e9d3bab515d0582bcff162161420ec1e ""
   "durhampaper.sty" 1515202845 2229 2ff83ec57d52d4d004a6047c981d45a8 ""
   "nnmodel.png" 1515202845 316084 de56ddfb21fbb2737090cf467e04e356 ""
   "pgflibrarymatrix.skeleton.code.tex" 1406077250 19612 007f8469df07e9ef0f680e346cc01945 ""
   "tikzlibrarymatrix.skeleton.code.tex" 1406077250 7267 4d597b08b2429acaa1e526052d9509ed ""
   (generated)
+  "designpaper.log"
   "designpaper.aux"
   "designpaper.pdf"
-  "designpaper.log"

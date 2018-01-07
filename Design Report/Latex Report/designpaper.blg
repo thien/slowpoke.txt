@@ -2,45 +2,45 @@ This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: designpaper.aux
 The style file: agsm.bst
-Database file #1: projectpaper.bib
-You've used 1 entry,
+Database file #1: zotero.bib
+You've used 2 entries,
             2909 wiz_defined-function locations,
-            644 strings with 4804 characters,
-and the built_in function-call counts, 1826 in all, are:
-= -- 270
-> -- 24
+            655 strings with 5210 characters,
+and the built_in function-call counts, 6088 in all, are:
+= -- 965
+> -- 71
 < -- 0
-+ -- 115
-- -- 7
-* -- 132
-:= -- 424
-add.period$ -- 1
-call.type$ -- 1
-change.case$ -- 14
-chr.to.int$ -- 1
-cite$ -- 1
-duplicate$ -- 16
-empty$ -- 30
-format.name$ -- 9
-if$ -- 316
++ -- 433
+- -- 21
+* -- 518
+:= -- 1263
+add.period$ -- 2
+call.type$ -- 2
+change.case$ -- 28
+chr.to.int$ -- 2
+cite$ -- 2
+duplicate$ -- 32
+empty$ -- 75
+format.name$ -- 29
+if$ -- 1082
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 2
-newline$ -- 6
-num.names$ -- 10
-pop$ -- 8
+newline$ -- 11
+num.names$ -- 20
+pop$ -- 6
 preamble$ -- 1
-purify$ -- 15
+purify$ -- 30
 quote$ -- 0
-skip$ -- 10
+skip$ -- 25
 stack$ -- 0
-substring$ -- 355
-swap$ -- 1
-text.length$ -- 14
+substring$ -- 1347
+swap$ -- 6
+text.length$ -- 28
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 2
+type$ -- 8
 warning$ -- 0
-while$ -- 21
+while$ -- 46
 width$ -- 0
-write$ -- 15
+write$ -- 28

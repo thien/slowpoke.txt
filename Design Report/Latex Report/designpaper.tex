@@ -7,6 +7,9 @@
 \usepackage[english]{babel}
 \usepackage{blindtext}
 
+% package to add wrapfigure
+\usepackage{wrapfig}
+
 % packages to add images
 \usepackage{graphicx}
 
@@ -139,9 +142,9 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \subsection*{Related Work}
 
-    Arthur Samuel in the 60's pioneered the concept of AI that can play games, through the proposal of using genetic algorithms to produce a Draughts playing agent. However, the work described did not consider the use of neural networks (as it was not conceived at the time). Also, it was dependent on a set of heuristics that he devised. 
+    Arthur Samuel in the 60's pioneered the concept of AI that can play Checkers, through the proposal of using genetic algorithms to produce a Draughts playing agent \cite{samuel_studies_2000}. However, the work described did not consider the use of neural networks (as it was not conceived at the time). Also, it was dependent on a set of heuristics that he devised, which caps the agent's ability to play to the effectiveness of Samuel's heuristics. 
 
-    Blondie24, proposed by Chelipilia and Fogel, built on Samuel's work by using a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents. However, new agents are made strictly through the use of mutation. Blondie24's neural network structure consists of a {32,40,10,1} set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not hard-pressed.
+    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents. However, new agents are made strictly through the use of mutation. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered.
 
 % ----------------
 
@@ -179,38 +182,43 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
 
-    \begin{figure}[ht!]
+
+    \begin{wrapfigure}{r}{0.4\textwidth}
+        % \begin{center}
         \centering
-        \begin{tikzpicture}
-        \color{white}
-        \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.5cm}] {
-        & 31 &&30&&29&&28 \\
-        27 &&26&&25&&24&&\\
-        &23&&22&&21&&20\\   
-            19&&18&&17&&16&&\\
-        &15&&14&&13&&12\\
-        11&&10&&9&&8&&\\
-        &7&&6&&5&&4\\
-        3&&2&&1&&0\\
-        % \bl &     & \bl &     &     &     & \bl &     \\
-        %     &     &     & \bl &     &     &     &     \\
-        % \wh &     &     &     &     &     &     &     \\
-        %     &     &     & \wh &     & \wh &     & \wh \\
-        % \wh &     & \wh &     & \wh &     & \wh &     \\
-        %     & \wh &     & \wh &     & \wh &     & \wh \\
-        };
-        \foreach \row in {1, ..., 8} {
-        \foreach \col in {1, ..., 8} {
-            \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
-            \colorlet{squarebg}{\pgfmathresult}
-            \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
-        }
-        }
-        \end{tikzpicture}
-
-        \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
-    \end{figure}
-
+            \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
+    
+            \begin{tikzpicture}
+            \color{white}
+            \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.5cm}] {
+            & 31 &&30&&29&&28 \\
+            27 &&26&&25&&24&&\\
+            &23&&22&&21&&20\\   
+                19&&18&&17&&16&&\\
+            &15&&14&&13&&12\\
+            11&&10&&9&&8&&\\
+            &7&&6&&5&&4\\
+            3&&2&&1&&0\\
+            % \bl &     & \bl &     &     &     & \bl &     \\
+            %     &     &     & \bl &     &     &     &     \\
+            % \wh &     &     &     &     &     &     &     \\
+            %     &     &     & \wh &     & \wh &     & \wh \\
+            % \wh &     & \wh &     & \wh &     & \wh &     \\
+            %     & \wh &     & \wh &     & \wh &     & \wh \\
+            };
+            \foreach \row in {1, ..., 8} {
+            \foreach \col in {1, ..., 8} {
+                \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
+                \colorlet{squarebg}{\pgfmathresult}
+                \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
+            }
+            }
+            \end{tikzpicture}
+        % \end{center}
+      
+    \end{wrapfigure}
+    
+   
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
     To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
@@ -219,6 +227,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     \begin{figure}
         \centering
+        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-5x}}$ \label{sigmoid}}
         \begin{tikzpicture}
             \begin{axis}[
                 legend pos=north west,
@@ -248,13 +257,13 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
             % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
             \end{axis}
         \end{tikzpicture}
-        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-5x}}$ \label{sigmoid}}
+        
     \end{figure}
 
     \begin{figure}[ht!]
         \centering
-        \includegraphics[width=100mm]{nnmodel.png}
         \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
+        \includegraphics[width=100mm]{nnmodel.png}
     \end{figure}
 
 \subsubsection{MiniMax Decision Making}
@@ -294,8 +303,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
         \EndProcedure
         \end{algorithmic}
     \end{algorithm}
-
-    \cite{budgen}
 
 \subsubsection{Genetic Algorithms} 
 
@@ -350,15 +357,19 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \subsection*{Interface}
 
-    Note that our intention is to find a performance agent that plays Draughts, so having a relatively friendly user interface is not necessarily important. A simple text-based interface will suffice. Due to the inherently computational strain the project will require, an interface would be strictly based around having a command-line interface (CLI) to watch the progress of the system. This allows the system to be quickly up and running, without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project.
 
-    \begin{figure}[ht!]
+    \begin{wrapfigure}{r}{0.3\textwidth}
+    % \begin{figure}[ht!]
+        \vspace{-30pt}
         \centering
-        \includegraphics[width=100mm]{cli_humanvsagent.png}
-        \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{overflow2}}
-    \end{figure}
+        \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{cli_humaninput}}
+        \includegraphics[width=43mm]{cli_humanvsagent.png}
+        \vspace{-20pt}
+    \end{wrapfigure}
 
-    When it comes to humans playing against the agent, the board can be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. 
+    As our intention is to find an agent that plays Draughts, having a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface will suffice. Due to the inherently computational strain the project requires, an interface based around having a command-line interface (CLI) the system to be quickly up and running, without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project. The simulation would show information such as estimated finishing times, current generation count, scores of players in a given generation and the cummulative score of progress of the system.
+
+    When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
 
 \subsection*{Choice of Programming Language}
 
@@ -385,33 +396,12 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
-\subsection{Future Work}
-    We could potentially build a neural network model that 
+% \subsection{Future Work}
+%     We could potentially build a neural network model that 
 
-    The use of ELO could have a precise reprentation of the agents progress. Arpad Elo's algorithm runs as such:
+%     The use of ELO could have a precise reprentation of the agents progress. Arpad Elo's algorithm runs as such:
 
-    This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness. This could be done by either potentially expanding the size of the neural network, and adding extra heuristics that determine the phase of the game.
-
-% The algorithms described above will be evaluated under competition-style conditions. Each agent will play each game a number of times against every other agent to establish the winner. The starting player, number ofmoves and winning player. Each agent will be subject to the same time limit for choosing moves. Failure to return a move for any reason will result in an automatic loss. For each game, agents will play an equal number of rounds as first player. This will take into account any bias towards the player making the first move. For example, Checkers (Schaeffer et al, 2007) and Connect-Four (Allis, 1988) have both been solved, concluding that it is possible for the first player to force a win.
-
-% A second round of testing will involve having each player choose moves for a predefined set of scenarios to analyse their behaviour and whether they consistently choose good moves (i.e. block an opponent from winning) or miss obvious winning/losing moves.
-
-% There are two elements to the evaluation of the algorithms. First, I will examine the change in performance affected by changing the balance between the randomised monte-carol simulations and performing pre-computation to cut down the game tree. Second, I will attempt to create a rel- atively strong general game player using various enhancements that should be able to consistently beat the algorithms discussed above.
-
-% ---
-
-% I will evaluate my final system in two ways. First I will spend time comparing my system to other systems that are already available. I will select a number of such systems and compare them by a number of criteria that I will layout below which I believe cover the aims of my project. This will ensure that there is no one system that performs better than mine at my stated goals, even if they do outperform my solution in individual areas.
-% The criteria that I use will be as follows:
-% 1. Theabilityofthesystemtoclearlyrepresentthestateofandrelationshipsbetweenpeople
-% 10
-% 2. Theabilityofthesystemtorepresenttheinteractionsoverdifferentmodesbetweenpeople
-% 3. The ability of the system to represent clustering of the people in the system based on interactions
-% 4. The ability of the system to output quantitative data which can be used to draw useful conclusions regarding the nature of some aspect of the evolution of the model over time
-% I will then judge this against the following systems:
-% Vizster A project I have already discussed, designed to visualise connections between people in aFriendsternetwork. Availablefromhttp://homes.cs.washington.edu/jheer/projects/vizster/
-% WolframAlpha Facebook Report An analysis of data gathered from your Facebook profile by the WolframAlpha website which includes a graphical representation of your friends and gives various indications of the roles friends play in the network. Available from https://www.wolframalpha.com/input/?i=facebook+report
-% Gephi This is a tool developed for visualising graphs of all kinds of graph data in very config- urable ways. It also supports graphs that evolve over time and allows statistical analysis of graphs. Avaiable from http://gephi.github.io/
-% Secondly I will measure the extent to which my system is able to solve a real-world problem. My prototyping will enable me to adapt my system to a wide variety of different problems in the field of social network research and so I will be able to look at existing solutions to these problems and compare my solution quantitatively to previous work.
+%     This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness. This could be done by either potentially expanding the size of the neural network, and adding extra heuristics that determine the phase of the game.
 
 % --------------------------------
 
@@ -423,11 +413,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 % Writing skills (10%)
 % • Clarity of presentation of ideas
-% • Conformance to paper format
-% standards as specified in
-% Paper Template
-% • Qualityofwriting(readability,
-% grammar)
+% • Conformance to paper format standards as specified in Paper Template
+% • Qualityofwriting(readability, grammar)
 % • References
 
 % Mark Scheme
@@ -438,25 +425,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 % • Overview of architecture
 % • Description of lifecycle
 
-% This section presents the proposed solutions of the problems in detail. The design details should all be placed in this section. You may create a number of subsections, each focusing on one issue.
-
-% This section should be up to 8 pages in length. The rest of this section shows the formats of subsections as well as some general formatting information.  You should also consult the Word template. 
-
-
-% \subsection{Figures and Tables}
-% In general, figures and tables should not appear before they are cited.  Place figure captions below the figures; place table titles above the tables.  If your figure has two parts, for example, include the labels ``(a)'' and ``(b)'' as part of the artwork.  Please verify that figures and tables you mention in the text actually exist.  make sure that all tables and figures are numbered as shown in Table \ref{units} and Figure 1.
-% %sort out your own preferred means of inserting figures
-
-% \begin{table}[htb]
-% \centering
-% \caption{UNITS FOR MAGNETIC PROPERTIES}
-% \vspace*{6pt}
-% \label{units}
-% \begin{tabular}{ccc}\hline\hline
-% Symbol & Quantity & Conversion from Gaussian \\ \hline
-% \end{tabular}
-% \end{table}
-
 % ----------------
 
 \section{References}
@@ -465,7 +433,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 % You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year..
 
-\bibliography{projectpaper}
+\bibliography{zotero}
 
 
 \end{document}
