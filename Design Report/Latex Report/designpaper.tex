@@ -72,7 +72,7 @@
 \end{abstract}
 
 \begin{keywords}
-AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
+Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \end{keywords}
 
@@ -91,61 +91,57 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \section{Introduction}
 
-    The intention of this project is to explore the effectiveness of genetic algorithms to improve the evaluation of a neural network. Neural networks are used to determine the performance of two players in a game of checkers. We attempt to use various crossover and mutation strategies to manipulate the neurons of the network in order to increase the accuracy of the measurements. This would allow us to create an effective Draughts playing agent that would have the ability to learn without human input.
+    The intention of this project is to explore the effectiveness of genetic algorithms to improve the neurons of a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of checkers. We attempt to manipulate the neurons through various crossover and mutation strategies to increase the accuracy of the evaluation. This would allow us to create an effective Draughts playing agent that, when provided with the option to choose its own moves, would have the ability to learn without human input.
 
 \subsection*{Draughts}
 
-    English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chessboard. Players begin with 12 pieces each, and they are placed on light-coloured squares. Each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposite the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece started with, they are promoted to a King piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns. A player wins by capturing all of their opponments pieces. A player loses by having all of their pieces captured. A draw occurs when there is both players agree to draw after a  three-fold repetition, or a player has pieces on the board but cannot move any of them.
+    English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chess board. Players choose a colour and begin with 12 pieces each of their respective colours, and they are placed on the dark-coloured squares of the board. Beginning with the black pieces, each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposing the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece originated, it is promoted to a king piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns. A player wins by capturing all of their opponments pieces. A player loses by having all of their pieces captured. A draw occurs when there is both players agree to draw after a three-fold repetition (where both players take three moves to simulate the same position), or a player has pieces on the board but cannot move any of them. A draw can be forced when both players fail to capture a piece after a set amount of moves.
 
 \subsection*{Genetic Algorithms}
 
-    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. It borrows techniques from Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. 
-    Genetic algorithms are a subset of evolutionary algorithms, which is also formed of similar strategies, which also include evolutionary programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991]. Genetic Algorithms focus on the use of genome manipulation via the use of crossover algorithms and mutation methods. Genomes are a metaphor of genetic information, where it typically refers to an 1D array.
+    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. 
+    Genetic algorithms are a subset of evolutionary algorithms, which is also formed of similar strategies, which also include evolutionary programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991]. Genetic Algorithms consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array.
 
 \subsection*{Neural Networks}
 
-    Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, joined by a set of rules and weights. The units are defined with characterisitics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed by processing them through the layers.
-
-    Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
+    Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characterisitics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed by processing them through the layers. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
 
 \subsection*{Motivation}
     % Research Question
-    Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms. My intention is to determine whether it is possible to  produce a performant draughts playing agent by the use of GANNs (Genetic Algorithms and Neural Networks). 
+    Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performant draughts playing agent by the use of GANNs (Genetic Algorithms and Neural Networks).
 
 \subsection*{Deliverables}
 
     \subsubsection*{Minimum}
 
     \begin{itemize}
-    \item Implement a CNN
-    \item Implement a Checkers Game Interface
-    \item Implement a genetic algorithm with an evaluation function that
-    consists of a round robin tournament against the population of CNN
-    Evaluators.
-    \item Implement a mini-max algorithm that chooses moves.
+    \item Implement a feed-forward neural network
+    \item Implement a checkers game interface
+    \item Implement a decision making process that chooses a move from a given position of a checkers board.
+    \item Implement a genetic algorithm that uses a population of agents that have their own independently functioning neural network.
     \end{itemize}
 
     \subsubsection*{Intermediate}
 
     \begin{itemize}
-    \item A user-friendly interface to play against the AI
+    \item An interface to play against an agent.
     \item A monte-carlo search of the move space.
-    \item Analysis of Crossover methods (within Genetic Algorithms)
-    \item Analysis of Mutation methods (within Genetic Algorithms)
+    \item Multi-processing of the tournament selection process for the genetic algorithm.
     \end{itemize}
 
     \subsubsection*{Advanced}
 
     \begin{itemize}
-    \item Convolutional Neural Network Layer analysis
-    \item The resulting AI can play to an ELO of at least 1200.
+    \item An agent produced by this process can play to an ELO of at least 1200.
+    \item Agents can be played against human input through a simple user interface.
     \end{itemize}
 
 \subsection*{Related Work}
 
-    Arthur Samuel in the 60's pioneered the concept of AI that can play Checkers, through the proposal of using genetic algorithms to produce a Draughts playing agent \cite{samuel_studies_2000}. However, the work described did not consider the use of neural networks (as it was not conceived at the time). Also, it was dependent on a set of heuristics that he devised, which caps the agent's ability to play to the effectiveness of Samuel's heuristics. 
+    Arthur Samuel pioneered the concept of an self learning program that can play Checkers, through the use of using evolutionary algorithms \cite{samuel_studies_2000}. However, the work described did not consider the use of neural networks (as it was not conceived at the time). It was also  dependent on a set of heuristics that Samuel devised, which could handicap  the agent's ability to play, as they are dependent on the effectiveness of Samuel's heuristics. 
 
-    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents. However, new agents are made strictly through the use of mutation. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered.
+    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents.
+    However, crossover mechanisms were not considered in the creation of new agents. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered.
 
 % ----------------
 
@@ -155,7 +151,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     % Functional Requirements
     \subsubsection*{Functional Requirements}
-
 
     \begin{center}
         \begin{tabular}{| l  | l | l |}
@@ -172,8 +167,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     % Non Functional Requirements
     \subsubsection*{Non-Functional Requirements}
-
-        
+      
     \begin{center}
         \begin{tabular*}{1\textwidth}{| l | p{144.5mm} |}
         \hline
@@ -193,11 +187,15 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \subsubsection{MiniMax Decision Making}
 
-    In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. This algorithm expands the tree of potential moves until some depth is reached. at a given depth, an evaluation function is used to calculate the value of the given move. Best moves in a given set become their parents value. These values propagate upwards to the children of the root node. The use of alpha-beta pruning will help to prune unnecessary moves,  reducing the number of calculations. From here, the best child node is chosen, which represents the best move to make.
+    In order to choose the best move given a current position, the decision making process for an agent could revolve around the use of minimax algorithm. This algorithm would expand the tree of potential moves until some depth is reached. From here, an evaluation function is used to calculate the value of the nodes at this depth. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
 
-    The mini-max method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game. This expotential growth is the achillies heel to the mini-max approach. Evaluation functions may be difficult to obtain, especially in the case for Checkers, where branching factors can be very large. 
+    The best value propagates upwards until it reaches to a child of the root node. The use of alpha-beta pruning will help to prune unnecessary moves,  reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move given  the players position.
 
-    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) introduced by Lorentz \cite{lorentz_using_2016}. Monte-Carlo Tree search differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. MCTS-EPT modifies the random playout approach from traditional MCTS. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply.
+    The mini-max method will have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic stategy where they can plan their moves in advance. There are inherent tradeoffs with having a higher ply count; asymptopic complexity of mini-max is expoential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This expotential growth is the achillies heel to the mini-max approach.
+
+    Once initial development on the mini-max algorithm is complete, it is possible to use the framework as a base to migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}.
+
+    MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random playout approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
     
     \begin{figure}[ht!]
         \centering
@@ -245,19 +243,11 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
       
     \end{wrapfigure}
 
-
-    In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
+    In order to evaluate the board, we will use a feed-forward multilayer perceptron style neural network. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively.
     
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
-    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
-
-
-
-    
-    % Eventually, we will move to  ReLU (Rectified linear unit), proposed by Hinton. ReLU 
-
-    % Most of time tanh is quickly converge than sigmoid and logistic function, and performs better accuracy [1]. However, recently rectified linear unit (ReLU) is proposed by Hinton [2] which shows ReLU train six times fast than tanh [3] to reach same training error. And you can refer to [4] to see what benefits ReLU provides.
+    The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
     
     \begin{wrapfigure}{r}{0.3\textwidth}
         \centering
@@ -295,7 +285,10 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
         \vspace{-30pt}
     \end{wrapfigure}
     
-    Our initial choice for the activation function is the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project.
+    % Talk about the activation function
+    % how does it work?
+    
+    Our initial choice for the activation function will be the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project.
 
 \subsubsection{Genetic Algorithms} 
 

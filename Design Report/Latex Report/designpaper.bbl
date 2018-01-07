@@ -1,5 +1,14 @@
 \begin{thebibliography}{xx}
 
+\harvarditem[Browne et~al.]{Browne, Powley, Whitehouse, Lucas, Cowling,
+  Rohlfshagen, Tavener, Perez, Samothrakis \harvardand\
+  Colton}{2012}{browne_survey_2012}
+Browne, C.~B., Powley, E., Whitehouse, D., Lucas, S.~M., Cowling, P.~I.,
+  Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S. \harvardand\ Colton,
+  S.  \harvardyearleft 2012\harvardyearright , `A {Survey} of {Monte} {Carlo}
+  {Tree} {Search} {Methods}', {\em IEEE Transactions on Computational
+  Intelligence and AI in Games} {\bf 4}(1),~1--43.
+
 \harvarditem{Chellapilla \harvardand\ Fogel}{1999}{chellapilla_evolving_1999}
 Chellapilla, K. \harvardand\ Fogel, D.  \harvardyearleft 1999\harvardyearright
   , `Evolving {Neural} {Networks} to {Play} {Checkers} without {Expert}
