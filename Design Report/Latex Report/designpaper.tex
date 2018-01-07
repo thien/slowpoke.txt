@@ -99,8 +99,7 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
 \subsection*{Genetic Algorithms}
 
-    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. 
-    Genetic algorithms are a subset of evolutionary algorithms, which is also formed of similar strategies, which also include evolutionary programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991]. Genetic Algorithms consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array.
+    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. Genetic Algorithms consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array.
 
 \subsection*{Neural Networks}
 
@@ -209,6 +208,7 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     \begin{wrapfigure}{l}{0.37 \textwidth}
         % \begin{center}
+        \fontsize{8}{11}
         \vspace{-25pt}
         \centering
             \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
@@ -249,10 +249,18 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
     
+    
+    % Talk about the activation function
+    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usuall have a sigmoid shape, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
+    % how does it work?
+
+    Our initial choice for the activation function will be the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Other functions will be explored, inclduing ReLU (Rectified Linear Units), Noisy ReLU, and linear.
+
     \begin{wrapfigure}{r}{0.3\textwidth}
         \centering
         \vspace{-30pt}
         \begin{tikzpicture}
+            \fontsize{8}{11}
             \begin{axis}[
                 legend pos=north west,
                 axis x line=middle,
@@ -264,11 +272,11 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
                                     /pgf/number format/fixed zerofill,
                                     /pgf/number format/precision=1},
                 grid = major,
-                width=5cm,
+                width=55mm,
                 height=4cm,
                 grid style={dashed, gray!30},
-                xmin=-2,     % start the diagram at this x-coordinate
-                xmax= 2,    % end   the diagram at this x-coordinate
+                xmin=-3,     % start the diagram at this x-coordinate
+                xmax= 3,    % end   the diagram at this x-coordinate
                 ymin= 0,     % start the diagram at this y-coordinate
                 ymax= 1,   % end   the diagram at this y-coordinate
                 %axis background/.style={fill=white},
@@ -277,19 +285,13 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
                 tick align=outside,
                 enlargelimits=false]
             % plot the stirling-formulae
-            \addplot[domain=-2:2, red, ultra thick,samples=500] {1/(1+e^-x))};
+            \addplot[domain=-3:3, red, ultra thick,samples=500] {1/(1+e^-x))};
             % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
             \end{axis}
         \end{tikzpicture}
         \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
         \vspace{-30pt}
     \end{wrapfigure}
-    
-    % Talk about the activation function
-    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usuall have a sigmoid shape, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
-    % how does it work?
-
-    Our initial choice for the activation function will be the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Other functions will be explored, inclduing ReLU (Rectified Linear Units), Noisy ReLU, and linear.
 
 \subsubsection{Genetic Algorithms} 
 
