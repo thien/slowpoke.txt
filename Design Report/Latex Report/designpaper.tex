@@ -155,23 +155,34 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     % Functional Requirements
     \subsubsection*{Functional Requirements}
 
-    \begin{description}
-        \item [F1] A checkers gameboard is created.
-        \item [F2] Agents are able to harness neural networks to assist in their move decision.
-        \item [F3] Offspring agents can be created using parents.
-        \item [F4] The weights and biases of the Agent's neural network are saved to storage.
-        \item [F5] Humans are able to play against the Agents.
-        
-    \end{description}
+
+    \begin{center}
+        \begin{tabular}{| l  | l | l |}
+        \hline
+        Code & Description & Priority \\ \hline
+        F1 & A checkers gameboard is created.& High  \\ \hline
+        F2 &  Agents are able to harness neural networks to assist in their move decision.& High  \\ \hline
+        F3 &  Offspring agents can be created using parents. & High \\ \hline
+        F4 &  The weights and biases of the Agent's neural network are saved to storage.& High  \\ \hline
+        F5 &  Humans are able to play against the Agents. & High \\ \hline
+        \end{tabular}
+    \end{center}
+
 
     % Non Functional Requirements
     \subsubsection*{Non-Functional Requirements}
 
-    \begin{description}  
-        \item [N1] Agents only choose valid, legal moves.
-        \item [N2] Agents always return a valid, legal move.
-        \item [N3] Agents are able to play against other agents.
-    \end{description}
+        
+    \begin{center}
+        \begin{tabular*}{1\textwidth}{| l | p{144.5mm} |}
+        \hline
+        Code & Description \\ \hline
+        N1 & Agents only choose valid, legal moves. \\ \hline
+        N2 & Agents always return a valid, legal move.\\ \hline
+        N3 & Agents are able to play against other agents. \\ \hline
+        \end{tabular*}
+    \end{center}
+
 
     % Table 1 shows the functional requirements identified for the program(s) that will be required for the project. FR-1 through FR-6 are handled by the server and player implementations in the GGP-Base package. FR-7 will require some modification to the server code in order to output the informationthatwillbeusedintheanalysisanddiscussionoftestingresults.
     % Table 2 shows the non-functional requirements that arise from the rules that will be applied for testing. Any failure of the agent to return a move through either error or timeout should be con- sidered a failure as per the AAAI GGP competition rules. The moves returned should always be valid and legal for the current state of the game. Since agents are given a fixed time period to choose a move, with no penalty or bonus applied so long as the move is returned within the allot- ted time, it makes sense that agents should be designed in such a way as to make best use of the time they are given.
@@ -181,7 +192,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 \subsubsection{Neural Network}
 
     In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
-
 
     \begin{wrapfigure}{r}{0.4\textwidth}
         % \begin{center}
@@ -218,10 +228,9 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
       
     \end{wrapfigure}
     
-   
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
-    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
+    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
 
     Our initial choice for the activation function is the hyperbolic tangent (a sigmoid), shown in figure \ref{sigmoid}. Alternative functions were considered, ranging from the popular RElU, or softmax. Experiments will need to be conducted in order to determine the most effective activation function. 
 
@@ -274,7 +283,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     The minimax method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
 
-    Once the initial system is ready, we can migrate to a hybrid Minimax and  Monte-Carlo Tree Search proposed by Lorentz, which has shown to dramatically improve performance; especially in the case for games with especially large branching factors.
+    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) by Lorentz \cite{lorentz_using_2016}. In his paper, the method is shown to dramatically improve performance; especially in the case for games with especially large branching factors. 
+
 
 \subsubsection{Tournament Method}
 
@@ -396,14 +406,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
     At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
-% \subsection{Future Work}
-%     We could potentially build a neural network model that 
 
-%     The use of ELO could have a precise reprentation of the agents progress. Arpad Elo's algorithm runs as such:
-
-%     This could be used to categeorise neural networks, and helps us to understand the potential thinking position of opponments. This allows us to optimise our minimax algorithm in order to exploit the players weakness. This could be done by either potentially expanding the size of the neural network, and adding extra heuristics that determine the phase of the game.
-
-% --------------------------------
+    % --------------------------------
 
 % Presents the proposed solution(s)
 % The design details should all be placed in this section
@@ -414,7 +418,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 % Writing skills (10%)
 % • Clarity of presentation of ideas
 % • Conformance to paper format standards as specified in Paper Template
-% • Qualityofwriting(readability, grammar)
+% • Quality of writing(readability, grammar)
 % • References
 
 % Mark Scheme
@@ -426,14 +430,12 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 % • Description of lifecycle
 
 % ----------------
+% Add references
 
-\section{References}
+\bibliography{zotero}
 
 % The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
 
 % You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year..
-
-\bibliography{zotero}
-
 
 \end{document}
