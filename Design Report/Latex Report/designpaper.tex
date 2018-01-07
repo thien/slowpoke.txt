@@ -330,34 +330,41 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     %     index2 = random integer[0 to n]
     %     if index2 < index1:
     %         swap index1 and index2's values
-    %     Weights(child1) = father[0 to index1] + mother[index1 to index 2] + father[index2 to n]
-    %     Weights(child2) = mother[0 to index1] + father[index1 to index 2] + mother[index2 to n]
+    %     Weights(child1) = $parent_{1}$[0 to index1] +  $parent_{2}$[index1 to index 2] + $parent_{1}$[index2 to n]
+    %     Weights(child2) =  $parent_{2}$[0 to index1] + $parent_{1}$[index1 to index 2] +  $parent_{2}$[index2 to n]
         
 
     % add pseudocode here
     \begin{algorithm}
         \caption{Crossover Strategy}
         \begin{algorithmic}[1]
-        \Procedure{crossover}{}
-        \BState \emph{loop} \text{for each layers weights}:
-        \State $n \gets \text{length of } \textit{weights}$
+        \Procedure{crossover}{$parent_{1}$, $parent_{2}$}
+        \BState \emph{loop} \text{for weights } $w$ \text{ in layers}:
+        \State $n \gets \text{length of } w$
         % \State $\textit{stringlen} \gets \text{length of } \textit{string}$
-        \State $index_{1} \gets \textit{random_integer}(0,n-1)$
-        \State $index_{2} \gets \textit{random_integer}(0,n-1)$
-        \State $i \gets \textit{patlen}$
-        \BState \emph{top}:
-        \If {$i > \textit{stringlen}$} \Return false
+        \State $i_{1} \gets \textit{random integer} (0,n-1)$
+        \State $i_{2} \gets \textit{random integer} (0,n-1)$
+        % \State $i \gets \textit{patlen}$
+        % if statement to check random numbers
+        \If {$i_{1} > i_{2}$}
+        \State \textit{swap } $i_{1}$ \text{ and } $i_{2}$ 
         \EndIf
-        \State $j \gets \textit{patlen}$
-        \BState \emph{loop}:
-        \If {$\textit{string}(i) = \textit{path}(j)$}
-        \State $j \gets j-1$.
-        \State $i \gets i-1$.
-        \State \textbf{goto} \emph{loop}.
-        \State \textbf{close};
-        \EndIf
-        \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-        \State \textbf{goto} \emph{top}.
+        % \State $j \gets \textit{patlen}$
+
+        \State $weights_{w,child1}$ = $parent_{1}$[0 \ldots $i_{1}$] +  $parent_{2}$[$i_{1}+1$ \ldots $i_{2}$] + $parent_{1}$[$i_{2}+1$ \ldots $n$] 
+        \State $weights_{w,child2}$ =  $parent_{2}$[0 \ldots $i_{1}$] + $parent_{1}$[$i_{1}+1$ \ldots $i_{2}$] +  $parent_{2}$[$i_{2}+1$ \ldots $n$] 
+        
+        \BState \textbf{Return} \emph{child1,child2}
+
+        % \BState \emph{loop}:
+        % \If {$\textit{string}(i) = \textit{path}(j)$}
+        % \State $j \gets j-1$.
+        % \State $i \gets i-1$.
+        % \State \textbf{goto} \emph{loop}.
+        % \State \textbf{close};
+        % \EndIf
+        % \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+        % \State \textbf{goto} \emph{top}.
         \EndProcedure
         \end{algorithmic}
     \end{algorithm}

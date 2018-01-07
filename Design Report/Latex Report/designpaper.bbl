@@ -1,0 +1,22 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Chellapilla \harvardand\ Fogel}{1999}{chellapilla_evolving_1999}
+Chellapilla, K. \harvardand\ Fogel, D.  \harvardyearleft 1999\harvardyearright
+  , `Evolving {Neural} {Networks} to {Play} {Checkers} without {Expert}
+  {Knowledge}', {\em IEEE Transactions on Neural Networks} {\bf
+  10}(6),~1382--1391.
+\newline\harvardurl{http://ieeexplore.ieee.org/abstract/document/809083}
+
+\harvarditem{Lorentz}{2016}{lorentz_using_2016}
+Lorentz, R.  \harvardyearleft 2016\harvardyearright , `Using evaluation
+  functions in {Monte}-{Carlo} {Tree} {Search}', {\em Theoretical Computer
+  Science} {\bf 644},~106--113.
+\newline\harvardurl{http://linkinghub.elsevier.com/retrieve/pii/S0304397516302717}
+
+\harvarditem{Samuel}{2000}{samuel_studies_2000}
+Samuel, A.~L.  \harvardyearleft 2000\harvardyearright , `Some studies in
+  machine learning using the game of checkers', {\em IBM Journal of Research
+  and Development} {\bf 44}(1.2),~206--226.
+\newline\harvardurl{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5389202%5Cnpapers3://publication/doi/10.1147/rd.441.0206}
+
+\end{thebibliography}
