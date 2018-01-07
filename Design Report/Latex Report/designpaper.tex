@@ -23,7 +23,8 @@
 
 % packages to generate neural network graph
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
 
 % package to add graphs
 \usepackage{pgfplots}
@@ -189,6 +190,25 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     % The GGP-Base package addresses a number of these requirements and a number of test-games will be played to ensure they are adequately satisfied and the package functions as expected.
 
 \subsection*{Algorithms and Data Structures}
+
+\subsubsection{MiniMax Decision Making}
+    % Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
+    % This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
+
+    In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. The use of alpha-beta pruning will help to prune unnecessary moves.
+
+    The minimax method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
+
+    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) by Lorentz \cite{lorentz_using_2016}. In his paper, the method is shown to dramatically improve performance; especially in the case for games with especially large branching factors. 
+
+    
+    \begin{figure}[ht!]
+        \centering
+        \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
+        \includegraphics[width=100mm]{nnmodel.png}
+    \end{figure}
+
+    
 \subsubsection{Neural Network}
 
     In order to evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network contains 4 layers, where the input layer consists of 91 nodes, with the output node having 1. The hidden layers have 40 and 10 nodes respectively. Our input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. 
@@ -200,7 +220,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     
             \begin{tikzpicture}
             \color{white}
-            \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.5cm}] {
+            \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
             & 31 &&30&&29&&28 \\
             27 &&26&&25&&24&&\\
             &23&&22&&21&&20\\   
@@ -230,11 +250,8 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     
     It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
 
-    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
 
-    Our initial choice for the activation function is the hyperbolic tangent (a sigmoid), shown in figure \ref{sigmoid}. Alternative functions were considered, ranging from the popular RElU, or softmax. Experiments will need to be conducted in order to determine the most effective activation function. 
-
-    \begin{figure}
+    \begin{wrapfigure}{l}{0.3\textwidth}
         \centering
         \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-5x}}$ \label{sigmoid}}
         \begin{tikzpicture}
@@ -249,7 +266,7 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
                                     /pgf/number format/fixed zerofill,
                                     /pgf/number format/precision=1},
                 grid = major,
-                width=8cm,
+                width=5cm,
                 height=4cm,
                 grid style={dashed, gray!30},
                 xmin=-1,     % start the diagram at this x-coordinate
@@ -267,52 +284,18 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
             \end{axis}
         \end{tikzpicture}
         
-    \end{figure}
-
-    \begin{figure}[ht!]
-        \centering
-        \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
-        \includegraphics[width=100mm]{nnmodel.png}
-    \end{figure}
-
-\subsubsection{MiniMax Decision Making}
-    % Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
-    % This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
-
-    In order to choose the best move given a current position, the decision making process for an agent revolves around the use of minimax algorithm. The use of alpha-beta pruning will help to prune unnecessary moves.
-
-    The minimax method will have a search depth of 4ply (where the agent will search two moves ahead.) This will allow the agents to have a basic stategy where they can plan their moves in advance. Theere are inherent tradeoffs with having a higher ply count; where the asymptopic complexity is expoential; it being $O(x^y)$ with $x$ being the branching factor, and y being the depth. The branching factor will consist of the moves from each agent in a given game.
-
-    Once the initial system is ready, we can migrate to a hybrid technique that combines Mini-max and Monte-Carlo Tree Search (called MCTS-EPT or MCTS with early playout termination) by Lorentz \cite{lorentz_using_2016}. In his paper, the method is shown to dramatically improve performance; especially in the case for games with especially large branching factors. 
+    \end{wrapfigure}
 
 
-\subsubsection{Tournament Method}
+    To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
 
-    The tournament algorithm follows the following pseudocode in Algorithm 1.
+    Our initial choice for the activation function is the hyperbolic tangent (a sigmoid), shown in figure \ref{sigmoid}. As an activation function, it suffices but there are inherent issues, discussed by Hinton.
+    
+    % Eventually, we will move to  ReLU (Rectified linear unit), proposed by Hinton. ReLU 
 
-    % add pseudocode here
-    \begin{algorithm}
-        \caption{My algorithm}
-        \begin{algorithmic}[1]
-        \Procedure{MyProcedure}{}
-        \State $\textit{stringlen} \gets \text{length of }\textit{string}$
-        \State $i \gets \textit{patlen}$
-        \BState \emph{top}:
-        \If {$i > \textit{stringlen}$} \Return false
-        \EndIf
-        \State $j \gets \textit{patlen}$
-        \BState \emph{loop}:
-        \If {$\textit{string}(i) = \textit{path}(j)$}
-        \State $j \gets j-1$.
-        \State $i \gets i-1$.
-        \State \textbf{goto} \emph{loop}.
-        \State \textbf{close};
-        \EndIf
-        \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-        \State \textbf{goto} \emph{top}.
-        \EndProcedure
-        \end{algorithmic}
-    \end{algorithm}
+    % Most of time tanh is quickly converge than sigmoid and logistic function, and performs better accuracy [1]. However, recently rectified linear unit (ReLU) is proposed by Hinton [2] which shows ReLU train six times fast than tanh [3] to reach same training error. And you can refer to [4] to see what benefits ReLU provides.
+    
+    
 
 \subsubsection{Genetic Algorithms} 
 
@@ -320,14 +303,14 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \subsubsection{Population Generation}
 
-    The initial population will consist of randomly generated weights and biases of the neural network, with values from -1,1 inclusive. For a population size of 15, the next generation is created using this strategy:
+    The initial population will consist of randomly generated weights and biases of the neural network, with values from -1,1 inclusive. For a population size of 15, the next generation is created using the best five agents from the current generation. They will continue to play in the next generation. The agents are also chosen as a base to create 10 new agents from.
 
-    The top five agents from the generation (at the end of the tournament round) are selected for crossover. They will continue to play in the next generation.
-    The next 8 players are generated in the following strategy:
-
-    The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights. 
-
+    The next eight players are generated through the use of crossover strategies. The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights.
     The remaining two will be direct mutations of the 4th and 5th place agents.
+
+\subsubsection{Tournament Selection}
+
+    The tournament selection process revolves around each agent in the population playing 5 games as Black, against randomly selected opponments. Each game lasts a maximum of 100 moves; if a winner is not deduced from the game after each player places 100 moves, then a draw is called. Draws are also called when there is a five-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponment receives a score. Scores are tallied up at the end of the game. Players are sorted by the number of points they scored. The best players will have the highest number of points.
 
 \subsubsection{Coefficent Mutation}
 
@@ -365,8 +348,20 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
         \end{algorithmic}
     \end{algorithm}
 
-\subsection*{Interface}
 
+\subsection*{Choice of Programming Language}
+
+    There are several contenders, with each having their inherent benefits. C++ is a notable choice due to it's relatively lower level architecture, support for popular machine learning packages (most notably Google's TensorFlow.) In terns of performance, C++ trumps most languages. C++ has notable parallelised packages, (A popular library is OpenMP) which can assist in the overall performance of the system. However, it would be difficult to write, due to my unfimiliarity with the language. Also, programs written in this language are less portable. It is not suitable for running on university machines without the use of a sandbox. Improperly handled bugs can cause a fatal error on university machines.
+
+    Javascript is a contender; Node.JS is a very powerful and popular package manager, $npm$. It is difficult to write multi-processed programs as Node.JS runs on a single thread by nature. It also lacks the support of popular machine learning libraries and performs relatively slower in some programming operations.
+
+    I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines. Python development will be on Visual Studio Code, which again is a familiar tool and is also suited to the project.
+
+    Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the afforance of easier debugging and testing.
+
+    Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
+
+\subsection*{Interface}
 
     \begin{wrapfigure}{r}{0.3\textwidth}
     % \begin{figure}[ht!]
@@ -380,18 +375,6 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
     As our intention is to find an agent that plays Draughts, having a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface will suffice. Due to the inherently computational strain the project requires, an interface based around having a command-line interface (CLI) the system to be quickly up and running, without the need for package dependencies, configurations and set-ups. It also reduces the amount of processing needed to render the most relevant statistics related to the project. The simulation would show information such as estimated finishing times, current generation count, scores of players in a given generation and the cummulative score of progress of the system.
 
     When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
-
-\subsection*{Choice of Programming Language}
-
-    There are several contenders, with each having their inherent benefits. C++ is a notable choice due to it's relatively lower level architecture, support for popular machine learning packages (most notably Google's TensorFlow.) In terns of performance, C++ trumps most languages. C++ has notable parallelised packages, (A popular library is OpenMP) which can assist in the overall performance of the system. However, it would be difficult to write, due to my unfimiliarity with the language. Also, programs written in this language are less portable. It is not suitable for running on university machines without the use of a sandbox. Improperly handled bugs can cause a fatal error on university machines.
-
-    Javascript is a contender; Node.JS is a very powerful and popular package manager, $npm$. It is difficult to write multi-processed programs as Node.JS runs on a single thread by nature. It also lacks the support of popular machine learning libraries and performs relatively slower in some programming operations.
-
-    I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages including NumPy and other machine learning tools. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines. Python development will be on Visual Studio Code, which again is a familiar tool and is also suited to the project.
-
-    Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the afforance of easier debugging and testing.
-
-    Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
 \subsection*{Tools}
 
