@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  7 JAN 2018 19:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  7 JAN 2018 19:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -756,10 +756,10 @@ Underfull \hbox (badness 10000) in alignment at lines 171--177
 <nnmodel.png, id=25, 853.1875pt x 715.67375pt>
 File: nnmodel.png Graphic file (type png)
 <use nnmodel.png>
-Package pdftex.def Info: nnmodel.png  used on input line 202. on input line 202
+Package pdftex.def Info: nnmodel.png  used on input line 203. on input line 203
 .
-Package pdftex.def Info: Requested size: 170.71652pt x 143.19772pt on input lin
-e 202.
+Package pdftex.def Info: Requested size: 284.52756pt x 238.67381pt on input lin
+e 203.
 \pgf@matrix@skel@next@row=\count161
 \pgf@matrix@skel@next@col=\count162
 \pgf@matrix@skel@next@row=\count163
@@ -770,33 +770,33 @@ e 202.
  [5 <./nnmodel.png>]
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
-6.
+8.
 
 [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 393--393
+Underfull \hbox (badness 10000) in paragraph at lines 395--395
 \OT1/ptm/m/n/12 in-ter-face demon-strat-ing a
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 393--393
+Underfull \hbox (badness 1122) in paragraph at lines 395--395
 \OT1/ptm/m/n/12 game of draughts be-tween
  []
 
 <cli_humanvsagent.png, id=44, 400.49625pt x 711.65875pt>
 File: cli_humanvsagent.png Graphic file (type png)
 <use cli_humanvsagent.png>
-Package pdftex.def Info: cli_humanvsagent.png  used on input line 394. on input
- line 394.
+Package pdftex.def Info: cli_humanvsagent.png  used on input line 396. on input
+ line 396.
 Package pdftex.def Info: Requested size: 122.34685pt x 217.39766pt on input lin
-e 394.
+e 396.
 [8 <./cli_humanvsagent.png>] (./designpaper.bbl)
 Runaway argument?
 {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=538920\ETC.
 /home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex
-:437: File ended while scanning use of \harvardurl.
+:439: File ended while scanning use of \harvardurl.
 <inserted text> 
                 \par 
-l.437 \bibliography{zotero}
+l.439 \bibliography{zotero}
                            
 I suspect you have forgotten a `}', causing me
 to read past where you wanted me to stop.
@@ -804,21 +804,21 @@ I'll try to recover; but if the error is serious,
 you'd better type `E' or `X' now and fix your file.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--438
+Underfull \hbox (badness 10000) in paragraph at lines 25--440
 
  []
 
 [9]
 
 /home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex
-:443: LaTeX Error: \begin{thebibliography} on input line 1 ended by \end{docume
+:445: LaTeX Error: \begin{thebibliography} on input line 1 ended by \end{docume
 nt}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.443 \end{document}
+l.445 \end{document}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -832,7 +832,7 @@ or  <return>  to continue without it.
 Here is how much of TeX's memory you used:
  26426 strings out of 492990
  669164 string characters out of 6135006
- 986436 words of memory out of 5000000
+ 985923 words of memory out of 5000000
  29520 multiletter control sequences out of 15000+600000
  26723 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -850,7 +850,7 @@ msfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on designpaper.pdf (9 pages, 452599 bytes).
+Output written on designpaper.pdf (9 pages, 452620 bytes).
 PDF statistics:
  95 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream
