@@ -1,0 +1,208 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amssymb}
+\usepackage{lambda,ifthen,calc}
+\usepackage{pstricks}
+\usepackage{multicol}
+\usepackage{graphics}
+
+\setlength{\columnsep}{0.9cm}
+
+\setlength{\textwidth}{19cm}
+\setlength{\marginparwidth}{0cm}
+\setlength{\oddsidemargin}{-1in+1cm}
+\setlength{\evensidemargin}{-1in+1cm}
+\setlength{\textheight}{27.7cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\footskip}{0cm}
+\setlength{\voffset}{-1in+1cm}
+\pagestyle{empty}
+
+%**********************
+%****              ****
+%**** CANARD / OIE ****
+%****              ****
+%**********************
+%oie blanche
+\def\o{\psarc(0.4,0.4){0.3}{180}{270} \psline(0.1,0.4)(0.1,0.5) \psarc(0.25,0.5){0.15}{180}{270} \psline(0.25,0.35)(0.45,0.35) \psarc(0.45,0.5){0.15}{270}{0} \psline(0.6,0.5)(0.6,0.8) \psarc(0.7,0.8){0.1}{0}{180} \psline(0.8,0.8)(0.9,0.7)(0.8,0.7)(0.8,0.4) \psarc(0.5,0.4){0.3}{270}{0} \psline(0.5,0.1)(0.4,0.1) }
+%canard noir sur fond blanc
+\def\c{\pspolygon[fillstyle=solid,fillcolor=black,linewidth=0](0.9,0.45)(0.75,0.35)(0.55,0.35)(0.4,0.5)(0.4,0.6)(0.2,0.6)(0.1,0.55)(0.1,0.5)(0.2,0.5)(0.2,0.4)(0.5,0.1)(0.6,0.1)(0.9,0.4)(0.9,0.5) \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.6,0.4){0.3}{270}{0} \pscircle[fillstyle=solid,fillcolor=white,linewidth=0,linecolor=white](0.75,0.5){0.15} \pscircle[fillstyle=solid,fillcolor=white,linewidth=0,linecolor=white](0.55,0.5){0.15} \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.3,0.6){0.1}{0}{180} \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.5,0.4){0.3}{180}{270} }
+%canard noir sur fond gris
+\def\d{\pspolygon[fillstyle=solid,fillcolor=black,linewidth=0](0.9,0.45)(0.75,0.35)(0.55,0.35)(0.4,0.5)(0.4,0.6)(0.2,0.6)(0.1,0.55)(0.1,0.5)(0.2,0.5)(0.2,0.4)(0.5,0.1)(0.6,0.1)(0.9,0.4)(0.9,0.5) \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.6,0.4){0.3}{270}{0} \pscircle[fillstyle=solid,fillcolor=lightgray,linewidth=0,linecolor=lightgray](0.75,0.5){0.15} \pscircle[fillstyle=solid,fillcolor=lightgray,linewidth=0,linecolor=lightgray](0.55,0.5){0.15} \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.3,0.6){0.1}{0}{180} \psarc[fillstyle=solid,fillcolor=black,linewidth=0](0.5,0.4){0.3}{180}{270} }
+%!!!changer ${\c} en ${\d}
+
+%******************************************
+%****                                  ****
+%**** ARBRE / TENTE / PRISE / POUBELLE ****
+%****                                  ****
+%******************************************
+%arbre
+\definecolor{greenIn}{rgb}{.35, .48, .23}
+\definecolor{greenOut}{rgb}{.24, .34, .16}
+\definecolor{brownIn}{rgb}{.4, .23, .12}
+\definecolor{brownOut}{rgb}{.28, .16, .09}
+\def\a{\pspolygon[linewidth=0.03,linecolor=brownOut,fillstyle=solid,fillcolor=brownIn,linearc=0.01](0.35,0.36)(0.39,0.23)(0.31,0.13)(0.42,0.18)(0.48,0.08)(0.55,0.19)(0.69,0.11)(0.62,0.23)(0.68,0.36) \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.27,0.62){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.31,0.42){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.49,0.36){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.68,0.42){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.73,0.62){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.6,0.76){0.13} \pscircle[linewidth=0,linecolor=greenOut,fillstyle=solid,fillcolor=greenOut](0.42,0.76){0.13} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.27,0.62){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.31,0.42){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.49,0.36){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.68,0.42){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.73,0.62){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.6,0.76){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.42,0.76){0.1} \pscircle[linewidth=0,linecolor=greenIn,fillstyle=solid,fillcolor=greenIn](0.5,0.56){0.2} }
+%tente
+\def\t{\psline(0.1,0.1)(0.3,0.7)(0.7,0.9)(0.9,0.3)(0.5,0.1)(0.1,0.1) \psline(0.3,0.1)(0.3,0.7) \psline(0.5,0.1)(0.3,0.7) }
+%prise electrique
+%\def\e{\psarc*(0.4,0.4){0.2828427}{135}{315} \pspolygon*(0.2,0.6)(0.3,0.7)(0.7,0.3)(0.6,0.2) \psarc(0.6,0.8){0.0707106}{315}{135} \psline(0.35,0.65)(0.55,0.85) \psline(0.45,0.55)(0.65,0.75) \psarc(0.8,0.6){0.0707106}{315}{135} \psline(0.65,0.35)(0.85,0.55) \psline(0.55,0.45)(0.75,0.65) }
+\def\e{\psarc*(0.4,0.4){0.2121320}{135}{315} \pspolygon*(0.25,0.55)(0.35,0.65)(0.65,0.35)(0.55,0.25) \psarc(0.575,0.725){0.0353553}{315}{135} \psline(0.4,0.6)(0.55,0.75) \psline(0.45,0.55)(0.6,0.7) \psarc(0.725,0.575){0.0353553}{315}{135} \psline(0.6,0.4)(0.75,0.55) \psline(0.55,0.45)(0.7,0.6) \psline[linewidth=0.08](0.3,0.3)(0.17,0.17)}
+%poubelle
+\def\p{\psline(0.3,0.6)(0.3,0.15)(0.7,0.15)(0.7,0.6) \psline(0.25,0.65)(0.25,0.6)(0.75,0.6)(0.75,0.65)(0.7,0.7)(0.3,0.7)(0.25,0.65) \psline(0.4,0.7)(0.45,0.75)(0.55,0.75)(0.6,0.7) \psline(0.35,0.15)(0.35,0.5) \psline(0.45,0.15)(0.45,0.5) \psline(0.55,0.15)(0.55,0.5) \psline(0.65,0.15)(0.65,0.5) }
+
+%**************
+%****      ****
+%**** MAIN ****
+%****      ****
+%**************
+%left hand
+\def\hl{\psarc(0.5,0.4){0.25}{180}{360} \psarc(0.3,0.55){0.05}{0}{180} \psarc(0.4,0.75){0.05}{0}{180} \psarc(0.5,0.80){0.05}{0}{180} \psarc(0.6,0.75){0.05}{0}{180} \psarc(0.7,0.65){0.05}{0}{180} \psline(0.25,0.4)(0.25,0.55) \psline(0.35,0.4)(0.35,0.75) \psline(0.45,0.5)(0.45,0.80) \psline(0.55,0.5)(0.55,0.80) \psline(0.65,0.48)(0.65,0.75) \psline(0.75,0.4)(0.75,0.65) }
+%right hand
+\def\hr{\psarc(0.5,0.4){0.25}{180}{360} \psarc(0.7,0.55){0.05}{0}{180} \psarc(0.6,0.75){0.05}{0}{180} \psarc(0.5,0.80){0.05}{0}{180} \psarc(0.4,0.75){0.05}{0}{180} \psarc(0.3,0.65){0.05}{0}{180} \psline(0.75,0.4)(0.75,0.55) \psline(0.65,0.4)(0.65,0.75) \psline(0.55,0.5)(0.55,0.80) \psline(0.45,0.5)(0.45,0.80) \psline(0.35,0.48)(0.35,0.75) \psline(0.25,0.4)(0.25,0.65) }
+
+
+%*******************
+%****           ****
+%**** VETEMENTS ****
+%****           ****
+%*******************
+%pantalon
+\def\A{\psline(0.15,0.25)(0.35,0.2)(0.5,0.6)(0.65,0.2)(0.85,0.25)(0.7,0.8)(0.3,0.8)(0.15,0.25)}
+%chapeau
+\def\B{\psline(0.15,0.35)(0.3,0.45)(0.35,0.7)(0.4,0.65)(0.6,0.65)(0.65,0.7)(0.7,0.45)(0.85,0.35)(0.15,0.35) \psline(0.3,0.45)(0.7,0.45) \psline(0.31,0.5)(0.69,0.5)}
+%ceinture
+\def\C{\psellipse(0.5,0.45)(0.4,0.15) \psframe[fillstyle=solid,fillcolor=white,linewidth=0,linecolor=white](0.1,0.45)(0.9,0.5) \psellipse(0.5,0.55)(0.4,0.15) \psline(0.12,0.44)(0.12,0.55) \psline(0.88,0.44)(0.88,0.55) \psframe[framearc=.2,linewidth=.03](0.4,0.25)(0.6,0.48) \psline(0.5,0.48)(0.5,0.42) \psline(0.5,0.25)(0.5,0.3) \psline(0.5,0.365)(0.6,0.365) \psline(0.78,0.35)(0.81,0.42)(0.78,0.45)}
+%\def\d{\psline(0.2,0.5)(0.2,0.65)(0.8,0.65)(0.8,0.5) \psline(0.45,0.25)(0.55,0.25) \psarc(0.2,0.25){0.25}{0}{90} \psarc(0.8,0.25){0.25}{90}{180}}
+%\def\d{\pscircle(0.5,0.5){0.25}}
+%t-shirt
+\def\D{\psline(0.4,0.8)(0.3,0.8)(0.1,0.6)(0.25,0.45)(0.35,0.6)(0.25,0.15)(0.75,0.15)(0.65,0.6)(0.75,0.45)(0.9,0.6)(0.7,0.8)(0.6,0.8) \psarc(0.5,0.85){0.1118}{206.5651}{333.435}}
+%botte
+\def\E{\psline(0.25,0.25)(0.25,0.2)(0.5,0.2)(0.6,0.25)(0.6,0.2)(0.75,0.2)(0.75,0.75)(0.55,0.75)(0.55,0.4)(0.4,0.4) \psarc(0.4,0.25){0.15}{90}{180}}
+%bottes
+\def\F{\psline(0.2,0.25)(0.2,0.2)(0.45,0.2)(0.55,0.25)(0.55,0.2)(0.7,0.2)(0.7,0.75)(0.5,0.75)(0.5,0.4)(0.35,0.4) \psarc(0.35,0.25){0.15}{90}{180} \psline(0.7,0.3)(0.8,0.3)(0.8,0.85)(0.6,0.85)(0.6,0.75) \psarc(0.45,0.35){0.15}{90}{165} \psline(0.45,0.5)(0.5,0.5)}
+%\def\F{\psline(0.25,0.25)(0.25,0.2)(0.5,0.2)(0.6,0.25)(0.6,0.2)(0.75,0.2)(0.75,0.75)(0.55,0.75)(0.55,0.4)(0.4,0.4) \psarc(0.4,0.25){0.15}{90}{180} \psline(0.75,0.25)(0.8,0.25)(0.8,0.8)(0.6,0.8)(0.6,0.75)}
+
+
+
+%*************
+%****     ****
+%**** DES ****
+%****     ****
+%*************
+
+\def\za{\pscircle*(0.5,0.5){0.1}}
+\def\zb{\pscircle*(0.25,0.25){0.1} \pscircle*(0.75,0.75){0.1}}
+\def\zc{\pscircle*(0.25,0.25){0.1} \pscircle*(0.5,0.5){0.1} \pscircle*(0.75,0.75){0.1}}
+\def\zd{\pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.25){0.1} }
+\def\ze{\pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.25){0.1} \pscircle*(0.5,0.5){0.1} }
+\def\zf{\pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.5){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.5){0.1} \pscircle*(0.75,0.25){0.1} }
+\def\zg{\pscircle*(0.5,0.5){0.1} \pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.5){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.5){0.1} \pscircle*(0.75,0.25){0.1} }
+\def\zh{\pscircle*(0.5,0.375){0.1} \pscircle*(0.5,0.625){0.1} \pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.5){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.5){0.1} \pscircle*(0.75,0.25){0.1} }
+\def\zi{\pscircle*(0.5,0.25){0.1} \pscircle*(0.5,0.5){0.1} \pscircle*(0.5,0.75){0.1} \pscircle*(0.25,0.25){0.1} \pscircle*(0.25,0.5){0.1} \pscircle*(0.25,0.75){0.1} \pscircle*(0.75,0.75){0.1} \pscircle*(0.75,0.5){0.1} \pscircle*(0.75,0.25){0.1} }
+
+%*******************
+%****           ****
+%**** KUBENBOIS ****
+%****           ****
+%*******************
+\definecolor{rouge}{rgb}{.99, .15, .15}
+\definecolor{bleu}{rgb}{.2, .2, .9}
+\definecolor{orange}{rgb}{.99, .45, .05}
+\definecolor{grisclair}{rgb}{.85, .85, .85}
+\definecolor{gris}{rgb}{.6, .6, .6}
+\def\kw{\pspolygon[fillstyle=solid,fillcolor=white,linewidth=0.04](0.5,0.2)(0.7598,0.35)(0.7598,0.65)(0.5,0.8)(0.2402,0.65)(0.2402,0.35) \psline[linewidth=0.04](0.5,0.2)(0.5,0.5)(0.2402,0.65) \psline[linewidth=0.04](0.5,0.5)(0.7598,0.65) }
+\def\ko{\pspolygon[fillstyle=solid,fillcolor=orange,linewidth=0.04](0.5,0.2)(0.7598,0.35)(0.7598,0.65)(0.5,0.8)(0.2402,0.65)(0.2402,0.35) \psline[linewidth=0.04](0.5,0.2)(0.5,0.5)(0.2402,0.65) \psline[linewidth=0.04](0.5,0.5)(0.7598,0.65) }
+\def\kb{\pspolygon[fillstyle=solid,fillcolor=bleu,linewidth=0.04](0.5,0.2)(0.7598,0.35)(0.7598,0.65)(0.5,0.8)(0.2402,0.65)(0.2402,0.35) \psline[linewidth=0.04](0.5,0.2)(0.5,0.5)(0.2402,0.65) \psline[linewidth=0.04](0.5,0.5)(0.7598,0.65) }
+\def\kr{\pspolygon[fillstyle=solid,fillcolor=rouge,linewidth=0.04](0.5,0.2)(0.7598,0.35)(0.7598,0.65)(0.5,0.8)(0.2402,0.65)(0.2402,0.35) \psline[linewidth=0.04](0.5,0.2)(0.5,0.5)(0.2402,0.65) \psline[linewidth=0.04](0.5,0.5)(0.7598,0.65) }
+%rollers
+\def\G{\psline(0.25,0.35)(0.25,0.3)(0.5,0.3)(0.6,0.35)(0.6,0.3)(0.75,0.3)(0.75,0.75)(0.55,0.75)(0.55,0.5)(0.4,0.5) \psarc(0.4,0.35){0.15}{90}{180} \pscircle(0.32,0.2){0.1} \pscircle(0.68,0.2){0.1}}
+
+
+
+
+
+%FFEN_SquareSize 1
+% FFEN_Fill 0
+%FFEN_FillStyle 0
+% FFEN_InnerStyle 3
+%FFEN_InnerWidth 0.05
+%FFEN_BorderWidth 0.05
+
+\begin{document}
+\noindent
+%FFEN 'a't'e'p'c'd'o''hr''hl'A'B'C'D'E'F'G/{\a}{\t}{\e}{\p}{\c}{\d}{\o}{\hr}{\hl}{\A}{\B}{\C}{\D}{\E}{\F}{\G}/{\a}{\t}{\e}{\p}{\c}{\d}{\o}{\hr}{\hl}{\A}{\B}{\C}{\D}{\E}{\F}{\G}
+
+~\\
+\noindent
+%FFEN ''za''zb''zc''zd''ze''zf''zg''zh''zi/{\za}{\zb}{\zc}{\zd}{\ze}{\zf}{\zg}{\zh}{\zi}/{\za}{\zb}{\zc}{\zd}{\ze}{\zf}{\zg}{\zh}{\zi}
+
+~\\
+\noindent
+%FFEN ''kw''ko''kr''kb'G/{\kw}{\ko}{\kr}{\kb}{\G}
+
+~\\
+\noindent
+\begin{pspicture}(1,1)
+\psframe(0,0)(1,1)
+\psline(0.3,0.6)(0.3,0.15)(0.7,0.15)(0.7,0.6)
+\psline(0.25,0.65)(0.25,0.6)(0.75,0.6)(0.75,0.65)(0.7,0.7)(0.3,0.7)(0.25,0.65)
+\psline(0.4,0.7)(0.45,0.75)(0.55,0.75)(0.6,0.7)
+\psline(0.35,0.15)(0.35,0.5)
+\psline(0.45,0.15)(0.45,0.5)
+\psline(0.55,0.15)(0.55,0.5)
+\psline(0.65,0.15)(0.65,0.5)
+\end{pspicture}
+~\\
+\noindent
+Doit contenir les nombres de 1 à 6:\\
+\scalebox{3}{
+%FFEN_SquareSize 0.5
+%FFEN '5#*2<1#*2<1/#2#*1<#2/'2#<1#<1
+}
+%CUBES 2/2/2/12/.3/45/06
+%CUBES_WAngle 0
+%CUBES_DAngle 45
+%CUBES_DSize 0.3
+%CUBES 2/2/2/12/.3/45/06
+%CUBES 1/1/1/.
+
+
+\newpage
+%CUBES_WAngle 40
+%CUBES_DAngle 40
+%CUBES_WSize 0.5
+%CUBES_DSize 0.5
+%CUBES_HSize 0.4
+\noindent1) %CUBES 3/3/3/.../.../.../0../12./.../000/122/112
+~~1) %CUBES 3/3/3/665/355/335/066/124/344/000/122/112
+~~2) %CUBES 3/3/3/.../.../.../0../.../.1./000/441/411
+~~2) %CUBES 3/3/3/533/553/522/063/662/612/000/441/411
+~~\\3) %CUBES 3/3/3/.../.../.../.11/.../.../441/041/000
+~~3) %CUBES 3/3/3/335/325/225/311/665/266/441/041/000
+~~4) %CUBES 3/3/3/.../.../.../1../1../.../114/044/000
+~~4) %CUBES 3/3/3/555/322/332/156/166/362/114/044/000
+~~\\5) %CUBES 3/3/3/.../.../.../0../1../.../000/144/114
+~~5) %CUBES 3/3/3/555/322/332/056/166/362/000/144/114
+~~6) %CUBES 3/3/3/.../.../.../.5./..1/..1/555/000/011
+~~6) %CUBES 3/3/3/433/223/266/453/421/661/555/000/011
+~~\\7) %CUBES 3/3/3/.../.../..0/.../1../..0/555/150/110
+~~7) %CUBES 3/3/3/332/342/440/322/166/660/555/150/110
+~~8) %CUBES 3/3/3/.../.../.../0../.../.2./000/244/224
+~~8) %CUBES 3/3/3/511/553/533/061/661/623/000/244/224
+~~\\9) %CUBES 3/3/3/.../.../.../0../..2/.../000/442/422
+~~9) %CUBES 3/3/3/555/351/331/066/662/311/000/442/422
+~~10) %CUBES 3/3/3/.../.../.../2../..4/.../224/024/000
+~~10) %CUBES 3/3/3/555/351/331/266/664/311/224/024/000
+~~\\\newpage \noindent11) %CUBES 3/3/3/.../.../.../2../..6/..6/226/026/000
+~~11) %CUBES 3/3/3/441/311/555/241/336/356/226/026/000
+~~12) %CUBES 3/3/3/.../.../.../.../.33/..3/555/053/000
+~~12) %CUBES 3/3/3/112/412/466/122/433/663/555/053/000
+~~\\13) %CUBES 3/3/3/.../.../.../..3/.33/.../555/053/000
+~~13) %CUBES 3/3/3/466/421/221/663/433/211/555/053/000
+~~
+
+
+
+
+\end{document}

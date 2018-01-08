@@ -1,0 +1,736 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amssymb}
+\usepackage{lambda,ifthen,calc}
+\usepackage{pstricks} %,pstcol,pst-fill}
+\usepackage{graphics}
+\usepackage{multicol}
+
+\definecolor{a0}{rgb}{.99, .99, .00} %yellow
+\definecolor{a1}{rgb}{.77, .77, .00}
+\definecolor{a2}{rgb}{.55, .55, .00}
+\definecolor{b0}{rgb}{.99, .22, .22} %red
+\definecolor{b1}{rgb}{.77, .11, .11}
+\definecolor{b2}{rgb}{.55, .00, .00}
+\definecolor{c0}{rgb}{.00, .00, .99} %blue
+\definecolor{c1}{rgb}{.00, .00, .77}
+\definecolor{c2}{rgb}{.00, .00, .55}
+\definecolor{d0}{rgb}{.55, .55, .55} %black
+\definecolor{d1}{rgb}{.33, .33, .33}
+\definecolor{d2}{rgb}{.11, .11, .11}
+\definecolor{e0}{rgb}{.99, .99, .99} %white
+\definecolor{e1}{rgb}{.77, .77, .77}
+\definecolor{e2}{rgb}{.55, .55, .55}
+
+
+\setlength{\textwidth}{19cm}
+\setlength{\marginparwidth}{0cm}
+\setlength{\oddsidemargin}{-1in+1cm}
+\setlength{\evensidemargin}{-1in+1cm}
+\setlength{\textheight}{27.7cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\footskip}{0cm}
+\setlength{\voffset}{-1in+1cm}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+\begin{tabular}{lcr}
+%FFEN_SquareSize 0.5
+\scalebox{0.7}{
+%FFEN k1K/1#2/1R#1/1#2/1#2
+%FFEN_Fill 1
+~~%FFEN *3K1*3k/1#2/1*3p#1/1#2/1#2
+%FFEN_Fill 0
+%FFEN_InnerStyle 1
+~~%FFEN A-Bc/D#2/=E+#1/t#2/Sx&
+%FFEN_CornersRadius 0.2
+%FFEN_InnerStyle 0
+~~%FFEN 1#2*3'B/^*1'S1#1*3'O/^*1'T#11*3'X/^*1'O#2*3'E/^*1'D#2*3'S
+%FFEN_CornersRadius 0
+%FFEN_InnerStyle 0
+%FFEN_Fill 2
+}
+&
+\begin{minipage}[b]{6cm}
+\begin{center}
+{\bf ffen2tex v0.9}\\
+{\sl Alain Brobecker, 2012-2015}\\
+~\\
+\end{center}
+\end{minipage}
+&
+%CUBES_BoxBorder 0
+%CUBES_WSize 0.25
+%CUBES_DSize 0.25
+%CUBES_HSize 0.25
+%CUBES 3/1/5/aaa/a../a../a../aaa
+~%CUBES 3/1/5/b.b/b.b/b.b/b.b/bbb
+~%CUBES 3/1/5/ccc/c.c/ccc/c.c/ccc
+~%CUBES 3/1/5/ddd/d../dd./d../ddd
+~%CUBES 3/1/5/eee/e../eee/..e/eee
+\end{tabular}
+\end{center}
+
+\noindent
+{\bf What is ffen2tex?}\\
+{\bf ffen2tex} is a pre-processor to create {\bf diagrams with square grids} or {\bf cubes setups}
+in the \TeX ~typesetting system. For example you can make diagrams for Chess, Checkers, Draughts,
+Go, fairy variants of those games and for puzzles...\\
+The name comes from FEN (Forsyth-Edwards Notation) which was created to describe Chess positions
+(position=diagram+who has the move+castling rights+etc...). In 2002, Joost de Heer designed
+the {\bf Fairy FEN}  extension for fairy Chess diagrams (not positions!).
+I added some more possibilities for my own purpose.
+You will have more informations in the examples or by searching "Forsyth-Edwards Notation" on the internet.\\
+~\\
+
+
+\noindent
+{\bf How to use it: pre-processing}\\
+The following explanations were written for someone using a window\$/m\$do\$ system.
+I hope this example is enough to understand how to use ffen2tex and for people
+using another operating system.\\
+
+\noindent
+Instead of adding commands to \TeX ~i chose to make a program that must be executed
+on your .tex file before you process it with \TeX ~(so it must be pre-processed by
+ffen2tex). It converts the \%{FFEN} instructions into pstricks command, so at first
+you need to have the standard {\bf pstricks package installed}. You must also
+{\bf copy ffen2tex.prg} in your \TeX ~work directory.\\
+
+
+\noindent
+Now create a file named "sample.tex" in your \TeX ~work directory and
+write the following in it:\\
+\makebox[10cm]{\fbox{
+\begin{minipage}[b]{7cm}
+\textbackslash documentclass\{article\} \\
+\textbackslash usepackage\{pstricks\} \\
+\textbackslash begin\{document\} \\
+Sample diagram:\textbackslash \textbackslash \\
+\%{FFEN} rnbqkp/PKQBNR \\
+\textbackslash end\{document\}
+\end{minipage}
+}}
+~\\
+
+\noindent
+Then under the m\$do\$ prompt (or the command line of your OS) type the following:\\
+\makebox[10cm]{\fbox{
+\begin{minipage}[b]{7cm}
+c:\textbackslash tex\textgreater ffen2tex sample.tex temporary.tex\\
+c:\textbackslash tex\textgreater latex temporary.tex\\
+c:\textbackslash tex\textgreater dvips temporary.ps\\
+c:\textbackslash tex\textgreater del sample.pdf\\
+c:\textbackslash tex\textgreater rename temporary.pdf sample.pdf\\
+c:\textbackslash tex\textgreater del temporary.*
+\end{minipage}
+}}
+~\\
+
+\noindent
+The resulting "sample.pdf" file contains the following:\\
+\makebox[10cm]{\fbox{
+\begin{minipage}[b]{7cm}
+Sample diagram:\\
+%FFEN rnbqkp/PKQBNR
+\end{minipage}
+}}
+
+
+~\\
+~\\
+
+\noindent
+Of course we don't want to type this sequence every time we process
+a .tex file, so we will use a batch (shell?) file to do it. I
+saved the following batch sequence in "goffen.bat" which is in my
+\TeX ~work directory:\\
+\makebox[10cm]{\fbox{
+\begin{minipage}[b]{7cm}
+ffen2tex \%1.tex temporary.tex\\
+latex temporary.tex\\
+dvips temporary.dvi\\
+ps2pdf temporary.ps\\
+del \%1.pdf\\
+rename temporary.pdf \%1.pdf\\
+del temporary.*
+\end{minipage}
+}}
+~\\
+
+\noindent
+Then i only have to type this under the m\$do\$ prompt:\\
+\makebox[10cm]{\fbox{
+\begin{minipage}[b]{7cm}
+c:\textbackslash tex\textgreater goffen sample
+\end{minipage}
+}}
+~\\
+
+~\\
+~\\
+
+\noindent
+Some examples are following. The list of all variables, modifiers and pieces
+is in the Quick reference. Happy diagramming...
+
+
+
+
+\newpage
+\begin{center}
+{\bf ffen2tex v0.9 - \%{FFEN} examples}\\
+{\sl Alain Brobecker, august 2015}\\
+\end{center}
+~\\
+
+\noindent
+Since {\bf ffen2tex} is based upon the Forsyth-Edwards Notation,
+the default settings are for Chess diagrams. The one below has
+been reached after black's third move, how did the game went?\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN rnb1kbnr/pppp1ppp/8/4p3/3q4/4KP2/PPPPP1PP/RNBQ1BNR
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN} rnb1kbnr/pppp1ppp/8/4p3/3q4/4KP2/PPPPP1PP/RNBQ1BNR
+~\\~\\~\\~\\~\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+~\\
+
+\noindent
+Diagrams can have any size between $1\* 1$ and $99\* 99$, but for
+empty areas of width bigger than 9 squares you'll have to use two
+digits or more. Here a width of 10 empty squares is given as two
+empty areas of width 5, ie 55, but it could have been 64 or 73...
+Below is an international Draughts game with FFEN\_PieceCount set.\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+\begin{minipage}{6cm}
+%FFEN_PieceCount 1
+%FFEN 1D8/2c3c3/55/2c3c1c1/55/8c1/1c3c4/55/5c1c2/55
+White plays and wins.
+\end{minipage}
+&
+\begin{minipage}[B]{12cm}
+\%{FFEN}\_PieceCount 1\\
+\%{FFEN} 1D8/2c3c3/55/2c3c1c1/55/8c1/1c3c4/55/5c1c2/55 \\
+~\\~\\~\\~\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+We show here a $5\* 5$ part of the first example with only the down border.
+The \%{FFEN}\_Fill variable was changed to {\bf 1=odd (ie upper left is filled)} to have
+the correct square coloring.
+{\bf Note that \%FFEN\_BorderAll is evaluated before the other \%FFEN\_Border modifiers.}\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_Fill 1
+%FFEN_BorderAll 0
+%FFEN_BorderDown 1
+%FFEN_PieceCount 0
+%FFEN 2p2/1q3/2KP1/PPP1P/BQ1BN
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_PieceCount 0\\
+\%{FFEN}\_Fill 1 \\
+\%{FFEN}\_BorderAll 0 \\
+\%{FFEN}\_BorderDown 1 \\
+\%{FFEN} 2p2/1q3/2KP1/PPP1P/BQ1BN \\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+~\\
+
+
+\noindent
+To put coordinates we insert letters and figures with the ' escape character
+(double ' for text with two characters), and put them outside the board using
+the \# modifier. It's tedious but flexible.
+{\bf Note that \%{FFEN}\_Fill is still 1, because the
+values are not reinitialised between two diagrams.} Upper left corner would be
+colored if it were not outside the board.
+I added a white circle indicating who has to move, and yes, it's mate in 1.\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_BorderAll 0
+%FFEN_BorderUp 1
+%FFEN_BorderLeft 1
+%FFEN #2#'a#'b#'c/#1#'8k2/#1#'73/#C#'6K1R
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_BorderAll 0 \\
+\%{FFEN}\_BorderUp 1 \\
+\%{FFEN}\_BorderLeft 1 \\
+\%{FFEN} \#2\#'a\#'b\#'c/\#1\#'8k2/\#1\#'73/\#C\#'6K1R
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+~\\
+
+\noindent
+With the *N modifier we can rotate the pieces,
+this is often used for fairy pieces in Chess problems.\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_Fill 2
+%FFEN_BorderAll 1
+%FFEN k*1k*2k*3k/'a*1'b*2'c*3'd/v*1v*2v*3v/K*1K*2K*3K
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_Fill 2 \\
+\%{FFEN}\_BorderAll 1 \\
+\%{FFEN} k*1k*2k*3k/'a*1'b*2'c*3'd/v*1v*2v*3v/K*1K*2K*3K \\
+\end{minipage}
+\end{tabular}
+
+
+
+\newpage
+\noindent
+By modifying the size, the inner lines, the borders and the filling, we leave the
+world of Chess/Draughts/Checkers for Tic-tac-toe. What was the last move here?\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_SquareSize 0.7
+%FFEN_Fill 0
+%FFEN_InnerStyle 1
+%FFEN_InnerWidth 0.08
+%FFEN_BorderStyle 0
+%FFEN ..x/.x./xxx
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_SquareSize 0.7\\
+\%{FFEN}\_Fill 0 \\
+\%{FFEN}\_InnerStyle 1 \\
+\%{FFEN}\_InnerWidth 0.08 \\
+\%{FFEN}\_BorderStyle 0 \\
+\%{FFEN} ..x/.x./xxx
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+White pieces can be colored with the - or = modifiers.
+Pieces can be circled with the @ modifier.
+And using the \# modifier we can make odd-shaped boards
+(it can also apply on many empty squares).\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_SquareSize 0.5
+%FFEN_InnerStyle 3      %FFEN_InnerWidth 0.03
+%FFEN_BorderStyle 1
+%FFEN #1@'1#2/@'32-N/#2@'2#1
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_SquareSize 0.5\\
+\%{FFEN}\_InnerStyle 3 ~~~~~~ \%{FFEN}\_InnerWidth 0.03 \\
+\%{FFEN}\_BorderStyle 1\\
+\%{FFEN} \#1@'1\#2/@'32-N/\#2@'2\#1\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+With the $\wedge$ and \textgreater modifiers it's possible to put pieces inbetween
+squares. This is used in Chess for some retrograde analysis problems, but the most
+obvious use is for Go
+(even better: use the {\bf igo} package by \'Etienne Dupuis). Can white kill here?\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_BorderRight 0
+%FFEN_BorderUp 0
+%FFEN_InnerStyle 1
+%FFEN_InnerWidth 0.015
+%FFEN 7/1^>C^>C^>C3/^>C1^>c^>c^>C^>C1/^>c1^>c1^>c^>C1/#4#^>c#2
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_BorderRight 0 \\
+\%{FFEN}\_BorderUp 0 \\
+\%{FFEN}\_InnerStyle 1 \\
+\%{FFEN}\_InnerWidth 0.015 \\
+\%{FFEN} 7/1$\wedge$\textgreater C$\wedge$\textgreater C$\wedge$\textgreater C3/$\wedge$\textgreater C1$\wedge$\textgreater c$\wedge$\textgreater c$\wedge$\textgreater C$\wedge$\textgreater C1/$\wedge$\textgreater c1$\wedge$\textgreater c1$\wedge$\textgreater c$\wedge$\textgreater C1/\#4\#$\wedge$\textgreater c\#2 \\
+\end{minipage}
+\end{tabular}
+~\\
+
+
+\noindent
+The \$ modifier changes the fill property of a particular square
+(it can also apply on many empty squares and to outside squares).
+Here you must fill the empty squares with numbers 1 to 8.\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_FillStyle 2
+%FFEN_InnerStyle 1
+%FFEN_InnerWidth 0.03
+%FFEN_BorderAll 1
+%FFEN 1'+1'=1/'+$1'-$1'+/1'-1'=1/'=$1'=$1'=/1'+1'=''10
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_FillStyle 2 \\
+\%{FFEN}\_InnerStyle 1 \\
+\%{FFEN}\_InnerWidth 0.03 \\
+\%{FFEN}\_BorderAll 1 \\
+\%{FFEN} 1'+1'=1/'+\$1'-\$1'+/1'-1'=1/'=\$1'=\$1'=/1'+1'=''10\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+With the \%{FFEN}\_CornersRadius and the [, ], \~ ~ and \_ modifiers you can make
+"Dots and boxes" diagrams. What to play here to win?\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+%FFEN_SquareSize 1
+%FFEN_InnerStyle 0
+%FFEN_BorderWidth 0.1
+%FFEN_CornersRadius 0.15
+\scalebox{0.5}{
+%FFEN 2[12/1[1_1[_1_1/1[_11[11/1[11[1[1/3[11
+}
+&
+\begin{minipage}[b]{12cm}
+\%{FFEN}\_SquareSize 1 \\
+\%{FFEN}\_InnerStyle 0\\
+\%{FFEN}\_BorderWidth 0.1  \\
+\%{FFEN}\_CornersRadius 0.15  \\
+\textbackslash scalebox\{0.5\}\{ \%{FFEN} 2[12/1[1\_1[\_1\_1/1[\_11[11/1[11[1[1/3[11\\
+\}\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+Finally you can use the \{ and \} delimiters and directly insert psscript code
+to create whatever symbol which is not yet present. No space is allowed between \{ and \},
+but you can create \TeX ~macros to put inside as in the following example.\\
+\makebox[1cm]{~}
+\begin{tabular}{ll}
+\def\strip{\psline[linewidth=0.03](0,0)(0.3,0.3)(0.7,0.3)(1,0)}
+%FFEN_CornersRadius 0
+%FFEN_BorderWidth 0.03
+%FFEN_InnerStyle 1
+\scalebox{0.9}{
+%FFEN #1#{\strip}1#{\strip}#{\strip}/#*1{\strip}4/#1#*2{\strip}1#*2{\strip}#*2{\strip}
+}
+&
+\begin{minipage}[b]{12cm}
+\textbackslash def\textbackslash S\{\textbackslash psline[linewidth=0.03](0,0)(0.3,0.3)(0.7,0.3)(1,0)\}\\
+\%{FFEN}\_CornersRadius 0 \\
+\%{FFEN}\_CornersRadius 0\\
+\%{FFEN}\_BorderWidth 0.03\\
+\%{FFEN}\_InnerStyle 1\\
+\%{FFEN} \#1\#\{\textbackslash S\}1\#\{\textbackslash S\}\#\{\textbackslash S\}/\#*1\{\textbackslash S\}4/\#1\#*2\{\textbackslash S\}1\#*2\{\textbackslash S\}\#*2\{\textbackslash S\}\\
+\end{minipage}
+\end{tabular}
+~\\
+~\\
+
+\noindent
+{\bf Some more remarks:}\\
+\textbullet~~ FFEN\_ThinLineWidth, FFEN\_BoldLineWidth, FFEN\_InnerWidth and
+FFEN\_BorderWidth and everything related to them are relative to FFEN\_SquareSize,
+so by default the real width for FFEN\_ThinLineWidth is 0.03$\*$0.5=0.015 cm.
+\\
+\textbullet~~ The width of Bars and Diagonals is the same as FFEN\_BorderWidth.
+\\
+\textbullet~~ The centered dots (FFEN\_FillStyle 6) have diameter of 3 times FFEN\_BorderWidth.
+\\
+\textbullet~~ FFEN\_BoldLineWidth is only used for Bold Cross (x) and Bold Circle (.).
+\\
+\textbullet~~ When FFEN\_Fill is set to 2 (even), the upper left corner is empty,
+when it's set to 1 (odd) the upper left corner is filled.
+\\
+\textbullet~~ Symbols, figures and letters are inserted using
+"\textbackslash rput[B](0.5*FFEN\_SquareSize,0.25*FFEN\_SquareSize)\{42\}",
+so they look best with a FFEN\_SquareSize of 0.5, size being
+changed afterward with a \textbackslash scalebox.
+
+
+\newpage
+\begin{center}
+{\bf ffen2tex v0.9 - Quick  \%{FFEN} reference}\\
+{\sl Alain Brobecker, august 2015}
+\end{center}
+
+%\noindent
+%{\bf Usage:} ffen2tex~~in.tex~~out.tex\\
+
+\noindent
+{\bf Draw a diagram:} \%{FFEN UpperRow/.../LowerRow}\\
+%\begin{tabular}{l}
+%\%{FFEN rowN/.../row2/row1}\\
+%\end{tabular}
+
+\noindent
+{\bf Board Modifiers:} {\sl (default values are given, not reinitialised between two diagrams)}\\
+\begin{tabular}{ll}
+\%FFEN\_SquareSize 0.5 & \\
+\%FFEN\_ThinLineWidth 0.03 & \\
+\%FFEN\_BoldLineWidth 0.15 & \\
+\%FFEN\_Fill 2  & {\sl (0=none / 1=odd / 2=even (Chess) / 3=full)} \\
+\%FFEN\_FillStyle 0  & {\sl (0=lightgray / 1=gray / 2=black / 3=vlines / 4=hlines / 5=crosshatch / 6=centered dot)} \\
+\%FFEN\_InnerStyle 0  & {\sl (0=none / 1=solid / 2=dashed / 3=dotted)} \\
+\%FFEN\_InnerWidth 0.03 & \\
+\%FFEN\_BorderStyle 1 & {\sl (0=none / 1=solid / 2=dashed / 3=dotted)} \\
+\%FFEN\_BorderWidth 0.06 & \\
+\%FFEN\_BorderUp 1 &{\sl (0=off / 1=on)} \\
+\%FFEN\_BorderLeft 1 & {\sl (0=off / 1=on)} \\
+\%FFEN\_BorderDown 1 & {\sl (0=off / 1=on)} \\
+\%FFEN\_BorderRight 1 & {\sl (0=off / 1=on)} \\
+\%FFEN\_BorderAll 1 & {\sl (0=off / 1=on, affects all 4 borders variables)} \\
+\%FFEN\_PieceCount 0 &  {\sl (0=off / 1=W+B / 2=?+?=W+B)} \\
+\%FFEN\_CornersRadius 0 &  {\sl (0=off / ?=radius)} \\
+%\%FFEN\_AllOptions 0 &  {\sl (0=off / ?=radius)} \\
+\end{tabular}
+I also added the \%FFEN\_HBorderStyle, \%FFEN\_VBorderStyle, \%FFEN\_HBorderWidth, \%FFEN\_VBorderWidth,\\
+\%FFEN\_HInnerStyle, \%FFEN\_VInnerStyle, \%FFEN\_HInnerWidth and \%FFEN\_VInnerWidth modifiers.\\
+{\bf Warnings:} If you change more than once a value before using \%{FFEN} only the first one
+is taken in account. The values are not reinitialised after a diagram.
+\%FFEN\_BorderAll is evaluated before the other \%FFEN\_Border modifiers.\\
+
+
+\noindent
+{\bf Pieces:}\\
+%FFEN_SquareSize 0.5
+%FFEN_ThinLineWidth 0.03
+%FFEN_BoldLineWidth 0.15
+%FFEN_Fill 2
+%FFEN_FillStyle 0
+%FFEN_InnerStyle 0
+%FFEN_InnerWidth 0.03
+%FFEN_BorderStyle 1
+%FFEN_BorderWidth 0.06
+%FFEN_BorderAll 1
+\begin{tabular}{c|c|ccc|c|ccc|c|c}
+char & piece & output && char & piece & output && char & piece &output
+~\\
+K / k & W / B King & %FFEN K
+~ %FFEN k
+&& \& & Heart  & %FFEN &
+&& u & Up Bar & %FFEN u
+~\\
+Q / q & W/B Queen & %FFEN Q
+~ %FFEN q
+&& " & Diamond  & %FFEN "
+&& , & Small Vertical Bar & %FFEN ,
+~\\
+R / r & W / B Rook & %FFEN R
+~ %FFEN r
+&& ! & Spade  & %FFEN !
+&& \textbar & Vertical Bar  & %FFEN |
+~\\
+B / b & W / B Bishop & %FFEN B
+~ %FFEN b
+&& ? & Club  & %FFEN ?
+&& v & Up Left Bar  & %FFEN v
+~\\
+N / n & W / B kNight & %FFEN N
+~ %FFEN n
+&& A & W Up Left Arrow & %FFEN A
+&& y & Vertical Left Bar  & %FFEN y
+~\\
+P / p & W / B Pawn & %FFEN P
+~ %FFEN p
+&& a & W Up Arrow & %FFEN a
+&& + & Cross Bars & %FFEN +
+~\\
+C /c & W / B Circle & %FFEN C
+~ %FFEN c
+&& . & Bold Circle & %FFEN .
+&& U & Half Diagonal  & %FFEN U
+~\\
+D / d & W / B Dame & %FFEN D
+~ %FFEN d
+&& & &
+&& \textbackslash & Diagonal & %FFEN \
+~\\
+O / o & W / B Small Circle  & %FFEN O
+~ %FFEN o
+&& & &
+&& V & V Half Diagonals & %FFEN V
+~\\
+T / t & W / B Triangle & %FFEN T
+~ %FFEN t
+&& &  &
+&& Y & Y Diagonal & %FFEN Y
+~\\
+S / s & W / B Square & %FFEN S
+~ %FFEN s
+&& & &
+&& \% & Cross Diagonals  & %FFEN %
+~\\
+X / x & W / B Cross & %FFEN X
+~ %FFEN x
+&& : & Thin Cross & %FFEN :
+&& $<$ & Less Than & %FFEN <
+~\\
+E / e & W / B Star  & %FFEN E
+~ %FFEN e
+&& 'a & Symbol & %FFEN 'a
+&& ''42 & Double Symbol & %FFEN ''42
+~\\
+L / l & V / H Line Fill & %FFEN L
+~ %FFEN l
+&& F & CrossHatch Fill & %FFEN F
+&& f & White Fill  & %FFEN f
+\end{tabular}
+~\\
+Valid symbols are !"\#\$\%\&()*+,-./0..9:;\textless =\textgreater ?@A..Z[\textbackslash]$\wedge$\_`a..z
+~\\
+{\bf Double symbols are inserted using two ' characters, not the double quote!}\\
+{\bf TeX instructions and macros can be inserted as a piece using the \{ and \} delimiters (no space!).}\\
+
+
+\noindent
+{\bf Piece Modifiers:}\\
+\begin{tabular}{cl}
+\textgreater & piece is between this square and right square\\
+$\wedge$ & piece is between this square and up square\\
+$\ast$N  & rotated N*90 degree anticlockwise with N $\in$ [0;3]\\
+- or =& lightgray fill or gray fill (only for white pieces, $\heartsuit$ and $\diamondsuit$ are not white)\\
+@ & piece is circled (same size as White Circle, but transparent)
+\end{tabular}
+~\\
+
+\noindent
+{\bf Square Modifiers:} {\sl (can apply on many empty squares)}\\
+\begin{tabular}{cl}
+\$ & change square(s) fill property\\
+\# & square(s) outside board (coloring affected by \$ but not by \%FFEN\_Fill)\\
+$[$ and/or $]$ & border on the left and/or right of next square(s)\\
+\~ ~and/or \_ & border above and/or below next square(s)\\
+%? & (1 bit) & square is circled\\
+\end{tabular}
+
+\newpage
+\begin{center}
+{\bf ffen2tex v0.9 - Quick \%{CUBES} reference and examples}\\
+{\sl Alain Brobecker, august 2015}
+\end{center}
+
+\noindent
+{\bf Cubes Modifiers:} {\sl (default values are given, not reinitialised between two diagrams)}\\
+\begin{tabular}{ll}
+\%CUBES\_WAngle 30  &(between [0;90])\\
+\%CUBES\_DAngle 30  &(between [0;90])\\
+\%CUBES\_WSize 1.0  &\\
+\%CUBES\_DSize 1.0  &\\
+\%CUBES\_HSize 1.0  &\\
+\%CUBES\_Rotation 0 &(in [0;3] rotation around the vertical axis)\\
+\%CUBES\_UpsideDown 0 &(1=mirror around the vertical axis, made after rotation)\\
+\%CUBES\_BoxBorder 000000000011 & (bit 0,1=down, 2,3=backleft, 4,5=backright, 6,7=up, 8,9=frontright, 10,11=frontleft)\\
+\%CUBES\_BoxInner 000000000011 & (idem, those are binary numbers, bit 0 on the right, no need to put the leftmost zeroes)\\
+\%CUBES\_BoxBorderStyle 1 &(0=none / 1=solid / 2=dashed / 3=dotted)\\
+\%CUBES\_BoxInnerStyle 1 &(0=none / 1=solid / 2=dashed / 3=dotted)\\
+\%CUBES\_BoxBorderWidth 0.06 &\\
+\%CUBES\_BoxInnerWidth 0.03 &\\
+\%CUBES\_CubesWidth 0.03 &
+\end{tabular}
+
+~\\
+\noindent
+{\bf Draw cubes:}\\
+\%{CUBES} W/D/H/.../.../.../.../.../.../.../.../...
+~\\
+\begin{tabular}{ll}
+. & empty\\
+0-9 & plain yellow/red/blue/black/white/green/orange/gray/cyan/magenta cube\\
+%# for hatched cube
+a-z & for cubes with triple of colors defined beforehand in the file with:\\
+ & \makebox[1cm]{~}\textbackslash definecolor\{a0\}\{rgb\}\{.99, .99, .99\} \%left\\
+ & \makebox[1cm]{~}\textbackslash definecolor\{a1\}\{rgb\}\{.33, .33, .33\} \%right\\
+ & \makebox[1cm]{~}\textbackslash definecolor\{a2\}\{rgb\}\{.66, .66, .66\} \%up\\
+\end{tabular}
+
+
+~\\
+\noindent
+{\bf Examples:}\\
+Here is a sofa with Width=5, Depth=3 and Height=3. It uses a user-defined color.\\
+\begin{tabular}{ll}
+\definecolor{a0}{rgb}{.4, .1, .5}
+\definecolor{a1}{rgb}{.6, .3, .7}
+\definecolor{a2}{rgb}{.8, .5, .9}
+%CUBES_BoxBorder 0
+%CUBES_WSize 0.5
+%CUBES_DSize 0.5
+%CUBES_HSize 0.5
+%CUBES 5/3/3/aaaaa/...../...../aaaaa/a...a/...../aaaaa/aaaaa/aaaaa
+&
+\begin{minipage}[b]{12cm}
+\textbackslash definecolor\{a0\}\{rgb\}\{.4, .1, .5\}\\
+\textbackslash definecolor\{a1\}\{rgb\}\{.6, .3, .7\}\\
+\textbackslash definecolor\{a2\}\{rgb\}\{.8, .5, .9\}\\
+\%CUBES\_BoxBorder 0\\
+\%CUBES\_WSize 0.5\\
+\%CUBES\_DSize 0.5\\
+\%CUBES\_HSize 0.5\\
+\%{CUBES} 5/3/3/aaaaa/...../...../aaaaa/a...a/...../aaaaa/aaaaa/aaaaa\\
+\end{minipage}
+\end{tabular}
+
+~\\
+\noindent
+Almost the same sofa from another angle, and with predefined colors.\\
+\begin{tabular}{ll}
+%CUBES_WAngle 0
+%CUBES_DAngle 45
+%CUBES_WSize 0.5
+%CUBES_DSize 0.35355339
+%CUBES_HSize 0.5
+%CUBES 5/3/3/01234/...../...../12345/...../...../45678/23456/34567
+&
+\begin{minipage}[b]{12cm}
+\%CUBES\_WAngle 0\\
+\%CUBES\_DAngle 45\\
+\%CUBES\_WSize 0.5\\
+\%CUBES\_DSize 0.35355339  \% divided by sqrt(2)\\
+\%CUBES\_HSize 0.5\\
+\%{CUBES} 5/3/3/01234/...../...../12345/...../...../45678/23456/34567\\
+\end{minipage}
+\end{tabular}
+
+~\\
+\noindent
+The BoxBorder and BoxInner modifiers allow to have grids or lines around the figure:\\
+\begin{tabular}{ll}
+%CUBES_WAngle 10
+%CUBES_DAngle 40
+%CUBES_WSize 0.6
+%CUBES_DSize 0.48
+%CUBES_HSize 0.6
+%CUBES_BoxBorder 111111
+%CUBES_BoxInner 101011
+%CUBES 5/3/3/...../..1../...../...../.01../...../...../.012./.....
+&
+\begin{minipage}[b]{12cm}
+\%CUBES\_WAngle 10\\
+\%CUBES\_DAngle 40\\
+\%CUBES\_WSize 0.6\\
+\%CUBES\_DSize 0.48\\
+\%CUBES\_HSize 0.6\\
+\%CUBES\_BoxBorder 111111\\
+\%CUBES\_BoxInner 101011\\
+\%{CUBES} 5/3/3/...../..1../...../...../.01../...../...../.012./.....\\
+\end{minipage}
+\end{tabular}
+
+
+\end{document}
