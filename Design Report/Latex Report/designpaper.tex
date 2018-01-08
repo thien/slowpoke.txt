@@ -7,6 +7,9 @@
 \usepackage[english]{babel}
 \usepackage{blindtext}
 
+% package to add wrapfigure
+\usepackage{wrapfig}
+
 % packages to add images
 \usepackage{graphicx}
 
@@ -20,7 +23,8 @@
 
 % packages to generate neural network graph
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
 
 % package to add graphs
 \usepackage{pgfplots}
@@ -34,7 +38,14 @@
 \supervisor{Stefan Dantchev}
 \degree{BSc Computer Science}
 
-\date{}
+% stuff for checkerboard
+\usetikzlibrary{matrix.skeleton}
+\tikzstyle{ball} = [circle, shading=ball, minimum size=1cm]
+\newcommand{\bl}{\node [ball, ball color=black!80!white, draw=black!65!white, thin]{};}
+\newcommand{\wh}{\node [ball, ball color=white] {};}
+
+
+% -------------------------------------------------------------------
 
 \begin{document}
 
@@ -42,26 +53,26 @@
 
 \begin{abstract}
 
-{\bf Background}
+    {\bf Background}
 
-Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require manual modifications in order to improve its performance. This is due to their dependency on pre-defined move databases, where optimal moves are pre-calculated, and recalled when necessary. By combining Neural Networks and Genetic Algorithms, this issue could possibly be solved by creating a player that can grow in ability over time, without the dependency on move-banks.
- 
-{\bf Aims}
+    Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require manual modifications in order to improve its performance. This is due to their dependency on pre-defined move databases, where optimal moves are pre-calculated, and recalled when necessary. By combining Neural Networks and Genetic Algorithms, this issue could possibly be solved by creating a player that can grow in ability over time, without the dependency on move-banks.
+    
+    {\bf Aims}
 
- The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of  machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
- 
-{\bf Method}
+    The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of  machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
+    
+    {\bf Method}
 
-The initial population will consist of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropiate algorithms are implemented to detect the overall development of the system's ability to play Checkers.
+    The initial population will consist of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropiate algorithms are implemented to detect the overall development of the system's ability to play Checkers.
 
-{\bf Proposed Solution}.  
+    {\bf Proposed Solution}.  
 
-The proposed solution starts with designing a neural network that evaluates the probability of a particular side winning, given a given state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts.
+    The proposed solution starts with designing a neural network that evaluates the probability of a particular side winning, given a given state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts.
 
 \end{abstract}
 
 \begin{keywords}
-AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
+Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 \end{keywords}
 
@@ -79,57 +90,57 @@ AI, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 
 
 \section{Introduction}
-The intention of this project is to explore the effectiveness of genetic algorithms to improve the evaluation of a neural network's probability to determine the performance of two players in a game of checkers. We attempt to use various crossover and mutation strategies to manipulate the weights of the network, and compare their performance relative to the overall performance of the system.
+
+    The intention of this project is to explore the effectiveness of genetic algorithms to improve the neurons of a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of checkers. We attempt to manipulate the neurons through various crossover and mutation strategies to increase the accuracy of the evaluation. This would allow us to create an effective Draughts playing agent that, when provided with the option to choose its own moves, would have the ability to learn without human input.
 
 \subsection*{Draughts}
 
-English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chessboard. Players begin with 12 pieces each, and they are placed on light-coloured squares. Each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposite the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece started with, they are promoted to a 'King' piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns.
+    English Draughts (or Checkers) is a popular 2-player boardgame played on an 8x8 chess board. Players choose a colour and begin with 12 pieces each of their respective colours, and they are placed on the dark-coloured squares of the board. Beginning with the black pieces, each player takes a turn to move a piece diagonally in one square. They also have the option to capture their opponments piece by moving two consecutive diagonal squares, where the opponments piece is placed immediately opposing the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. In the event that a piece reaches the opposite side of the board from where the piece originated, it is promoted to a king piece. King pieces have the ability to traverse backwards in the same diagonal motion as pawns. A player wins by capturing all of their opponments pieces. A player loses by having all of their pieces captured. A draw occurs when there is both players agree to draw after a three-fold repetition (where both players take three moves to simulate the same position), or a player has pieces on the board but cannot move any of them. A draw can be forced when both players fail to capture a piece after a set amount of moves.
 
 \subsection*{Genetic Algorithms}
 
-Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. It borrows techniques from Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. 
-Genetic algorithms are a subset of evolutionary algorithms, where the larger group is also formed of similar strategies not including Evolutionary Programming [Fogel, 1993][McDonnel, 1993], and genetic programming [Koza, 1991].
+    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information of their parents. Genetic Algorithms consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array.
 
 \subsection*{Neural Networks}
 
-Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, joined by a set of rules and weights. The units are defined with characterisitics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed by processing them through the layers.
-
-Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
+    Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characterisitics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed by processing them through the layers. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
 
 \subsection*{Motivation}
-% Research Question
-Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore a subset of evolutionary algorithms to determine their viability. Can we produce a similarly performant draughts evaluator by using seperate classifiers for the different stages of the game? Can the use of genetic algorithms and neural networks (GANNs) make a competent Draughts player?
+    % Research Question
+    Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performant draughts playing agent by the use of GANNs (Genetic Algorithms and Neural Networks).
 
 \subsection*{Deliverables}
 
-\subsubsection*{Minimum}
+    \subsubsection*{Minimum}
 
-\begin{itemize}
-\item Implement a CNN
-\item Implement a Checkers Game Interface
-\item Implement a genetic algorithm with an evaluation function that
-  consists of a round robin tournament against the population of CNN
-  Evaluators.
-\item Implement a mini-max algorithm that chooses moves.
-\end{itemize}
+    \begin{itemize}
+    \item Implement a feed-forward neural network
+    \item Implement a checkers game interface
+    \item Implement a decision making process that chooses a move from a given position of a checkers board.
+    \item Implement a genetic algorithm that uses a population of agents that have their own independently functioning neural network.
+    \end{itemize}
 
-\subsubsection*{Intermediate}
+    \subsubsection*{Intermediate}
 
-\begin{itemize}
-\item A user-friendly interface to play against the AI
-\item A monte-carlo search of the move space.
-\item Analysis of Crossover methods (within Genetic Algorithms)
-\item Analysis of Mutation methods (within Genetic Algorithms)
-\end{itemize}
+    \begin{itemize}
+    \item An interface to play against an agent.
+    \item A monte-carlo search of the move space.
+    \item Multi-processing of the tournament selection process for the genetic algorithm.
+    \end{itemize}
 
-\subsubsection*{Advanced}
+    \subsubsection*{Advanced}
 
-\begin{itemize}
-\item Convolutional Neural Network Layer analysis
-\item The resulting AI can play to an ELO of at least 1200.
-\end{itemize}
+    \begin{itemize}
+    \item An agent produced by this process can play to an ELO of at least 1200.
+    \item Agents can be played against human input through a simple user interface.
+    \end{itemize}
 
 \subsection*{Related Work}
+
+    Arthur Samuel pioneered the concept of an self learning program that can play Checkers, through the use of using evolutionary algorithms \cite{samuel_studies_2000}. However, the work described did not consider the use of neural networks (as it was not conceived at the time). It was also  dependent on a set of heuristics that Samuel devised, which could handicap  the agent's ability to play, as they are dependent on the effectiveness of Samuel's heuristics. 
+
+    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents.
+    However, crossover mechanisms were not considered in the creation of new agents. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered.
 
 % ----------------
 
@@ -137,130 +148,270 @@ Whilst the use of evolutionary algorithms and neural networks have been explored
 
 \subsection*{Requirements}
 
-% Functional Requirements
-A checkers gameboard is created
+    % Functional Requirements
+    \subsubsection*{Functional Requirements}
 
-Agents are able to select a legal move
+    \begin{center}
+        \begin{tabular}{| l  | l | l |}
+        \hline
+        Code & Description & Priority \\ \hline
+        F1 & A checkers gameboard is created.& High  \\ \hline
+        F2 &  Agents are able to harness neural networks to assist in their move decision.& High  \\ \hline
+        F3 &  Offspring agents can be created using parents. & High \\ \hline
+        F4 &  The weights and biases of the Agent's neural network are saved to storage.& High  \\ \hline
+        F5 &  Humans are able to play against the Agents. & High \\ \hline
+        \end{tabular}
+    \end{center}
 
-Agents are able to harness neural networks to assist in their move decision
 
-Champions are able to create offspring.
+    % Non Functional Requirements
+    \subsubsection*{Non-Functional Requirements}
+      
+    \begin{center}
+        \begin{tabular*}{1\textwidth}{| l | p{144.5mm} |}
+        \hline
+        Code & Description \\ \hline
+        N1 & Agents only choose valid, legal moves. \\ \hline
+        N2 & Agents always return a valid, legal move.\\ \hline
+        N3 & Agents are able to play against other agents. \\ \hline
+        \end{tabular*}
+    \end{center}
 
-The weights and biases of the Agent's neural network are saved to a form of storage.
 
-% Non Functional Requirements
-Agents only choose valid, legal moves
-
-Agents always return a valid, legal move
-
-Agents make maximum use of the turn time where appropriate
-% Table 1 shows the functional requirements identified for the program(s) that will be required for the project. FR-1 through FR-6 are handled by the server and player implementations in the GGP-Base package. FR-7 will require some modification to the server code in order to output the informationthatwillbeusedintheanalysisanddiscussionoftestingresults.
-% Table 2 shows the non-functional requirements that arise from the rules that will be applied for testing. Any failure of the agent to return a move through either error or timeout should be con- sidered a failure as per the AAAI GGP competition rules. The moves returned should always be valid and legal for the current state of the game. Since agents are given a fixed time period to choose a move, with no penalty or bonus applied so long as the move is returned within the allot- ted time, it makes sense that agents should be designed in such a way as to make best use of the time they are given.
-% The GGP-Base package addresses a number of these requirements and a number of test-games will be played to ensure they are adequately satisfied and the package functions as expected.
-\blindtext
-
-\subsection*{Choice of Programming Language}
-
-The project is to be written in Python 3.6 due to my familiarity and the support of popular scientific packages including NumPy and other machine learning tools. Python is also very portable with a very wide compatability, being pre-installed on all popular UNIX machines and university support. 
-Object Oriented approaches are taken for the majority of the components of the system, ranging from the neural network library to the tournament system. Data structures are implemented using their own classes and methods where applicable. 
-Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
-
-\subsection*{Tools}
-
-The resulting program will be simulated on Durham's MIRA (128-core Intel) distributed system for 4-ply heavy loads, and debugging will occur on a lighter machine (4-core Intel i5 6200u). In order to keep simulations running on MIRA, MOSH is used to maintain a consistent UDP SSH connection to MIRA. The end champion is then hosted online on a Heroku instance as an API.
-
-\subsection*{Architecture}
-
-Should include a diagram of the algorithm workflow
-
-\blindtext
-\blindtext
+    % Table 1 shows the functional requirements identified for the program(s) that will be required for the project. FR-1 through FR-6 are handled by the server and player implementations in the GGP-Base package. FR-7 will require some modification to the server code in order to output the informationthatwillbeusedintheanalysisanddiscussionoftestingresults.
+    % Table 2 shows the non-functional requirements that arise from the rules that will be applied for testing. Any failure of the agent to return a move through either error or timeout should be con- sidered a failure as per the AAAI GGP competition rules. The moves returned should always be valid and legal for the current state of the game. Since agents are given a fixed time period to choose a move, with no penalty or bonus applied so long as the move is returned within the allot- ted time, it makes sense that agents should be designed in such a way as to make best use of the time they are given.
+    % The GGP-Base package addresses a number of these requirements and a number of test-games will be played to ensure they are adequately satisfied and the package functions as expected.
 
 \subsection*{Algorithms and Data Structures}
 
-% Algorithm 1: Minimax with Monte Carlo Search (MM-MCS)
-% This algorithm operates in two phases: the exploration phase and the probe phase. In exploration, the algorithm expands the tree until some fixed depth is reached. During the probe phase, the algorithm repeatedly selects a leaf node with a uniform random probability and explores this by selecting random successor states until a terminal state is reached. The expected value of the fringe node is the total rewards gained from exploring it divided by the number of times it was visited. Figure 5 Illustrates the operation of the algorithm. In this implementation, recursive ex- ploration and probing are performed as two separate stages to enable maximal use ofthe time al- lowed rather than using a fixed number of probes per fringe node. Once a time limit is reached, the algorithm performs a final minimax selection on the tree using values gained from simulation to determine the next move. Algorithm 1 describes the behaviour of MM-MCS.
-\subsubsection{Neural Network}
-
-In order to evaluate the board, we use a feed-forward neural network in the form of the following node layers {91,40,10,1} where the input layer consists of 32 nodes, with the output node having 1. Our sigmoidal function of choice is the hyperbolic tangent. The input layer is the board, preprocessed to cover all possible subsquares of the checkerboard, rangig from a 3x3 kernel to a 8x8. And here we see figure \ref{overflow}.
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=100mm]{nnmodel.png}
-    \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
-\end{figure}
-
 \subsubsection{MiniMax Decision Making}
 
-The minimax algorithm revolves around the use of xxyy
+    In order to choose the best move given a current position, the decision making process for an agent could revolve around the use of minimax algorithm. This algorithm would expand the tree of potential moves until some depth is reached. From here, an evaluation function is used to calculate the value of the nodes at this depth. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
 
-\subsubsection{Tournament Method}
+    The best value propagates upwards until it reaches to a child of the root node. The use of alpha-beta pruning will help to prune unnecessary moves,  reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move given  the players position.
 
-The tournament algorithm follows the following pseudocode in Algorithm 1.
+    The mini-max method will have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic stategy where they can plan their moves in advance. There are inherent tradeoffs with having a higher ply count; asymptopic complexity of mini-max is expoential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This expotential growth is the achillies heel to the mini-max approach.
 
-% add pseudocode here
-\begin{algorithm}
-    \caption{My algorithm}\label{euclid}
-    \begin{algorithmic}[1]
-    \Procedure{MyProcedure}{}
-    \State $\textit{stringlen} \gets \text{length of }\textit{string}$
-    \State $i \gets \textit{patlen}$
-    \BState \emph{top}:
-    \If {$i > \textit{stringlen}$} \Return false
-    \EndIf
-    \State $j \gets \textit{patlen}$
-    \BState \emph{loop}:
-    \If {$\textit{string}(i) = \textit{path}(j)$}
-    \State $j \gets j-1$.
-    \State $i \gets i-1$.
-    \State \textbf{goto} \emph{loop}.
-    \State \textbf{close};
-    \EndIf
-    \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-    \State \textbf{goto} \emph{top}.
-    \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
+    Once initial development on the mini-max algorithm is complete, it is possible to use the framework as a base to migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}.
 
-\subsubsection{Children Generation}
-\blindtext
+    MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random playout approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
+    
+    \begin{figure}[ht!]
+        \centering
+        \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
+        \vspace{10pt}
+        \includegraphics[width=100mm]{nnmodel.png}
+        \vspace{-25pt}
+    \end{figure}
+
+    
+\subsubsection{Neural Network}
+
+
+    \begin{wrapfigure}{l}{0.37 \textwidth}
+        % \begin{center}
+        \fontsize{8}{11}
+        \vspace{-25pt}
+        \centering
+            \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
+            \vspace{5pt}
+            \begin{tikzpicture}
+            \color{white}
+            \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
+            & 31 &&30&&29&&28 \\
+            27 &&26&&25&&24&&\\
+            &23&&22&&21&&20\\   
+                19&&18&&17&&16&&\\
+            &15&&14&&13&&12\\
+            11&&10&&9&&8&&\\
+            &7&&6&&5&&4\\
+            3&&2&&1&&0\\
+            % \bl &     & \bl &     &     &     & \bl &     \\
+            %     &     &     & \bl &     &     &     &     \\
+            % \wh &     &     &     &     &     &     &     \\
+            %     &     &     & \wh &     & \wh &     & \wh \\
+            % \wh &     & \wh &     & \wh &     & \wh &     \\
+            %     & \wh &     & \wh &     & \wh &     & \wh \\
+            };
+            \foreach \row in {1, ..., 8} {
+            \foreach \col in {1, ..., 8} {
+                \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
+                \colorlet{squarebg}{\pgfmathresult}
+                \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
+            }
+            }
+            \end{tikzpicture}
+        % \end{center}
+      
+    \end{wrapfigure}
+
+    In order to evaluate the board, we will use a feed-forward multilayer perceptron style neural network. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively.
+    
+    It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
+
+    The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
+    
+    
+    % Talk about the activation function
+    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usuall have a sigmoid shape, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
+    % how does it work?
+
+    Our initial choice for the activation function will be the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Other functions will be explored, inclduing ReLU (Rectified Linear Units), Noisy ReLU, and linear.
+
+    \begin{wrapfigure}{r}{0.3\textwidth}
+        \centering
+        \vspace{-30pt}
+        \begin{tikzpicture}
+            \fontsize{8}{11}
+            \begin{axis}[
+                legend pos=north west,
+                axis x line=middle,
+                axis y line=middle,
+                x tick label style={/pgf/number format/fixed,
+                                    /pgf/number format/fixed zerofill,
+                                    /pgf/number format/precision=1},
+                y tick label style={/pgf/number format/fixed,
+                                    /pgf/number format/fixed zerofill,
+                                    /pgf/number format/precision=1},
+                grid = major,
+                width=55mm,
+                height=4cm,
+                grid style={dashed, gray!30},
+                xmin=-3,     % start the diagram at this x-coordinate
+                xmax= 3,    % end   the diagram at this x-coordinate
+                ymin= 0,     % start the diagram at this y-coordinate
+                ymax= 1,   % end   the diagram at this y-coordinate
+                %axis background/.style={fill=white},
+                xlabel=x,
+                ylabel=y,
+                tick align=outside,
+                enlargelimits=false]
+            % plot the stirling-formulae
+            \addplot[domain=-3:3, red, ultra thick,samples=500] {1/(1+e^-x))};
+            % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+            \end{axis}
+        \end{tikzpicture}
+        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
+        \vspace{-30pt}
+    \end{wrapfigure}
+
+\subsubsection{Genetic Algorithms} 
+
+    The genetic algorithm is the premise of the system's learning strategy. We discuss the various algorithms that form the collection of GA stategies below. For the system we choose a population size of 15.
+
+\subsubsection{Population Generation}
+
+    The initial population will consist of randomly generated weights and biases of the neural network, with values from [-1,1]. For a population size of 15, the next generation is created using the best five agents from the current generation. They will continue to play in the next generation. The agents are also chosen as a base to create 10 new agents from.
+
+    The next eight players are generated through the use of crossover strategies. The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights.
+    The remaining two will be direct mutations of the 4th and 5th place agents.
+
+\subsubsection{Tournament Selection}
+
+    The tournament selection process revolves around each agent in the population playing 5 games as Black, against randomly selected opponments. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponment receives a score from the game. Scores are tallied up at the end of the tournament. Players are sorted by the number of points they scored. The best players would have the highest number of points.
+
 \subsubsection{Coefficent Mutation}
-\blindtext
-\subsubsection{Crossover Mechanism}
-\blindtext
+
+    Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+
+    $$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
+
+    The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+
+\subsubsection{Crossover Strategy}
+
+    Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
+
+    % for each layer's weights:
+    %     n = number of weights and biases in a given layer
+    %     index1 = random integer[0 to n]
+    %     index2 = random integer[0 to n]
+    %     if index2 < index1:
+    %         swap index1 and index2's values
+    %     Weights(child1) = $parent_{1}$[0 to index1] +  $parent_{2}$[index1 to index 2] + $parent_{1}$[index2 to n]
+    %     Weights(child2) =  $parent_{2}$[0 to index1] + $parent_{1}$[index1 to index 2] +  $parent_{2}$[index2 to n]
+        
+
+    % add pseudocode here
+    \begin{algorithm}
+        \caption{Crossover Strategy}
+        \begin{algorithmic}[1]
+        \Procedure{crossover}{$parent_{1}$, $parent_{2}$}
+        \BState \emph{loop} \text{for weights } $w$ \text{ in layers}:
+        \State $n \gets \text{length of } w$
+        % \State $\textit{stringlen} \gets \text{length of } \textit{string}$
+        \State $i_{1} \gets \textit{random integer} (0,n-1)$
+        \State $i_{2} \gets \textit{random integer} (0,n-1)$
+        % \State $i \gets \textit{patlen}$
+        % if statement to check random numbers
+        \If {$i_{1} > i_{2}$}
+        \State \textit{swap } $i_{1}$ \text{ and } $i_{2}$ 
+        \EndIf
+        % \State $j \gets \textit{patlen}$
+
+        \State $weights_{w,child1}$ = $parent_{1}$[0 \ldots $i_{1}$] +  $parent_{2}$[$i_{1}+1$ \ldots $i_{2}$] + $parent_{1}$[$i_{2}+1$ \ldots $n$] 
+        \State $weights_{w,child2}$ =  $parent_{2}$[0 \ldots $i_{1}$] + $parent_{1}$[$i_{1}+1$ \ldots $i_{2}$] +  $parent_{2}$[$i_{2}+1$ \ldots $n$] 
+        
+        \BState \textbf{Return} \emph{child1,child2}
+
+        % \BState \emph{loop}:
+        % \If {$\textit{string}(i) = \textit{path}(j)$}
+        % \State $j \gets j-1$.
+        % \State $i \gets i-1$.
+        % \State \textbf{goto} \emph{loop}.
+        % \State \textbf{close};
+        % \EndIf
+        % \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+        % \State \textbf{goto} \emph{top}.
+        \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
+
+
+\subsection*{Choice of Programming Language}
+
+    Several contenders exist with each having their inherent benefits. C++ is considered due to it's support for popular machine learning packages (most notably Google's TensorFlow.) In terns of performance, C++ trumps most languages due to its lower level characterisitics. C++ has notable parallelised packages (A popular library is OpenMP), which can assist in the overall throughput of the system. However, it would be difficult to write, due to my unfimiliarity with the language. Also, programs written in this language are less portable. It is not suitable for running on university machines without the use of a sandbox.
+
+    Javascript is a contender; Node.JS is a very powerful and popular package manager, $npm$. It is difficult to write multi-processed programs as Node.JS runs on a single thread by nature. It also lacks the support of popular machine learning libraries and performs relatively slower in some programming operations.
+
+    I have chosen Python 3.6 due to my familiarity, and the support of popular scientific packages, most notably NumPy. Python is also portable with a very wide compatability; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines. Python development will be on Visual Studio Code, which again is a familiar tool and is also suited to the project.
+
+    When writing the system, there will be a heavy dependency on NumPy due to its C++ bindings. This increases the overall speed of the program relative to the performance of standalone python, especially in the case of numerical operations. The neural network would be written using this language, as opposed to the use of machine learning libaries to understand the inner workings of neural networks.
+
+    Object Oriented approaches are taken for the majority of the components that constitute the system, ranging from the neural network to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the afforance of easier debugging and testing.
+
+    Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
+
+\subsection*{Tools}
+
+    Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input.
+
+\subsection*{Interface}
+
+    \begin{wrapfigure}{r}{0.3\textwidth}
+    % \begin{figure}[ht!]
+        \vspace{-30pt}
+        \centering
+        \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{cli_humaninput}}
+        \includegraphics[width=43mm]{cli_humanvsagent.png}
+        \vspace{-20pt}
+    \end{wrapfigure}
+
+    As our primary intention is to find an agent that learns to play, having a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface would suffice. Due to the inherent computational strain the project requires, an interface based around having a command-line interface (CLI) the system is used. This allows the system to be initiated relatively faster as opposed to loading GUIs (Graphical User Interfaces). It also reduces the need for package dependencies, configurations and set-ups.  The simulation would show statistics such as estimated finishing times, current generation count, scores of players in a given generation and the cummulative score of progress of the system.
+
+    When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
+
 \subsection*{Testing and Evaluation}
-At the end of a given generation, we measure growth of performance using the champion of the generation. The score is calculated using the following formula, whatever it is.
 
-% Insert random formula here.
+    The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 100 moves, where the game is considered a draw if after the game hasn't ended after 100 moves from each player.
 
-Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions. At the end of the generation run, the end player will be used to compete against human players on ?? in order to determine an accurate ELO rating of the player.
+    At the end of a given generation, we measure growth of performance by using the generation's champion. Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
 
-% The algorithms described above will be evaluated under competition-style conditions. Each agent will play each game a number of times against every other agent to establish the winner. The starting player, number ofmoves and winning player. Each agent will be subject to the same time limit for choosing moves. Failure to return a move for any reason will result in an automatic loss. For each game, agents will play an equal number of rounds as first player. This will take into account any bias towards the player making the first move. For example, Checkers (Schaeffer et al, 2007) and Connect-Four (Allis, 1988) have both been solved, concluding that it is possible for the first player to force a win.
+    Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions.
 
-% A second round of testing will involve having each player choose moves for a predefined set of scenarios to analyse their behaviour and whether they consistently choose good moves (i.e. block an opponent from winning) or miss obvious winning/losing moves.
+    At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
-% There are two elements to the evaluation of the algorithms. First, I will examine the change in performance affected by changing the balance between the randomised monte-carol simulations and performing pre-computation to cut down the game tree. Second, I will attempt to create a rel- atively strong general game player using various enhancements that should be able to consistently beat the algorithms discussed above.
-
-Several approaches have been considered, ranging from the use of ELO ratings to Championship Knockout approaches, but 
-
-Presently we will use the medians of medians approach. The curren
-
-
-
-% I will evaluate my final system in two ways. First I will spend time comparing my system to other systems that are already available. I will select a number of such systems and compare them by a number of criteria that I will layout below which I believe cover the aims of my project. This will ensure that there is no one system that performs better than mine at my stated goals, even if they do outperform my solution in individual areas.
-% The criteria that I use will be as follows:
-% 1. Theabilityofthesystemtoclearlyrepresentthestateofandrelationshipsbetweenpeople
-% 10
-% 2. Theabilityofthesystemtorepresenttheinteractionsoverdifferentmodesbetweenpeople
-% 3. The ability of the system to represent clustering of the people in the system based on interactions
-% 4. The ability of the system to output quantitative data which can be used to draw useful conclusions regarding the nature of some aspect of the evolution of the model over time
-% I will then judge this against the following systems:
-% Vizster A project I have already discussed, designed to visualise connections between people in aFriendsternetwork. Availablefromhttp://homes.cs.washington.edu/jheer/projects/vizster/
-% WolframAlpha Facebook Report An analysis of data gathered from your Facebook profile by the WolframAlpha website which includes a graphical representation of your friends and gives various indications of the roles friends play in the network. Available from https://www.wolframalpha.com/input/?i=facebook+report
-% Gephi This is a tool developed for visualising graphs of all kinds of graph data in very config- urable ways. It also supports graphs that evolve over time and allows statistical analysis of graphs. Avaiable from http://gephi.github.io/
-% Secondly I will measure the extent to which my system is able to solve a real-world problem. My prototyping will enable me to adapt my system to a wide variety of different problems in the field of social network research and so I will be able to look at existing solutions to these problems and compare my solution quantitatively to previous work.
-
-% --------------------------------
+    % --------------------------------
 
 % Presents the proposed solution(s)
 % The design details should all be placed in this section
@@ -270,11 +421,8 @@ Presently we will use the medians of medians approach. The curren
 
 % Writing skills (10%)
 % • Clarity of presentation of ideas
-% • Conformance to paper format
-% standards as specified in
-% Paper Template
-% • Qualityofwriting(readability,
-% grammar)
+% • Conformance to paper format standards as specified in Paper Template
+% • Quality of writing(readability, grammar)
 % • References
 
 % Mark Scheme
@@ -285,35 +433,13 @@ Presently we will use the medians of medians approach. The curren
 % • Overview of architecture
 % • Description of lifecycle
 
-% This section presents the proposed solutions of the problems in detail. The design details should all be placed in this section. You may create a number of subsections, each focusing on one issue.
-
-% This section should be up to 8 pages in length. The rest of this section shows the formats of subsections as well as some general formatting information.  You should also consult the Word template. 
-
-
-\subsection{Figures and Tables}
-In general, figures and tables should not appear before they are cited.  Place figure captions below the figures; place table titles above the tables.  If your figure has two parts, for example, include the labels ``(a)'' and ``(b)'' as part of the artwork.  Please verify that figures and tables you mention in the text actually exist.  make sure that all tables and figures are numbered as shown in Table \ref{units} and Figure 1.
-%sort out your own preferred means of inserting figures
-
-\begin{table}[htb]
-\centering
-\caption{UNITS FOR MAGNETIC PROPERTIES}
-\vspace*{6pt}
-\label{units}
-\begin{tabular}{ccc}\hline\hline
-Symbol & Quantity & Conversion from Gaussian \\ \hline
-\end{tabular}
-\end{table}
-
 % ----------------
+% Add references
 
-\subsection{References}
+\bibliography{zotero}
 
-The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
+% The list of cited references should appear at the end of the report, ordered alphabetically by the surnames of the first authors.  The default style for references cited in the main text is the  Harvard (author, date) format.  When citing a section in a book, please give the relevant page numbers, as in \cite[p293]{budgen}.  When citing, where there are either one or two authors, use the names, but if there are more than two, give the first one and use ``et al.'' as in  , except where this would be ambiguous, in which case use all author names.
 
-You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year.
-
-
-\bibliography{projectpaper}
-
+% You need to give all authors' names in each reference.  Do not use ``et al.'' unless there are more than five authors.  Papers that have not been published should be cited as ``unpublished'' \cite{euther}.  Papers that have been submitted or accepted for publication should be cited as ``submitted for publication'' as in \cite{futher} .  You can also cite using just the year when the author's name appears in the text, as in ``but according to Futher \citeyear{futher}, we \dots''.  Where an authors has more than one publication in a year, add `a', `b' etc. after the year..
 
 \end{document}
