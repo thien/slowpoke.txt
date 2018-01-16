@@ -6,3 +6,7 @@
 *.log
 *.synctex.gz
 *.aux
+*.nav
+*.out
+*.snm
+*.toc
