@@ -269,6 +269,11 @@ Below/.style={
 	\end{tikzpicture}
 \end{frame}
 
+% Neural Network Math
+\begin{frame}
+	$Output = (Input + weight) * Activation Function + Bias$
+\end{frame}
+
 % Checkerboard Outline
 \begin{frame}
 	\frametitle{Checkerboard}
@@ -363,40 +368,40 @@ Below/.style={
 \begin{frame}
 
 	\begin{figure}
-		\centering
-	
-		\begin{tikzpicture}
-				\fontsize{8}{11}
-				\begin{axis}[
-						legend pos=north west,
-						axis x line=middle,
-						axis y line=middle,
-						x tick label style={/pgf/number format/fixed,
-																/pgf/number format/fixed zerofill,
-																/pgf/number format/precision=1},
-						y tick label style={/pgf/number format/fixed,
-																/pgf/number format/fixed zerofill,
-																/pgf/number format/precision=1},
-						grid = major,
-						width=100mm,
-						height=7cm,
-						grid style={dashed, gray!30},
-						xmin=-5,     % start the diagram at this x-coordinate
-						xmax= 5,    % end   the diagram at this x-coordinate
-						ymin= 0,     % start the diagram at this y-coordinate
-						ymax= 1,   % end   the diagram at this y-coordinate
-						%axis background/.style={fill=white},
-						xlabel=x,
-						ylabel=y,
-						tick align=outside,
-						enlargelimits=false]
-				% plot the stirling-formulae
-				\addplot[domain=-5:5, red, ultra thick,samples=500] {1/(1+e^-x))};
-				% \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
-				\end{axis}
-		\end{tikzpicture}
-		\caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
-\end{figure}
+			\centering
+		
+			\begin{tikzpicture}
+					\fontsize{8}{11}
+					\begin{axis}[
+							legend pos=north west,
+							axis x line=middle,
+							axis y line=middle,
+							x tick label style={/pgf/number format/fixed,
+																	/pgf/number format/fixed zerofill,
+																	/pgf/number format/precision=1},
+							y tick label style={/pgf/number format/fixed,
+																	/pgf/number format/fixed zerofill,
+																	/pgf/number format/precision=1},
+							grid = major,
+							width=100mm,
+							height=7cm,
+							grid style={dashed, gray!30},
+							xmin=-5,     % start the diagram at this x-coordinate
+							xmax= 5,    % end   the diagram at this x-coordinate
+							ymin= -1,     % start the diagram at this y-coordinate
+							ymax= 1,   % end   the diagram at this y-coordinate
+							%axis background/.style={fill=white},
+							xlabel=x,
+							ylabel=y,
+							tick align=outside,
+							enlargelimits=false]
+					% plot the stirling-formulae
+					\addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
+					% \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+					\end{axis}
+			\end{tikzpicture}
+			\caption{graph of modified sigmoid function $f(x)={\frac{2}{1+e^{-x}}- 1}$ \label{sigmoid}}
+	\end{figure}
 \end{frame}
 
 % Decision Tree
@@ -448,6 +453,21 @@ Below/.style={
 % ----------------------------
 
 \begin{frame}
+	\frametitle{Generating Agents}
+	An agent is a generated set of weights for the neural network.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tournament}
+	\begin{enumerate}
+		\item Generate a population of random agents
+		\item Make agents play each other
+		\item Order agents by the amount of points scored
+		\item The best few agents are chosen to stay on for the next tournament
+		\item make new agents from those best few
+		\item the losers are destroyed
+		\item repeat step 2-6 with the new agents until satisfied
+	\end{enumerate}
 \end{frame}
 
 % ----------------------------
