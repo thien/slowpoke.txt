@@ -76,6 +76,7 @@ Below/.style={
 	% A conclusion slide: What did or will you accomplish?
 	% What still needs to be done
 \begin{document}
+\pgfplotsset{compat=1.15}
 
 % Title Frame
 \frame{\titlepage}
@@ -135,9 +136,12 @@ Below/.style={
 	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
 	%More content goes here
 
-	- Enjoyed the AI Search module \\
-	- Want to learn about Machine Learning (unfortunately not an option this year) \\
-	- I love board games! \\
+	\begin{itemize}
+		\item Enjoyed AI Search
+		\item Interested in seeing whether genetic algorithms are still relevant
+		\item Interested in Machine Learning (unfortunately not an option this year!)
+		\item ..I like board games
+	\end{itemize}
 
 	% Interested in neural networks, really enjoyed AI Search submodule. Inherent competitiveness against peers
 	% Not necessarily interested in solving something new; also not expected for a bachelors degree.
@@ -165,19 +169,17 @@ Below/.style={
 
 % Current Approach
 \begin{frame}
-	\frametitle{Current Approaches}
+	\frametitle{Current Approach}
 	% Your approach to solving the problem
-	\framesubtitle{How will I tackle this?}
+	\framesubtitle{How will I tackle this; in a nutshell}
 	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
 	%More content goes here
 	\begin{itemize}
-		\item Evaluate Checkerboard
-		\item Choosing the Best Move
-		\item Generating Agents
-		\item Choosing the best Agents
-		\item Making better Agents
-		\item \ldots
-		\item Profit!
+		\item Evaluate a checkerboard state
+		\item Choose the best move for a given state
+		\item Generate a population of agents
+		\item Determine good agents from the population
+		\item Make better agents from the good ones
 	\end{itemize}
 
 \end{frame}
