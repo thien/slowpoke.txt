@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  16 JAN 2018 12:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.6)  16 JAN 2018 14:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -635,19 +635,19 @@ File: tikzlibrarybackgrounds.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.3)
 )) (./designpaper.aux)
 \openout1 = `designpaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 49.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -726,29 +726,29 @@ ABD: EveryShipout initializing macros
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.15} into 
 your preamble.
- on input line 57.
+ on input line 49.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 53.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 61.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 53.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 81.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 73.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 124.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 116.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 124.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 116.
  [2] [3]
-Underfull \hbox (badness 10000) in alignment at lines 178--184
+Underfull \hbox (badness 10000) in alignment at lines 170--176
 [][]
  []
 
@@ -756,10 +756,10 @@ Underfull \hbox (badness 10000) in alignment at lines 178--184
 <nnmodel.png, id=25, 853.1875pt x 715.67375pt>
 File: nnmodel.png Graphic file (type png)
 <use nnmodel.png>
-Package pdftex.def Info: nnmodel.png  used on input line 210. on input line 210
+Package pdftex.def Info: nnmodel.png  used on input line 202. on input line 202
 .
 Package pdftex.def Info: Requested size: 284.52756pt x 238.67381pt on input lin
-e 210.
+e 202.
 \pgf@matrix@skel@next@row=\count161
 \pgf@matrix@skel@next@col=\count162
 \pgf@matrix@skel@next@row=\count163
@@ -769,238 +769,34 @@ e 210.
 \pgf@matrix@skel@next@col=\count167
  [5 <./nnmodel.png>]
 
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 30
-5.
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 29
+7.
 
 [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 402--402
+Underfull \hbox (badness 10000) in paragraph at lines 394--394
 \OT1/ptm/m/n/12 in-ter-face demon-strat-ing a
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 402--402
+Underfull \hbox (badness 1122) in paragraph at lines 394--394
 \OT1/ptm/m/n/12 game of draughts be-tween
  []
 
 <cli_humanvsagent.png, id=44, 400.49625pt x 711.65875pt>
 File: cli_humanvsagent.png Graphic file (type png)
 <use cli_humanvsagent.png>
-Package pdftex.def Info: cli_humanvsagent.png  used on input line 403. on input
- line 403.
+Package pdftex.def Info: cli_humanvsagent.png  used on input line 395. on input
+ line 395.
 Package pdftex.def Info: Requested size: 122.34685pt x 217.39766pt on input lin
-e 403.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 423.
-\pgf@matrix@skel@next@row=\count168
-\pgf@matrix@skel@next@col=\count169
-\pgf@matrix@skel@next@row=\count170
-\pgf@matrix@skel@next@row=\count171
-\pgf@matrix@skel@next@row=\count172
-\pgf@matrix@skel@prev@col=\count173
-\pgf@matrix@skel@next@col=\count174
-
-Overfull \hbox (61.68303pt too wide) in paragraph at lines 449--451
- [][] 
- []
-
-[8 <./cli_humanvsagent.png>]
-Overfull \hbox (46.28473pt too wide) in paragraph at lines 453--454
-[][]\OT1/ptm/m/n/12 The
- []
-
-
-Overfull \hbox (34.65976pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 com-
- []
-
-
-Overfull \hbox (36.6638pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 bined
- []
-
-
-Overfull \hbox (44.65582pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 GANN
- []
-
-
-Overfull \hbox (31.9838pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 (Ge-
- []
-
-
-Overfull \hbox (33.3276pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 netic
- []
-
-
-Overfull \hbox (25.99579pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 Al-
- []
-
-
-Overfull \hbox (25.99596pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 go-
- []
-
-
-Overfull \hbox (71.9911pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 rithm/Neural
- []
-
-
-Overfull \hbox (31.32372pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 Net-
- []
-
-
-Overfull \hbox (43.20377pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 works)
- []
-
-
-Overfull \hbox (24.65181pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 are
- []
-
-
-Overfull \hbox (33.38768pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 eval-
- []
-
-
-Overfull \hbox (19.99596pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 u-
- []
-
-
-Overfull \hbox (29.99173pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 ated
- []
-
-
-Overfull \hbox (25.99596pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 un-
- []
-
-
-Overfull \hbox (25.32388pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 der
- []
-
-
-Overfull \hbox (34.65976pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 com-
- []
-
-
-Overfull \hbox (25.32388pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 pe-
- []
-
-
-Overfull \hbox (20.66771pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 ti-
- []
-
-
-Overfull \hbox (28.67175pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 tion
- []
-
-
-Overfull \hbox (32.66756pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 style
- []
-
-
-Overfull \hbox (31.32388pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 con-
- []
-
-
-Overfull \hbox (23.33183pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 di-
- []
-
-
-Overfull \hbox (36.33963pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 tions.
- []
-
-
-Overfull \hbox (21.99983pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 At
- []
-
-
-Overfull \hbox (31.98378pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 each
- []
-
-
-Overfull \hbox (31.32388pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 gen-
- []
-
-
-Overfull \hbox (23.0799pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 er-
- []
-
-
-Overfull \hbox (19.32388pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 a-
- []
-
-
-Overfull \hbox (31.67175pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 tion,
- []
-
-
-Overfull \hbox (31.98378pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 each
- []
-
-
-Overfull \hbox (35.99173pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 agent
- []
-
-
-Overfull \hbox (35.33168pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 plays
- []
-
-
-Overfull \hbox (16.0pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 5
- []
-
-
-Overfull \hbox (43.59969pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 games,
- []
-
-
-Overfull \hbox (31.33571pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 with
- []
-
-
-Overfull \hbox (31.99564pt too wide) in paragraph at lines 453--454
-\OT1/ptm/m/n/12 their
- []
-
-[9] (./designpaper.bbl)
+e 395.
+[8 <./cli_humanvsagent.png>] (./designpaper.bbl)
 Runaway argument?
 {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=538920\ETC.
 /home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex
-:488: File ended while scanning use of \harvardurl.
+:438: File ended while scanning use of \harvardurl.
 <inserted text> 
                 \par 
-l.488 \bibliography{zotero}
+l.438 \bibliography{zotero}
                            
 I suspect you have forgotten a `}', causing me
 to read past where you wanted me to stop.
@@ -1008,21 +804,21 @@ I'll try to recover; but if the error is serious,
 you'd better type `E' or `X' now and fix your file.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--489
+Underfull \hbox (badness 10000) in paragraph at lines 25--439
 
  []
 
-[10]
+[9]
 
 /home/tn/Documents/Github/zephyr.txt/Design Report/Latex Report/designpaper.tex
-:494: LaTeX Error: \begin{thebibliography} on input line 1 ended by \end{docume
+:444: LaTeX Error: \begin{thebibliography} on input line 1 ended by \end{docume
 nt}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.494 \end{document}
+l.444 \end{document}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1034,13 +830,13 @@ or  <return>  to continue without it.
 ### semi simple group (level 1) entered at line 1 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 26466 strings out of 492990
- 670011 string characters out of 6135006
- 989892 words of memory out of 5000000
- 29559 multiletter control sequences out of 15000+600000
- 28856 words of font info for 55 fonts, out of 8000000 for 9000
+ 26426 strings out of 492990
+ 669164 string characters out of 6135006
+ 986926 words of memory out of 5000000
+ 29520 multiletter control sequences out of 15000+600000
+ 26723 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,15n,100p,1339b,1889s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,15n,100p,1339b,1891s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -1054,10 +850,10 @@ msfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on designpaper.pdf (10 pages, 456586 bytes).
+Output written on designpaper.pdf (9 pages, 452406 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 95 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

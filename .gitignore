@@ -1,3 +1,8 @@
 .vscode/*
 .DS_Store
 */.synctex
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.aux

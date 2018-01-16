@@ -29,6 +29,13 @@
 \usepackage{forest}
 
 \tikzset{
+	Midway/.style={
+  midway,
+  above,
+  font=\scriptsize,
+  text width=1.5cm,
+  align=center,
+  },
 Above/.style={
   midway,
   above,
@@ -179,313 +186,346 @@ Below/.style={
 % Neural Networks
 % ----------------------------
 
-% Example Checkers Game
-\begin{frame}
-	\frametitle{Checkerboard}
-	\begin{figure}[ht!]
-		\centering
-		\includegraphics[width=50mm]{sampleGame.png}
-		\caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{overflow}}
-	\end{figure}
-\end{frame}
-
-% Example Neural Network Frame
-\begin{frame}
-	\frametitle{Neural Networks}
-	\tikzset{%
-		every neuron/.style={
-			circle,
-			draw,
-			minimum size=0.9cm
-			},
-		neuron missing/.style={
-			draw=none, 
-			scale=4,
-			text height=0.333cm,
-			execute at begin node=\color{black}$\vdots$
-		},
-	}
-
-	\begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
-
-	% draw nodes
-		% % input values
-		% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-		% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
-
-		% input layer
-		\foreach \m/\l [count=\y] in {1,2,3,missing,4}
-		\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-		
-		% layer 1
-		\foreach \m [count=\y] in {1,missing,2}
-		\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
-
-		% layer 2
-		\foreach \m [count=\y] in {1,missing,2}
-		\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
-
-		% output layer
-		\foreach \m [count=\y] in {1}
-		\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
-
-	% input layer
-	\foreach \l [count=\i] in {1,2,3,n}
-		\draw [<-] (input-\i) -- ++(-1,0)
-		node [above, midway] {$I_{\l}$};
-
-	% hidden 1
-	\foreach \l [count=\i] in {{(1,1)},{(1,n)}}
-		\node [above] at (hidden1-\i.north) {$H_{\l}$};
-
-	% hidden 2
-	\foreach \l [count=\i] in {(2,1),(2,n)}
-		\node [above] at (hidden2-\i.north) {$H_{\l}$};
-
-	% output layer
-	\foreach \l [count=\i] in {1}
-		\draw [->] (output-\i) -- ++(1,0)
-		node [above, midway] {$O_\l$};
-
-	% lines from input to hidden 1
-	\foreach \i in {1,...,4}
-		\foreach \j in {1,...,2}
-			\draw [->] (input-\i) -- (hidden1-\j);
-	
-	% lines from hidden 1 to hidden 2
-	\foreach \i in {1,...,2}
-	\foreach \j in {1,...,2}
-		\draw [->] (hidden1-\i) -- (hidden2-\j);
-
-	% lines from hidden 2 to putput
-	\foreach \i in {1,...,2}
-		\foreach \j in {1}
-			\draw [->] (hidden2-\i) -- (output-\j);
-
-	% headings
-	\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
-		\node [align=center, above] at (\x*2,2) {\l \\ layer};
-
-	\end{tikzpicture}
-\end{frame}
-
-% Neural Network Math
-\begin{frame}
-	$Output = (Input + weight) * Activation Function + Bias$
-\end{frame}
-
-% Checkerboard Outline
-\begin{frame}
-	\frametitle{Checkerboard}
-	\begin{figure}[ht!]
-		\centering
-		\includegraphics[width=50mm]{checkerboard.png}
-		\caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{overflow}}
-	\end{figure}
-\end{frame}
-
-% Applied Neural Network Diagram
-\begin{frame}
-	\frametitle{Neural Networks}
-	\tikzset{%
-		every neuron/.style={
-			circle,
-			draw,
-			minimum size=0.9cm
-			},
-		neuron missing/.style={
-			draw=none, 
-			scale=4,
-			text height=0.333cm,
-			execute at begin node=\color{black}$\vdots$
-		},
-	}
-
-	\begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
-
-	% draw nodes
-		% % input values
-		% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-		% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
-
-		% input layer
-		\foreach \m/\l [count=\y] in {1,2,3,missing,4}
-		\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-		
-		% layer 1
-		\foreach \m [count=\y] in {1,missing,2}
-		\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
-
-		% layer 2
-		\foreach \m [count=\y] in {1,missing,2}
-		\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
-
-		% output layer
-		\foreach \m [count=\y] in {1}
-		\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
-
-	% input layer
-	\foreach \l [count=\i] in {1,1.5,0,-1}
-		\draw [<-] (input-\i) -- ++(-1,0)
-		node [above, midway] {${\l}$};
-
-	% hidden 1
-	\foreach \l [count=\i] in {{0.25},{0.62}}
-		\node [above] at (hidden1-\i.north) {${\l}$};
-
-	% hidden 2
-	\foreach \l [count=\i] in {-0.76, 0.24}
-		\node [above] at (hidden2-\i.north) {${\l}$};
-
-	% output layer
-	\foreach \l [count=\i] in {0.21}
-		\draw [->] (output-\i) -- ++(1,0)
-		node [above, midway] {$\l$};
-
-	% lines from input to hidden 1
-	\foreach \i in {1,...,4}
-		\foreach \j in {1,...,2}
-			\draw [->] (input-\i) -- (hidden1-\j);
-	
-	% lines from hidden 1 to hidden 2
-	\foreach \i in {1,...,2}
-	\foreach \j in {1,...,2}
-		\draw [->] (hidden1-\i) -- (hidden2-\j);
-
-	% lines from hidden 2 to putput
-	\foreach \i in {1,...,2}
-		\foreach \j in {1}
-			\draw [->] (hidden2-\i) -- (output-\j);
-
-	% headings
-	\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
-		\node [align=center, above] at (\x*2,2) {\l \\ layer};
-
-	\end{tikzpicture}
-\end{frame}
-
-% Activation Function
-\begin{frame}
-
-	\begin{figure}
+	% Example Checkers Game
+	\begin{frame}
+		\frametitle{Evaluating Checkerboards}
+		\begin{figure}[ht!]
 			\centering
-		
-			\begin{tikzpicture}
-					\fontsize{8}{11}
-					\begin{axis}[
-							legend pos=north west,
-							axis x line=middle,
-							axis y line=middle,
-							x tick label style={/pgf/number format/fixed,
-																	/pgf/number format/fixed zerofill,
-																	/pgf/number format/precision=1},
-							y tick label style={/pgf/number format/fixed,
-																	/pgf/number format/fixed zerofill,
-																	/pgf/number format/precision=1},
-							grid = major,
-							width=100mm,
-							height=7cm,
-							grid style={dashed, gray!30},
-							xmin=-5,     % start the diagram at this x-coordinate
-							xmax= 5,    % end   the diagram at this x-coordinate
-							ymin= -1,     % start the diagram at this y-coordinate
-							ymax= 1,   % end   the diagram at this y-coordinate
-							%axis background/.style={fill=white},
-							xlabel=x,
-							ylabel=y,
-							tick align=outside,
-							enlargelimits=false]
-					% plot the stirling-formulae
-					\addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
-					% \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
-					\end{axis}
-			\end{tikzpicture}
-			\caption{graph of modified sigmoid function $f(x)={\frac{2}{1+e^{-x}}- 1}$ \label{sigmoid}}
-	\end{figure}
-\end{frame}
+			\includegraphics[width=50mm]{sampleGame.png}
+			\caption{An example state of a checkerboard. \label{overflow}}
+		\end{figure}
+	\end{frame}
 
-% Decision Tree
-\begin{frame}
-	\frametitle{Choosing moves}
-
-	\begin{forest} 
-		for tree={
-			grow=east,
-			draw=cyan,
-			circle,
-			line width=0.2pt,
-			parent anchor=east,
-			child anchor=west,
-			edge={draw=cyan},
-			edge label={\Huge\color{black}},
-			edge path={
-				\noexpand\path[\forestoption{edge}]
-					(!u.parent anchor) -- ([xshift=-1.6cm].child anchor) --    
-					(.child anchor)\forestoption{edge label};
+	% Example Neural Network Frame
+	\begin{frame}
+		\frametitle{Neural Networks}
+		\tikzset{%
+			every neuron/.style={
+				circle,
+				draw,
+				minimum size=0.9cm
+				},
+			neuron missing/.style={
+				draw=none, 
+				scale=4,
+				text height=0.333cm,
+				execute at begin node=\color{black}$\vdots$
 			},
-			l sep=2cm,
-		} 
-		[,rectangle, s sep=35pt,
-			[,edge label={node[Below]{option1}}
-				[,edge label={node[Below]{a longer text goes here}}
-				]
-				[,edge label={node[Above]{text}}
-				]
-			]
-			[,edge label={node[Below]{option1}}
-				[,edge label={node[Below]{a longer text goes here}}
-				]
-				[,edge label={node[Above]{text}}
-				]
-			]
-			[,edge label={node[Above]{option2}}
-				[,edge label={node[Below]{a longer text goes here}}
-				]
-				[,edge label={node[Above]{text}}
-				]
-			]
-		]
-		\end{forest}
-\end{frame}
+		}
 
+		\begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
+
+		% draw nodes
+			% % input values
+			% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+			% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+
+			% input layer
+			\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+			\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+			
+			% layer 1
+			\foreach \m [count=\y] in {1,missing,2}
+			\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+			% layer 2
+			\foreach \m [count=\y] in {1,missing,2}
+			\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+			% output layer
+			\foreach \m [count=\y] in {1}
+			\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+
+		% input layer
+		\foreach \l [count=\i] in {1,2,3,n}
+			\draw [<-] (input-\i) -- ++(-1,0)
+			node [above, midway] {$I_{\l}$};
+
+		% hidden 1
+		\foreach \l [count=\i] in {{(1,1)},{(1,n)}}
+			\node [above] at (hidden1-\i.north) {$H_{\l}$};
+
+		% hidden 2
+		\foreach \l [count=\i] in {(2,1),(2,n)}
+			\node [above] at (hidden2-\i.north) {$H_{\l}$};
+
+		% output layer
+		\foreach \l [count=\i] in {1}
+			\draw [->] (output-\i) -- ++(1,0)
+			node [above, midway] {$O_\l$};
+
+		% lines from input to hidden 1
+		\foreach \i in {1,...,4}
+			\foreach \j in {1,...,2}
+				\draw [->] (input-\i) -- (hidden1-\j);
+		
+		% lines from hidden 1 to hidden 2
+		\foreach \i in {1,...,2}
+		\foreach \j in {1,...,2}
+			\draw [->] (hidden1-\i) -- (hidden2-\j);
+
+		% lines from hidden 2 to putput
+		\foreach \i in {1,...,2}
+			\foreach \j in {1}
+				\draw [->] (hidden2-\i) -- (output-\j);
+
+		% headings
+		\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
+			\node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+		\end{tikzpicture}
+	\end{frame}
+
+	% Neural Network Math
+	\begin{frame}
+		$Output = Activation Function ((Input* weight) + Bias)$
+	\end{frame}
+
+	% Checkerboard Outline
+	\begin{frame}
+		\frametitle{Checkerboard}
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[width=50mm]{checkerboard.png}
+			\caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{overflow}}
+		\end{figure}
+	\end{frame}
+
+	% Applied Neural Network Diagram
+	\begin{frame}
+		\frametitle{Neural Networks}
+		\tikzset{%
+			every neuron/.style={
+				circle,
+				draw,
+				minimum size=0.9cm
+				},
+			neuron missing/.style={
+				draw=none, 
+				scale=4,
+				text height=0.333cm,
+				execute at begin node=\color{black}$\vdots$
+			},
+		}
+
+		\begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
+
+		% draw nodes
+			% % input values
+			% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+			% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+
+			% input layer
+			\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+			\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+			
+			% layer 1
+			\foreach \m [count=\y] in {1,missing,2}
+			\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+			% layer 2
+			\foreach \m [count=\y] in {1,missing,2}
+			\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+			% output layer
+			\foreach \m [count=\y] in {1}
+			\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+
+		% input layer
+		\foreach \l [count=\i] in {1,1.5,0,-1}
+			\draw [<-] (input-\i) -- ++(-1,0)
+			node [above, midway] {${\l}$};
+
+		% hidden 1
+		\foreach \l [count=\i] in {{0.25},{0.62}}
+			\node [above] at (hidden1-\i.north) {${\l}$};
+
+		% hidden 2
+		\foreach \l [count=\i] in {-0.76, 0.24}
+			\node [above] at (hidden2-\i.north) {${\l}$};
+
+		% output layer
+		\foreach \l [count=\i] in {0.21}
+			\draw [->] (output-\i) -- ++(1,0)
+			node [above, midway] {$\l$};
+
+		% lines from input to hidden 1
+		\foreach \i in {1,...,4}
+			\foreach \j in {1,...,2}
+				\draw [->] (input-\i) -- (hidden1-\j);
+		
+		% lines from hidden 1 to hidden 2
+		\foreach \i in {1,...,2}
+		\foreach \j in {1,...,2}
+			\draw [->] (hidden1-\i) -- (hidden2-\j);
+
+		% lines from hidden 2 to putput
+		\foreach \i in {1,...,2}
+			\foreach \j in {1}
+				\draw [->] (hidden2-\i) -- (output-\j);
+
+		% headings
+		\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
+			\node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+		\end{tikzpicture}
+	\end{frame}
+
+	% Activation Function
+	\begin{frame}
+
+		\begin{figure}
+				\centering
+			
+				\begin{tikzpicture}
+						\fontsize{8}{11}
+						\begin{axis}[
+								legend pos=north west,
+								axis x line=middle,
+								axis y line=middle,
+								x tick label style={/pgf/number format/fixed,
+																		/pgf/number format/fixed zerofill,
+																		/pgf/number format/precision=1},
+								y tick label style={/pgf/number format/fixed,
+																		/pgf/number format/fixed zerofill,
+																		/pgf/number format/precision=1},
+								grid = major,
+								width=100mm,
+								height=7cm,
+								grid style={dashed, gray!30},
+								xmin=-5,     % start the diagram at this x-coordinate
+								xmax= 5,    % end   the diagram at this x-coordinate
+								ymin= -1,     % start the diagram at this y-coordinate
+								ymax= 1,   % end   the diagram at this y-coordinate
+								%axis background/.style={fill=white},
+								xlabel=x,
+								ylabel=y,
+								tick align=outside,
+								enlargelimits=false]
+						% plot the stirling-formulae
+						\addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
+						% \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+						\end{axis}
+				\end{tikzpicture}
+				\caption{graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ \label{sigmoid}}
+		\end{figure}
+	\end{frame}
+
+
+% ----------------------------
+% Decision Tree
+% ----------------------------
+
+	% Decision Tree
+	\begin{frame}
+		\frametitle{Choosing moves}
+
+		\begin{forest} 
+			for tree={
+				grow=east,
+				draw=cyan,
+				circle,
+				line width=0.2pt,
+				parent anchor=east,
+				child anchor=west,
+				edge={draw=cyan},
+				edge label={\Huge\color{black}},
+				edge path={
+					\noexpand\path[\forestoption{edge}]
+						(!u.parent anchor) -- ([xshift=-1.6cm].child anchor) --    
+						(.child anchor)\forestoption{edge label};
+				},
+				l sep=2cm,
+			} 
+			[,rectangle, s sep=35pt,
+				[,edge label={node[Below]{0.4}}
+					[,edge label={node[Below]{-0.2}}]
+					[,edge label={node[Above]{0.4}}]
+					[,edge label={node[Midway]{0.23}}]
+				]
+				[,edge label={node[Below]{0.23}}
+					[,edge label={node[Below]{0.23}}]
+					[,edge label={node[Above]{-0.66}}]
+				]
+				[,edge label={node[Above]{0.7}}
+					[,edge label={node[Below]{0.7}}
+					]
+					[,edge label={node[Above]{0.6}}
+					]
+				]
+			]
+			\end{forest}
+	\end{frame}
+
+	% monte carlo
+	\begin{frame}
+		\frametitle{Monte Carlo}
+		\begin{itemize}
+			\item Choose a random move at a node
+			\item Choose another random move
+			\item Keep choosing random moves n amount of times
+			\item after n moves, evaluate!
+			\item (Traditionally you'd randomly choose to the end)
+		\end{itemize}
+
+		The intuition behind this is that it tends to lean towards better moves probablistically.
+	\end{frame}
 % ----------------------------
 % Generating Agents
 % ----------------------------
 
-\begin{frame}
-	\frametitle{Generating Agents}
-	An agent is a generated set of weights for the neural network.
-\end{frame}
+	% generating agents
+	\begin{frame}
+		\frametitle{Generating Agents}
+		An agent is a generated set of weights for the neural network.
+	\end{frame}
 
-\begin{frame}
-	\frametitle{Tournament}
-	\begin{enumerate}
-		\item Generate a population of random agents
-		\item Make agents play each other
-		\item Order agents by the amount of points scored
-		\item The best few agents are chosen to stay on for the next tournament
-		\item make new agents from those best few
-		\item the losers are destroyed
-		\item repeat step 2-6 with the new agents until satisfied
-	\end{enumerate}
-\end{frame}
+	% tournament
+	\begin{frame}
+		\frametitle{Tournament}
+		\begin{enumerate}
+			\item Generate a population of random agents
+			\item Make agents play each other
+			\item Order agents by the amount of points scored
+			\item The best few agents are chosen to stay on for the next tournament
+			\item make new agents from those best few
+			\item the losers are destroyed
+			\item repeat step 2-6 with the new agents until satisfied
+		\end{enumerate}
+	\end{frame}
 
 % ----------------------------
 % Genetic Algorithms
 % ----------------------------
 
-\begin{frame}
-	\frametitle{Crossover Mechanism}
-\end{frame}
+	% crossover mechanism
+	\begin{frame}
+		\frametitle{Crossover Mechanism}
 
-\begin{frame}
-	\frametitle{Mutation}
-\end{frame}
 
-% Template
-\begin{frame}
-	\frametitle{Template}
-\end{frame}
+		Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
+
+		% for each layer's weights:
+		%     n = number of weights and biases in a given layer
+		%     index1 = random integer[0 to n]
+		%     index2 = random integer[0 to n]
+		%     if index2 < index1:
+		%         swap index1 and index2's values
+		%     Weights(child1) = $parent_{1}$[0 to index1] +  $parent_{2}$[index1 to index 2] + $parent_{1}$[index2 to n]
+		%     Weights(child2) =  $parent_{2}$[0 to index1] + $parent_{1}$[index1 to index 2] +  $parent_{2}$[index2 to n]
+				
+	\end{frame}
+
+	% mutation
+	\begin{frame}
+		\frametitle{Mutation}
+		Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+
+			$$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
+
+			The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+	\end{frame}
+
 % ----------------------------
 
 % Current Progress
@@ -495,8 +535,11 @@ Below/.style={
 	% How will I Judge the outcome of the work?
 	\framesubtitle{What have I done already?}
 
-	- I've created a relatively ok AI bot. \\
-	- It plays relatively well! \\
+	\begin{itemize}
+		\item An agent has been created and trained
+		\item It plays relatively well (anecdotally)
+		\item Not necessarily effective at end game performances...
+	\end{itemize}
 
 \end{frame}
 
@@ -507,16 +550,13 @@ Below/.style={
 	% What did or will you accomplish?
 	% What still needs to be done
 	% \framesubtitle{A bit more information about this}
-\end{frame}
+	\begin{itemize}
+		\item Measure the effectiveness of genetic algorithms
+		\item Optimise training (enforce threefold repetition)
+		\item Train the system for a bit longer
+		\item Measure the system's performance against other players
+	\end{itemize}
 
-% Conclusion
-\begin{frame}
-	\frametitle{Conclusion}
-	\framesubtitle{What will I accomplish?}
-	I will hopefully accomplish something.
-	% What did or will you accomplish?
-	% What still needs to be done
-	% \framesubtitle{A bit more information about this}
 \end{frame}
 
 % References
@@ -530,3 +570,43 @@ Below/.style={
 \end{frame}
 
 \end{document}
+
+% 
+
+% \begin{wrapfigure}{l}{1 \textwidth}
+%     % \begin{center}
+%     \fontsize{16}{2}
+
+%     \centering
+
+%         \begin{tikzpicture}
+%         \color{white}
+%         \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 2cm}] {
+%         & 31 &&30&&29&&28 \\
+%         27 &&26&&25&&24&&\\
+%         &23&&22&&21&&20\\   
+%             19&&18&&17&&16&&\\
+%         &15&&14&&13&&12\\
+%         11&&10&&9&&8&&\\
+%         &7&&6&&5&&4\\
+%         3&&2&&1&&0\\
+%         \bl &     & \bl &     & \bl &     & \bl &     \\
+%             & \bl &     & \bl &     & \bl &     & \bl \\
+%         \wh &     & \bl &     &     &     & \bl &     \\
+%             &     &     & \wh &     & \bl &     & \wh \\
+%         \wh &     & \wh &     &     &     & \wh &     \\
+%             &     &     &     &     &     &     & \wh \\
+%         \wh &     & \wh &     & \wh &     & \wh &     \\
+%             & \wh &     & \wh &     & \wh &     & \wh \\
+%         };
+%         \foreach \row in {1, ..., 8} {
+%         \foreach \col in {1, ..., 8} {
+%             \pgfmathparse{Mod(\row + \col, 2) ? "black" : "red"}
+%             \colorlet{squarebg}{\pgfmathresult}
+%             \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
+%         }
+%         }
+%         \end{tikzpicture}
+%     % \end{center}
+  
+% \end{wrapfigure}

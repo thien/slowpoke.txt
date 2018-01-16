@@ -40,17 +40,9 @@
 % stuff for checkerboard
 \usetikzlibrary{matrix.skeleton}
 \tikzstyle{ball} = [circle, shading=ball, minimum size=1cm]
-\newcommand{\bl}{\node [ball, ball color=black]{};}
+\newcommand{\bl}{\node [ball, ball color=black!80!white, draw=black!65!white, thin]{};}
 \newcommand{\wh}{\node [ball, ball color=white] {};}
 
-\makeatletter
-\pgfdeclareradialshading[tikz@ball]{ball}{\pgfqpoint{-10bp}{10bp}}{%
- color(0bp)=(tikz@ball!30!white);
- color(9bp)=(tikz@ball!75!white);
- color(18bp)=(tikz@ball!90!black);
- color(25bp)=(tikz@ball!70!black);
- color(50bp)=(black)}
-\makeatother
 
 % -------------------------------------------------------------------
 
@@ -410,46 +402,6 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
 \subsection*{Testing and Evaluation}
 
-
-
-\begin{wrapfigure}{l}{1 \textwidth}
-    % \begin{center}
-    \fontsize{16}{2}
-
-    \centering
-
-        \begin{tikzpicture}
-        \color{white}
-        \bf
-        \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 2cm}] {
-        & 31 &&30&&29&&28 \\
-        27 &&26&&25&&24&&\\
-        &23&&22&&21&&20\\   
-            19&&18&&17&&16&&\\
-        &15&&14&&13&&12\\
-        11&&10&&9&&8&&\\
-        &7&&6&&5&&4\\
-        3&&2&&1&&0\\
-        % \bl &     & \bl &     & \bl &     & \bl &     \\
-        %     & \bl &     & \bl &     & \bl &     & \bl \\
-        % \wh &     & \bl &     &     &     & \bl &     \\
-        %     &     &     & \wh &     & \bl &     & \wh \\
-        % \wh &     & \wh &     &     &     & \wh &     \\
-        %     &     &     &     &     &     &     & \wh \\
-        % \wh &     & \wh &     & \wh &     & \wh &     \\
-        %     & \wh &     & \wh &     & \wh &     & \wh \\
-        };
-        \foreach \row in {1, ..., 8} {
-        \foreach \col in {1, ..., 8} {
-            \pgfmathparse{Mod(\row + \col, 2) ? "black" : "red"}
-            \colorlet{squarebg}{\pgfmathresult}
-            \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
-        }
-        }
-        \end{tikzpicture}
-    % \end{center}
-  
-\end{wrapfigure}
     The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 100 moves, where the game is considered a draw if after the game hasn't ended after 100 moves from each player.
 
     At the end of a given generation, we measure growth of performance by using the generation's champion. Presently we will use the mean of means approach. When a new chapmion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current chapmion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
@@ -459,8 +411,6 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
     At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
     % --------------------------------
-
-
 
 % Presents the proposed solution(s)
 % The design details should all be placed in this section
