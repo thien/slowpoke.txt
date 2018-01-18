@@ -71,22 +71,8 @@
 \end{abstract}
 
 \begin{keywords}
-Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
-
+    Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Beta Pruning, Draughts
 \end{keywords}
-
-% ----------------
-
-% Sort introduction to your project
-% This will be the first thing that your second marker sees about your project
-% Make sure they can understand what you’re doing
-% Write for educated reader with background in CS, but non-expert Should contain:
-
-%   Brief introduction to the project
-%   The research question you are addressing
-%   Aims of the project 
-%   Deliverables
-
 
 \section{Introduction}
 
@@ -138,8 +124,7 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     Arthur Samuel pioneered the concept of an self learning program that can play Checkers, through the use of using evolutionary algorithms \cite{samuel_studies_2000}. However, the work described did not consider the use of neural networks (as it was not conceived at the time). It was also  dependent on a set of heuristics that Samuel devised, which could handicap  the agent's ability to play, as they are dependent on the effectiveness of Samuel's heuristics. 
 
-    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents.
-    However, crossover mechanisms were not considered in the creation of new agents. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered.
+    The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks using far less sophisticated hardware \cite{chellapilla_evolving_1999}. Their work, Blondie24, used a neural network as the evaluator function, and used an evolutionary algorithm to evolve the agents. However, crossover mechanisms were not considered in the creation of new agents. Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set. Spatial awareness as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness as it is not immediately considered. Their decision making algorithm primarily revolved around a mini-max algorithm with a ply cap; we will be exploring a hybrid Monte-Carlo search, which will be explained later on.
 
 % ----------------
 
@@ -183,15 +168,15 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
 \subsection*{Algorithms and Data Structures}
 
-\subsubsection{Decision Making}
+\subsubsection{Decision Making Algorithm}
 
-    In order to choose the best move given a current position, the decision making process for an agent could revolve around the use of minimax algorithm. This algorithm would expand the tree of potential moves until some depth is reached. From here, an evaluation function is used to calculate the value of the nodes at this depth. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
+    In order to choose the best move given a current position, the decision making process for an agent could revolve around the use of minimax algorithm. This was the case for Chellapilla and fogel's agent. \cite{chellapilla_evolving_1999}. This algorithm would expand the tree of potential moves until some depth is reached. From here, an evaluation function is used to calculate the value of the nodes at this depth. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
 
     The best value propagates upwards until it reaches to a child of the root node. The use of alpha-beta pruning will help to prune unnecessary moves,  reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move given  the players position.
 
     The mini-max method will have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic stategy where they can plan their moves in advance. There are inherent tradeoffs with having a higher ply count; asymptopic complexity of mini-max is expoential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This expotential growth is the achillies heel to the mini-max approach.
 
-    Once initial development on the mini-max algorithm is complete, it is possible to use the framework as a base to migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}.
+    Once initial development on the mini-max algorithm is complete, The project will migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}.
 
     MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random playout approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
     
@@ -202,10 +187,8 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
         \includegraphics[width=100mm]{nnmodel.png}
         \vspace{-25pt}
     \end{figure}
-
-    
+ 
 \subsubsection{Neural Network}
-
 
     \begin{wrapfigure}{l}{0.37 \textwidth}
         % \begin{center}
@@ -250,14 +233,13 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
     
-    
     % Talk about the activation function
-    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usuall have a sigmoid shape, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
+    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
     % how does it work?
 
-    Our initial choice for the activation function will be the sigmoid function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Other functions will be explored, inclduing ReLU (Rectified Linear Units), Noisy ReLU, and linear.
+    Our initial choice for the activation function will be the tanh function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilities the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
 
-    \begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{wrapfigure}{r}{0.4\textwidth}
         \centering
         \vspace{-30pt}
         \begin{tikzpicture}
@@ -273,12 +255,12 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
                                     /pgf/number format/fixed zerofill,
                                     /pgf/number format/precision=1},
                 grid = major,
-                width=55mm,
-                height=4cm,
+                width=75mm,
+                height=6cm,
                 grid style={dashed, gray!30},
-                xmin=-3,     % start the diagram at this x-coordinate
-                xmax= 3,    % end   the diagram at this x-coordinate
-                ymin= 0,     % start the diagram at this y-coordinate
+                xmin=-5,     % start the diagram at this x-coordinate
+                xmax= 5,    % end   the diagram at this x-coordinate
+                ymin= -1,     % start the diagram at this y-coordinate
                 ymax= 1,   % end   the diagram at this y-coordinate
                 %axis background/.style={fill=white},
                 xlabel=x,
@@ -286,40 +268,50 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
                 tick align=outside,
                 enlargelimits=false]
             % plot the stirling-formulae
-            \addplot[domain=-3:3, red, ultra thick,samples=500] {1/(1+e^-x))};
+            \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
             % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
             \end{axis}
         \end{tikzpicture}
-        \caption{graph of sigmoidal function $f(x)=\frac{1}{1+e^{-x}}$ \label{sigmoid}}
+        \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ (An example of an activation function with a sigmoid curve). \label{sigmoid}}
         \vspace{-30pt}
     \end{wrapfigure}
 
 \subsubsection{Genetic Algorithms} 
 
-    The genetic algorithm is the premise of the system's learning strategy. We discuss the various algorithms that form the collection of GA stategies below. For the system we choose a population size of 15.
+    The genetic algorithm is the premise of the system's learning strategy. We use this to train the neural network. We discuss the various algorithms that form the collection of GA stategies below. For the system, a population size of 15 is chosen.
 
 \subsubsection{Population Generation}
-
-    The initial population will consist of randomly generated weights and biases of the neural network, with values from [-1,1]. For a population size of 15, the next generation is created using the best five agents from the current generation. They will continue to play in the next generation. The agents are also chosen as a base to create 10 new agents from.
-
-    The next eight players are generated through the use of crossover strategies. The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights.
-    The remaining two will be direct mutations of the 4th and 5th place agents.
+    % Introduce what its for
+    In genetic algorithms, the population serves as a base that allows agents in the pool to play each other. Every generation has its own population, with all having the same number of agents. The initial population will consist of randomly generated weights and biases of the neural network, with values from [-1,1]. 
+    
+    For a population size of 15, the next generation is created using the best five agents from the current generation. They will continue to play in the next generation; this strategy is described as elitism. These agents are also used as a base to create 10 new agents from. 
+    
+    The next eight players are generated through the use of crossover strategies. The weights of the 1st and 2nd place agents are used as input to the crossover strategy and will generate 4 offsprings. Two are reciprocal crossover representations from the crossover, and the other two being directly mutated from the parents themselves. Another four children will be created using the same strategy, with the 2nd and 3rd agent's weights. The remaining two will be direct mutations of the 4th and 5th place agents.
 
 \subsubsection{Tournament Selection}
 
-    The tournament selection process revolves around each agent in the population playing 5 games as Black, against randomly selected opponments. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponment receives a score from the game. Scores are tallied up at the end of the tournament. Players are sorted by the number of points they scored. The best players would have the highest number of points.
+    In order to deduce the quality of the players in the population in some order, a tournament selection process is deduced. This allows us to choose the best players who will continue to play in the next generation.
+
+    Currently, it revolves around having each agent in the population playing 5 games as Black, against randomly selected opponments. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponment receives a score from the game. Scores are tallied up at the end of the tournament. Players are sorted by the number of points they scored. The best players would have the highest number of points.
 
 \subsubsection{Coefficent Mutation}
 
-    Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+    In order to create variation between agents, in preparation for the next generation, we create statistical anomalies through the use of mutations. This is used as one of the learning mechanisms that help change the decision factors of the neural network.
 
-    $$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
+    Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]. Equation \ref{mutation} describes the mutation formula.
+
+    \begin{equation} \label{mutation}
+        % \caption{The mutation formula. \label{mutation}}
+         WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}
+    \end{equation}
 
     The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
 
 \subsubsection{Crossover Strategy}
 
-    Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
+    Another learning mechanism provided from the use of genetic algorithms is the use of crossovers. This is another learning mechanism that combines the traits that build two parent agents and combines them to create children based on those traits. In our scenario we use the weights of the parent's neural networks.
+
+    Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
 
     % for each layer's weights:
     %     n = number of weights and biases in a given layer
@@ -333,7 +325,7 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     % add pseudocode here
     \begin{algorithm}
-        \caption{Crossover Strategy}
+        \caption{Crossover Strategy\label{crossover}}
         \begin{algorithmic}[1]
         \Procedure{crossover}{$parent_{1}$, $parent_{2}$}
         \BState \emph{loop} \text{for weights } $w$ \text{ in layers}:
@@ -381,9 +373,9 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     Players weights (for their neural networks) are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
-\subsection*{Tools}
+    \subsection*{Tools}
 
-    Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input.
+    Initial runs will operate on a 1-ply load in order to determine the stability of the system on a 4-core Intel i5 6200u with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply heavy load. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time.
 
 \subsection*{Interface}
 
@@ -400,6 +392,7 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponment. A possible rendition is shown in figure \ref{cli_humaninput}.
 
+
 \subsection*{Testing and Evaluation}
 
     The combined GANN (Genetic Algorithm/Neural Networks) are evaluated under competition style conditions. At each generation, each agent plays 5 games, with their opponment being from randomly chosen from the generation pool. Point scores are measured by {2,0,-1} where 2 is a win, 0 is a draw, and -1 is a loss. There is a hard cap of 100 moves, where the game is considered a draw if after the game hasn't ended after 100 moves from each player.
@@ -408,7 +401,11 @@ Artificial Intelligence, Neural Networks, Genetic Algorithms, MiniMax, Alpha Bet
 
     Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point and -1 for a loss. The weights are scaled differently to the regular tournament in order to accurately portray the difference between previous champions.
 
+    \subsubsection*{Evaluation Method}
+
     At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
+
+    The end player is also used to create comparison games. 
 
     % --------------------------------
 
