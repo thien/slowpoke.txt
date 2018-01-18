@@ -1,5 +1,7 @@
 .vscode/*
 .DS_Store
+*.bbl
+*.blg
 */.synctex
 *.fdb_latexmk
 *.fls
