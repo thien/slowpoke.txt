@@ -182,7 +182,7 @@
     
     \begin{figure}[ht!]
         \centering
-        \caption{The chosen neural network model. The preprocessed values of the checkerboard are used as input. An output is produced after propagation that ranges from [-1,1]. \label{overflow}}
+        \caption{The chosen neural network model. The preprocessed values of the checkerboard are used as input. An output is produced after propagation that ranges from [-1,1]. \label{nnmodel}}
         \vspace{10pt}
         \tikzset{%
         every neuron/.style={
@@ -264,10 +264,16 @@
  
 \subsubsection{Neural Network}
 
+    In order to evaluate the board, we will use a feed-forward multilayer perceptron style neural network. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
+    
+    It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
+
+    The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
+
     \begin{wrapfigure}{l}{0.37 \textwidth}
         % \begin{center}
         \fontsize{8}{11}
-        \vspace{-25pt}
+        % \vspace{-25pt}
         \centering
             \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
             \vspace{5pt}
@@ -300,12 +306,6 @@
         % \end{center}
       
     \end{wrapfigure}
-
-    In order to evaluate the board, we will use a feed-forward multilayer perceptron style neural network. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively.
-    
-    It is common knowledge that a King piece is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of completeness, a King's piece value is to be weighted at 1.5x the regular pawn value. 
-
-    The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible subsquares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each subsquare is summed up to create an input node. There are consequently 91 combinations of the subsquares, thus forming the input layer. 
     
     % Talk about the activation function
     Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
