@@ -182,10 +182,84 @@
     
     \begin{figure}[ht!]
         \centering
-        \caption{The chosen neural network model. Note that the checkboard is preprocessed. \label{overflow}}
+        \caption{The chosen neural network model. The preprocessed values of the checkerboard are used as input. An output is produced after propagation that ranges from [-1,1]. \label{overflow}}
         \vspace{10pt}
-        \includegraphics[width=100mm]{nnmodel.png}
-        \vspace{-25pt}
+        \tikzset{%
+        every neuron/.style={
+            circle,
+            draw,
+            minimum size=0.9cm
+            },
+        neuron missing/.style={
+            draw=none, 
+            scale=4,
+            text height=0.333cm,
+            execute at begin node=\color{black}$\vdots$
+        },
+    }
+
+    \begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
+
+    % draw nodes
+        % % input values
+        % \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+        % 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+
+        % input layer
+        \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+        \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+        
+        % layer 1
+        \foreach \m [count=\y] in {1,missing,2}
+        \node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+        % layer 2
+        \foreach \m [count=\y] in {1,missing,2}
+        \node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+        % output layer
+        \foreach \m [count=\y] in {1}
+        \node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+
+    % input layer
+    \foreach \l [count=\i] in {1,2,3,91}
+        \draw [<-] (input-\i) -- ++(-1,0)
+        node [above, midway] {$I_{\l}$};
+
+    % hidden 1
+    \foreach \l [count=\i] in {{(1,1)},{(1,40)}}
+        \node [above] at (hidden1-\i.north) {$H_{\l}$};
+
+    % hidden 2
+    \foreach \l [count=\i] in {(2,1),(2,10)}
+        \node [above] at (hidden2-\i.north) {$H_{\l}$};
+
+    % output layer
+    \foreach \l [count=\i] in {1}
+        \draw [->] (output-\i) -- ++(1,0)
+        node [above, midway] {$O_\l$};
+
+    % lines from input to hidden 1
+    \foreach \i in {1,...,4}
+        \foreach \j in {1,...,2}
+            \draw [->] (input-\i) -- (hidden1-\j);
+    
+    % lines from hidden 1 to hidden 2
+    \foreach \i in {1,...,2}
+    \foreach \j in {1,...,2}
+        \draw [->] (hidden1-\i) -- (hidden2-\j);
+
+    % lines from hidden 2 to putput
+    \foreach \i in {1,...,2}
+        \foreach \j in {1}
+            \draw [->] (hidden2-\i) -- (output-\j);
+
+    % headings
+    \foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
+        \node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+    \end{tikzpicture}
+        % \vspace{-25pt}
     \end{figure}
  
 \subsubsection{Neural Network}
@@ -237,7 +311,7 @@
     Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characterisitics of these functions include values to be monotonically increasing, continuous, differentiable and bounded.
     % how does it work?
 
-    Our initial choice for the activation function will be the tanh function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Hinton. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilities the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
+    Our initial choice for the activation function will be the tanh function, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilities the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
 
     \begin{wrapfigure}{r}{0.4\textwidth}
         \centering
@@ -405,8 +479,7 @@
 
     At the end of the generation run, the end player will be used to compete against human players on various online multiplayers checkers websites in order to determine an accurate ELO rating of the system.
 
-    The end player is also used to create comparison games. 
-
+    The end player is also used to create comparison games. This player is tested against an agent who is choosing random moves, an agent who is using pure monte-carlo tree searches, and an agent from half the generations generations prior to its current state. These statistics will be used as evidence in order to determine whether the agent is learning, and can also be seriously consided as a viable alternative to other machine learning training approaches.
     % --------------------------------
 
 % Presents the proposed solution(s)
