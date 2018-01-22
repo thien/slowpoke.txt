@@ -58,3 +58,7 @@ Our activation function of choice is a tanh function; it's symmetrical around th
 
 One issue with draughts is the potential to calculate 
 There are about 5x10^20 possible moves that can be deduced from the beginning of the game.
+
+# Monte Carlo Tree Search
+
+Due to the constraints of presentation time I'll have to grossly simplify the monte carlo tree search algorithm.
