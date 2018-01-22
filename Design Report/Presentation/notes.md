@@ -46,6 +46,15 @@ So how will we go about evaluating checkerboards?
 
 A common approach is to use Neural networks. For those who don't know what neural networks are, it's a metaphor of how the human brain operates;
 
-the vertices here represent the neurons of a human brain, and the edges represent synapses. The idea is that this could be used to calculate 
+the vertices here represent the neurons of a human brain, and the edges represent synapses. The values of the vertices propagate to other edges, until they reach the output layer. The idea is that this could be used to model fairly sophisticated relationships between an input and output.
 
-It's not very sexy in code.
+Ideally, we could use the positions of the pieces on the checkerboard as an input to a neural network, and hopefully it can evaluate the probability of one side winning.
+
+# Activation function
+
+Our activation function of choice is a tanh function; it's symmetrical around the origin and is perfect at mapping the zero-sumness of the game; where if one side is winning to some extent, the other side is losing by that same extent. 
+
+# Choosing Moves
+
+One issue with draughts is the potential to calculate 
+There are about 5x10^20 possible moves that can be deduced from the beginning of the game.
