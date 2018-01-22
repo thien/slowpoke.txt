@@ -1,6 +1,8 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 % \usetheme{Madrid}
 
+% package to use double spacing
+\usepackage{setspace}
 
 \usepackage{tikz}
 
@@ -117,13 +119,28 @@ Below/.style={
 
 % Problem Description
 \begin{frame}
+	\frametitle{Why Draughts?}
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=80mm]{schaeffer.jpg}
+		\caption{Checkers Is Solved in 2007 thanks to this guy. \cite{schaeffer_solving_1996}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
   \frametitle{Problem Description}
-  \framesubtitle{A problem in Computer Science}
+	\framesubtitle{A problem in Computer Science (..before AlphaZero existed)}
+	% \setlength{\parindent}{4em}
+	\setlength{\parskip}{1.5em}
 	% More content goes here
 	% Why is it important?
 	% Currently (except for AlphaGo Zero) are really good at exploiting human games and definining "intuition" from there.
-	Presently, competitive Draughts AI players are currently designed to play at a fixed ability. \\
-	While it has produced very competitive and intelligent players, they require manual modifications in order to improve its performance. This is due to their dependency on pre-defined move databases, where optimal moves are pre-calculated, and recalled when necessary. \\
+
+	Presently, A variety of Draughts AI players tend to be designed to play at a fixed ability.
+	\par
+	While it has produced very competitive and intelligent players, they require human  intervention in order to improve their performance.
+	\par
+	% This is due to their dependency on pre-defined move databases, where optimal moves are pre-calculated, and recalled when necessary. \\
 	By combining Neural Networks and Genetic Algorithms, this issue could possibly be solved by creating a player that can grow in ability over time, without the dependency on move-banks.
 
 
@@ -137,7 +154,7 @@ Below/.style={
 	%More content goes here
 
 	\begin{itemize}
-		\item Enjoyed AI Search
+		\item Enjoyed AI Search Submodule
 		\item Interested in seeing whether genetic algorithms are still relevant
 		\item Interested in Machine Learning (unfortunately not an option this year!)
 		\item ..I like board games
@@ -153,15 +170,19 @@ Below/.style={
 	\framesubtitle{Similar works of art but no cigar}
 	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
 	\begin{block}{Samuel (59')}
-		Uses Genetic Algorithms to improve coefficents of a set of heuristics to evaluate Draughts games.
+		Uses Genetic Algorithms to improve coefficents of a set of heuristics to evaluate Draughts games. \cite{samuel_studies_2000}
 	\end{block}
 	%More content goes here
 	\begin{block}{Blondie24 (97')}
-		Uses an Evolutionary Algorithm and Neural Networks to evaluate Draughts games. (Quite similar!)
+		Uses an Evolutionary Algorithm and Neural Networks to evaluate Draughts games. (Quite similar!) \cite{chellapilla_evolving_1999}
 	\end{block}
 
 	 \begin{block}{Giraffe (15')}
-		Uses contemporary machine learning techniques to train a Neural Network to evaluate Chess games.
+		Uses contemporary machine learning techniques to train a Neural Network to evaluate Chess games. \cite{lai_giraffe:_2015}
+	 \end{block}
+
+	 \begin{block}{Uber (A few days ago)}
+		Uses genetic algorithms to train convolutional neural networks to play Atari Games. \cite{lai_giraffe:_2015}
 	 \end{block}
 	% Interested in neural networks, really enjoyed AI Search submodule. Inherent competitiveness against peers
 	% Not necessarily interested in solving something new; also not expected for a bachelors degree.
@@ -312,70 +333,65 @@ Below/.style={
 
 		\begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
 
-		% draw nodes
-			% % input values
-			% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-			% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+				% input layer
+				\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+				\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+				
+				% layer 1
+				\foreach \m [count=\y] in {1,missing,2}
+				\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+				% layer 2
+				\foreach \m [count=\y] in {1,missing,2}
+				\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+				% output layer
+				\foreach \m [count=\y] in {1}
+				\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
 
 			% input layer
-			\foreach \m/\l [count=\y] in {1,2,3,missing,4}
-			\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-			
-			% layer 1
-			\foreach \m [count=\y] in {1,missing,2}
-			\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+			\foreach \l [count=\i] in {1,1.5,0,-1}
+				\draw [<-] (input-\i) -- ++(-1,0)
+				node [above, midway] {${\l}$};
 
-			% layer 2
-			\foreach \m [count=\y] in {1,missing,2}
-			\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+			% hidden 1
+			\foreach \l [count=\i] in {{0.25},{0.62}}
+				\node [above] at (hidden1-\i.north) {${\l}$};
+
+			% hidden 2
+			\foreach \l [count=\i] in {-0.76, 0.24}
+				\node [above] at (hidden2-\i.north) {${\l}$};
 
 			% output layer
-			\foreach \m [count=\y] in {1}
-			\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+			\foreach \l [count=\i] in {0.21}
+				\draw [->] (output-\i) -- ++(1,0)
+				node [above, midway] {$\l$};
 
-		% input layer
-		\foreach \l [count=\i] in {1,1.5,0,-1}
-			\draw [<-] (input-\i) -- ++(-1,0)
-			node [above, midway] {${\l}$};
-
-		% hidden 1
-		\foreach \l [count=\i] in {{0.25},{0.62}}
-			\node [above] at (hidden1-\i.north) {${\l}$};
-
-		% hidden 2
-		\foreach \l [count=\i] in {-0.76, 0.24}
-			\node [above] at (hidden2-\i.north) {${\l}$};
-
-		% output layer
-		\foreach \l [count=\i] in {0.21}
-			\draw [->] (output-\i) -- ++(1,0)
-			node [above, midway] {$\l$};
-
-		% lines from input to hidden 1
-		\foreach \i in {1,...,4}
+			% lines from input to hidden 1
+			\foreach \i in {1,...,4}
+				\foreach \j in {1,...,2}
+					\draw [->] (input-\i) -- (hidden1-\j);
+			
+			% lines from hidden 1 to hidden 2
+			\foreach \i in {1,...,2}
 			\foreach \j in {1,...,2}
-				\draw [->] (input-\i) -- (hidden1-\j);
-		
-		% lines from hidden 1 to hidden 2
-		\foreach \i in {1,...,2}
-		\foreach \j in {1,...,2}
-			\draw [->] (hidden1-\i) -- (hidden2-\j);
+				\draw [->] (hidden1-\i) -- (hidden2-\j);
 
-		% lines from hidden 2 to putput
-		\foreach \i in {1,...,2}
-			\foreach \j in {1}
-				\draw [->] (hidden2-\i) -- (output-\j);
+			% lines from hidden 2 to putput
+			\foreach \i in {1,...,2}
+				\foreach \j in {1}
+					\draw [->] (hidden2-\i) -- (output-\j);
 
-		% headings
-		\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
-			\node [align=center, above] at (\x*2,2) {\l \\ layer};
+			% headings
+			\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
+				\node [align=center, above] at (\x*2,2) {\l \\ layer};
 
 		\end{tikzpicture}
 	\end{frame}
 
 	% Activation Function
 	\begin{frame}
-
+		\frametitle{Activation Function}
 		\begin{figure}
 				\centering
 			
@@ -551,7 +567,7 @@ Below/.style={
 	\framesubtitle{What have I done already?}
 
 	\begin{itemize}
-		\item An agent has been created and trained
+		\item The initial set up is ready
 		\item It plays relatively well (anecdotally)
 		\item Not necessarily effective at end game performances...
 	\end{itemize}
@@ -565,6 +581,7 @@ Below/.style={
 	% What still needs to be done
 	% \framesubtitle{A bit more information about this}
 	\begin{itemize}
+		\item Squash Bugs that could impede performance/provide false positives
 		\item Measure the effectiveness of genetic algorithms
 		\item Optimise training (enforce threefold repetition)
 		\item Train the system for a bit longer
@@ -572,12 +589,23 @@ Below/.style={
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Fin.}
+	% What did or will you accomplish?
+	% What still needs to be done
+	% \framesubtitle{A bit more information about this}
+	Any Questions?
+\end{frame}
+
 % References
 \begin{frame}
 	\frametitle{References}
 	\framesubtitle{Nanos gigantum humeris insidentes}
 	% What did or will you accomplish?
-	References!
+	\bibliography{ref}
+	\bibliographystyle{plain}
+	% \bibliography{ref}
+
 	% What still needs to be done
 	% \framesubtitle{A bit more information about this}
 \end{frame}
