@@ -123,7 +123,7 @@ Below/.style={
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=80mm]{schaeffer.jpg}
-		\caption{Checkers Is Solved in 2007 thanks to this guy. \cite{schaeffer_solving_1996}}
+		\caption{Schaeffer literally brute forced Checkers in 2007. \cite{schaeffer_solving_1996}}
 	\end{figure}
 \end{frame}
 
@@ -156,7 +156,7 @@ Below/.style={
 	\begin{itemize}
 		\item Enjoyed AI Search Submodule
 		\item Interested in seeing whether genetic algorithms are still relevant
-		\item Interested in Machine Learning (unfortunately not an option this year!)
+		\item Interested in machine learning
 		\item ..I like board games
 	\end{itemize}
 
@@ -483,7 +483,7 @@ Below/.style={
 
 	% monte carlo
 	\begin{frame}
-		\frametitle{Monte Carlo Tree Search}
+		\frametitle{Hybrid Monte Carlo Tree Search}
 
 		A grossly simplified algorithm:
 
@@ -492,7 +492,7 @@ Below/.style={
 			\item Choose random move $k \in m$.
 			\item Simulate a random, theoretical game from this;
 			\item Keep choosing random moves $n$ amount of times
-			\item after $n$ moves, evaluate using our evaluator to make $x$!
+			\item after $n$ moves, evaluate using our neural network to make $x$!
 			\item Increment the number of simulations taken from $k = i$ 
 			\item Increment the chances of a good move from $k$ by $x$.
 			\item When satisfied, choose $k$ with the biggest $x/i$!
