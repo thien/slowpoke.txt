@@ -490,7 +490,14 @@ Below/.style={
 	% generating agents
 	\begin{frame}
 		\frametitle{Generating Agents}
-		An agent is a generated set of weights for the neural network.
+		\begin{block}{Agent}
+			An agent is a generated set of weights and biases for a neural network.
+		\end{block}
+
+		\begin{itemize}
+			\item An initial agent would have a randomly generated set of weights and biases
+			\item initial values range from -0.2 to 0.2.
+		\end{itemize}
 	\end{frame}
 
 	% tournament
@@ -501,9 +508,9 @@ Below/.style={
 			\item Make agents play each other
 			\item Order agents by the amount of points scored
 			\item The best few agents are chosen to stay on for the next tournament
-			\item make new agents from those best few
-			\item the losers are destroyed
-			\item repeat step 2-6 with the new agents until satisfied
+			\item Make new agents from them
+			\item The losers are destroyed
+			\item Repeat step 2-6 with the new agents until satisfied
 		\end{enumerate}
 	\end{frame}
 
@@ -515,9 +522,57 @@ Below/.style={
 	\begin{frame}
 		\frametitle{Crossover Mechanism}
 
-
-		Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, the following algorithm represents the crossover process:
-
+		\begin{figure}
+			\begin{figure}
+				\LARGE
+			\begin{forest}
+				for tree={grow=north}
+				[	{
+					$O_{1} =$ [ 
+							{\color{red}1}
+							{\color{blue}7}
+							{\color{red}3}
+							{\color{blue}9}
+							{\color{red}5} 
+						], 
+						$O_{2} =$	[ 
+							{\color{blue}6}
+							{\color{red}2}
+							{\color{blue}8}
+							{\color{red}4}
+							{\color{blue}10} 
+						]
+					}
+					[
+						{
+							$P_{2} =$ [
+								{\color{blue}6}
+								{\color{blue}7}
+								{\color{blue}8}
+								{\color{blue}9}
+								{\color{blue}10}
+							]
+						}
+					]
+					[
+						{
+							$P_{1} =$[
+								{\color{red}1}
+								{\color{red}2}
+								{\color{red}3}
+								{\color{red}4}
+								{\color{red}5}
+							]
+						}
+					] 
+				]
+			\end{forest}
+			\vspace{10mm}
+		\end{figure}
+			Offspring agents are created from a pair of parent agents.
+			Each offspring is a reciprocal crossover of each other.
+			Weights here are treated as 1D coefficents.
+		\end{figure}
 		% for each layer's weights:
 		%     n = number of weights and biases in a given layer
 		%     index1 = random integer[0 to n]
@@ -532,11 +587,11 @@ Below/.style={
 	% mutation
 	\begin{frame}
 		\frametitle{Mutation}
-		Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+		$WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ represents a random floating point in the range of [-1,1]:
 
 			$$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
 
-			The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+		Mutation influence is dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
 	\end{frame}
 
 % ----------------------------
@@ -549,8 +604,11 @@ Below/.style={
 	\framesubtitle{How will I judge my outcome?}
 
 	\begin{itemize}
-		\item Will be used to play against human players on popular checkers websites
-		\item Measurements held to mesure evolution progress
+		\item Measurements held to measure evolution progress
+		\item Play final agent against agent from prior stages to indicate whether it has been learning
+		\item Play against a randomly playing bot to see it is actually thinking
+		\item Play against different move making algorithms (Vanilla MCTS, $\alpha \beta$ MiniMax)
+		\item Also play against human players on popular checkers websites
 	\end{itemize}
 \end{frame}
 
@@ -562,9 +620,10 @@ Below/.style={
 	\framesubtitle{What have I done already?}
 
 	\begin{itemize}
-		\item The initial set up is ready
+		\item The initial set up is ready*
+		\item It has been trained*
 		\item It plays relatively well (anecdotally)
-		\item Not necessarily effective at end game performances...
+		\item Relatively ineffective at end game performances...
 	\end{itemize}
 \end{frame}
 
@@ -576,8 +635,8 @@ Below/.style={
 	% What still needs to be done
 	% \framesubtitle{A bit more information about this}
 	\begin{itemize}
-		\item Squash Bugs that could impede performance/provide false positives
-		\item Measure the effectiveness of genetic algorithms
+		\item * Squash Bugs that could impede performance/provide false positives
+		\item Experiment with different crossover and mutation mechanisms
 		\item Optimise training (enforce threefold repetition)
 		\item Train the system for a bit longer
 		\item Measure the system's performance against other players
@@ -586,10 +645,14 @@ Below/.style={
 
 \begin{frame}
 	\frametitle{Fin.}
+	
 	% What did or will you accomplish?
 	% What still needs to be done
 	% \framesubtitle{A bit more information about this}
+	\begin{figure}
+		\LARGE
 	Any Questions?
+	\end{figure}
 \end{frame}
 
 % References

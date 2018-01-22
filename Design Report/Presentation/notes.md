@@ -62,3 +62,16 @@ There are about 5x10^20 possible moves that can be deduced from the beginning of
 # Monte Carlo Tree Search
 
 Due to the constraints of presentation time I'll have to grossly simplify the monte carlo tree search algorithm.
+
+# Crossover
+Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. 
+
+This will need more experimentation however. There are a lot of studies on different approaches to crossover mechanisms.
+
+# Mutations
+
+Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+
+$$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
+
+The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
