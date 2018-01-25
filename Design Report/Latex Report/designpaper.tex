@@ -147,98 +147,30 @@
 
     The mini-max method will have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
 
-    Once initial development on the mini-max algorithm is complete, The project will migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=90mm]{montecarlo.png}
+        \caption{A diagram describing the MCTS process.}
+    \end{figure}
+
+    Once initial development on the mini-max algorithm is complete, The project will migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS are played in rounds that consist of four operations:
+
+    \begin{itemize}
+        \item Selection: A selection strategy is played recursively until some position is reached. 
+        \item Play-Out: A simulated game is played. A basic form of MCTS would play until an end-game is reached.
+        \item Expansion: A node is added to the tree.
+        \item Back-propagation: The result of the game is back-propagated in the tree of moves.
+    \end{itemize}
+
+    These rounds are repeated until a certain period of time is met or a certain number of rounds are computed. Once finished, a node is chosen based on its total probability of reaching an winning outcome.
+    
 
     MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random play-out approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
 
-    We retain the minimax algorithm in order to evaluate the performance differences between our two decision making algorithms.
-    
-    \begin{figure}[ht!]
-        \centering
-        \caption{The chosen neural network model. The preprocessed values of the checkerboard are used as input. An output is produced after propagation that ranges from [-1,1]. \label{nnmodel}}
-        \vspace{10pt}
-        \tikzset{%
-        every neuron/.style={
-            circle,
-            draw,
-            minimum size=0.9cm
-            },
-        neuron missing/.style={
-            draw=none, 
-            scale=4,
-            text height=0.333cm,
-            execute at begin node=\color{black}$\vdots$
-        },
-    }
-
-    \begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
-
-    % draw nodes
-        % % input values
-        % \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-        % 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
-
-        % input layer
-        \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-        \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-        
-        % layer 1
-        \foreach \m [count=\y] in {1,missing,2}
-        \node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
-
-        % layer 2
-        \foreach \m [count=\y] in {1,missing,2}
-        \node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
-
-        % output layer
-        \foreach \m [count=\y] in {1}
-        \node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
-
-    % input layer
-    \foreach \l [count=\i] in {1,2,3,91}
-        \draw [<-] (input-\i) -- ++(-1,0)
-        node [above, midway] {$I_{\l}$};
-
-    % hidden 1
-    \foreach \l [count=\i] in {{(1,1)},{(1,40)}}
-        \node [above] at (hidden1-\i.north) {$H_{\l}$};
-
-    % hidden 2
-    \foreach \l [count=\i] in {(2,1),(2,10)}
-        \node [above] at (hidden2-\i.north) {$H_{\l}$};
-
-    % output layer
-    \foreach \l [count=\i] in {1}
-        \draw [->] (output-\i) -- ++(1,0)
-        node [above, midway] {$O_\l$};
-
-    % lines from input to hidden 1
-    \foreach \i in {1,...,4}
-        \foreach \j in {1,...,2}
-            \draw [->] (input-\i) -- (hidden1-\j);
-    
-    % lines from hidden 1 to hidden 2
-    \foreach \i in {1,...,2}
-    \foreach \j in {1,...,2}
-        \draw [->] (hidden1-\i) -- (hidden2-\j);
-
-    % lines from hidden 2 to output
-    \foreach \i in {1,...,2}
-        \foreach \j in {1}
-            \draw [->] (hidden2-\i) -- (output-\j);
-
-    % headings
-    \foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Output}
-        \node [align=center, above] at (\x*2,2) {\l \\ layer};
-
-    \end{tikzpicture}
-        % \vspace{-25pt}
-    \end{figure}
- 
     \begin{wrapfigure}{r}{0.37 \textwidth}
         % \begin{center}
         \fontsize{8}{11}
-        \vspace{-40pt}
+        % \vspace{-40pt}
         \centering
             \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
             \vspace{5pt}
@@ -269,8 +201,93 @@
             }
             \end{tikzpicture}
         % \end{center}
-    
+        \vspace{-20pt}
     \end{wrapfigure}
+
+    We retain the minimax algorithm in order to evaluate the performance differences between our two decision making algorithms.
+    
+    \begin{figure}[ht!]
+        \centering
+        \caption{The chosen neural network model. The preprocessed values of the checkerboard are used as input. An output is produced after propagation that ranges from [-1,1]. \label{nnmodel}}
+        \vspace{10pt}
+        \tikzset{%
+            every neuron/.style={
+                circle,
+                draw,
+                minimum size=0.9cm
+                },
+            neuron missing/.style={
+                draw=none, 
+                scale=4,
+                text height=0.333cm,
+                execute at begin node=\color{black}$\vdots$
+            },
+        }
+
+        \begin{tikzpicture}[x=1.2cm, y=1.5cm, >=stealth]
+
+        % draw nodes
+            % % input values
+            % \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+            % 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+
+            % input layer
+            \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+            \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+            
+            % layer 1
+            \foreach \m [count=\y] in {1,missing,2}
+            \node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+            % layer 2
+            \foreach \m [count=\y] in {1,missing,2}
+            \node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+            % output layer
+            \foreach \m [count=\y] in {1}
+            \node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+
+        % input layer
+        \foreach \l [count=\i] in {1,2,3,91}
+            \draw [<-] (input-\i) -- ++(-1,0)
+            node [above, midway] {$I_{\l}$};
+
+        % hidden 1
+        \foreach \l [count=\i] in {{(1,1)},{(1,40)}}
+            \node [above] at (hidden1-\i.north) {$H_{\l}$};
+
+        % hidden 2
+        \foreach \l [count=\i] in {(2,1),(2,10)}
+            \node [above] at (hidden2-\i.north) {$H_{\l}$};
+
+        % output layer
+        \foreach \l [count=\i] in {1}
+            \draw [->] (output-\i) -- ++(1,0)
+            node [above, midway] {$O_\l$};
+
+        % lines from input to hidden 1
+        \foreach \i in {1,...,4}
+            \foreach \j in {1,...,2}
+                \draw [->] (input-\i) -- (hidden1-\j);
+        
+        % lines from hidden 1 to hidden 2
+        \foreach \i in {1,...,2}
+        \foreach \j in {1,...,2}
+            \draw [->] (hidden1-\i) -- (hidden2-\j);
+
+        % lines from hidden 2 to output
+        \foreach \i in {1,...,2}
+            \foreach \j in {1}
+                \draw [->] (hidden2-\i) -- (output-\j);
+
+        % headings
+        \foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Output}
+            \node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+        \end{tikzpicture}
+        % \vspace{-25pt}
+    \end{figure}
+ 
 
 \subsubsection{Neural Network}
 
@@ -280,15 +297,10 @@
 
     The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkerboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible sub-squares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each sub-square is summed up to create an input node. There are consequently 91 combinations of the sub-squares, thus forming the input layer. 
 
-    % Talk about the activation function
-    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) $O = f((Input* weight) + Bias)$ to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
-    % how does it work?
-
-    Our initial choice for the activation function is tanh, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
 
     \begin{wrapfigure}{r}{0.4\textwidth}
         \centering
-        \vspace{-30pt}
+        \vspace{-10pt}
         \begin{tikzpicture}
             \fontsize{8}{11}
             \begin{axis}[
@@ -320,12 +332,21 @@
             \end{axis}
         \end{tikzpicture}
         \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ (An example of an activation function with a sigmoid curve). \label{sigmoid}}
-        \vspace{-30pt}
+        \vspace{-20pt}
     \end{wrapfigure}
+    
+
+    % Talk about the activation function
+    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) $O = f((Input* weight) + Bias)$ to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
+    % how does it work?
+
+    Our initial choice for the activation function is tanh, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
 
 \subsubsection{Genetic Algorithms} \label{genetic_algorithms}
 
     The genetic algorithm is the premise of the system's learning strategy. GA's are used to train the neural network. We discuss the various algorithms that form the collection of GA strategies below. For the system, a population size of 15 is chosen.
+
+    
 
 
 \subsubsection{Population Generation} \label{population_generation}
@@ -360,9 +381,21 @@
 
 \subsubsection{Crossover Strategy} \label{crossover_strategy}
 
+        
+    \begin{figure}
+        \centering
+        \includegraphics[width=110mm]{crossover.png}
+        \caption{A diagram visualising the crossover process.\label{crossoverpic}}
+    \end{figure}
+
     Another learning mechanism provided from the use of genetic algorithms is the use of crossovers. This combines the traits that build two parent agents to create children. In our scenario we use the weights and biases of the parent's neural networks.
 
-    Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
+    Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
+    % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
+    A random node from the dominant parent's hidden nodes are chosen. The dominant parent is the agent who gained more points in the tournament round. If a dominant parent cannot be deduced it would be randomly chosen. Once a random node is chosen, The dominant input weights and biases that feed into the chosen node are chosen to swap with the submissive parent. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
+    Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights of the red inputs are swapped with the weights of the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
+
+    This crossover process would create a subtle modification to a neural network, by swapping some weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
 
     % for each layer's weights:
     %     n = number of weights and biases in a given layer
@@ -372,42 +405,41 @@
     %         swap index1 and index2's values
     %     Weights(child1) = $parent_{1}$[0 to index1] +  $parent_{2}$[index1 to index 2] + $parent_{1}$[index2 to n]
     %     Weights(child2) =  $parent_{2}$[0 to index1] + $parent_{1}$[index1 to index 2] +  $parent_{2}$[index2 to n]
-        
 
     % add pseudocode here
-    \begin{algorithm}
-        \caption{Crossover Strategy\label{crossover}}
-        \begin{algorithmic}[1]
-        \Procedure{crossover}{$parent_{1}$, $parent_{2}$}
-        \BState \emph{loop} \text{for weights } $w$ \text{ in layers}:
-        \State $n \gets \text{length of } w$
-        % \State $\textit{stringlen} \gets \text{length of } \textit{string}$
-        \State $i_{1} \gets \textit{random integer} (0,n-1)$
-        \State $i_{2} \gets \textit{random integer} (0,n-1)$
-        % \State $i \gets \textit{patlen}$
-        % if statement to check random numbers
-        \If {$i_{1} > i_{2}$}
-        \State \textit{swap } $i_{1}$ \text{ and } $i_{2}$ 
-        \EndIf
-        % \State $j \gets \textit{patlen}$
+    % \begin{algorithm}
+    %     \caption{Crossover Strategy\label{crossover}}
+    %     \begin{algorithmic}[1]
+    %     \Procedure{crossover}{$parent_{1}$, $parent_{2}$}
+    %     \BState \emph{loop} \text{for weights } $w$ \text{ in layers}:
+    %     \State $n \gets \text{length of } w$
+    %     % \State $\textit{stringlen} \gets \text{length of } \textit{string}$
+    %     \State $i_{1} \gets \textit{random integer} (0,n-1)$
+    %     \State $i_{2} \gets \textit{random integer} (0,n-1)$
+    %     % \State $i \gets \textit{patlen}$
+    %     % if statement to check random numbers
+    %     \If {$i_{1} > i_{2}$}
+    %     \State \textit{swap } $i_{1}$ \text{ and } $i_{2}$ 
+    %     \EndIf
+    %     % \State $j \gets \textit{patlen}$
 
-        \State $weights_{w,child1}$ = $parent_{1}$[0 \ldots $i_{1}$] +  $parent_{2}$[$i_{1}+1$ \ldots $i_{2}$] + $parent_{1}$[$i_{2}+1$ \ldots $n$] 
-        \State $weights_{w,child2}$ =  $parent_{2}$[0 \ldots $i_{1}$] + $parent_{1}$[$i_{1}+1$ \ldots $i_{2}$] +  $parent_{2}$[$i_{2}+1$ \ldots $n$] 
+    %     \State $weights_{w,child1}$ = $parent_{1}$[0 \ldots $i_{1}$] +  $parent_{2}$[$i_{1}+1$ \ldots $i_{2}$] + $parent_{1}$[$i_{2}+1$ \ldots $n$] 
+    %     \State $weights_{w,child2}$ =  $parent_{2}$[0 \ldots $i_{1}$] + $parent_{1}$[$i_{1}+1$ \ldots $i_{2}$] +  $parent_{2}$[$i_{2}+1$ \ldots $n$] 
         
-        \BState \textbf{Return} \emph{child1,child2}
+    %     \BState \textbf{Return} \emph{child1,child2}
 
-        % \BState \emph{loop}:
-        % \If {$\textit{string}(i) = \textit{path}(j)$}
-        % \State $j \gets j-1$.
-        % \State $i \gets i-1$.
-        % \State \textbf{goto} \emph{loop}.
-        % \State \textbf{close};
-        % \EndIf
-        % \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-        % \State \textbf{goto} \emph{top}.
-        \EndProcedure
-        \end{algorithmic}
-    \end{algorithm}
+    %     % \BState \emph{loop}:
+    %     % \If {$\textit{string}(i) = \textit{path}(j)$}
+    %     % \State $j \gets j-1$.
+    %     % \State $i \gets i-1$.
+    %     % \State \textbf{goto} \emph{loop}.
+    %     % \State \textbf{close};
+    %     % \EndIf
+    %     % \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+    %     % \State \textbf{goto} \emph{top}.
+    %     \EndProcedure
+    %     \end{algorithmic}
+    % \end{algorithm}
 
 
 \subsection*{Choice of Programming Language}
@@ -420,29 +452,32 @@
 
     When writing the system, there will be a heavy dependency on NumPy due to its C++ bindings. This increases the overall speed of the program relative to the performance of standalone python, especially in the case of numerical operations. The neural network would be written using this language, as opposed to the use of machine learning libraries to understand the inner workings of neural networks. Tournaments can be easily parallelised using python's multiprocessing library.
 
+
+    \begin{wrapfigure}{r}{0.3\textwidth}
+        % \begin{figure}[ht!]
+            \vspace{-30pt}
+            \centering
+            \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{cli_human_input}}
+            \includegraphics[width=50mm]{cli_humanvsagent.png}
+            \vspace{-20pt}
+        \end{wrapfigure}
+
     Object Oriented approaches are taken for the majority of the components that constitute the system, ranging from the neural network to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the affordance of easier debugging and testing.
 
     Players weights are stored in two forms, one of which is to be stored on an MongoDB NoSQL instance, and another local copy in JSON. This allows the individual agents to be played against humans.
 
-    \subsection*{Tools}
-
-    Initial runs will operate on a 1-ply load to determine the stability of the system on a machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply move depth. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time.
 
 \subsection*{Interface}
 
-    \begin{wrapfigure}{r}{0.3\textwidth}
-    % \begin{figure}[ht!]
-        \vspace{-30pt}
-        \centering
-        \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{cli_human_input}}
-        \includegraphics[width=43mm]{cli_humanvsagent.png}
-        \vspace{-20pt}
-    \end{wrapfigure}
 
     As our primary intention is to find an agent that learns to play, creating a relatively friendly user interface is not necessarily important, i.e. a simple text-based interface would suffice. Due to the inherent computational strain the project requires, an interface based around a command-line interface (CLI) is to be used. This allows the system to initiate faster than GUIs (Graphical User Interfaces). CLIs reduces the need for package dependencies, configurations and set-ups opposed to GUIs. The simulation would show statistics such as estimated finishing times, current generation count, scores of players in a given generation and the cumulative score of progress of the system.
 
     When it comes to humans playing against the agent, the checkerboard can also be rendered using ASCII plaintext, users can make inputs through text (in the console or terminal); where the game will show human users the possible moves that a person can take. This system will be used to play against the agent, where the human will take inputs the moves on behalf of the agent's online opponent. A possible rendition is shown in figure \ref{cli_human_input}.
 
+
+    \subsection*{Tools}
+
+    Initial runs will operate on a 1-ply load to determine the stability of the system on a machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply move depth. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time.
 
 \subsection*{Testing and Evaluation}
 
