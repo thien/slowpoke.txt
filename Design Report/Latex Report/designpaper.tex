@@ -145,25 +145,24 @@
 
     The best value propagates upwards until it reaches to a child of the root node. This represents an agent's current state of the game. The use of alpha-beta pruning would help to ignore evaluating unnecessary moves, reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move at a given position.
 
-    The mini-max method will have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
+    The mini-max method would have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
 
-    \begin{figure}
+    \begin{figure}[!h]
         \centering
-        \includegraphics[width=90mm]{montecarlo.png}
+        \includegraphics[width=80mm]{montecarlo.png}
         \caption{A diagram describing the MCTS process.}
     \end{figure}
 
-    Once initial development on the mini-max algorithm is complete, The project will migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS are played in rounds that consist of four operations:
+    Once initial development on the mini-max algorithm is complete, The project would migrate to a hybrid technique that combines mini-max and a more contemporary algorithmic paradigm, Monte-Carlo Tree Search (MCTS). A basic MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. The random simulation of games are skewed such that more reasonable moves are chosen. A survey by Browne et al. found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS are played in rounds that consist of four operations:
 
     \begin{itemize}
         \item Selection: A selection strategy is played recursively until some position is reached. 
-        \item Play-Out: A simulated game is played. A basic form of MCTS would play until an end-game is reached.
+        \item Play-Out: A simulated game is played. Again, a basic form of MCTS would play until an end-game is reached.
         \item Expansion: A node is added to the tree.
         \item Back-propagation: The result of the game is back-propagated in the tree of moves.
     \end{itemize}
 
     These rounds are repeated until a certain period of time is met or a certain number of rounds are computed. Once finished, a node is chosen based on its total probability of reaching an winning outcome.
-    
 
     MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random play-out approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
 
@@ -204,7 +203,7 @@
         \vspace{-20pt}
     \end{wrapfigure}
 
-    We retain the minimax algorithm in order to evaluate the performance differences between our two decision making algorithms.
+    The minimax algorithm would be retained to evaluate the performance differences between the  two decision making algorithms.
     
     \begin{figure}[ht!]
         \centering
@@ -291,11 +290,11 @@
 
 \subsubsection{Neural Network}
 
-    To evaluate the board, we use a feed-forward multilayer perceptron style neural network. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
+    To evaluate the board, a feed-forward multilayer perceptron style neural network will be used. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
 
     Common knowledge infers that a king is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of simplicity, a king's piece value is to be weighted at $1.5x$ a pawn value; a value of a pawn will be $1$. 
 
-    The input array takes in the form of the grid array of the board. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkerboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible sub-squares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each sub-square is summed up to create an input node. There are consequently 91 combinations of the sub-squares, thus forming the input layer. 
+    The input array takes in the checkerboard. The intention is to weigh the Black pawns with a value of 1, and white pawns as -1. To create the input layer, we treat the checkerboard into a 1D array, with the indexes displayed in figure \ref{boardarray}. The array is used to calculate all possible sub-squares of the checkerboard, ranging from a 3x3 kernel to a 8x8. Each sub-square is summed up to create an input node. There are consequently 91 combinations of the sub-squares, thus forming the input layer. 
 
 
     \begin{wrapfigure}{r}{0.4\textwidth}
@@ -337,17 +336,14 @@
     
 
     % Talk about the activation function
-    Weights of a neuron are summed with their bias, and are passed through an activation function (or transfer function) $O = f((Input* weight) + Bias)$ to become an input for another neuron. Activation functions usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
+    Weights of a neuron are multiplied by their input value, summed with their bias, and are passed through an activation function $O = f((Input* weight) + Bias)$ to become an input for another neuron. Activation functions, when visualised, usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
     % how does it work?
 
     Our initial choice for the activation function is tanh, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
 
 \subsubsection{Genetic Algorithms} \label{genetic_algorithms}
 
-    The genetic algorithm is the premise of the system's learning strategy. GA's are used to train the neural network. We discuss the various algorithms that form the collection of GA strategies below. For the system, a population size of 15 is chosen.
-
-    
-
+    The genetic algorithm (GA) is the premise of the system's learning strategy. GA's are used to train the neural network. We discuss the various algorithms that form the collection of GA strategies below. For the system, a population size of 15 will be chosen.
 
 \subsubsection{Population Generation} \label{population_generation}
     % Introduce what its for
@@ -362,15 +358,14 @@
 
     To sort the quality of the players in a population, a tournament selection process is deduced. This allows us to choose the best players who will continue to play in the next generation.
 
-    Currently, it revolves around having each agent in the population playing 5 games as Black, against randomly selected opponents. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponent receives a score from the game.
+    Currently, each agent in the population would play 5 games as Black, against randomly selected opponents. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponent receives a score from the game.
     Scores are tallied up at the end of the tournament. Players are sorted by the number of points they scored. The best players would have the highest number of points.
     
-
 \subsubsection{Coefficient Mutation} \label{coefficient_mutation}
 
     To create variation between agents in preparation for the next generation, we create statistical anomalies through the use of mutations. This is used as one of the learning mechanisms that help change the decision factors of the neural network.
 
-    Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]. Equation \ref{mutation} describes the mutation formula.
+    Weight and biases of an agent's neural network would increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]. Equation \ref{mutation} describes the mutation formula.
 
     \begin{equation} \label{mutation}
         % \caption{The mutation formula. \label{mutation}}
@@ -382,7 +377,7 @@
 \subsubsection{Crossover Strategy} \label{crossover_strategy}
 
         
-    \begin{figure}
+    \begin{figure}[!ht]
         \centering
         \includegraphics[width=110mm]{crossover.png}
         \caption{A diagram visualising the crossover process.\label{crossoverpic}}
@@ -392,10 +387,12 @@
 
     Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
     % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
-    A random node from the dominant parent's hidden nodes are chosen. The dominant parent is the agent who gained more points in the tournament round. If a dominant parent cannot be deduced it would be randomly chosen. Once a random node is chosen, The dominant input weights and biases that feed into the chosen node are chosen to swap with the submissive parent. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
-    Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights of the red inputs are swapped with the weights of the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
+    A random node from the dominant parent's hidden nodes are chosen. A dominant parent is the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced it would be randomly chosen. 
+    
+    Once a random node is chosen, The weights and biases that feed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
+    Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
 
-    This crossover process would create a subtle modification to a neural network, by swapping some weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
+    This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
 
     % for each layer's weights:
     %     n = number of weights and biases in a given layer
@@ -450,17 +447,16 @@
 
     I have chosen Python 3.6 due to my familiarity with the language, and the support of popular scientific packages, most notably NumPy. Python is also portable with a very wide compatibility; for instance it is pre-installed on all popular UNIX machines and also has support from the university machines. Python development will be on Visual Studio Code, which again is a familiar tool and is also suited to the project.
 
-    When writing the system, there will be a heavy dependency on NumPy due to its C++ bindings. This increases the overall speed of the program relative to the performance of standalone python, especially in the case of numerical operations. The neural network would be written using this language, as opposed to the use of machine learning libraries to understand the inner workings of neural networks. Tournaments can be easily parallelised using python's multiprocessing library.
-
-
     \begin{wrapfigure}{r}{0.3\textwidth}
         % \begin{figure}[ht!]
             \vspace{-30pt}
             \centering
             \caption{An example CLI interface demonstrating a game of draughts between user input and an Agent. \label{cli_human_input}}
-            \includegraphics[width=50mm]{cli_humanvsagent.png}
+            \includegraphics[width=48mm]{cli_humanvsagent.png}
             \vspace{-20pt}
         \end{wrapfigure}
+
+    When writing the system, there will be a heavy dependency on NumPy due to its C++ bindings. This increases the overall speed of the program relative to the performance of standalone python, especially in the case of numerical operations. The neural network would be written using this language, as opposed to the use of machine learning libraries to understand the inner workings of neural networks. Tournaments can be easily parallelised using python's multiprocessing library.
 
     Object Oriented approaches are taken for the majority of the components that constitute the system, ranging from the neural network to the tournament system. Data structures are implemented using their own classes and methods where applicable. The modularity of object oriented programming provides the affordance of easier debugging and testing.
 
@@ -487,7 +483,7 @@
 
     \subsubsection*{Evaluation Method}
 
-    At the end of the generation run, the end player will be used to compete against human players on various online multi-player checkers websites in order to determine an accurate ELO rating of the system.
+    At the end of the generation run, the end player (being the champion of the last generation) will be used to compete against human players on various online multi-player checkers websites in order to determine an accurate ELO rating of the system.
 
     The end player is also used to create comparison games. This player is tested against an agent who is choosing random moves, an agent who is using pure monte-carlo tree searches, and an agent from half the generations generations prior to its current state. These statistics will be used as evidence in order to determine whether the agent is learning, and can also be seriously considered as a viable alternative to other machine learning training approaches.
     % --------------------------------
