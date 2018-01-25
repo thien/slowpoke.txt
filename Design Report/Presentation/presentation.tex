@@ -482,22 +482,27 @@ Below/.style={
 
 	% monte carlo
 	\begin{frame}
-		\frametitle{Hybrid Monte Carlo Tree Search}
+		\frametitle{Monte Carlo Tree Search}
 
-		A grossly simplified algorithm:
+		
+		\begin{figure}
+			\includegraphics[width=110mm]{montecarlo.png}
+			\caption{Diagram describing the MCTS process. Source: Winands et al. (\cite{winands_monte_2010})}
+		\end{figure}
+		% A grossly simplified algorithm:
 
-		\begin{itemize}
-			\item Generate a set of possible moves $m$ that can be made from some state
-			\item Choose random move $k \in m$.
-			\item Simulate a random, theoretical game from this;
-			\item Keep choosing random moves $n$ amount of times
-			\item after $n$ moves, evaluate using our neural network to make $x$!
-			\item Increment the number of simulations taken from $k = i$ 
-			\item Increment the chances of a good move from $k$ by $x$.
-			\item When satisfied, choose $k$ with the biggest $x/i$!
-		\end{itemize}
+		% \begin{itemize}
+		% 	\item Generate a set of possible moves $m$ that can be made from some state
+		% 	\item Choose random move $k \in m$.
+		% 	\item Simulate a random, theoretical game from this;
+		% 	\item Keep choosing random moves $n$ amount of times
+		% 	\item after $n$ moves, evaluate using our neural network to make $x$!
+		% 	\item Increment the number of simulations taken from $k = i$ 
+		% 	\item Increment the chances of a good move from $k$ by $x$.
+		% 	\item When satisfied, choose $k$ with the biggest $x/i$!
+		% \end{itemize}
 
-		The intuition behind MCTS is that it leans towards better moves probablistically.
+		% The intuition behind MCTS is that it leans towards better moves probablistically.
 	\end{frame}
 % ----------------------------
 % Generating Agents
@@ -539,55 +544,58 @@ Below/.style={
 		\frametitle{Crossover Mechanism}
 
 		\begin{figure}
-			\begin{figure}
-				\LARGE
-			\begin{forest}
-				for tree={grow=north}
-				[	{
-					$O_{1} =$ [ 
-							{\color{red}1}
-							{\color{blue}7}
-							{\color{red}3}
-							{\color{blue}9}
-							{\color{red}5} 
-						], 
-						$O_{2} =$	[ 
-							{\color{blue}6}
-							{\color{red}2}
-							{\color{blue}8}
-							{\color{red}4}
-							{\color{blue}10} 
-						]
-					}
-					[
-						{
-							$P_{2} =$ [
-								{\color{blue}6}
-								{\color{blue}7}
-								{\color{blue}8}
-								{\color{blue}9}
-								{\color{blue}10}
-							]
-						}
-					]
-					[
-						{
-							$P_{1} =$[
-								{\color{red}1}
-								{\color{red}2}
-								{\color{red}3}
-								{\color{red}4}
-								{\color{red}5}
-							]
-						}
-					] 
-				]
-			\end{forest}
-			\vspace{10mm}
+			\includegraphics[width=80mm]{crossover.png}
+			\caption{Offspring agents are created from a pair of parent agents.
+			Each offspring is a reciprocal crossover of each other. A random hidden node is chosen, and influential inputs for that node are swapped between two agents.}
 		\end{figure}
-			Offspring agents are created from a pair of parent agents.
-			Each offspring is a reciprocal crossover of each other.
-			Weights here are treated as 1D coefficents.
+
+		\begin{figure}
+			% \begin{figure}
+			% 		\LARGE
+			% 	\begin{forest}
+			% 		for tree={grow=north}
+			% 		[	{
+			% 			$O_{1} =$ [ 
+			% 					{\color{red}1}
+			% 					{\color{blue}7}
+			% 					{\color{red}3}
+			% 					{\color{blue}9}
+			% 					{\color{red}5} 
+			% 				], 
+			% 				$O_{2} =$	[ 
+			% 					{\color{blue}6}
+			% 					{\color{red}2}
+			% 					{\color{blue}8}
+			% 					{\color{red}4}
+			% 					{\color{blue}10} 
+			% 				]
+			% 			}
+			% 			[
+			% 				{
+			% 					$P_{2} =$ [
+			% 						{\color{blue}6}
+			% 						{\color{blue}7}
+			% 						{\color{blue}8}
+			% 						{\color{blue}9}
+			% 						{\color{blue}10}
+			% 					]
+			% 				}
+			% 			]
+			% 			[
+			% 				{
+			% 					$P_{1} =$[
+			% 						{\color{red}1}
+			% 						{\color{red}2}
+			% 						{\color{red}3}
+			% 						{\color{red}4}
+			% 						{\color{red}5}
+			% 					]
+			% 				}
+			% 			] 
+			% 		]
+			% 	\end{forest}
+			% 	\vspace{10mm}
+			% \end{figure}
 		\end{figure}
 		% for each layer's weights:
 		%     n = number of weights and biases in a given layer
