@@ -1,8 +1,8 @@
-# Introduce
+ # Introduce
 
 - introduce yourself
 
-# Outline
+# Outlines
 
 These is how my presentation will flow, i'll talk about the problem I'd like to tackle; and hopefully this will progress towards a solution to the problem.
 
@@ -63,15 +63,65 @@ There are about 5x10^20 possible moves that can be deduced from the beginning of
 
 Due to the constraints of presentation time I'll have to grossly simplify the monte carlo tree search algorithm.
 
-# Crossover
-Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. The weights of both parents (now each treated as a 1D array of coefficents), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. 
+MCTS runs in four stages, which is explained far batter in this diagram that i've shamelessly poached from a paper talking about the concept.
 
-This will need more experimentation however. There are a lot of studies on different approaches to crossover mechanisms.
+Traditionally, MCTS would simulate random moves to the end of a game, but I have chosen to cap it to some depth and we then simulate the state of the game using our neural network.
+
+# Now what
+
+Since we can now evaluate a move, and choose the best move, we essentially have ourselves some 'AI'. However, the chances of it playing very well at this stage is slim. Here we introduce our genetic algorithm.
+
+I'll assume that everyone remember or knows what genetic algorithms are;
+
+Our population would consist of different weights and biases which would be used to evaluate the neural network.
+
+# Tournament
+
+Our tournament rounds come as such:
+- generate agents as just described
+- make them play each other. Each agent plays 5 times as black against random agents in the pool.
+- choose the best ones and keep them (which would be the top 5)
+- the top 5 will produce some offspring to play for the next round
+- Our offsprings are produced by crossover and mutation methods.
+- the rest are killed
+- rinse and repeat for 200 rounds.
+
+
+# Crossover
+
+Crossover is a process in genetic algorithms where the traits that build two parent agents are combined to create children. In our scenario we use the weights and biases of the parent’s neural networks.
+
+A random hidden node in the network is chosen, and we look at the dominant inputs to that node. We swap the weights and biases that contribute to those values and swap them.
+
+Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
 
 # Mutations
 
-Weight and biases of an agent's neural network will increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]:
+Mutations are another way to simulate 'learning' in genetic algorithms. For our situation, we manipulate each weight and bias in new agents in a fairly subtle way. We simply generate a random value to differ the current weight and bias by.
 
-$$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
+# Evaluation
 
-The weights, as explained earlier will have a soft maximum of [-1, 1]. This  would consequently mean that the mutation is not controlled, and dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+So that is essentially how the AI will operate. We create a bot that can evaluate a move using neural networks, we choose good moves using our monte carlo tree search, and we train the neural network using genetic algorithms.
+
+How would I evaluate it?
+
+
+- See that it can beat a bot who plays randomly
+- We'll need to make the end bot play against bots from prior stages to determine whether it is learning
+- We'll need to evaluate the end bot against generic game playing algorithms like a vanilla MCTS and minimax
+- We can also pit the bot against other human players on some onlline checkers site but there'll need to be more research on what website to use.
+
+# Current Progress
+
+It works, but no hard measurements would be found. It's been found to play against random bots but that's not very hard to beat.
+
+Most of the time allocated to the project would be spent on the list of remaining work:
+
+# Remaining Work
+
+- Priority 1 revolves around squashing bugs that could provide the bot with a false positive
+- Experiment with the parameters for crossover/mutation algorithms
+- Train the agent again (and find a computer willing to run it)
+- Measure the bot's performance.
+
+# FIN!
