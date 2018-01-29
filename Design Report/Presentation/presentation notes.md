@@ -14,6 +14,7 @@ These is how my presentation will flow, i'll talk about the problem I'd like to 
 - could be a variety of factors; checkers was a nice game to tackle; relatively not difficult at all (compared to Chess, and Go)
 - In fact, it's been weakly solved (The game-theoretic value for the initial position has
 been determined.) in 2007 Schaeffer and squad computed all moves and deduced that assuming perfect play from both sides creates a draw.
+
 - not bothered with creating the best player, but to see whether it was possible to create a decent bot that didn't rely on it at all.
 
 - So using some knowledge I've picked up from last year's submodule, I want to find out whether it's possible to use that to train a neural network. Could this be used to create a checkers playing AI?

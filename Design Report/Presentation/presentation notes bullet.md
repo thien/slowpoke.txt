@@ -15,6 +15,8 @@ These is how my presentation will flow, i'll talk about the problem I'd like to 
 - serious research doesn't exist in the game anymore
 - been solved
 
+- Issue: the best checkers Ai out there use a database of moves that stores the best value beforehand.
+
 # Motivation
 
 based on three things:
@@ -28,10 +30,11 @@ Of course, this is not a wildly new topic; people have been exercising this prob
 
 # Approach
 
-If it all goes right, this would be the plan that will be used to create an AI playing Agent.
-- Find a way to evaluate a current position of a board
-- make it choose a move
-- improve the evaluator in part 1
+I'm attempting to make the AI in three stages:
+
+1. make an evaluator for a given state of checkers
+2. choose the best move from a set of moves
+3. evolve our evaluator to make better decisions
 
 # Evaluating Checkerboards
 
@@ -59,11 +62,16 @@ So at a given state, a play might have a selection of moves to make. How do we c
 
 # Monte Carlo Tree Search
 
-Due to the constraints of presentation time I'll have to grossly simplify the monte carlo tree search algorithm.
+Monte Carlo in a nutshell is a decision making algorithm based on random simulations of the game.
 
-MCTS runs in four stages, which is explained far batter in this diagram that i've shamelessly poached from a paper talking about the concept.
-
-Traditionally, MCTS would simulate random moves to the end of a game, but I have chosen to cap it to some depth and we then simulate the state of the game using our neural network.
+- example: 
+  - we choose a random move
+  - randomly play the game out to some extent
+  - at the end, we use our neural network evaluator to determine the advantage at that stage
+  - that value propagates back to the move we've done
+  - now we know that the move we just chose can lead us to having some advantage.
+  - repeat this as many times as you want to increase confidence in the values.
+  - now we can choose the move with the best advantage.
 
 # Now what
 

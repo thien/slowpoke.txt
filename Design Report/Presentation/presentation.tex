@@ -82,49 +82,49 @@ Below/.style={
 % Title Frame
 \frame{\titlepage}
 
-% Outline Page
-\begin{frame}
+% % Outline Page
+% \begin{frame}
 
-  \frametitle{Outline}
-  %Content goes here
-	%An outline: What are the elements of your talk?
-	\begin{block}{Problem Description}
-		% This is important information
-	 \end{block}
-	\begin{block}{Motivation}
-	% This is important information
-	\end{block}
-	\begin{block}{Related Work}
-	% This is important information
-	\end{block}
-	\begin{block}{Approach}
-	% This is important information
-	\end{block}
-	\begin{block}{Curent Progress}
-	% This is important information
-	\end{block}
-	\begin{block}{Conclusion}
-		% This is important information
-	\end{block}
+%   \frametitle{Outline}
+%   %Content goes here
+% 	%An outline: What are the elements of your talk?
+% 	\begin{block}{Problem Description}
+% 		% This is important information
+% 	 \end{block}
+% 	\begin{block}{Motivation}
+% 	% This is important information
+% 	\end{block}
+% 	\begin{block}{Related Work}
+% 	% This is important information
+% 	\end{block}
+% 	\begin{block}{Approach}
+% 	% This is important information
+% 	\end{block}
+% 	\begin{block}{Curent Progress}
+% 	% This is important information
+% 	\end{block}
+% 	\begin{block}{Conclusion}
+% 		% This is important information
+% 	\end{block}
 	  
-	%  \begin{alertblock}{This is an Alert block}
-	%  This is an important alert
-	%  \end{alertblock}
+% 	%  \begin{alertblock}{This is an Alert block}
+% 	%  This is an important alert
+% 	%  \end{alertblock}
   
-	%  \begin{exampleblock}{This is an Example block}
-	%  This is an example 
-	%  \end{exampleblock}
-\end{frame}
+% 	%  \begin{exampleblock}{This is an Example block}
+% 	%  This is an example 
+% 	%  \end{exampleblock}
+% \end{frame}
 
 % Problem Description
-\begin{frame}
-	\frametitle{Why Draughts?}
-	\begin{figure}[ht!]
-		\centering
-		\includegraphics[width=80mm]{schaeffer.jpg}
-		\caption{Schaeffer literally brute forced Checkers in 2007. \cite{schaeffer_solving_1996}}
-	\end{figure}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Why Draughts?}
+% 	\begin{figure}[ht!]
+% 		\centering
+% 		\includegraphics[width=80mm]{schaeffer.jpg}
+% 		\caption{Schaeffer literally brute forced Checkers in 2007. \cite{schaeffer_solving_1996}}
+% 	\end{figure}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Problem Description}
@@ -145,23 +145,23 @@ Below/.style={
 
 \end{frame}
 
-% Motivation
-\begin{frame}
-	\frametitle{Motivation}
-	\framesubtitle{Why have I chosen to tackle this?}
-	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
-	%More content goes here
+% % Motivation
+% \begin{frame}
+% 	\frametitle{Motivation}
+% 	\framesubtitle{Why have I chosen to tackle this?}
+% 	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
+% 	%More content goes here
 
-	\begin{itemize}
-		\item Enjoyed AI Search Submodule
-		\item Interested in seeing whether genetic algorithms are still relevant
-		\item Interested in machine learning
-		\item ..I like board games
-	\end{itemize}
+% 	\begin{itemize}
+% 		\item Enjoyed AI Search Submodule
+% 		\item Interested in seeing whether genetic algorithms are still relevant
+% 		\item Interested in machine learning
+% 		\item ..I like board games
+% 	\end{itemize}
 
-	% Interested in neural networks, really enjoyed AI Search submodule. Inherent competitiveness against peers
-	% Not necessarily interested in solving something new; also not expected for a bachelors degree.
-\end{frame}
+% 	% Interested in neural networks, really enjoyed AI Search submodule. Inherent competitiveness against peers
+% 	% Not necessarily interested in solving something new; also not expected for a bachelors degree.
+% \end{frame}
 
 % Related Work
 \begin{frame}
@@ -194,13 +194,13 @@ Below/.style={
 	\framesubtitle{How will I tackle this; in a nutshell}
 	% Why do you want to solve this problem? Previous work, and how it relates to what you are doing
 	%More content goes here
-	\begin{itemize}
+	\begin{enumerate}
 		\item Evaluate a checkerboard state
 		\item Choose the best move for a given state
 		\item Make our checkerboard evaluator better
 		% \item Determine good agents from the population
 		% \item Make better agents from the good ones
-	\end{itemize}
+	\end{enumerate}
 
 \end{frame}
 
@@ -218,97 +218,97 @@ Below/.style={
 		\end{figure}
 	\end{frame}
 
-	% Example Neural Network Frame
-	\begin{frame}
-		\frametitle{Neural Networks}
-		\begin{figure}
-			\tikzset{%
-				every neuron/.style={
-					circle,
-					draw,
-					minimum size=0.9cm
-					},
-				neuron missing/.style={
-					draw=none, 
-					scale=4,
-					text height=0.333cm,
-					execute at begin node=\color{black}$\vdots$
-				},
-			}
+	% % Example Neural Network Frame
+	% \begin{frame}
+	% 	\frametitle{Neural Networks}
+	% 	\begin{figure}
+	% 		\tikzset{%
+	% 			every neuron/.style={
+	% 				circle,
+	% 				draw,
+	% 				minimum size=0.9cm
+	% 				},
+	% 			neuron missing/.style={
+	% 				draw=none, 
+	% 				scale=4,
+	% 				text height=0.333cm,
+	% 				execute at begin node=\color{black}$\vdots$
+	% 			},
+	% 		}
 
-			\begin{tikzpicture}[x=1.2cm, y=1.1cm, >=stealth]
+	% 		\begin{tikzpicture}[x=1.2cm, y=1.1cm, >=stealth]
 
-			% draw nodes
-				% % input values
-				% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-				% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+	% 		% draw nodes
+	% 			% % input values
+	% 			% \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+	% 			% 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
 
-				% input layer
-				\foreach \m/\l [count=\y] in {1,2,3,missing,4}
-				\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+	% 			% input layer
+	% 			\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+	% 			\node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
 				
-				% layer 1
-				\foreach \m [count=\y] in {1,missing,2}
-				\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+	% 			% layer 1
+	% 			\foreach \m [count=\y] in {1,missing,2}
+	% 			\node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
 
-				% layer 2
-				\foreach \m [count=\y] in {1,missing,2}
-				\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+	% 			% layer 2
+	% 			\foreach \m [count=\y] in {1,missing,2}
+	% 			\node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
 
-				% output layer
-				\foreach \m [count=\y] in {1}
-				\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+	% 			% output layer
+	% 			\foreach \m [count=\y] in {1}
+	% 			\node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
 
-			% input layer
-			\foreach \l [count=\i] in {1,2,3,n}
-				\draw [<-] (input-\i) -- ++(-1,0)
-				node [above, midway] {$I_{\l}$};
+	% 		% input layer
+	% 		\foreach \l [count=\i] in {1,2,3,n}
+	% 			\draw [<-] (input-\i) -- ++(-1,0)
+	% 			node [above, midway] {$I_{\l}$};
 
-			% hidden 1
-			\foreach \l [count=\i] in {{(1,1)},{(1,n)}}
-				\node [above] at (hidden1-\i.north) {$H_{\l}$};
+	% 		% hidden 1
+	% 		\foreach \l [count=\i] in {{(1,1)},{(1,n)}}
+	% 			\node [above] at (hidden1-\i.north) {$H_{\l}$};
 
-			% hidden 2
-			\foreach \l [count=\i] in {(2,1),(2,n)}
-				\node [above] at (hidden2-\i.north) {$H_{\l}$};
+	% 		% hidden 2
+	% 		\foreach \l [count=\i] in {(2,1),(2,n)}
+	% 			\node [above] at (hidden2-\i.north) {$H_{\l}$};
 
-			% output layer
-			\foreach \l [count=\i] in {1}
-				\draw [->] (output-\i) -- ++(1,0)
-				node [above, midway] {$O_\l$};
+	% 		% output layer
+	% 		\foreach \l [count=\i] in {1}
+	% 			\draw [->] (output-\i) -- ++(1,0)
+	% 			node [above, midway] {$O_\l$};
 
-			% lines from input to hidden 1
-			\foreach \i in {1,...,4}
-				\foreach \j in {1,...,2}
-					\draw [->] (input-\i) -- (hidden1-\j);
+	% 		% lines from input to hidden 1
+	% 		\foreach \i in {1,...,4}
+	% 			\foreach \j in {1,...,2}
+	% 				\draw [->] (input-\i) -- (hidden1-\j);
 			
-			% lines from hidden 1 to hidden 2
-			\foreach \i in {1,...,2}
-			\foreach \j in {1,...,2}
-				\draw [->] (hidden1-\i) -- (hidden2-\j);
+	% 		% lines from hidden 1 to hidden 2
+	% 		\foreach \i in {1,...,2}
+	% 		\foreach \j in {1,...,2}
+	% 			\draw [->] (hidden1-\i) -- (hidden2-\j);
 
-			% lines from hidden 2 to putput
-			\foreach \i in {1,...,2}
-				\foreach \j in {1}
-					\draw [->] (hidden2-\i) -- (output-\j);
+	% 		% lines from hidden 2 to putput
+	% 		\foreach \i in {1,...,2}
+	% 			\foreach \j in {1}
+	% 				\draw [->] (hidden2-\i) -- (output-\j);
 
-			% headings
-			\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
-				\node [align=center, above] at (\x*2,2) {\l \\ layer};
+	% 		% headings
+	% 		\foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Ouput}
+	% 			\node [align=center, above] at (\x*2,2) {\l \\ layer};
 
-			\end{tikzpicture}
-		\end{figure}
-	\end{frame}
+	% 		\end{tikzpicture}
+	% 	\end{figure}
+	% \end{frame}
 
-	% Checkerboard Outline
-	\begin{frame}
-		\frametitle{Checkerboard}
-		\begin{figure}[ht!]
-			\centering
-			\includegraphics[width=50mm]{checkerboard.png}
-			\caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{overflow}}
-		\end{figure}
-	\end{frame}
+	% % Checkerboard Outline
+	% \begin{frame}
+	% 	\frametitle{Checkerboard}
+	% 	\begin{figure}[ht!]
+	% 		\centering
+	% 		\includegraphics[width=50mm]{checkerboard.png}
+	% 		\caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{overflow}}
+	% 	\end{figure}
+	% \end{frame}
 
 	% Applied Neural Network Diagram
 	\begin{frame}
@@ -455,29 +455,58 @@ Below/.style={
 % ----------------------------
 
 	% Decision Tree
+	% \begin{frame}
+	% 	\frametitle{Choosing moves}
+	% 	\begin{figure}
+	% 		\centering
+	% 		\begin{tikzpicture}[level distance=1.5cm,
+	% 			level 1/.style={sibling distance=3cm},
+	% 			level 2/.style={sibling distance=1.5cm}]
+	% 			\node {Current State}
+	% 				% left
+	% 				child { node {\bf 22/34}
+	% 					child {
+	% 						node {\bf 19.2/21} 
+	% 						child {node{14.3/16}}
+	% 						child {node{4.9/5}}
+	% 					}
+	% 					child {node {3/13}}
+	% 				}
+	% 				% right
+	% 				child {node {6/26}
+	% 				child {node {3/13}}
+	% 					child {node {3/13}}
+	% 				};
+	% 		\end{tikzpicture}
+	% 		\\How do we choose a good move?
+	% 	\end{figure}	
+	% \end{frame}
+
 	\begin{frame}
 		\frametitle{Choosing moves}
 		\begin{figure}
+			\centering
 			\begin{tikzpicture}[level distance=1.5cm,
 				level 1/.style={sibling distance=3cm},
 				level 2/.style={sibling distance=1.5cm}]
-				\node {Current State}
+				\node {\includegraphics[width=10mm]{sampleGame.png}}
 					% left
-					child { node {\bf 22/34}
+					child { node {\includegraphics[width=10mm]{sampleGame.png}}
 						child {
-							node {\bf 19.2/21} 
-							child {node{14.3/16}}
-							child {node{4.9/5}}
+							node {\bf \includegraphics[width=10mm]{sampleGame.png}} 
+							child {node{\includegraphics[width=10mm]{sampleGame.png}}}
+							child {node{\includegraphics[width=10mm]{sampleGame.png}}}
 						}
-						child {node {3/13}}
+						child {node {\includegraphics[width=10mm]{sampleGame.png}}}
 					}
 					% right
-					child {node {6/26}
-					child {node {3/13}}
-						child {node {3/13}}
+					child {node {\includegraphics[width=10mm]{sampleGame.png}}
+					child {node {\includegraphics[width=10mm]{sampleGame.png}}}
+						child {node {\includegraphics[width=10mm]{sampleGame.png}}}
 					};
 			\end{tikzpicture}
-	\end{figure}
+			\\How do we choose a good move?
+		\end{figure}	
 	\end{frame}
 
 	% monte carlo
@@ -525,7 +554,7 @@ Below/.style={
 	\begin{frame}
 		\frametitle{Tournament}
 		\begin{enumerate}
-			\item Generate a population of random agents (A population of 15 is used.)
+			\item Generate a population of random agents (A population of 15 is used)
 			\item Make agents play each other
 			\item Order agents by the amount of points scored
 			\item The best few agents are chosen to stay on for the next tournament
@@ -615,7 +644,10 @@ Below/.style={
 
 			$$ WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}$$
 
-		Mutation influence is dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+		% Mutation influence is dependent on the number of weights in the system; The more weights in the network implies a less significant mutation.
+
+		In reality, every weight and bias will be manipulated by some small manner.
+		
 	\end{frame}
 
 % ----------------------------
@@ -628,8 +660,8 @@ Below/.style={
 	\framesubtitle{How will I judge my outcome?}
 
 	\begin{itemize}
-		\item Measurements held to measure evolution progress
-		\item Play final agent against agent from prior stages to indicate whether it has been learning
+		% \item {\bf{Measurements held to measure evolution progress}}
+		\item {\bf Play final agent against older agents to indicate whether it learns over time}
 		\item Play against a randomly playing bot to see it is actually thinking
 		\item Play against different move making algorithms (Vanilla MCTS, $\alpha \beta$ MiniMax)
 		\item Also play against human players on popular checkers websites
@@ -647,7 +679,7 @@ Below/.style={
 		\item The initial set up is ready*
 		\item It has been trained*
 		\item It plays relatively well (anecdotally)
-		\item Relatively ineffective at end game performances...
+		% \item Relatively ineffective at end game performances...
 	\end{itemize}
 \end{frame}
 
@@ -666,6 +698,23 @@ Below/.style={
 		\item Measure the system's performance against other players
 	\end{itemize}
 \end{frame}
+
+% % Current Progress
+\begin{frame}
+	\frametitle{Conclusion}
+	% Your approach to solving the problem
+	% How will I Judge the outcome of the work?
+	\framesubtitle{TL;DR}
+
+	\begin{itemize}
+		\item A Neural Network will evaluate a given state of the game
+		\item Monte Carlo Tree Search chooses the best moves for a given state
+		\item Genetic algorithms will train the Neural Network
+		\item The AI is tested against agents from earlier generations to see whether it has learnt over time
+		% \item Relatively ineffective at end game performances...
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Fin.}
