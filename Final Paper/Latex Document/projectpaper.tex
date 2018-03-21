@@ -84,12 +84,10 @@
 \begin{keywords}
     Artificial Intelligence, Neural Networks, Genetic Algorithms, Draughts, Machine Learning, Monte Carlo Tree Search
 \end{keywords}
-% TODO
+% DONE
 \section{Introduction}
     % This section briefly introduces the general project background, the research question you are addressing, and the project objectives.  It should be between 2 to 3 pages in length.  Do not change the font sizes or line spacing in order to put in more text.
-
     The intention of this project is to explore the effectiveness of genetic algorithms to improve the neurons of a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of Draughts. We attempt to manipulate the neurons through the use of genetic algorithms to increase the accuracy of the evaluation. This would potentially allow us to create an effective Draughts playing agent that, when provided with the option to consider a set of moves, would have the ability to play and learn without human input.
-
 
     \subsection*{Draughts}
 
@@ -101,63 +99,100 @@
 
     \subsection*{Neural Networks}
 
-    Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characteristics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed through their propagation through the layers of neurons. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
+    Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characteristics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed through their propagation through the layers of neurons, where each neuron influences the content of the data as they pass through. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
 
-    \subsection*{Motivation}
+    \subsection*{Aims}
+
     % Research Question
     Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performing draughts playing agent by the use of GA-NNs (Genetic Algorithms and Neural Networks).
 
+    \subsubsection*{Minimum Objective}
+        % The minimum objective of this project was to design and build a programme that would display a polygonal mesh of triangles, with help of a mesh data structure. The basic mesh data structure would have to enable future features that the next objectives would require.
+        The minimum objective is to implement a feed-forward neural network, alongside a Draughts game interface for the network to evaluate on. This will need to be paired with some decision making program that will determine the move to choose at a given state of the game. Finally, a simple genetic algorithm would also need to be implemented that interacts with the neural network.
+
+    \subsubsection*{Intermediate Objective}
+        % The intermediate objective of this project was to create and incorporate the algorithms for the calculation of triangle surface normals, vertex normals and gradient (following our definition) in the initial programme, and enable visualisation of the “interesting” gradient changes and vertex normals on the mesh displayed by the programme.
+        The intermediate objective involves the implementation of an interface to play against the end result, and to create a monte-carlo decision making algorithm, which will be used by the agents to evaluate better quality moves. Also, as the genetic algorithm includes a tournament mechanism which will play many games simultaneously, this will need to be implemented to run in parallel.
+        
+    \subsubsection*{Advanced Objective}
+        % The advanced objective of this project was to evaluate the speed of the algorithms and compare it to the time complexity that we obtained from theoretical analysis of the algorithms. The final sections of this paper will show the results acquired and the analysis and evaluation of the work we carried out. 
+        The advanced objective consists of producing a system that indicates that it is learning over time. The later sections of this paper evaluates the quality of the learning rate and other results. 
+    
+    % The remainder of this report will document the related work that was examined during the project, the proposed solution, the results collected, an evaluation of the results and the project, and a conclusion discussing the importance of this project and possible future work.
+    To template the document, the later sections of the paper will discuss related and relevant work, the proposed solution, results and an evaluation of the project. Tha paper is then wrapped up with a conclusionary statement, discussing the implications of the project and potential future work.
 
 % TODO
 \section{Related Work}
-    % This section presents a survey of existing work on the problems that this project addresses.  it should be between 2 to 4 pages in length.  The rest of this section shows the formats of subsections as well as some general formatting information for tables, figures, references and equations.
-    Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. Research in artificial intelligence alone has been active since, and is reaching towards the peak of the chart on Flynn's taxonomy. This section will summarise specific and notable techniques relevant to the discussion of the task at hand.
+    % This section presents a survey of existing work on the problems that this project addresses. it should be between 2 to 4 pages in length.  The rest of this section shows the formats of subsections as well as some general formatting information for tables, figures, references and equations.
+
+    Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. This is due to the relatively vast potential move space, making it difficult to brute-force, until recently. Schaeffer proposed a method to solve the game in 1996\cite{schaeffer_solving_1996}, and eventually proved a method to weakly-solve the game itself later on in 2007\cite{mullins_checkers_2007}. However, the premise of the project is not necessarily to solve the game itself, but to rather see whether genetic algorithms are still relevant.
+
+    Research in artificial intelligence alone has been active since, targeting games with a higher move space, notably Chess and, more recently, Go. This section will summarise specific and notable techniques relevant to the discussion of the task at hand.
 
     % TODO: History
-    \subsection{Samuel.}
-        An early design of machine learning to play Draughts was devised by Arthur Samuel in 1959\cite{samuel_studies_2000}, where his algorithm revolved around using a linear combination of weighted features the board contained, such as the number of pawns, number of pawns positioned along the central diagonal, and so on. 
+    \subsection{Arthur Samuel}
+        In 1959, An early design of machine learning to play Draughts was devised by Arthur Samuel\cite{samuel_studies_2000}. His algorithm is based on the perpetual improvement of heuristics he devised, which act as an evaluator for a given state of the checkerboard. The evaluation function is calculated using the linear combination of his heuristics, which included various parameters of relevancy of the game. This includes the number of pawns, number of pawns positioned along the central diagonal, and so on. 
 
-        During its design, Samuel also described an early concept of Alpha Beta Pruning. The weights were then trained by the algorithm playing itself in a form of genetic programming. A later investigation by a checkers magazine evaluated Samuel's player to \[below Class B\],\cite{schaeffer_one_1997, fogel_evolving_2000} where Class B being categorised with an ELO range of \[1600-1799\]. 
+        His evolutionary strategy consisted of agents that have different coefficents for the heuristics, and new agents are formed using a successor's coefficents with subtle mutations.
 
-        However, the work described did not consider the use of neural networks (as it was not conceived at the time). It was also dependent on a set of heuristics Samuel devised. This could handicap the agent's ability to play, as they are dependent on the effectiveness of Samuel's heuristics. 
+        Samuel also described an early concept of Mini-Max, with Alpha Beta Pruning. The weights were then trained by the algorithm playing itself in a form of genetic programming. A later investigation by a checkers magazine evaluated Samuel's player to \[below Class B\],\cite{schaeffer_one_1997, fogel_evolving_2000} where Class B being categorised with an ELO range of \[1600-1799\]. 
+
+        However, the work described was naturally also dependent on a set of heuristics Samuel devised. This could handicap the agent's ability to play, as they are constrained on the quality of Samuel's heuristics. 
 
     % TODO: Minimax Algorithm
     \subsection{Blondie24}
 
-        The idea of evolving neural networks to play Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks \cite{chellapilla_evolving_1999}. Their metod used Samuel's system as a base, improving it's evaluation method, using feed-forward convolutional neural networks instead of a linear combination. Their resulting player, Blondie24, was then taught to play without priori knowledge.
+        The idea of evolving neural networks to play the game of Draughts is based on the success Chellapilla and Fogel had in evolving their own Checkers neural networks \cite{chellapilla_evolving_1999}. Their method used Samuel's system as a basis and modified it's evaluation method, using feed-forward neural networks instead of a linear combination. Their resulting player, Blondie24, was then taught to play without priori knowledge, in a similar vein, but with a higher level of competency.
 
-        Blondie24 also used an evolutionary algorithm (most notably mutation on parents) to evolve the agents. However, crossover mechanisms were not considered (and thus not using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and a single output node. The output node consists of a classifier from \[-1 to 1\] inclusive, representing a particular advantage for a given side of the board. Spatial awareness is not considered as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness. Relative distance between pieces are not encapsulated in a method that can be immediately interpreted by the neural network.
+        Blondie45 uses an evolutionary algorithm, using fifteen agents $i=1,\dots,15$, each of which consisted of two properties. The first property were weights of the neural network (which are initially random), with the second property being a self-adaptive parameter vector, $\tau_i$, which determined how random the mutations be when the agent $i$ evolved.
+        
+        In each generation, every agent plays each other in a round robin style tournament, and successors are chosen based on their performance from it. The best agents are chosen to mutate themselves to create new agents. Mutation is performed using the formula below:
 
-        Their decision making algorithm primarily revolved around a mini-max algorithm with a ply cap. The use of a mini-max algorithm proposed:
+        $$
+        /tau_i(j) = /tau_i(j) \cdot e^{\mu}
+        $$
+        
+        Where $j=1,...,N_w$ represented each weight of the neural network $w$, and $\mu$ representing a random decimal in the range of $[0-1]$. 
 
-        % Talk about how mini-max algorithm works.
-        Advancements in the field led to more successful algorithms, which will be explained later on. 
+        However, crossover mechanisms were not considered (and is thus not classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and a single output node. The output node consists of a classifier from \[-1 to 1\] inclusive, representing a particular advantage for a given side of the board. One fallback that can be seen with this particular method is that spatial awareness is not considered as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness. Relative distance between pieces are not encapsulated in a method that can be immediately interpreted by the neural network.
 
-        % exist papers dedicated to finding the best current techniques categorised
-        % We do not wish to repeat this work, but it is important to understand that we wish to abstract and modularise parts of the best algorithms so that we can hope to combine and extend them in the solution. This requires revisiting the best current algorithms as referenced in the clustering overvi
+        Their decision making algorithm primarily revolved around a mini-max algorithm with a ply cap. This algorithm would expand a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
     
-    % TODO: fix writeup of everything
-    \subsection{Post-Analysis of Blondie24}
-        Blondie24 was influential in the field, leading to various studies on how it evolves.
-        % Talk about Al-Khateeb's PHD Thesis on the study of Blondie24
-        Since then, there has been a non-trivial number of papers within Checkers,
-        Genetic Algorithms and Convolutional Neural Networks. Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve weights for a convolutional neural network as a more performant alternative to back-propagation, in nearly all situations, other than when the number of generations generated for neural networks are small.[21]
+        Child nodes are expanded until some depth is reached. From here, an evaluation function is used to calculate the value of the leaf nodes at this depth. This evaluation function produces a value that indicates a players advantage in a given state. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
+    
+        The best value propagates upwards until it reaches to a child of the root node. This represents an agent's current state of the game. The use of alpha-beta pruning would help to ignore evaluating unnecessary moves, reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move at a given position.
+    
+        The mini-max method would have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
 
-        In 2017 Lingxi Xie et al. took it a step further and discussed using genetic algorithms to compute optimal deep learning structures automatically, using an image recognition dataset as the benchmark for competitiveness against the networks.[29] Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in dierent stages of the game, prove to be the most promising of outcomes.
+        We do not wish to repeat this work, but it is important to understand that we wish to abstract and modularise parts of the best features of this system to modify and extend them in the solution described in the paper.
+
+        \subsection{Post Blondie24}
+
+        Blondie24 was influential in the field of artificial intelligence during its time, leading to various studies on how it evolves. A notorious example is the Al-Khateeb and Kendall series, where they explore in detail the different features that comprise Blondie24. One of their insightful studies with the Look-ahead Depth \cite{al-khateeb_effect_2012} conlcuded that having a higher ply-depth increases the overall performace of the player, and that agents trained at a higher ply performs significantly worse when playing at a lower ply.
         
+        The tournament approaches \cite{al-khateeb_introducing_2009}, the value of piece differences \cite{al-khateeb_importance_nodate}. 
+        
+        % Alternative contemporary machine learning techniques have been exercised against Draughts. Franken et al. (2003) used draughtsboards as an evaluator for their rendition of an AI through Particle Swarm Optimisations.[14] 
+        Quetzalcoatl Toledo-Marin et al. (2016) performed studies on attacking strategies using the game of checkers as a reference (which however can be applied to any other zero-sum game), where they mathematically prove that for an offensive player, maximising the offensive improves their probability to win.\cite{toledo-marin_is_2016}
+
         % Stanford's SVM method of improving Blondie
-        Cobbe, et al. improves Blondie24 by using an evaluation function that con- sists of Support Vector Machines, which achieves locally optimal performance in approximately a third as many generations than its typical evolution. [10] Interestingly, they suggest the use of the ELO algorithm as the tournament rating system. This could prove to be useful background information as it would provide an reliable relative rating of a given agent, using fewer games.
+        Cobbe, et al. improves Blondie24 by using an evaluation function that consists of Support Vector Machines, which achieves locally optimal performance in approximately a third as many generations than its typical evolution. \cite{cobbe_accelerating_nodate} 
         
-        Fogel's board was used as the premise for Al-Khateeb's Thesis (Ph.D)[1], conducting a through evaluation of the dierent components that make Blondie24, including the Look-ahead Depth[4], The tournament approaches [3], the value of piece dierences [2]. Alternative contemporary machine learning techniques have been exercised against Draughts. Franken et al. (2003) used draughtsboards as an evaluator for their rendition of an AI through Particle Swarm Optimisations.[14] 3Quetzalcoatl Toledo-Marin et al. (2016) performed studies on attacking strategies using the game of checkers as a reference (which however can be applied to any other zero-sum game), where they mathematically prove that for an oensive player, maximising the oensive improves their probability to win.[28]
     % TODO: fix writeup of everything, talk about monte-carlo
     \subsection{Neural Networks}
-    
         % need to mention regular gradient based learning
         Lai's Giraffe \cite{lai_giraffe:_2015} program used a deep reinforcement learning technique to play Chess to an advanced level in a relatively quick time-period. Giraffe's decision function involved using Temporal Difference Learning (TD-Leaf), an improvement on MiniMax, by Baxter et al. \cite{baxter_tdleaflambda_1999} However, Giraffe has been trained on previously played games from grandmaster tournaments as a reference, and was not entirely self-taught.
         % Lai then moved on to join DeepMind, 
+
         % talk about monte-carlo
+
     % TODO: fix writeup of everything
     \subsection{Return of Genetic Algorithms}
+        % Ling-Xi
+        In 2017 Lingxi Xie et al. took it a step further and discussed using genetic algorithms to compute optimal deep learning structures automatically, using an image recognition dataset as the benchmark for competitiveness against the networks.[29] Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in dierent stages of the game, prove to be the most promising of outcomes.
+
+        Since then, there has been a non-trivial number of papers within Checkers, Genetic Algorithms and Convolutional Neural Networks. Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve weights for a convolutional neural network as a more performant alternative to back-propagation, in nearly all situations, other than when the number of generations generated for neural networks are small.[21]
+        
         % Uber's revival of genetic algorithms and safe mutations
 
 % TODO: Write up everything..
@@ -228,9 +263,9 @@
         % talk about minimax
         % then talk about monte carlo
 
-        To choose the best move given a current position, an initial decision making process for an agent could revolve around the use of minimax algorithm. This was the case for Chellapilla and Fogel's agent. \cite{chellapilla_evolving_1999}. This algorithm would expand a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
+        To choose the best move given a current position, an initial decision making process for an agent revolves around the use of minimax algorithm. This was the case for Chellapilla and Fogel's agent. \cite{chellapilla_evolving_1999}. This algorithm would expand a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
         
-        Child nodes are expanded until some depth is reached. From here, an evaluation function is used to calculate the value of the leaf nodes at this depth. This evaluation function produces a value that indicates a players advantage in a given state. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
+        Child nodes expand until some depth is reached. From here, an evaluation function is used to calculate the value of the leaf nodes at this depth. This evaluation function produces a value that indicates a players advantage in a given state. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
 
         The best value propagates upwards until it reaches to a child of the root node. This represents an agent's current state of the game. The use of alpha-beta pruning would help to ignore evaluating unnecessary moves, reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move at a given position.
 
@@ -376,7 +411,6 @@
             % \vspace{-25pt}
         \end{figure}
     
-
 
     \subsection{Genetic Algorithms}
         % talk about generation of population
