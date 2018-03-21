@@ -104,7 +104,7 @@
     \subsection*{Aims}
 
     % Research Question
-    Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performing draughts playing agent by the use of GA-NNs (Genetic Algorithms and Neural Networks).
+    Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks.
 
     \subsubsection*{Minimum Objective}
         % The minimum objective of this project was to design and build a programme that would display a polygonal mesh of triangles, with help of a mesh data structure. The basic mesh data structure would have to enable future features that the next objectives would require.
@@ -125,13 +125,13 @@
 \section{Related Work}
     % This section presents a survey of existing work on the problems that this project addresses. it should be between 2 to 4 pages in length.  The rest of this section shows the formats of subsections as well as some general formatting information for tables, figures, references and equations.
 
-    Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. This is due to the relatively vast potential move space, making it difficult to brute-force, until recently. Schaeffer proposed a method to solve the game in 1996\cite{schaeffer_solving_1996}, and eventually proved a method to weakly-solve the game itself later on in 2007\cite{mullins_checkers_2007}. However, the premise of the project is not necessarily to solve the game itself, but to rather see whether genetic algorithms are still relevant.
+    Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. This is due to the relatively vast potential move space, making it difficult to brute-force, until recently. Schaeffer proposed a method to solve the game in 1996\cite{schaeffer_solving_1996}, and eventually proved a method to weakly-solve the game itself later on in 2007\cite{schaeffer_checkers_2007}. However, the premise of the project is not necessarily to solve the game itself, but to rather see whether genetic algorithms are still relevant.
 
     Research in artificial intelligence alone has been active since, targeting games with a higher move space, notably Chess and, more recently, Go. This section will summarise specific and notable techniques relevant to the discussion of the task at hand.
 
     % TODO: History
     \subsection{Arthur Samuel}
-        In 1959, An early design of machine learning to play Draughts was devised by Arthur Samuel\cite{samuel_studies_2000}. His algorithm is based on the perpetual improvement of heuristics he devised, which act as an evaluator for a given state of the checkerboard. The evaluation function is calculated using the linear combination of his heuristics, which included various parameters of relevancy of the game. This includes the number of pawns, number of pawns positioned along the central diagonal, and so on. 
+        In 1959, An early design of machine learning to play Draughts was devised by Arthur Samuel\cite{samuel_studies_1959}. His algorithm is based on the perpetual improvement of heuristics he devised, which act as an evaluator for a given state of the checkerboard. The evaluation function is calculated using the linear combination of his heuristics, which included various parameters of relevancy of the game. This includes the number of pawns, number of pawns positioned along the central diagonal, and so on. 
 
         His evolutionary strategy consisted of agents that have different coefficents for the heuristics, and new agents are formed using a successor's coefficents with subtle mutations.
 
@@ -156,13 +156,13 @@
 
         However, crossover mechanisms were not considered (and is thus not classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and a single output node. The output node consists of a classifier from \[-1 to 1\] inclusive, representing a particular advantage for a given side of the board. One fallback that can be seen with this particular method is that spatial awareness is not considered as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness. Relative distance between pieces are not encapsulated in a method that can be immediately interpreted by the neural network.
 
-        Their decision making algorithm primarily revolved around a mini-max algorithm with a ply cap. This algorithm would expand a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
+        Blondie24's decision making algorithm primarily revolved around a mini-max algorithm with a ply cap. This algorithm, with the state of the checkerboard as an input, expands tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
     
         Child nodes are expanded until some depth is reached. From here, an evaluation function is used to calculate the value of the leaf nodes at this depth. This evaluation function produces a value that indicates a players advantage in a given state. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
     
         The best value propagates upwards until it reaches to a child of the root node. This represents an agent's current state of the game. The use of alpha-beta pruning would help to ignore evaluating unnecessary moves, reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move at a given position.
     
-        The mini-max method would have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
+        There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
 
         We do not wish to repeat this work, but it is important to understand that we wish to abstract and modularise parts of the best features of this system to modify and extend them in the solution described in the paper.
 
@@ -189,11 +189,24 @@
     % TODO: fix writeup of everything
     \subsection{Return of Genetic Algorithms}
         % Ling-Xi
-        In 2017 Lingxi Xie et al. took it a step further and discussed using genetic algorithms to compute optimal deep learning structures automatically, using an image recognition dataset as the benchmark for competitiveness against the networks.[29] Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in dierent stages of the game, prove to be the most promising of outcomes.
+        In 2017 Lingxi Xie et al. took it a step further and discussed using genetic algorithms to compute optimal deep learning structures automatically, using an image recognition dataset as the benchmark for competitiveness against the networks.\cite{xie_genetic_2017}
+        % Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in different stages of the game, prove to be the most promising of outcomes.
 
         Since then, there has been a non-trivial number of papers within Checkers, Genetic Algorithms and Convolutional Neural Networks. Sergei Perez (UC Irvine) describes the use of genetic algorithms to evolve weights for a convolutional neural network as a more performant alternative to back-propagation, in nearly all situations, other than when the number of generations generated for neural networks are small.[21]
-        
+
         % Uber's revival of genetic algorithms and safe mutations
+        Interestingly, Clune et al. on behalf of Uber Labs returned to the use of genetic algorithms as a basis to train deep convolutional networks with success. \cite{such_deep_2017} Their GA-NN system is used to play popular Atari games on the OpenAI framework, and is found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
+
+        This is based on their system's ability to perform safe mutations \cite{lehman_safe_2017}, a technique that revolves around measuring the sensitivity of the network to changes with some of the weights. This allows them to evolve deep neural networks, having over 100 layers and over four million weights and biases.  
+
+        % Safe mutations through gradients (SM-G) greatly improves the efficacy of mutation in large, deep, and recurrent networks by measuring the sensitivity of the network to changes in particular connection weights.
+        % Computes gradients of outputs with respect to weights instead of gradients of error or loss as in conventional deep learning, allowing random, but safe, exploratory steps.
+        % Both types of safe mutation require no additional trials or rollouts in the domain.
+        % The result: deep networks (over 100 layers) and large recurrent networks now evolving effectively only through variants of SM-G.
+
+        However, they also do not consider the use of crossover techniques in their paper, but they do describe that it would very well be possible to produce a safe crossover method that can exploit the structure of the neural network, inspired by the research they've produced on safe mutations.
+
+        It is also quite unrealistic to apply the same techniques described here into the proposed system, as the machine base used are an order of magnitude larger than what is presently available to use. 
 
 % TODO: Write up everything..
 \section{Solution}
@@ -203,6 +216,7 @@
     % This section should be between 4 to 7 pages in length.
  
     %We started with an implementation of the k-means method which would later be used to evaluate and compare our algorithm with. The simulation tool was programmed in C++ using OpenGL to render large quantities of dynamic objects within the environment. We alsodesigned our architecture such that we run features of our algorithm in parallel by usingsynchronisation and multithreading.
+    This section describes the build of the system in order of implementation. Implementing the checkerboard interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered the interface being built prior. 
 
     \subsection{Neural Network}
         % talk about how it works
@@ -251,7 +265,6 @@
             \vspace{-20pt}
         \end{wrapfigure}
         
-
         % Talk about the activation function
         Weights of a neuron are multiplied by their input value, summed with their bias, and are passed through an activation function $O = f((Input* weight) + Bias)$ to become an input for another neuron. Activation functions, when visualised, usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
         % how does it work?
@@ -263,13 +276,9 @@
         % talk about minimax
         % then talk about monte carlo
 
-        To choose the best move given a current position, an initial decision making process for an agent revolves around the use of minimax algorithm. This was the case for Chellapilla and Fogel's agent. \cite{chellapilla_evolving_1999}. This algorithm would expand a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
-        
-        Child nodes expand until some depth is reached. From here, an evaluation function is used to calculate the value of the leaf nodes at this depth. This evaluation function produces a value that indicates a players advantage in a given state. The best potential position for a given player can be deduced from the nodes at this stage, which is quantified with a value.
+        The mini-max method would have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. 
 
-        The best value propagates upwards until it reaches to a child of the root node. This represents an agent's current state of the game. The use of alpha-beta pruning would help to ignore evaluating unnecessary moves, reducing the number of calculations. Once the possible moves have been considered, the best child node is chosen, representing the best move at a given position.
-
-        The mini-max method would have a search depth of 4ply (where the agent will search four moves ahead.) This should allow the agents to form a basic strategy where they can plan their moves in advance. There are inherent trade-offs with having a higher ply count; asymptotic complexity of mini-max is exponential; it being $O(x^y)$ for $x$ being the branching factor, and $y$ being depth. Branching factor will consist of the moves from each agent in a given game. This exponential growth is the achilles heel to the mini-max approach.
+        To choose the best move given a current position, an initial decision making process for an agent revolves around the use of minimax algorithm. This was the case for Chellapilla and Fogel's agent. \cite{chellapilla_evolving_1999}. 
 
         \begin{figure}[!h]
             \centering
@@ -466,7 +475,8 @@
             Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
 
             This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
-    \subsection{Testing Issues}
+
+    \subsection{Testing}
         Initial runs will operate on a 1-ply load to determine the stability of the system on a machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply move depth. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time.
 
         At the end of a given generation, we measure growth of performance by using the generation's champion. Presently we will use the mean of means approach. When a new champion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current champion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
@@ -481,7 +491,21 @@
         % talk about testing issues
         % how long the system will take
         % Using a modern PC, with an i7 CPU clocked at 4 × 2.66 GHz, our simulation tool canprocess and render 100,000 dynamic objects while implementing k-means at 60 FPS and 1,000,000 dynamic objects at about 10 FPS. We tested k-means with 10,000,000 objectshowever the rendering speed is generally 1-2 FPS and with k as small as 50, the update speedis only about once every ten seconds with such huge quantities of data to display
+    
+    % Issues
+    \subsection{Issues}
+        - shitty running times
+        - finding a computer that would run the simulations
+        - appropiately saving files
+        - testing neural network was difficult
+        - testing move decisions were difficult
+        - optimising the learning rate
 
+    % The previous sections summed up the theory and specifics of the solution, but did not focus on any particular implementation issues. Though the solution is assumed to be ‘offline’ and thus the speed of training and testing are not considered, the solution was implemented with a view to minimising running time and maximising flexibility, allowing for more results to be obtained for a richer evaluation of the solution.
+    % As mentioned, the image database was managed using a local MySQL installation. The alternative would have been to use directories of files. However, using a MySQL database was far more convenient for managing the images, and allowed simple persistence of data from the training section such as the eigenfaces, image encodings, and trained NNs, to avoid having to compute this data again every time the solution was tested.
+    % The solution was implemented solely using Java. The main reason for this choice was the various libraries available for the algorithms and tools needed for the solution whose implementation was beyond the scope of this project. These included eigenvector computation (JAMA) and neural networks (ENCOG). Similarly, the Java imaging and MySQL database connectivity libraries allowed for simple I/O of data and images. The solution used a graphical user interface (GUI). This was partly for convenience in the administrative tasks such as organising the image database or changing NN parameters, but also helped in testing the solution implementation through the use of visualisations of the data. The nature of the solution made testing an inherently difficult task. Firstly, the eigenface encoding method analyses images in a non-intuitive manner through statistical analysis. This means that the eigenfaces and the image encodings are just vectors of values which mean nothing to the human observer. However, both an eigenvector and therefore an image encoding (which is a combination of eigenvectors) can be visualised as an image. By verifying that an image encoding ‘looked similar’ to the original, it was possible to deduce that the eigenfaces had been correctly computed and the original image had been successfully encoded as a combination of the eigenfaces.
+    % The testing of the NN(s) was also difficult, since an incorrect result does not necessarily indicate an implementation problem, but could just be the result of poor training. Fortunately, the use of an NN library meant that the NNs could be assumed to be working correctly internally, but it was still necessary to test their application. In order to do this, a facility in the GUI for ‘single’ tests was set up, whereby the NN-unit can be trained on any parameters and then tested on any image in the test set. Thus, it was possible to test the NN-unit on arbitrary parameters and test images, allowing for directed investigations when an error was suspected in overall results. In addition, the error after each training iteration of the NN(s) in the NN-unit was output to the GUI, so that it could be seen how well an NN was learning and at what rate. This allowed for testing of the training procedure, as this error would change unpredictably or be unreasonably high or low if there was an error with the training data, such as non-face images given to train an NN for gender classification or similar. 
+    
 % TODO (WAIT FOR RESULTS)
 \section{Results}
     
@@ -510,7 +534,11 @@
 \section{Conclusions}
 
     % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
-
+    - importance of the work
+    - applications
+    - extensions
+    - further work
+    
 % References
 \bibliography{projectpaper}
 \end{document}
