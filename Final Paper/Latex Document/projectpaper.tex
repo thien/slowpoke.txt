@@ -270,6 +270,8 @@
         % how does it work?
 
         Our initial choice for the activation function is tanh, shown in figure \ref{sigmoid}. There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
+
+        Results are cached such that inputs that have been already evaluated are saved such that they can be recalled immediately. This has shown varying levels of improvement dependent on the ply depth. As the ply increases, the size of the state space increases, and therefore the chances of recalling the same set of inputs naturally decrease.
         
     \subsection{Decision Making Algorithm}
         % talk about starting with random moves
@@ -477,7 +479,13 @@
             This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
 
     \subsection{Testing}
-        Initial runs will operate on a 1-ply load to determine the stability of the system on a machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. Once testing has proven to be stable, the system would run on Durham's MIRA (128-core Intel) distributed system with a 6-ply move depth. In order to keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time.
+        Initial runs will operate on a 1-ply load to determine the stability of the system on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. 
+        
+        Once testing has proven to be stable, the system would run on Durham's MIRA distributed system (Debian) with a 6-ply move depth. This machine utilises 4 Intel Xeon E7-8860 processors (Each CPU contains 16 physical cores running in 2.2Ghz, with hyperthreading). This comes to a total of 64 Cores, and 128 threads. MIRA also comes with 256GB of DDR3 memory. 
+        
+        To keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations will be calculated on MIRA to reduce computational time
+
+
 
         At the end of a given generation, we measure growth of performance by using the generation's champion. Presently we will use the mean of means approach. When a new champion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current champion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
 
@@ -501,6 +509,9 @@
         - testing move decisions were difficult
         - optimising the learning rate
 
+    Interestingly, the machine used for training did not perform necessarily as effeciently. The system is built such that the tournaments are run in "embarassingly parallel", but the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (to evaluate states of the board.)
+
+    Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. 
     % The previous sections summed up the theory and specifics of the solution, but did not focus on any particular implementation issues. Though the solution is assumed to be ‘offline’ and thus the speed of training and testing are not considered, the solution was implemented with a view to minimising running time and maximising flexibility, allowing for more results to be obtained for a richer evaluation of the solution.
     % As mentioned, the image database was managed using a local MySQL installation. The alternative would have been to use directories of files. However, using a MySQL database was far more convenient for managing the images, and allowed simple persistence of data from the training section such as the eigenfaces, image encodings, and trained NNs, to avoid having to compute this data again every time the solution was tested.
     % The solution was implemented solely using Java. The main reason for this choice was the various libraries available for the algorithms and tools needed for the solution whose implementation was beyond the scope of this project. These included eigenvector computation (JAMA) and neural networks (ENCOG). Similarly, the Java imaging and MySQL database connectivity libraries allowed for simple I/O of data and images. The solution used a graphical user interface (GUI). This was partly for convenience in the administrative tasks such as organising the image database or changing NN parameters, but also helped in testing the solution implementation through the use of visualisations of the data. The nature of the solution made testing an inherently difficult task. Firstly, the eigenface encoding method analyses images in a non-intuitive manner through statistical analysis. This means that the eigenfaces and the image encodings are just vectors of values which mean nothing to the human observer. However, both an eigenvector and therefore an image encoding (which is a combination of eigenvectors) can be visualised as an image. By verifying that an image encoding ‘looked similar’ to the original, it was possible to deduce that the eigenfaces had been correctly computed and the original image had been successfully encoded as a combination of the eigenfaces.
