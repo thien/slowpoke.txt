@@ -535,17 +535,39 @@
     
 % TODO (WAIT FOR RESULTS)
 \section{Results}
+
+    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. 
     
+    \subsection{Performance}
+    In this subsection we pit each agent against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
+    % compare the bots against a minimax agent
+    % chart of previous champions
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=50mm]{images/results/1ply/gm_net_stats.eps}
+        \includegraphics[width=50mm]{images/results/3ply/gm_net_stats.eps}
+        %\includegraphics[width=90mm]{images/results/6ply/gm_net_stats.eps}
+        \caption{A diagram visualising the crossover process.\label{crossoverpic}}
+    \end{figure}
     
+        With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
+        
     \subsection{Learning Rate}
     % chart of performance over time
+    
+    The learning rate is derived by comparing a generation's champions with previous five generations. 
+    
     \begin{figure}[!h]
-                \centering
-                \includegraphics[width=90mm]{images/results/3ply/gm_net_stats.eps}
-                \caption{A diagram visualising the crossover process.\label{crossoverpic}}
-            \end{figure}
-    With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
-    % chart of previous champions
+        \centering
+        \includegraphics[width=50mm]{images/results/1ply/cummulative_growth.eps}
+        \includegraphics[width=50mm]{images/results/3ply/cummulative_growth.eps}
+        \includegraphics[width=50mm]{images/results/6ply/cummulative_growth.eps}
+        \caption{A diagram visualising the crossover process.\label{crossoverpic}}
+    \end{figure}
+    
+    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. 
+    However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. 
+    
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
         \subsubsection{CPU Times}
@@ -558,40 +580,70 @@
 
     % This section should be between 2 to 3 pages in length.
 
+
+
+
+
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
+% This section should between 1 to 2 pages in length.
     - The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament; hard to choose the best method
     - Difficult to evaluate moves
     - Naturally slower learning rate than typical ventures as there is an immediate comparision to make against
     - 
     \subsection{Strengths}
     - Fully
+    - Without using 
+    % When the search space is so big you need something to search on it, and there is where GA can shine. It is also the same with Deep Learning and mostly evolutionary computation. The search space is so huge for a "brute force algorithm". You need heuristics and GA works well for some problems, the same way gradient descent works well for others too.
+    % The difference is that for a GA, that can be any function, whereas for NNs it must be decomposable into a sum of partial objectives, and differentiable. Moreover, the result of training an NN is a function mapping a vector to a vector, whereas the result of training a GA could be an object drawn from any search space.
+    - % embarassingly parallel programs
+    - % low learning curve
+    - embarrassingly parallel programs make it scalable for different computers. 
+
+    
     \subsection{Limitations}
+    - creating a high quality fitness function is difficult and its domain specific, or rather, there is no universal fitness function for all problems. This poses as a benefit and a weakness for the neuroevolutionary approach.
+        - the fitness function defines the size of the search space and how easily a globally optimal solution can be derived.
+        - using a best of champions approach is quite difficult!
+        - reality rarely fits into good fitness functions
+    - measuring the learning rate is quite difficult and arbitary.
+    - compared to other calculus based methods, neuroevolution requires many more samples (often expoentially more) to get a weight of equivalent quality.
+
+    -
+
+    % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
+    - Should use GPU to improve running times.
     - should have started with times
-    % This section should between 1 to 2 pages in length.
     Neuroevolution is still in its early stages.
+    -If given the chance to repeat the work, we would not change this approach. In hindsight,
+having seen that improvements in the clustering field come from new areas, it may have been
+better to spend more time in examining references from areas other than computer science,
+such as biology and physics, in hope of finding more creative solutions to the clustering
+problem.
+    - will need to run for longer generations because we can't see a stronger correlation but limited access to high performance computing equipment.
 
 % TODO (WAIT FOR RESULTS)
+
 \section{Conclusions}
+    % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
     In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to raise the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
     
     The main findings of this project is as follows:
     - some of the the work is 
     - neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
-    - 
+    - The fitness function can be anything. 
     
-    The major implication is that it is a possible contender for tasks that 
+    The major implication is that it is a possible contender for tasks that require unsupervised learning
     
     
     There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
     Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. 
     The quality of the fitness function is especially important.
+    promising.
 
-    % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
-        
     
 % References
 \bibliography{zotero}
