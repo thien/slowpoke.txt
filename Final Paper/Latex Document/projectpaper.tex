@@ -33,7 +33,7 @@
 \citationmode{abbr}
 \bibliographystyle{agsm}
 % Titular Information
-\title{A Neuroevolutionary Approach to Draughts}
+\title{A Neuroevolutionary Approach to Draughts Playing Agents}
 \author{}
 \student{T. P. Nguyen}
 \supervisor{S. Dantchev}
@@ -509,25 +509,25 @@
     
         \subsubsection*{Evaluation Method}
     
-        At the end of the generation run, the end player (being the champion of the last generation) will be used to compete against human players on various online multi-player checkers websites in order to determine an accurate ELO rating of the system.
-    
-        The end player is also used to create comparison games. This player is tested against an agent who is choosing random moves, an agent who is using pure monte-carlo tree searches, and an agent from half the generations generations prior to its current state. These statistics will be used as evidence in order to determine whether the agent is learning, and can also be seriously considered as a viable alternative to other machine learning training approaches.
-        % talk about testing issues
-        % how long the system will take
-        % Using a modern PC, with an i7 CPU clocked at 4 × 2.66 GHz, our simulation tool canprocess and render 100,000 dynamic objects while implementing k-means at 60 FPS and 1,000,000 dynamic objects at about 10 FPS. We tested k-means with 10,000,000 objectshowever the rendering speed is generally 1-2 FPS and with k as small as 50, the update speedis only about once every ten seconds with such huge quantities of data to display
-    
+        The end player is used to create comparison games against its ancestors. This player is to be first tested against an agent who is choosing random moves, an agent who is using pure monte-carlo tree searches, and a subset of older agents prior to its current state. These statistics will be used as evidence in order to determine whether the agent is learning over time, is used as the premise to determine whether neuroevolution can be considered as a technique for non-specific domain problems.
+       
     % Issues
     \subsection{Issues}
-        - shitty running times
+       
         - finding a computer that would run the simulations
         - appropiately saving files
         - testing neural network was difficult
         - testing move decisions were difficult
         - optimising the learning rate
 
-    Interestingly, the machine used for training did not perform necessarily as effeciently. The system is built such that the tournaments are run in "embarassingly parallel", but the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (to evaluate states of the board.)
+    The system is implemented using Python and NumPy.
+    Testing move decisions were difficult
+    
 
+    Interestingly, the machine used for training did not perform necessarily as effeciently. The system is built such that the games in the tournaments are "embarassingly parallel", but the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) 
     Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. 
+    The use of GPU acceleration is not considered due to the lack of access. 
+    
     % The previous sections summed up the theory and specifics of the solution, but did not focus on any particular implementation issues. Though the solution is assumed to be ‘offline’ and thus the speed of training and testing are not considered, the solution was implemented with a view to minimising running time and maximising flexibility, allowing for more results to be obtained for a richer evaluation of the solution.
     % As mentioned, the image database was managed using a local MySQL installation. The alternative would have been to use directories of files. However, using a MySQL database was far more convenient for managing the images, and allowed simple persistence of data from the training section such as the eigenfaces, image encodings, and trained NNs, to avoid having to compute this data again every time the solution was tested.
     % The solution was implemented solely using Java. The main reason for this choice was the various libraries available for the algorithms and tools needed for the solution whose implementation was beyond the scope of this project. These included eigenvector computation (JAMA) and neural networks (ENCOG). Similarly, the Java imaging and MySQL database connectivity libraries allowed for simple I/O of data and images. The solution used a graphical user interface (GUI). This was partly for convenience in the administrative tasks such as organising the image database or changing NN parameters, but also helped in testing the solution implementation through the use of visualisations of the data. The nature of the solution made testing an inherently difficult task. Firstly, the eigenface encoding method analyses images in a non-intuitive manner through statistical analysis. This means that the eigenfaces and the image encodings are just vectors of values which mean nothing to the human observer. However, both an eigenvector and therefore an image encoding (which is a combination of eigenvectors) can be visualised as an image. By verifying that an image encoding ‘looked similar’ to the original, it was possible to deduce that the eigenfaces had been correctly computed and the original image had been successfully encoded as a combination of the eigenfaces.
@@ -555,7 +555,7 @@
     \subsection{Learning Rate}
     % chart of performance over time
     
-    The learning rate is derived by comparing a generation's champions with previous five generations. 
+    The learning rate is derived by comparing a generation's champions with its previous champions from the last five generations. For each older champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the six outcomes are calculated, representing the learning rate. We do not take the learning rate of the first 2 champions due to the lack of available comparisons. This measurement is performed for every generation until the end. It is also the case that this does not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time.
     
     \begin{figure}[!h]
         \centering
@@ -565,8 +565,7 @@
         \caption{A diagram visualising the crossover process.\label{crossoverpic}}
     \end{figure}
     
-    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. 
-    However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. 
+    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. 
     
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
@@ -594,11 +593,9 @@
     \subsection{Strengths}
     - Fully
     - Without using 
-    % When the search space is so big you need something to search on it, and there is where GA can shine. It is also the same with Deep Learning and mostly evolutionary computation. The search space is so huge for a "brute force algorithm". You need heuristics and GA works well for some problems, the same way gradient descent works well for others too.
-    % The difference is that for a GA, that can be any function, whereas for NNs it must be decomposable into a sum of partial objectives, and differentiable. Moreover, the result of training an NN is a function mapping a vector to a vector, whereas the result of training a GA could be an object drawn from any search space.
-    - % embarassingly parallel programs
-    - % low learning curve
-    - embarrassingly parallel programs make it scalable for different computers. 
+    - Neuroevolution is a viable method for programs with vast search spaces. While this is where both genetic algorithsm can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the fitness function can be any function, whereas for a neural network, its function needs to be translatable to some form of a differential sum of partial derivatives. 
+    - embarrassingly parallel tournaments make it possible to reduce the overall system running time on the system.
+    - The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation.
 
     
     \subsection{Limitations}
@@ -631,11 +628,12 @@ problem.
     In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to raise the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
     
     The main findings of this project is as follows:
+    - It is evidently possible to create a checkers playing agent that learns to play itself, with little human intervention.
     - some of the the work is 
     - neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
-    - The fitness function can be anything. 
+    - The fitness function can be anything, but it is important to derive a high quality fitness function.
     
-    The major implication is that it is a possible contender for tasks that require unsupervised learning
+    The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
     
     There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
