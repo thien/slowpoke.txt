@@ -43,8 +43,10 @@
 % Start the Document
 % Note that the whole report, including the references, should not be longer than 20 pages in length.  The system will not accept any report longer than 20 pages.  It should be noted that not all the details of the work carried out in the project can be represented in 20 pages.  It is therefore vital that the Project Log book be kept up to date as this will be used as supplementary material when the project paper is marked.  There should be between 10 and 20 referenced papers---references to Web based pages should be less than 10\%.
 \begin{document}
-\maketitle)
+\maketitle
 % Doneish (WAIT FOR CONCLUSION)
+
+
 \begin{abstract}
     % These instructions give you guidelines for preparing the final paper.  DO NOT change any settings, such as margins and font sizes.  Just use this as a template and modify the contents into your final paper.  Do not cite references in the abstract.
 
@@ -442,6 +444,8 @@
             Currently, each agent in the population would play 5 games as Black, against randomly selected opponents. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ points. Both the agent and its opponent receives a score from the game.
             Scores are tallied up at the end of the tournament. Players are sorted by the number of points they scored. The best players would have the highest number of points.
             
+            Talk about how this is running in parallel thanks to python's muiltiprocessing library'
+            
         \subsubsection{Coefficient Mutation} \label{coefficient_mutation}
 
             To create variation between agents in preparation for the next generation, we create statistical anomalies through the use of mutations. This is used as one of the learning mechanisms that help change the decision factors of the neural network.
@@ -483,9 +487,8 @@
             Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
             % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
             A random node from the dominant parent's hidden nodes are chosen. A dominant parent is the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced it would be randomly chosen. 
-            
-             
-            
+
+
             Once a random node is chosen, The weights and biases that feed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
             Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
 
@@ -562,21 +565,32 @@
     - Naturally slower learning rate than typical ventures as there is an immediate comparision to make against
     - 
     \subsection{Strengths}
+    - Fully
     \subsection{Limitations}
     \subsection{Approach}
     - should have started with times
     % This section should between 1 to 2 pages in length.
+    Neuroevolution is still in its early stages.
 
 % TODO (WAIT FOR RESULTS)
 \section{Conclusions}
 
+    In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to raise the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
+    
+    The main findings of this project is as follows:
+    - some of the the work is 
+    - neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
+    - 
+    
+    The major implication is that it is a possible contender for tasks that 
+    
+    
+    There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
+    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. 
+    The quality of the fitness function is especially important.
+
     % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
-    - importance of the work
-        - for applications that do not have a immediate 
-    - applications
-    - extensions
-    - further work
-        - experiment with different 
+
         
     
 % References
