@@ -71,11 +71,13 @@
 
     % Using a non-trivial set of face images (i.e. with variation in face characteristics and orientation), maximum accuracy rates are 98.08% for face detection, 94.81% for face identification, however the solution could not solve the gender classification problem on this set of images. The only accuracy gained for use of an ensemble was for face detection, with a gain of 0.25% over a single neural network. The solution was very robust to image blur, and somewhat robust to image noise.
 
-    The system has shown to perform considerably without any training, and has shown to improve over time. However, the system is not necessarily the most efficent of methods. 
+    The system has shown to perform considerably without any training, and has shown to improve over time. For different search depths, the net learning rate was positive. However, the wide scope of the adjustments afforded may have impacted the learning rate and has shown to be volatile at some situations.
 
     {\bf Conclusion}
 
     % The solution is very appropriate for the problems of face detection and face identification, but inappropriate for gender classification. Neural network ensembles remain of interest, but a simple ensemble of clones operating with ‘bagging’ training method and majority vote system did not produce satisfactory accuracy gains. The robustness of the solution to poor-quality images is indicative of its practical worth.
+    For problems that do not have
+    Under the premise that the fitness function that is well defined, neuroevolution is a valid alternative to problems with novel domains. 
 
     The solution is very appropiate for games that do not involve the use of training data.
     When using genetic algorithms with feed-forward neural networks, it 
@@ -204,6 +206,8 @@
         However, they also do not consider the use of crossover techniques in their paper, but they do describe that it would very well be possible to produce a safe crossover method that can exploit the structure of the neural network, inspired by the research they've produced on safe mutations.
 
         Unfortunately, it is unrealistic to apply the same techniques described here into the proposed system. The machine used as the base (consisting of hundreds to thousands of cores), but a more simplistic and adapted model can be produced using similar ideas. 
+        
+        %Most neural networks use gradient descent rather than neuroevolution. However, around 2017 researchers at Uber stated they had found that simple structural neuroevolution algorithms were competitive with sophisticated modern industry-standard gradient-descent deep learning algorithms, in part because neuroevolution was found to be less likely to get stuck in dead ends. In Science, journalist Matthew Hutson speculated that part of the reason neuroevolution is succeeding where it had failed before is due to the increased computational power available in the 2010s.[4]
 
 % TODO: Write up everything..
 \section{Solution}
@@ -539,7 +543,7 @@
     For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. 
     
     \subsection{Performance}
-    In this subsection we pit each agent against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
+    To measure performance, the final agent is compared against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
     % compare the bots against a minimax agent
     % chart of previous champions
     \begin{figure}[!h]
@@ -625,7 +629,7 @@ problem.
 \section{Conclusions}
     % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
-    In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to raise the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
+    In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
     
     The main findings of this project is as follows:
     - It is evidently possible to create a checkers playing agent that learns to play itself, with little human intervention.
