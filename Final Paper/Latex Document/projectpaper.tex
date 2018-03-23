@@ -33,17 +33,17 @@
 \citationmode{abbr}
 \bibliographystyle{agsm}
 % Titular Information
-\title{Draughts and Neuroevolution}
+\title{A Neuroevolutionary Approach to Draughts}
 \author{}
-\student{Thien P. Nguyen}
-\supervisor{Stefan Dantchev}
+\student{T. P. Nguyen}
+\supervisor{S. Dantchev}
 \degree{BSc Computer Science}
 \date{}
 
 % Start the Document
 % Note that the whole report, including the references, should not be longer than 20 pages in length.  The system will not accept any report longer than 20 pages.  It should be noted that not all the details of the work carried out in the project can be represented in 20 pages.  It is therefore vital that the Project Log book be kept up to date as this will be used as supplementary material when the project paper is marked.  There should be between 10 and 20 referenced papers---references to Web based pages should be less than 10\%.
 \begin{document}
-\maketitle
+\maketitle)
 % Doneish (WAIT FOR CONCLUSION)
 \begin{abstract}
     % These instructions give you guidelines for preparing the final paper.  DO NOT change any settings, such as margins and font sizes.  Just use this as a template and modify the contents into your final paper.  Do not cite references in the abstract.
@@ -53,17 +53,17 @@
     {\bf Background}
 
     Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require some human intervention to improve their performance. 
-    This is due to their dependency on pre-defined move databases. Optimal moves are pre-calculated, and recalled when necessary. By combining Neural Networks and Genetic Algorithms, this issue could possibly be solved by creating a player that can grow in ability over time, without the dependency on move-banks.
+    This is due to their dependency on pre-defined move databases. Optimal moves are pre-calculated, and recalled when necessary. Through neuroevolution, this issue could possibly be solved by creating a player that can grow in ability over time, by learning to play itself.
     
     {\bf Aims}
 
-    The purpose of this project is to explore approaches to tackle the game of English Draughts via the use of machine learning techniques. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at contemporary methods of computer science that could be used to evolve the historical systems. The project will establish whether this approach provides an effective performance on the game.
+    The purpose of this project is to explore an neuroevolutionary approach to tackle the game of English Draughts. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at how they can be adapted to suit the objective at hand. The project will establish whether neuroevolution is a viable approach to the problem.
     
     {\bf Method}
 
     % The initial population consists of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropriate algorithms are implemented to determine the overall development of the system's ability to play Draughts.
 
-    The method starts with designing a feed-forward neural network that evaluates the probability of a particular side winning, given a state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts. Genetic algorithms are used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checkerboards more precisely.
+    The method starts with designing a feed-forward neural network that evaluates the advantage a particular player, given a state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts. Genetic algorithms are used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checkerboards more precisely.
 
     {\bf Results}
 
@@ -82,7 +82,7 @@
 \end{abstract}
 % Done
 \begin{keywords}
-    Artificial Intelligence, Neural Networks, Genetic Algorithms, Draughts, Machine Learning, Monte Carlo Tree Search
+    Artificial Intelligence, Neural Networks, Genetic Algorithms, Draughts, Machine Learning, Monte Carlo Tree Search, Neuroevolution
 \end{keywords}
 % DONE
 \section{Introduction}
@@ -93,13 +93,13 @@
 
     English Draughts (or Checkers) is a popular 2-player board-game played on an 8x8 chess board. Players choose a colour and begin with 12 pawns each of their respective colours, and they are placed on the dark-coloured squares of the board. Beginning with the black pawns, each player takes a turn to move a pawn diagonally in one square. In the event that a pawn reaches the opposite side of the board from where the piece originated, it is promoted to a king. Kings have the ability to traverse backwards in the same diagonal motion as pawns. Assuming that there is space upon landing, A piece (pawn or king) also has the option to capture their opponents piece by moving two consecutive diagonal squares, where the opponents piece is situated immediately opposing the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. A player wins by capturing all of their opponents pieces. A player loses by having all of their pieces captured. A draw occurs when both players agree to draw after a three-fold repetition (where both players take three moves to simulate the same position), or a player has pieces on the board but cannot move any of them. A draw can be forced when both players fail to capture a piece after a set amount of moves.
 
-    \subsection*{Genetic Algorithms}
-
-    Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information (genome) of their parents. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array. Genetic Algorithms generally consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. 
-
     \subsection*{Neural Networks}
 
     Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characteristics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed through their propagation through the layers of neurons, where each neuron influences the content of the data as they pass through. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
+
+ 	\subsection*{Genetic Algorithms}
+
+    As subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information (genome) of their parents. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array. Genetic Algorithms generally consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. The combination of evolutionary algorithms to train neural networks is described as Neuroevolution.
 
     \subsection*{Aims}
 
@@ -135,7 +135,7 @@
 
         His evolutionary strategy consisted of agents that have different coefficents for the heuristics, and new agents are formed using a successor's coefficents with subtle mutations.
 
-        Samuel also described an early concept of Mini-Max, with Alpha Beta Pruning. The weights were then trained by the algorithm playing itself in a form of genetic programming. A later investigation by a checkers magazine evaluated Samuel's player to \[below Class B\],\cite{schaeffer_one_1997,fogel_evolving_2000} where Class B being categorised with an ELO range of \[1600-1799\]. 
+        Samuel also described an early concept of Mini-Max, with Alpha Beta Pruning. The weights were then trained by the algorithm playing itself in a form of genetic programming. A later investigation by a checkers magazine evaluated Samuel's player to below Class B \cite{schaeffer_one_1997,fogel_evolving_2000} where Class B being categorised with an ELO range of [1600-1799]. 
 
         However, the work described was naturally also dependent on a set of heuristics Samuel devised. This could handicap the agent's ability to play, as they are constrained on the quality of Samuel's heuristics. 
 
@@ -146,15 +146,15 @@
 
         Blondie45 uses an evolutionary algorithm, using fifteen agents $i=1,\dots,15$, each of which consisted of two properties. The first property were weights of the neural network (which are initially random), with the second property being a self-adaptive parameter vector, $\tau_i$, which determined how random the mutations be when the agent $i$ evolved.
         
-        In each generation, every agent plays each other in a round robin style tournament, and successors are chosen based on their performance from it. The best agents are chosen to mutate themselves to create new agents. Mutation is performed using the formula below:
+        In each generation, every agent plays each other in a round robin style tournament, and successors are chosen based on their performance from it. The best agents are chosen to mutate themselves to create new agents. Mutation is performed using the formula:
 
         $$
-        /tau_i(j) = /tau_i(j) \cdot e^{\mu}
+        \tau_i(j) = \tau_i(j) \cdot e^{\mu}
         $$
         
         Where $j=1,...,N_w$ represented each weight of the neural network $w$, and $\mu$ representing a random decimal in the range of $[0-1]$. 
 
-        However, crossover mechanisms were not considered (and is thus not classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and a single output node. The output node consists of a classifier from \[-1 to 1\] inclusive, representing a particular advantage for a given side of the board. One fallback that can be seen with this particular method is that spatial awareness is not considered as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness. Relative distance between pieces are not encapsulated in a method that can be immediately interpreted by the neural network.
+        However, crossover mechanisms were not considered (and is thus not classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and a single output node. The output node consists of a classifier from [-1, 1] inclusive, representing a particular advantage for a given side of the board. One fallback that can be seen with this particular method is that spatial awareness is not considered as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness. Relative distance between pieces are not encapsulated in a method that can be immediately interpreted by the neural network.
 
         Blondie24's decision making algorithm primarily revolved around a mini-max algorithm with a ply cap. This algorithm, with the state of the checkerboard as an input, expands a tree of potential moves. Each node represents a state of a checkerboard. Child nodes represent a state of the checkerboard for a given move. Child nodes can only be produced from the parent node; i.e a move from a parent node will produce a child node. 
     
@@ -214,8 +214,45 @@
     This section describes the build of the system in order of implementation. Implementing the checkerboard interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered the interface being built prior. 
 
     \subsection{Neural Network}
-        % talk about how it works
-        % talk about the preprocessing
+%     \begin{wrapfigure}{r}{0.37 \textwidth}
+%            % \begin{center}
+%            \fontsize{8}{11}
+%            % \vspace{-40pt}
+%            \centering
+%                \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
+%                \vspace{5pt}
+%                \begin{tikzpicture}
+%                \color{white}
+%                \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
+%                & 31 &&30&&29&&28 \\
+%                27 &&26&&25&&24&&\\
+%                &23&&22&&21&&20\\   
+%                    19&&18&&17&&16&&\\
+%                &15&&14&&13&&12\\
+%                11&&10&&9&&8&&\\
+%                &7&&6&&5&&4\\
+%                3&&2&&1&&0\\
+%                % \bl &     & \bl &     &     &     & \bl &     \\
+%                %     &     &     & \bl &     &     &     &     \\
+%                % \wh &     &     &     &     &     &     &     \\
+%                %     &     &     & \wh &     & \wh &     & \wh \\
+%                % \wh &     & \wh &     & \wh &     & \wh &     \\
+%                %     & \wh &     & \wh &     & \wh &     & \wh \\
+%                };
+%                \foreach \row in {1, ..., 8} {
+%                \foreach \col in {1, ..., 8} {
+%                    \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
+%                    \colorlet{squarebg}{\pgfmathresult}
+%                    \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
+%                }
+%                }
+%                \end{tikzpicture}
+%            % \end{center}
+%            \vspace{-20pt}
+%        \end{wrapfigure}
+%        % talk about how it works
+%        % talk about the preprocessing
+%        
         To evaluate the board, a feed-forward multilayer perceptron style neural network will be used. The network would contain 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
 
         Common knowledge infers that a king is worth more than a pawn, but it is disputed about its precise value advantage. For the sake of simplicity, a king's piece value is to be weighted at $1.5x$ a pawn value; a value of a pawn will be $1$. 
@@ -225,7 +262,7 @@
 
         \begin{wrapfigure}{r}{0.4\textwidth}
             \centering
-            \vspace{-10pt}
+
             \begin{tikzpicture}
                 \fontsize{8}{11}
                 \begin{axis}[
@@ -257,7 +294,7 @@
                 \end{axis}
             \end{tikzpicture}
             \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ (An example of an activation function with a sigmoid curve). \label{sigmoid}}
-            \vspace{-20pt}
+            \vspace{-10pt}
         \end{wrapfigure}
         
         % Talk about the activation function
@@ -279,7 +316,7 @@
 
         \begin{figure}[!h]
             \centering
-            \includegraphics[width=80mm]{montecarlo.png}
+            \includegraphics[width=80mm]{images/montecarlo.png}
             \caption{A diagram describing the MCTS process.}
         \end{figure}
 
@@ -296,42 +333,7 @@
 
         MCTS-EPT (or MCTS with early playout termination) is introduced by Lorentz \cite{lorentz_using_2016}. MCTS-EPT modifies the MCTS random play-out approach; Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function can be used from that caped position instead. The termination ply would be capped at 6ply. This could potentially improve the amount of foresight for a given set of moves, without the need to depend on random generations of moves to the end, and the need to evaluate more moves (as typically needed even with alpha-beta pruning on a mini-max algorithm).
 
-        \begin{wrapfigure}{r}{0.37 \textwidth}
-            % \begin{center}
-            \fontsize{8}{11}
-            % \vspace{-40pt}
-            \centering
-                \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
-                \vspace{5pt}
-                \begin{tikzpicture}
-                \color{white}
-                \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
-                & 31 &&30&&29&&28 \\
-                27 &&26&&25&&24&&\\
-                &23&&22&&21&&20\\   
-                    19&&18&&17&&16&&\\
-                &15&&14&&13&&12\\
-                11&&10&&9&&8&&\\
-                &7&&6&&5&&4\\
-                3&&2&&1&&0\\
-                % \bl &     & \bl &     &     &     & \bl &     \\
-                %     &     &     & \bl &     &     &     &     \\
-                % \wh &     &     &     &     &     &     &     \\
-                %     &     &     & \wh &     & \wh &     & \wh \\
-                % \wh &     & \wh &     & \wh &     & \wh &     \\
-                %     & \wh &     & \wh &     & \wh &     & \wh \\
-                };
-                \foreach \row in {1, ..., 8} {
-                \foreach \col in {1, ..., 8} {
-                    \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
-                    \colorlet{squarebg}{\pgfmathresult}
-                    \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
-                }
-                }
-                \end{tikzpicture}
-            % \end{center}
-            \vspace{-20pt}
-        \end{wrapfigure}
+   
 
         The minimax algorithm would be retained to evaluate the performance differences between the  two decision making algorithms.
         
@@ -455,34 +457,39 @@
             
              We also choose to experiment with soft mutations, inspired by Lehman et al. \cite{lehman_safe_2017} We use a subset of precalculated neural network calculations for inputs and outputs and use this as a premise to guide our mutation. The method is as follows:
              
-             1. With the current set of weights $w$, choose a subset of precalculated input and output tuples $\phi_{w} = (I, \lambda_{I,w})$ where $I$ represents the input values of the network, and $\lambda_{w}$ as the output.
-             2. Generate a perbutation of the weights calculated using Equation \ref{mutation}. Call this $y$. Use $y$ as a basis of a neural network. 
-             3. Using the inputs $I$ in $\phi_{w}$, calculate a new set of input and output tuples $\phi_{y} = (I, \lambda_{I,y})$.
-             4. Calculate the divergence $\delta = \lambda_{I,y} /\ \lambda_{I,w}.$ 
-             5. Calculate the quality of $y$ based on the number of inequalities $\delta \geq 1$.
-             2. Repeat steps 2-5 some $n$ times, keeping note of the the best $y$. 
+             \begin{enumerate}
+             \item With the current set of weights $w$, choose a subset of precalculated input and output tuples $\phi_{w} = (I, \lambda_{I,w})$ where $I$ represents the input values of the network, and $\lambda_{I,w}$ as the output.
+             \item Generate a perbutation of the weights calculated using Equation \ref{mutation}. Call this $y$. Use $y$ as a basis of a neural network. 
+              \item Using the inputs $I$ in $\phi_{w}$, calculate a new set of input and output tuples $\phi_{y} = (I, \lambda_{I,y})$.
+              \item Calculate the divergence $\delta = \lambda_{I,y} /\ \lambda_{I,w}.$ 
+              \item Calculate the quality of $y$ based on the number of inequalities $\delta \geq 1$.
+             \item Repeat steps 2-5 some $n$ times, keeping note of the the best $y$. 
+             \end{enumerate}
 
             The intuition behind this is that if $\phi_{w}$ is a subset of moves that led to a winning game, then the manipulation of the weights is left open as long as it can replicate the performance of winning games. One of the concerns about this approach, also mentioned during the similar works, is the efficency of the approach. % I need to make some measurements first. 
             
         \subsubsection{Crossover Strategy} \label{crossover_strategy}
 
                 
-            \begin{figure}
+           \begin{figure}
                 \centering
-                \includegraphics[width=110mm]{crossover.png}
+                \includegraphics[width=90mm]{images/crossover.png}
                 \caption{A diagram visualising the crossover process.\label{crossoverpic}}
             \end{figure}
 
             Another learning mechanism provided from the use of genetic algorithms is the use of crossovers. This combines the traits that build two parent agents to create children. In our scenario we use the weights and biases of the parent's neural networks.
 
+
             Two offsprings would be created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
             % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
             A random node from the dominant parent's hidden nodes are chosen. A dominant parent is the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced it would be randomly chosen. 
             
+             
+            
             Once a random node is chosen, The weights and biases that feed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
             Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
 
-            This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness.
+            This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness. A visualisation of the crossover process can be found in Figure \ref{crossoverpic}.
             
             % Talk about how this is not commonly used.
 
@@ -529,8 +536,13 @@
     
     \subsection{Learning Rate}
     % chart of performance over time
+    \begin{figure}[!h]
+                \centering
+                \includegraphics[width=90mm]{images/results/3ply/gm_net_stats.eps}
+                \caption{A diagram visualising the crossover process.\label{crossoverpic}}
+            \end{figure}
+    With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
     % chart of previous champions
-    \subsection{Performance Against Other Methods}
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
         \subsubsection{CPU Times}
