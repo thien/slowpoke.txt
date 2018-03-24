@@ -54,35 +54,18 @@
     % The abstract must be a Structured Abstract with the headings {\bf Context/Background}, {\bf Aims}, {\bf Method}, {\bf Results}, and {\bf Conclusions}.  This section should not be longer than half of a page, and having no more than one or two sentences under each heading is advised.
 
     {\bf Background}
-
     Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require some human intervention to improve their performance. 
     This is due to their dependency on pre-defined move databases. Optimal moves are pre-calculated, and recalled when necessary. Through neuroevolution, this issue could possibly be solved by creating a player that can grow in ability over time, by learning to play itself.
-    
     {\bf Aims}
-
     The purpose of this project is to explore an neuroevolutionary approach to tackle the game of English Draughts. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at how they can be adapted to suit the objective at hand. The project will establish whether neuroevolution is a viable approach to the problem.
-    
     {\bf Method}
-
     % The initial population consists of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropriate algorithms are implemented to determine the overall development of the system's ability to play Draughts.
-
     The method starts with designing a feed-forward neural network that evaluates the advantage a particular player, given a state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts. Genetic algorithms are used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checkerboards more precisely.
-
     {\bf Results}
-
     % Using a non-trivial set of face images (i.e. with variation in face characteristics and orientation), maximum accuracy rates are 98.08% for face detection, 94.81% for face identification, however the solution could not solve the gender classification problem on this set of images. The only accuracy gained for use of an ensemble was for face detection, with a gain of 0.25% over a single neural network. The solution was very robust to image blur, and somewhat robust to image noise.
-
-    The system has shown to perform considerably without any training, and has shown to improve over time. For different search depths, the net learning rate was positive. However, the wide scope of the adjustments afforded may have impacted the learning rate and has shown to be volatile at some situations.
-
+    The system has shown to perform considerably without any training, and has shown to improve over time. For different search depths, the net learning rate was positive. However, the wide scope of the adjustments afforded may have impacted the learning rate and has shown to be volatile at some situations. The use of crossovers may dramatically influence the quality of the learning.
     {\bf Conclusion}
-
-    % The solution is very appropriate for the problems of face detection and face identification, but inappropriate for gender classification. Neural network ensembles remain of interest, but a simple ensemble of clones operating with ‘bagging’ training method and majority vote system did not produce satisfactory accuracy gains. The robustness of the solution to poor-quality images is indicative of its practical worth.
-    For problems that do not have
-    Under the premise that the fitness function that is well defined, neuroevolution is a valid alternative to problems with novel domains. 
-
-    The solution is very appropiate for games that do not involve the use of training data.
-    When using genetic algorithms with feed-forward neural networks, it 
-    The robustness of the system is quite volatile, and is best paired with mutation methods that are not heavily reliant on entropy.
+    Under the premise that the fitness function that is well defined, neuroevolution is a valid alternative to problems with novel domains. The solution is appropiate for machine learnt agents that where training does not require data. The robustness of the system is quite volatile, and is best paired with mutation and crossover methods that are not heavily reliant on entropy.
 
 \end{abstract}
 % Done
@@ -505,8 +488,7 @@
             % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
             A random node from the dominant parent's hidden nodes are chosen. A dominant parent is the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced it would be randomly chosen. 
 
-            Once a random node is chosen, The weights and biases that feed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. 
-            Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
+            Once a random node is chosen, The weights and biases that feed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than 0.75. Figure \ref{crossoverpic} shows this in more detail. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
 
             This crossover process would create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness. A visualisation of the crossover process can be found in Figure \ref{crossoverpic}.
             
@@ -538,13 +520,8 @@
 
         Verifying that the moves are properly chosen was difficult and slow as games need to be played out first, with the quality assurance handled afterwards. The system was implemented first with the use of minimax search, but this cannot be used for the final measurements as the scalability of the decision making algorithm scales expoentially, as described prior.
 
-        Interestingly, the machine used for training did not perform necessarily as effeciently. Although the system tis built such that the games in the tournaments are "embarassingly parallel", the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) 
-        Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. The use of GPU acceleration is not considered due to the lack of access. 
+        Interestingly, the machine used for training did not perform necessarily as effeciently. Although the system tis built such that the games in the tournaments are "embarassingly parallel", the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. The use of GPU acceleration is not considered due to the lack of access. 
     
-    % The previous sections summed up the theory and specifics of the solution, but did not focus on any particular implementation issues. Though the solution is assumed to be ‘offline’ and thus the speed of training and testing are not considered, the solution was implemented with a view to minimising running time and maximising flexibility, allowing for more results to be obtained for a richer evaluation of the solution.
-    % As mentioned, the image database was managed using a local MySQL installation. The alternative would have been to use directories of files. However, using a MySQL database was far more convenient for managing the images, and allowed simple persistence of data from the training section such as the eigenfaces, image encodings, and trained NNs, to avoid having to compute this data again every time the solution was tested.
-    % The solution was implemented solely using Java. The main reason for this choice was the various libraries available for the algorithms and tools needed for the solution whose implementation was beyond the scope of this project. These included eigenvector computation (JAMA) and neural networks (ENCOG). Similarly, the Java imaging and MySQL database connectivity libraries allowed for simple I/O of data and images. The solution used a graphical user interface (GUI). This was partly for convenience in the administrative tasks such as organising the image database or changing NN parameters, but also helped in testing the solution implementation through the use of visualisations of the data. The nature of the solution made testing an inherently difficult task. Firstly, the eigenface encoding method analyses images in a non-intuitive manner through statistical analysis. This means that the eigenfaces and the image encodings are just vectors of values which mean nothing to the human observer. However, both an eigenvector and therefore an image encoding (which is a combination of eigenvectors) can be visualised as an image. By verifying that an image encoding ‘looked similar’ to the original, it was possible to deduce that the eigenfaces had been correctly computed and the original image had been successfully encoded as a combination of the eigenfaces.
-    % The testing of the NN(s) was also difficult, since an incorrect result does not necessarily indicate an implementation problem, but could just be the result of poor training. Fortunately, the use of an NN library meant that the NNs could be assumed to be working correctly internally, but it was still necessary to test their application. In order to do this, a facility in the GUI for ‘single’ tests was set up, whereby the NN-unit can be trained on any parameters and then tested on any image in the test set. Thus, it was possible to test the NN-unit on arbitrary parameters and test images, allowing for directed investigations when an error was suspected in overall results. In addition, the error after each training iteration of the NN(s) in the NN-unit was output to the GUI, so that it could be seen how well an NN was learning and at what rate. This allowed for testing of the training procedure, as this error would change unpredictably or be unreasonably high or low if there was an error with the training data, such as non-face images given to train an NN for gender classification or similar. s
     
 % TODO (WAIT FOR RESULTS)
 \section{Results}
@@ -630,17 +607,17 @@
         - reality rarely fits into good fitness functions
     - measuring the learning rate is quite difficult and arbitary.
     - compared to other calculus based methods, neuroevolution requires many more samples (often expoentially more) to get a weight of equivalent quality.
-    - As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the influence of the textbook crossover mechanism, where it has shown to discourage learning. This can be seen in the results, where measurements taken with the textbook crossover shows a slower learning rate than regular.
+    As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to discourage learning.
     - probabilistic approach to decision making could influence the quality of the moves, but the extent will need to be evaluated. 
 
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
+    - Population size too small?
     The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
 
     Provided that there is a chance to repeat the experiment, GPU acceleration should be considered to improve running times. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
 
-    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. 
-    There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
+    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
 
 % TODO (WAIT FOR RESULTS)
 
@@ -656,7 +633,8 @@
     \item  neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
     \item  The fitness function can be anything, but it is important to derive a high quality fitness function.
     \item The quality of crossovers can be a deciding factor in how the agents learn to play over time.
-
+    \end{enumerate}
+    
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
     Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Genetic Algorithms in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. 
