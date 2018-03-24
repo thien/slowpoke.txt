@@ -94,32 +94,32 @@
     % This section briefly introduces the general project background, the research question you are addressing, and the project objectives.  It should be between 2 to 3 pages in length.  Do not change the font sizes or line spacing in order to put in more text.
     The intention of this project is to explore the effectiveness of genetic algorithms to improve the neurons of a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of Draughts. We attempt to manipulate the neurons through the use of genetic algorithms to increase the accuracy of the evaluation. This would potentially allow us to create an effective Draughts playing agent that, when provided with the option to consider a set of moves, would have the ability to play and learn without human input.
 
-    \subsection*{Draughts}
+    \subsection{Draughts}
 
     English Draughts (or Checkers) is a popular 2-player board-game played on an 8x8 chess board. Players choose a colour and begin with 12 pawns each of their respective colours, and they are placed on the dark-coloured squares of the board. Beginning with the black pawns, each player takes a turn to move a pawn diagonally in one square. In the event that a pawn reaches the opposite side of the board from where the piece originated, it is promoted to a king. Kings have the ability to traverse backwards in the same diagonal motion as pawns. Assuming that there is space upon landing, A piece (pawn or king) also has the option to capture their opponents piece by moving two consecutive diagonal squares, where the opponents piece is situated immediately opposing the players piece. Pieces can be captured consecutively in a single turn if the moves afford the scenario. A player wins by capturing all of their opponents pieces. A player loses by having all of their pieces captured. A draw occurs when both players agree to draw after a three-fold repetition (where both players take three moves to simulate the same position), or a player has pieces on the board but cannot move any of them. A draw can be forced when both players fail to capture a piece after a set amount of moves.
 
-    \subsection*{Neural Networks}
+    \subsection{Neural Networks}
 
     Neural Networks are non-linear statistical data-modelling tools, linking inputs and outputs adaptively in a learning process similar to how the human brain operates. Networks consist of units, described as neurons, and are joined by a set of rules and weights. The units are defined with characteristics, and appear in layers. The first layer is defined as the input layer, and the last layer being the output. Layers between the two aforementioned are described as hidden layers. Data is analysed through their propagation through the layers of neurons, where each neuron influences the content of the data as they pass through. Learning takes place in the form of the manipulation of the weights connecting the units in the layers. This allows it to model complex relationships between inputs and output, and it can also find patterns in the data. 
 
- 	\subsection*{Genetic Algorithms}
+ 	\subsection{Genetic Algorithms}
 
-    As subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information (genome) of their parents. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array. Genetic Algorithms generally consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. The combination of evolutionary algorithms to train neural networks is described as Neuroevolution.
+    As subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created by the crossover of the genetic information (genome) of their parents. Genomes are metaphors of genetic information; it typically refers to a data structure, most commonly an 1D array. Genetic Algorithms generally consist of a population of agents, a tournament selection process, algorithmic crossover mechanisms against the genomes of the agents, and the introduction of probabilistic mutation on genomes. The combination of evolutionary algorithms to train neural networks is described as a type of  Neuroevolution.
 
-    \subsection*{Aims}
+    \subsection{Aims}
 
     % Research Question
     Whilst the use of evolutionary algorithms and neural networks have been explored to create draughts players, my intention is to explore the effectiveness of genetic algorithms and neural networks. The intention is to determine the possibility of developing a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks.
 
-    \subsubsection*{Minimum Objective}
+    \subsubsection{Minimum Objective}
         % The minimum objective of this project was to design and build a programme that would display a polygonal mesh of triangles, with help of a mesh data structure. The basic mesh data structure would have to enable future features that the next objectives would require.
         The minimum objective is to implement a feed-forward neural network, alongside a Draughts game interface for the network to evaluate on. This will need to be paired with some decision making program that will determine the move to choose at a given state of the game. Finally, a simple genetic algorithm would also need to be implemented that interacts with the neural network.
 
-    \subsubsection*{Intermediate Objective}
+    \subsubsection{Intermediate Objective}
         % The intermediate objective of this project was to create and incorporate the algorithms for the calculation of triangle surface normals, vertex normals and gradient (following our definition) in the initial programme, and enable visualisation of the “interesting” gradient changes and vertex normals on the mesh displayed by the programme.
         The intermediate objective involves the implementation of an interface to play against the end result, and to create a monte-carlo decision making algorithm, which will be used by the agents to evaluate better quality moves. Also, as the genetic algorithm includes a tournament mechanism which will play many games simultaneously, this will need to be implemented to run in parallel.
         
-    \subsubsection*{Advanced Objective}
+    \subsubsection{Advanced Objective}
         % The advanced objective of this project was to evaluate the speed of the algorithms and compare it to the time complexity that we obtained from theoretical analysis of the algorithms. The final sections of this paper will show the results acquired and the analysis and evaluation of the work we carried out. 
         The advanced objective consists of producing a system that indicates that it is learning over time. The later sections of this paper evaluates the quality of the learning rate and other results. 
     
@@ -129,10 +129,9 @@
 % TODO
 \section{Related Work}
     % This section presents a survey of existing work on the problems that this project addresses. it should be between 2 to 4 pages in length.  The rest of this section shows the formats of subsections as well as some general formatting information for tables, figures, references and equations.
+
     % Intro
-        Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. This is due to the relatively vast potential move space, making it difficult to brute-force, until recently. Schaeffer proposed a method to solve the game in 1996\cite{schaeffer_solving_1996}, and eventually proved a method to weakly-solve the game itself later on in 2007\cite{schaeffer_checkers_2007}. Weakly-solvable is defined as having 'the game-theoretic value for the initial position has been determined, and that a strategy exists for achieving the game-theoretic value from the opening position.' \cite{allis_searching_1994}
-        
-        However, the premise of this paper is not necessarily to solve the game itself, but to rather see whether genetic algorithms are still relevant.
+        Historically, Draughts has been used as a testing ground for artificial intelligence and computional performance since the early introduction of computers. This is due to the relatively vast potential move space, making it difficult to brute-force, until recently. Schaeffer proposed a method to solve the game \cite{schaeffer_solving_1996}, and eventually followed on to prove that the game can be weakly-solved a decade afterwards. \cite{schaeffer_checkers_2007}. Weakly-solvable is defined such that 'the game-theoretic value for the initial position has been determined, and that a strategy exists for achieving the game-theoretic value from the opening position.' \cite{allis_searching_1994} However, the premise of this paper is not necessarily to solve the game itself, but to rather see whether genetic algorithms are still relevant.
 
         Research in artificial intelligence alone has been active since, targeting games with a higher move space, notably Chess and, more recently, Go. This section will summarise specific and notable techniques relevant to the discussion of the task at hand.
 
@@ -200,23 +199,21 @@
     % TODO: fix writeup of everything
     \subsection{Return of Genetic Algorithms}
 
-        Since then, there has been a non-trivial number of published papers describing the promising utility of genetic algorithms and neural networks in general.
-        One research suggested that using genetic algorithms to evolve weights for a convolutional neural network is a more performant alternative to back-propagation, in nearly all situations, other than when the number of generations generated for neural networks are small. \cite{perez_apply_nodate} Another research showed its ability to compute optimal structures for deep neural networks automatically, using an image recognition dataset as the benchmark for competitiveness against the networks. \cite{xie_genetic_2017}
-        
+        Since then, there has been a non-trivial number of published papers describing the promising utility of genetic algorithms and neural networks in general. Genetic algorithms have been shown to evolve weights for a convolutional neural network in a classification task better than back-propagation, in nearly all situations, other than when the number of generations generated for neural networks are small. \cite{perez_apply_nodate} Another research showed its ability to compute optimal structures for deep neural networks automatically, using an image recognition dataset as the benchmark for competitiveness against the networks. \cite{xie_genetic_2017}
         
         % Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in different stages of the game, prove to be the most promising of outcomes.
 
         % Uber's revival of genetic algorithms and safe mutations
-        However, one recent paper by Clune et al. on behalf of Uber Labs returned to the use of genetic algorithms as a basis to train especially deep convolutional networks with success. \cite{such_deep_2017} Their GA-NN system is used to play popular Atari games on the OpenAI framework, and is found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
+        However, one recent paper by Clune et al. on behalf of Uber Labs returned to the use of genetic algorithms as a basis to train especially deep convolutional networks with success. \cite{such_deep_2017} Their neuroevolutionary system was used to play popular Atari games on the OpenAI framework, and was found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
 
-        The success of the program is based on their system's ability to perform safe mutations, a technique that revolves around measuring the sensitivity of the network to changes with some of the weights. \cite{lehman_safe_2017} This afforded the system to evolve deep neural networks, having over 100 layers and over four million weights and biases, in a manner that allowed random but safe and exploratory steps. Their safe mutation exploits the knowledge of the neural network structure, by retaining sampled experiences of the network (inputs that feed into the network and its outputs). This allows the weights to be manipulated by comparing its significance with the output, by comparing it with the sampled experiences. 
+        The success of the program was based on their system's ability to perform safe mutations, a technique that revolves around measuring the sensitivity of the network to changes with some of the weights. \cite{lehman_safe_2017} This afforded the system to evolve deep neural networks (In this particular case, containing over 100 layers and over four million weights and biases,) in a manner that allowed random but safe and exploratory steps. Their safe mutation exploits the knowledge of the neural network structure, by retaining sampled experiences of the network (inputs that feed into the network and its outputs). This allows the weights to be manipulated by comparing its significance with the output, by comparing it with the sampled experiences. 
 
-        However, they also do not consider the use of crossover techniques in their paper, but it is discussed that it would very well be possible to produce a safe crossover method that can exploit the structure of the neural network, inspired by the research they've produced on safe mutations.
+        However, they also do not consider the use of crossover techniques in their paper. It is discussed that it would very well be possible to produce a safe crossover method that can exploit structures of a neural network, inspired by their research produced on safe mutations.
 
-        Unfortunately, it is unrealistic to apply the same techniques described here into the proposed system. The machine used as the base (consisting of hundreds to thousands of cores), but a more simplistic and adapted model can be produced using similar ideas. 
+        Unfortunately, it is unrealistic to apply the same techniques described in their paper into the proposed system. The machine used as the base (consisting of hundreds to thousands of cores) is of a magnitude greater than what is available for the task at hand, but a more simplistic and adapted model can be produced using similar ideas. 
         
-        A popular trend between the aforementioned papers is that there is a trend of absence of the use of crossover algoirithms. One paper describes the use of different crossover algorithms on neural networks having no clear advantage over each other, in comparison to a uniform crossover, which disrupted the overall performance of a neural network. \cite{emmanoulidis_comparison_2000}
-        %Most neural networks use gradient descent rather than neuroevolution. However, around 2017 researchers at Uber stated they had found that simple structural neuroevolution algorithms were competitive with sophisticated modern industry-standard gradient-descent deep learning algorithms, in part because neuroevolution was found to be less likely to get stuck in dead ends. In Science, journalist Matthew Hutson speculated that part of the reason neuroevolution is succeeding where it had failed before is due to the increased computational power available in the 2010s.[4]
+        A popular trend between the aforementioned papers is that there is a trend of absence of the use of crossover algoirithms. One paper describes the use of different crossover algorithms on neural networks having no clear advantage over each other, in comparison to a uniform crossover (uniform crossovers are also commonly defined as the textbook crossover) which disrupted the overall performance of the neural networks. This could be due to building blocks being disrupted as chunks of the sequential weights are swapped out of each other. \cite{emmanouilidis_comparison_2000} It is important to consider this when devising a crossover method, such that the effect it has on the neural network should be subtle enough that it should pose similar results to the network prior to crossovers.
+
 
 % TODO: Write up everything..
 \section{Solution}
@@ -226,7 +223,7 @@
     % This section should be between 4 to 7 pages in length.
  
     %We started with an implementation of the k-means method which would later be used to evaluate and compare our algorithm with. The simulation tool was programmed in C++ using OpenGL to render large quantities of dynamic objects within the environment. We alsodesigned our architecture such that we run features of our algorithm in parallel by usingsynchronisation and multithreading.
-    This section describes the build of the system in order of implementation. Implementing the checkerboard interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered the interface being built prior. 
+    This section describes the build of the system in order of implementation. Implementing the checkerboard interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered under the premise that the interface is built prior.  The system is implemented using Python 3.6 and NumPy. Other machine learning libraries are not used due to the nature of the system.
 
     \subsection{Evaluation Function}
         \begin{figure}[ht!]
@@ -350,7 +347,7 @@
             % % talk about how it works
             % % talk about the preprocessing
         
-        A feed-forward multilayer perceptron neural network is used to evaluate the board. The network contains 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers will have 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
+        A feed-forward multilayer perceptron neural network was used to evaluate the board. The network contained 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers had 40 and 10 nodes respectively. Figure \ref{nnmodel} shows the network in the form of a diagram.
 
         The inputs of the network is a preprocessed 1D array of the checkerboard, which is transformed into the set of the sums of the subsquares that comprise the positions of the pieces of the checkerboard.
     
@@ -366,53 +363,52 @@
             \caption{A diagram visualising the processing of subsquares.\label{subsquares}}
         \end{figure}
 
-
-        % Tanh Diagram
-        % \begin{wrapfigure}{r}{0.4\textwidth}
-            % \centering
-
-            % \begin{tikzpicture}
-            %     \fontsize{8}{11}
-            %     \begin{axis}[
-            %         legend pos=north west,
-            %         axis x line=middle,
-            %         axis y line=middle,
-            %         x tick label style={/pgf/number format/fixed,
-            %                             /pgf/number format/fixed zerofill,
-            %                             /pgf/number format/precision=1},
-            %         y tick label style={/pgf/number format/fixed,
-            %                             /pgf/number format/fixed zerofill,
-            %                             /pgf/number format/precision=1},
-            %         grid = major,
-            %         width=75mm,
-            %         height=6cm,
-            %         grid style={dashed, gray!30},
-            %         xmin=-5,     % start the diagram at this x-coordinate
-            %         xmax= 5,    % end   the diagram at this x-coordinate
-            %         ymin= -1,     % start the diagram at this y-coordinate
-            %         ymax= 1,   % end   the diagram at this y-coordinate
-            %         %axis background/.style={fill=white},
-            %         xlabel=x,
-            %         ylabel=y,
-            %         tick align=outside,
-            %         enlargelimits=false]
-            %     % plot the stirling-formulae
-            %     \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
-            %     % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
-            %     \end{axis}
-            % \end{tikzpicture}
-            % \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ (An example of an activation function with a sigmoid curve). \label{sigmoid}}
-            % \vspace{-10pt}
-            % \end{wrapfigure}
-        
         % Talk about the activation function
         Weights $w$ of a neuron are multiplied by their input value $I$, summed with their bias $B$, and are passed through an activation function $O = f((I* w) + B)$ to become an input for another neuron. Activation functions, when visualised, usually have a sigmoid curve, but may also take the form of other shapes. Common characteristics of activation functions include values to be monotonically increasing, continuous, differentiable and bounded.
         % how does it work?
 
-        Our choice for the activation function is tanh.
-        % , shown in figure \ref{sigmoid}. 
-        There exists inherent issues related to the properties of their derivatives, discussed by Nair and Hinton \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. Sigmoidal function also facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its central symmetric properties.
+        % Tanh Diagram
+        \begin{wrapfigure}{r}{0.4\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \fontsize{8}{11}
+                \begin{axis}[
+                    legend pos=north west,
+                    axis x line=middle,
+                    axis y line=middle,
+                    x tick label style={/pgf/number format/fixed,
+                                        /pgf/number format/fixed zerofill,
+                                        /pgf/number format/precision=1},
+                    y tick label style={/pgf/number format/fixed,
+                                        /pgf/number format/fixed zerofill,
+                                        /pgf/number format/precision=1},
+                    grid = major,
+                    width=75mm,
+                    height=6cm,
+                    grid style={dashed, gray!30},
+                    xmin=-5,     % start the diagram at this x-coordinate
+                    xmax= 5,    % end   the diagram at this x-coordinate
+                    ymin= -1,     % start the diagram at this y-coordinate
+                    ymax= 1,   % end   the diagram at this y-coordinate
+                    %axis background/.style={fill=white},
+                    xlabel=x,
+                    ylabel=y,
+                    tick align=outside,
+                    enlargelimits=false]
+                % plot the stirling-formulae
+                \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
+                % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+                \end{axis}
+            \end{tikzpicture}
+            \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$ (An example of an activation function with a sigmoid curve). \label{sigmoid}}
+            \vspace{-10pt}
+            \end{wrapfigure}
 
+        Our choice for the activation function is tanh (a type of sigmoidal function).
+        , shown in figure \ref{sigmoid}. 
+        % There exists inherent issues related to the properties of their derivatives, commonly known as the missing gradient problem. This is an issue  \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. 
+        The use of tanh facilitates the ability to simulate a zero sum formula (for a range of -1 to 1) due to its symmetric properties around the origin.
+        
         Results are cached such that inputs that have been already evaluated are saved such that they can be recalled immediately. This has shown varying levels of improvement dependent on the ply depth. As the ply increases, the size of the state space increases, and therefore the chances of recalling the same set of inputs naturally decrease. The cache is also used for our safe mutations algorithm, described later on in \ref{coefficient_mutation}.
     
     % DONE
@@ -469,11 +465,11 @@
 
             To create variation between agents in preparation for the next generation, we create statistical anomalies through the use of mutations. This is used as one of the learning mechanisms that help change the decision factors of the neural network.
 
-            Weight and biases of an agent's neural network would increment by a random value that is created using the following formula, where $WeightP$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]. Equation \ref{mutation} describes the mutation formula.
+            Weight and biases of an agent's neural network would increment by a random value that is created using the following formula, where $w_p$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1]. Equation \ref{mutation} describes the mutation formula.
 
             \begin{equation} \label{mutation}
                 % \caption{The mutation formula. \label{mutation}}
-                WeightN = WeightP + \frac{m}{\sqrt{2 * \sqrt{K} }}
+                w_n = w_p + \frac{m}{\sqrt{2 * \sqrt{K} }}
             \end{equation}
 
             Like the activation function
@@ -517,11 +513,6 @@
             % Talk about how this is not commonly used.
 
     \subsection{Testing}
-        Initial runs will operate on a 1-ply load to determine the stability of the system on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. 
-        
-        Once testing has proven to be stable, the system would run on Durham's MIRA distributed system (Debian) with a 6-ply move depth. This machine utilises 4 Intel Xeon E7-8860 processors (Each CPU contains 16 physical cores running in 2.2Ghz, with hyperthreading). This comes to a total of 64 Cores, and 128 threads. MIRA also comes with 256GB of DDR3 memory. 
-        
-        To keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations are also calculated on MIRA to reduce computational time.
 
         At the end of a given generation, we measure growth of performance by using the generation's champion. Presently we will use the mean of means approach. When a new champion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current champion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. 
 
@@ -532,7 +523,12 @@
         The end player is used to create comparison games against its ancestors. This player is to be first tested against an agent who is choosing random moves, an agent who is using pure monte-carlo tree searches, and a subset of older agents prior to its current state. These statistics will be used as evidence in order to determine whether the agent is learning over time, is used as the premise to determine whether neuroevolution can be considered as a technique for non-specific domain problems.
        
     % Issues
-    \subsection{Issues}
+    \subsection{Setup and Issues}
+        Initial runs will operate on a 1-ply load to determine the stability of the system on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor with 12GB's of memory. Development and debugging will also occcur on this machine. 
+        
+        Once testing has proven to be stable, the system would run on Durham's MIRA distributed system (Debian) with a 6-ply move depth. This machine utilises 4 Intel Xeon E7-8860 processors (Each CPU contains 16 physical cores running in 2.2Ghz, with hyperthreading). This comes to a total of 64 Cores, and 128 threads. MIRA also comes with 256GB of DDR3 memory. 
+        
+        To keep simulations running on MIRA, MOSH is used to maintain a consistent connection to MIRA. The end champion is then transferred to the initial machine in order to be played against by human input. Statistical evaluations and calculations are also calculated on MIRA to reduce computational time.
        
         - finding a computer that would run the simulations
         - appropiately saving files
@@ -540,12 +536,10 @@
         - testing move decisions were difficult
         - optimising the learning rate
 
-    The system is implemented using Python and NumPy.
-    Testing move decisions were difficult
-    
+        Verifying that the moves are properly chosen was difficult and slow as games need to be played out first, with the quality assurance handled afterwards. The system was implemented first with the use of minimax search, but this cannot be used for the final measurements as the scalability of the decision making algorithm scales expoentially, as described prior.
 
-    Interestingly, the machine used for training did not perform necessarily as effeciently. The system is built such that the games in the tournaments are "embarassingly parallel", but the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) 
-    Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. The use of GPU acceleration is not considered due to the lack of access. 
+        Interestingly, the machine used for training did not perform necessarily as effeciently. Although the system tis built such that the games in the tournaments are "embarassingly parallel", the machine does not scale accordingly. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) 
+        Later research has shown that the use of hyperthreading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise one physical cores property. The use of GPU acceleration is not considered due to the lack of access. 
     
     % The previous sections summed up the theory and specifics of the solution, but did not focus on any particular implementation issues. Though the solution is assumed to be ‘offline’ and thus the speed of training and testing are not considered, the solution was implemented with a view to minimising running time and maximising flexibility, allowing for more results to be obtained for a richer evaluation of the solution.
     % As mentioned, the image database was managed using a local MySQL installation. The alternative would have been to use directories of files. However, using a MySQL database was far more convenient for managing the images, and allowed simple persistence of data from the training section such as the eigenfaces, image encodings, and trained NNs, to avoid having to compute this data again every time the solution was tested.
@@ -616,36 +610,37 @@
     %   - Does it do what you wanted it to do?
     %   - How well did you do?
     %   - Did the plans pan out?
-    
-    % We now reflect back to the original research question: 'Can we improve distributed clustering methods, and implement a new algorithm, by modularising and extending existing techniques, and considering object and cluster scope?' We answer this by examining the strengths and limitations of OMBG.
 
-    % This section should between 1 to 2 pages in length.
-    - The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament; hard to choose the best method
-    - Difficult to evaluate moves
-    - Naturally slower learning rate than typical ventures as there is an immediate comparision to make against
-    
+    We now reflect back to the original research question: "is it possible to create a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks?".  We answer this through the examinations of the strengths and limitations of the system. 
+
     \subsection{Strengths}
-    - Fully
-    - Without using 
+    - The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation.
+    - Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself.
+    - The statistics show that it is indeed showing signs that the system is learning over time. 
     - Neuroevolution is a viable method for programs with vast search spaces. While this is where both genetic algorithsm can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the fitness function can be any function, whereas for a neural network, its function needs to be translatable to some form of a differential sum of partial derivatives. 
     - embarrassingly parallel tournaments make it possible to reduce the overall system running time on the system.
-    - The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation.
 
     \subsection{Limitations}
+    - Difficult to evaluate moves
+    - The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament; hard to choose the best method
+    - Naturally slower learning rate than typical ventures as there is an immediate comparision to make against
     - creating a high quality fitness function is difficult and its domain specific, or rather, there is no universal fitness function for all problems. This poses as a benefit and a weakness for the neuroevolutionary approach.
         - the fitness function defines the size of the search space and how easily a globally optimal solution can be derived.
         - using a best of champions approach is quite difficult!
         - reality rarely fits into good fitness functions
     - measuring the learning rate is quite difficult and arbitary.
     - compared to other calculus based methods, neuroevolution requires many more samples (often expoentially more) to get a weight of equivalent quality.
+    - As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the influence of the textbook crossover mechanism, where it has shown to discourage learning. This can be seen in the results, where measurements taken with the textbook crossover shows a slower learning rate than regular.
+    - probabilistic approach to decision making could influence the quality of the moves, but the extent will need to be evaluated. 
 
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
-    - Should use GPU to improve running times.
-    - should have started with times
-    Neuroevolution is still in its early stages.
-    -If given the chance to repeat the work, we would not change this approach. In hindsight, having seen that improvements in the clustering field come from new areas, it may have been better to spend more time in examining references from areas other than computer science, such as biology and physics, in hope of finding more creative solutions to the clustering problem.
-    - will need to run for longer generations because we can't see a stronger correlation but limited access to high performance computing equipment.
+    The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
+
+    Provided that there is a chance to repeat the experiment, GPU acceleration should be considered to improve running times. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
+
+    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. 
+    There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
 
 % TODO (WAIT FOR RESULTS)
 
@@ -655,18 +650,18 @@
     In terms of fufilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
     
     The main findings of this project is as follows:
-    - It is evidently possible to create a checkers playing agent that learns to play itself, with little human intervention.
-    - some of the the work is 
-    - neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
-    - The fitness function can be anything, but it is important to derive a high quality fitness function.
-    
+    \begin{enumerate}
+    \item It is evidently possible to create a checkers playing agent that learns to play itself, with little human intervention.
+    % - some of the the work is 
+    \item  neuroevolution is relatively inefficent compared to their gradient based counterparts. This however forseen due to the heavy dependency of entropy disguised as learning.
+    \item  The fitness function can be anything, but it is important to derive a high quality fitness function.
+    \item The quality of crossovers can be a deciding factor in how the agents learn to play over time.
+
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
-    
-    There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
-    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. 
-    The quality of the fitness function is especially important.
-    promising.
+    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Genetic Algorithms in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. 
+    % need to talk about immediate applications
+    One immediate implication is the use of 
 
 
     
