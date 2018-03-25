@@ -537,8 +537,12 @@
     %   Results:
     %   - Does it work?
     %   - Perhaps some measurable outcomes where appropriate.
+    % this section presents the results of the solutions.  It should include information on experimental settings.  The results should demonstrate the claimed benefits/disadvantages of the proposed solutions.
+    
 
-    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. Ply Depths 1 and 3 are run for 100 generations, and 6 is run for 200 generations to see the overall trend line. 
+    % This section should be between 2 to 3 pages in length.
+
+    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. Ply Depths 1 and 3 are run for 100 generations, and 6 is run for 200 generations to measure the overall trend line.
 
     \subsection{Learning Rate}
     % chart of performance over time
@@ -551,7 +555,7 @@
         \caption{A chart showing the cummulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
-    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. 
+    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. This could however be prevented by reusing the previous champion and restarting a particular generation if a loss can be seen. One of the risks of this method is that it could tunnel the system to a local maximum in terms of learning.
     
     \subsection{Performance}
     To measure performance, the final agent is compared against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
@@ -565,9 +569,38 @@
         \caption{Charts showing the performance of the various agents against their ancestral counterparts.\label{net_stats}}
     \end{figure}
     
-    With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
-        
+    For the ply depth of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. This may make sense, as heuristic retention would be lost as the search depth is so low. 
+
+    For the higher ply depths (3,6) however, it is difficult to see a trend line. Both agents manage to consistently maintain a higher chance of winning/drawing against their earlier counterparts.
     
+    For the 6-ply, it is evident that there is an increase of draws caused against the earlier agents, which may be seen as an advantage.
+
+    \subsection{Champion Distribution}
+        The following table shows the following distribution charts of whether champions are inherently chosen based on the influence of mutations, crossovers of simply elitism. Measurements are taken such that the champion of each generation is looked at, and their genomic properties are collated to show a distribution of the chances of a particular agent being the champion. Note that while every offspring is mutated, some of the offsprings are created using genomic crossovers, described in section \ref{crossover_strategy}. 
+
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[width=53mm]{images/results/1ply/champ_gen_dist.pdf}
+            \includegraphics[width=53mm]{images/results/3ply/champ_gen_dist.pdf}
+            \includegraphics[width=53mm]{images/results/6ply/champ_gen_dist.pdf}
+            \caption{Distributions of the different genomic identities across the tournament champions. \label{champ_gen_dist}}
+        \end{figure}
+        The use of offsprings become more apparent for larger plys, with mutation and crossover appearing more frequently, coming at 66.1\% of the distribution. Interestingly, for ply depths 1 and 6, crossovers tend to be the most frequent occurence when it comes to producing champions at every generation. 
+
+    \subsection{Influence of Inheritance Methods}
+        Building on from the chart provided by Figure \ref{champ_gen_dist}, we look into the scores retrieved by the different genomic identities when they are compared against their earlier counterparts. 
+        The scores tallied in a cummulative fashion produces the learning rate, shown in Figure \ref{cum_growth}.
+
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[width=53mm]{images/results/1ply/champ_score_distribution.pdf}
+            \includegraphics[width=53mm]{images/results/3ply/champ_score_distribution.pdf}
+            \includegraphics[width=53mm]{images/results/6ply/champ_score_distribution.pdf}
+            \caption{Box-Plots of the different genomic identities and their distribution of scores. The yellow line in the box represents the mean score. \label{champ_score_distribution}}
+        \end{figure}
+
+        Interestingly, for the 
+
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
             \begin{figure}[!h]
@@ -575,45 +608,28 @@
                 \includegraphics[width=53mm]{images/results/1ply/moves.pdf}
                 \includegraphics[width=53mm]{images/results/3ply/moves.pdf}
                 \includegraphics[width=53mm]{images/results/6ply/moves.pdf}
-                \caption{mOVE cOUNT\label{move_chart}}
+                \caption{2D Histograms representing the number of moves played in the games played in the generations. \label{move_chart}}
             \end{figure}
-            We can see a 
-        \subsubsection{Champion Distribution}
-            The following table shows the following distribution charts of whether champions are inherently chosen based on the influence of mutations, crossovers of simply elitism.
-            \begin{figure}[!h]
-                \centering
-                \includegraphics[width=53mm]{images/results/1ply/champ_gen_dist.pdf}
-                \includegraphics[width=53mm]{images/results/3ply/champ_gen_dist.pdf}
-                \includegraphics[width=53mm]{images/results/6ply/champ_gen_dist.pdf}
-                \caption{Champion Distributions across the different generations ply depths. \label{champ_gen_dist}}
-            \end{figure}
+            For the 1-ply simulations, the average mean of moves is lower, but is counteracted by the much larger range 
+            This may be due to the level of precision (which should not be great considering it's ply depth), such 
+
+            Could be such that the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
+
+            We can see that the system plays fairly consistently, verifying that the system is choosing moves consistently across the board. This confirms that the decision making algorithm is implemented precisely, reducing the number of unknowns for evaluation.
+
         \subsubsection{CPU Times}
+            
             \begin{figure}[!h]
                 \centering
                 \includegraphics[width=53mm]{images/results/1ply/simulation_timings.pdf}
                 \includegraphics[width=53mm]{images/results/3ply/simulation_timings.pdf}
                 \includegraphics[width=53mm]{images/results/6ply/simulation_timings.pdf}
-                \caption{Champion Score Distributions across the different ply depths. \label{champ_score_distribution}}
+                \caption{2D Histograms of the average times spent on the games during the simulations. \label{chart_cpu_times}}
             \end{figure}
-        \subsubsection{Influence of Inheritance Methods}
-            \begin{figure}[!h]
-                \centering
-                \includegraphics[width=53mm]{images/results/1ply/champ_score_distribution.pdf}
-                \includegraphics[width=53mm]{images/results/3ply/champ_score_distribution.pdf}
-                \includegraphics[width=53mm]{images/results/6ply/champ_score_distribution.pdf}
-                \caption{Champion Score Distributions across the different ply depths. \label{champ_score_distribution}}
-            \end{figure}
-    % this section presents the results of the solutions.  It should include information on experimental settings.  The results should demonstrate the claimed benefits/disadvantages of the proposed solutions.
-    \subsection{Speed}
-    % how fast the system is learning
-    
-    As predicted, calculating safe mutations is a very computationally expensive endeavour. Efforts to subsidise the performance of 
 
-    % This section should be between 2 to 3 pages in length.
-
-
-
-
+            % also need to plot time step
+            
+            The results suggest that the CPU time is very unstable, and is one of the downfalls of using a time-shared machine.
 
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
