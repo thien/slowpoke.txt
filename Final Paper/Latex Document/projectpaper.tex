@@ -54,17 +54,26 @@
     % The abstract must be a Structured Abstract with the headings {\bf Context/Background}, {\bf Aims}, {\bf Method}, {\bf Results}, and {\bf Conclusions}.  This section should not be longer than half of a page, and having no more than one or two sentences under each heading is advised.
 
     {\bf Background}
+
     Presently, competitive Draughts AI players are currently designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require some human intervention to improve their performance. 
     This is due to their dependency on pre-defined move databases. Optimal moves are pre-calculated, and recalled when necessary. Through neuroevolution, this issue could possibly be solved by creating a player that can grow in ability over time, by learning to play itself.
+    
     {\bf Aims}
+
     The purpose of this project is to explore an neuroevolutionary approach to tackle the game of English Draughts. First, we study previous historical successes in the field, and look at the components that helped build their systems. Then, we look at how they can be adapted to suit the objective at hand. The project will establish whether neuroevolution is a viable approach to the problem.
+
     {\bf Method}
+
     % The initial population consists of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropriate algorithms are implemented to determine the overall development of the system's ability to play Draughts.
     The method starts with designing a feed-forward neural network that evaluates the advantage a particular player, given a state of a checkerboard. This is then used in a algorithm that evaluates future moves to predict the best move at a given position. This, alongside a set of weights for the neural network, creates a player that can evaluate potential moves. Finally, the player is then used on an existing Draughts framework that will provide the player with the ability to play Draughts. Genetic algorithms are used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checkerboards more precisely.
+    
     {\bf Results}
+
     % Using a non-trivial set of face images (i.e. with variation in face characteristics and orientation), maximum accuracy rates are 98.08% for face detection, 94.81% for face identification, however the solution could not solve the gender classification problem on this set of images. The only accuracy gained for use of an ensemble was for face detection, with a gain of 0.25% over a single neural network. The solution was very robust to image blur, and somewhat robust to image noise.
     The system has shown to perform considerably without any training, and has shown to improve over time. For different search depths, the net learning rate was positive. However, the wide scope of the adjustments afforded may have impacted the learning rate and has shown to be volatile at some situations. The use of crossovers may dramatically influence the quality of the learning.
+
     {\bf Conclusion}
+
     Under the premise that the fitness function that is well defined, neuroevolution is a valid alternative to problems with novel domains. The solution is appropiate for machine learnt agents that where training does not require data. The robustness of the system is quite volatile, and is best paired with mutation and crossover methods that are not heavily reliant on entropy.
 
 \end{abstract}
@@ -189,7 +198,7 @@
         % Uber's revival of genetic algorithms and safe mutations
         However, one recent paper by Clune et al. on behalf of Uber Labs returned to the use of genetic algorithms as a basis to train especially deep convolutional networks with success. \cite{such_deep_2017} Their neuroevolutionary system was used to play popular Atari games on the OpenAI framework, and was found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
 
-        The success of the program was based on their system's ability to perform safe mutations, a technique that revolves around measuring the sensitivity of the network to changes with some of the weights. \cite{lehman_safe_2017} This afforded the system to evolve deep neural networks (In this particular case, containing over 100 layers and over four million weights and biases,) in a manner that allowed random but safe and exploratory steps. Their safe mutation exploits the knowledge of the neural network structure, by retaining sampled experiences of the network (inputs that feed into the network and its outputs). This allows the weights to be manipulated by comparing its significance with the output, by comparing it with the sampled experiences. 
+        The success of the program was based on their system's ability to perform safe mutations, a technique that revolves around measuring the sensitivity of the network to changes with some of the weights. \cite{lehman_safe_2017} This afforded the system to evolve deep neural networks (In this particular case, containing over 100 layers and over four million weights and biases,) in a manner that allowed random but safe and exploratory s.pdf. Their safe mutation exploits the knowledge of the neural network structure, by retaining sampled experiences of the network (inputs that feed into the network and its outputs). This allows the weights to be manipulated by comparing its significance with the output, by comparing it with the sampled experiences. 
 
         However, they also do not consider the use of crossover techniques in their paper. It is discussed that it would very well be possible to produce a safe crossover method that can exploit structures of a neural network, inspired by their research produced on safe mutations.
 
@@ -468,7 +477,7 @@
               \item Using the inputs $I$ in $\phi_{w}$, calculate a new set of input and output tuples $\phi_{y} = (I, \lambda_{I,y})$.
               \item Calculate the divergence $\delta = \lambda_{I,y} /\ \lambda_{I,w}.$ 
               \item Calculate the quality of $y$ based on the number of inequalities $\delta \geq 1$.
-             \item Repeat steps 2-5 some $n$ times, keeping note of the the best $y$. 
+             \item Repeat s.pdf 2-5 some $n$ times, keeping note of the the best $y$. 
              \end{enumerate}
 
             The intuition behind this is that if $\phi_{w}$ is a subset of moves that led to a winning game, then the manipulation of the weights is left open as long as it can replicate the performance of winning games. One of the concerns about this approach, also mentioned during the similar works, is the efficency of the approach. % I need to make some measurements first. 
@@ -529,22 +538,8 @@
     %   - Does it work?
     %   - Perhaps some measurable outcomes where appropriate.
 
-    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. 
-    
-    \subsection{Performance}
-    To measure performance, the final agent is compared against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
-    % compare the bots against a minimax agent
-    % chart of previous champions
-    \begin{figure}[!h]
-        \centering
-        \includegraphics[width=50mm]{images/results/1ply/gm_net_stats.eps}
-        \includegraphics[width=50mm]{images/results/3ply/gm_net_stats.eps}
-        %\includegraphics[width=90mm]{images/results/6ply/gm_net_stats.eps}
-        \caption{Charts showing the performance of the various agents against their ancestral counterparts.\label{net_stats}}
-    \end{figure}
-    
-        With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
-        
+    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. Ply Depths 1 and 3 are run for 100 generations, and 6 is run for 200 generations to see the overall trend line. 
+
     \subsection{Learning Rate}
     % chart of performance over time
     
@@ -552,18 +547,62 @@
     
     \begin{figure}[!h]
         \centering
-        \includegraphics[width=50mm]{images/results/1ply/cummulative_growth.eps}
-        \includegraphics[width=50mm]{images/results/3ply/cummulative_growth.eps}
-        \includegraphics[width=50mm]{images/results/6ply/cummulative_growth.eps}
-        \caption{A diagram visualising the crossover process.\label{cum_growth}}
+        \includegraphics[width=160mm]{images/results/combined_cummulative.pdf}
+        \caption{A chart showing the cummulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
     For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. 
     
+    \subsection{Performance}
+    To measure performance, the final agent is compared against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
+    % compare the bots against a minimax agent
+    % chart of previous champions
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=53mm]{images/results/1ply/gm_net_stats.pdf}
+        \includegraphics[width=53mm]{images/results/3ply/gm_net_stats.pdf}
+        \includegraphics[width=53mm]{images/results/6ply/gm_net_stats.pdf}
+        \caption{Charts showing the performance of the various agents against their ancestral counterparts.\label{net_stats}}
+    \end{figure}
+    
+    With a ply depth of 3, we can immediately see the impact of the system's performance against other agents that have 
+        
+    
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
+            \begin{figure}[!h]
+                \centering
+                \includegraphics[width=53mm]{images/results/1ply/moves.pdf}
+                \includegraphics[width=53mm]{images/results/3ply/moves.pdf}
+                \includegraphics[width=53mm]{images/results/6ply/moves.pdf}
+                \caption{mOVE cOUNT\label{move_chart}}
+            \end{figure}
+            We can see a 
+        \subsubsection{Champion Distribution}
+            The following table shows the following distribution charts of whether champions are inherently chosen based on the influence of mutations, crossovers of simply elitism.
+            \begin{figure}[!h]
+                \centering
+                \includegraphics[width=53mm]{images/results/1ply/champ_gen_dist.pdf}
+                \includegraphics[width=53mm]{images/results/3ply/champ_gen_dist.pdf}
+                \includegraphics[width=53mm]{images/results/6ply/champ_gen_dist.pdf}
+                \caption{Champion Distributions across the different generations ply depths. \label{champ_gen_dist}}
+            \end{figure}
         \subsubsection{CPU Times}
+            \begin{figure}[!h]
+                \centering
+                \includegraphics[width=53mm]{images/results/1ply/simulation_timings.pdf}
+                \includegraphics[width=53mm]{images/results/3ply/simulation_timings.pdf}
+                \includegraphics[width=53mm]{images/results/6ply/simulation_timings.pdf}
+                \caption{Champion Score Distributions across the different ply depths. \label{champ_score_distribution}}
+            \end{figure}
         \subsubsection{Influence of Inheritance Methods}
+            \begin{figure}[!h]
+                \centering
+                \includegraphics[width=53mm]{images/results/1ply/champ_score_distribution.pdf}
+                \includegraphics[width=53mm]{images/results/3ply/champ_score_distribution.pdf}
+                \includegraphics[width=53mm]{images/results/6ply/champ_score_distribution.pdf}
+                \caption{Champion Score Distributions across the different ply depths. \label{champ_score_distribution}}
+            \end{figure}
     % this section presents the results of the solutions.  It should include information on experimental settings.  The results should demonstrate the claimed benefits/disadvantages of the proposed solutions.
     \subsection{Speed}
     % how fast the system is learning
@@ -613,6 +652,7 @@
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
     - Population size too small?
+    The majority of experiments required a sizable amount of games to be played, which negatively reduces the amount of time
     The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
 
     Provided that there is a chance to repeat the experiment, GPU acceleration should be considered to improve running times. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
@@ -634,7 +674,7 @@
     \item  The fitness function can be anything, but it is important to derive a high quality fitness function.
     \item The quality of crossovers can be a deciding factor in how the agents learn to play over time.
     \end{enumerate}
-    
+
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
     Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Genetic Algorithms in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. 
