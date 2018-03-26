@@ -542,12 +542,12 @@
 
     % This section should be between 2 to 3 pages in length.
 
-    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. Ply Depths 1 and 3 are run for 100 generations, and 6 is run for 200 generations to measure the overall trend line.
+    For the experiment, we create three different neuroevolutionary agents with seperate ply-depth: 1,3 and 6. Ply Depths 1 and 3 are run for 100 generations, and 6 is run for 200 generations to measure the overall potential of the system. For sections containing three charts, each chart represents the results of the agents playing at 1-ply, 3-ply, and 6-ply, respectively, in that order. Each simulation utilises a population of 15 agents.
 
     \subsection{Learning Rate}
     % chart of performance over time
     
-    The learning rate is derived by comparing a generation's champions with its previous champions from the last five generations. For each older champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the six outcomes are calculated, representing the learning rate. We do not take the learning rate of the first 2 champions due to the lack of available comparisons. This measurement is performed for every generation until the end. It is also the case that this does not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time.
+    The learning rate is derived by comparing a generation's champions with its predecessor  champions from the previous five generations. For each older champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the six outcomes are calculated, representing the learning rate. We do not take the learning rate of the first 2 champions as this would not produce a sufficent comparison. This measurement is performed for every generation until the end of training. It is also the case that this does not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time.
     
     \begin{figure}[!h]
         \centering
@@ -555,10 +555,10 @@
         \caption{A chart showing the cummulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
-    For all ply depths, we can see a cummulative growth such that returns in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. This could relate to our crossover method, where it may be the case that the neural network has implicated a certain heuristic in a different manner to other networks. This could however be prevented by reusing the previous champion and restarting a particular generation if a loss can be seen. One of the risks of this method is that it could tunnel the system to a local maximum in terms of learning.
+    For all ply depths, we can see a cummulative growth such that returns are in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. As the champion is chosen from a tournament, it may be related to the quality of the following generations having a lower ability to evaluate the board than it's parent generation. This could potentially be prevented by reusing the previous champion and restarting a particular generation if a loss can be seen. This could however tunnel the system towards a local maximum in terms of learning. Further measurements are taken to understand the reasoning of the potential troughs in learning. 
     
     \subsection{Performance}
-    To measure performance, the final agent is compared against their earlier models. Each agent plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
+    To measure the system performance at the end of training, the champion of the final generation is compared against a subset of their predecessors. For each precessor, the trained system plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are also played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
     % compare the bots against a minimax agent
     % chart of previous champions
     \begin{figure}[!h]
@@ -566,17 +566,13 @@
         \includegraphics[width=53mm]{images/results/1ply/gm_net_stats.pdf}
         \includegraphics[width=53mm]{images/results/3ply/gm_net_stats.pdf}
         \includegraphics[width=53mm]{images/results/6ply/gm_net_stats.pdf}
-        \caption{Charts showing the performance of the various agents against their ancestral counterparts.\label{net_stats}}
+        \caption{Charts showing the performance of the trained systems against their ancestral counterparts.\label{net_stats}}
     \end{figure}
     
-    For the ply depth of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. This may make sense, as heuristic retention would be lost as the search depth is so low. 
-
-    For the higher ply depths (3,6) however, it is difficult to see a trend line. Both agents manage to consistently maintain a higher chance of winning/drawing against their earlier counterparts.
-    
-    For the 6-ply, it is evident that there is an increase of draws caused against the earlier agents, which may be seen as an advantage.
+    For the ply depth of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. This may make sense, as heuristic retention would be lost as the search depth is so low. This does however suggest that the system is worse off than playing with an initialised system (without training). For the higher ply depths (3,6) however, the agents manage to consistently maintain a higher chance of winning/drawing against their earlier counterparts. It is difficult to see a trend line. For the 6-ply, it is evident that there is an increase of draws caused against the earlier agents, which could be seen as an advantage.
 
     \subsection{Champion Distribution}
-        The following table shows the following distribution charts of whether champions are inherently chosen based on the influence of mutations, crossovers of simply elitism. Measurements are taken such that the champion of each generation is looked at, and their genomic properties are collated to show a distribution of the chances of a particular agent being the champion. Note that while every offspring is mutated, some of the offsprings are created using genomic crossovers, described in section \ref{crossover_strategy}. 
+        The following charts shows the following distribution charts the champions of the generations. The intention behind this measurement is to determine whether champions are inherently chosen based on the influence of mutations, crossovers of simply elitism.  Measurements are taken such that the champion of each generation is looked at, and their genomic properties are collated to show a distribution of the chances of a particular agent being the champion. Note that while every offspring is mutated, some of the offsprings are created using genomic crossovers, described in section \ref{crossover_strategy}. 
 
         \begin{figure}[!h]
             \centering
@@ -585,11 +581,11 @@
             \includegraphics[width=53mm]{images/results/6ply/champ_gen_dist.pdf}
             \caption{Distributions of the different genomic identities across the tournament champions. \label{champ_gen_dist}}
         \end{figure}
-        The use of offsprings become more apparent for larger plys, with mutation and crossover appearing more frequently, coming at 66.1\% of the distribution. Interestingly, for ply depths 1 and 6, crossovers tend to be the most frequent occurence when it comes to producing champions at every generation. 
+
+        The influence of offsprings become more apparent for larger plys, with mutation and crossover appearing more frequently, coming at 66.1\% of the distribution. Interestingly, for ply depths 1 and 6, crossovers tend to be the most frequent occurence when it comes to producing champions at every generation. This suggests that crossover methods tend to produce better agents than their counterparts.
 
     \subsection{Influence of Inheritance Methods}
-        Building on from the chart provided by Figure \ref{champ_gen_dist}, we look into the scores retrieved by the different genomic identities when they are compared against their earlier counterparts. 
-        The scores tallied in a cummulative fashion produces the learning rate, shown in Figure \ref{cum_growth}.
+        Building on from the chart provided by Figure \ref{champ_gen_dist}, we look into the scores retrieved by the different genomic identities when they are compared against their earlier counterparts. This is to determine whether the use of genetic algorithms can overall improve the quality of neural networks. To measure this, we correlate the generation's champion with their score (the same measurement used to evaluate the learning rate in Figure \ref{cum_growth}) produced when measured against their predecessors. The results are shown in Figure \ref{champ_score_distribution}.
 
         \begin{figure}[!h]
             \centering
@@ -599,10 +595,12 @@
             \caption{Box-Plots of the different genomic identities and their distribution of scores. The yellow line in the box represents the mean score. \label{champ_score_distribution}}
         \end{figure}
 
-        Interestingly, for the 
+        Interestingly, for the 3-ply, the crossover method is most likely to produce a growing system, producing the highest mean. However, across all of the ply depth agents, we can see that the use of mutation produces the best possible agents. For the higher 6-ply depth we can see that it did not significantly influence the learning rate of the system.
 
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
+            The number of moves is measured to verify that the system is producing realistic and quality moves over the training phase. The following charts show the distribution of moves for the games played over the generations, alongside the mean. The results are shown in Figure \ref{move_chart}:
+
             \begin{figure}[!h]
                 \centering
                 \includegraphics[width=53mm]{images/results/1ply/moves.pdf}
@@ -610,15 +608,29 @@
                 \includegraphics[width=53mm]{images/results/6ply/moves.pdf}
                 \caption{2D Histograms representing the number of moves played in the games played in the generations. \label{move_chart}}
             \end{figure}
-            For the 1-ply simulations, the average mean of moves is lower, but is counteracted by the much larger range 
-            This may be due to the level of precision (which should not be great considering it's ply depth), such 
 
-            Could be such that the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
+            % The number of moves is consistent throughout as the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
 
-            We can see that the system plays fairly consistently, verifying that the system is choosing moves consistently across the board. This confirms that the decision making algorithm is implemented precisely, reducing the number of unknowns for evaluation.
+            For the 1-ply simulations, the average mean of moves is lower, but is counteracted by the much larger range of games that have a large number of moves. Understandably, the lower quartile for the 1-ply is lower than the others. This may be due to the level of precision, where it does not think further ahead enough to make better moves. This explanation applies inversely for the larger ply-depths, notably the 6-ply chart, where the level of precision is higher, leading to a tighter distribution of games having similar numbers of moves played.
+
+            As the system is shown to play fairly consistently across the generations, this verifies that the system is choosing consistent decisions across the board. This confirms that the decision making algorithm is implemented precisely, reducing the number of unknowns for evaluation.
 
         \subsubsection{CPU Times}
+
+            \begin{table}[]
+            \centering
+            \caption{Mean and Net running times of system training for the various depths.}
+            \label{my-label}
+            \begin{tabular}{ccccc}
+                                        & 1-Ply                               & 3-Ply                                      & 6-Ply                                       &  \\ \cline{2-4}
+            \multicolumn{1}{c|}{Mean} & \multicolumn{1}{r|}{0:04:24} & \multicolumn{1}{r|}{0:17:32}        & \multicolumn{1}{r|}{0:38:45}         &  \\ \cline{2-4}
+            \multicolumn{1}{c|}{Net}  & \multicolumn{1}{r|}{7:21:25} & \multicolumn{1}{r|}{1 day, 5:14:41} & \multicolumn{1}{r|}{5 days, 9:12:25} &  \\ \cline{2-4}
+                                        &                                     &                                            &                                             & 
+            \end{tabular}
+            \end{table}
             
+            The system is shown to grow in running time linearly, as this is the cause of growing the search limit for MCTS in a linear fashion according to the ply-depth.
+
             \begin{figure}[!h]
                 \centering
                 \includegraphics[width=53mm]{images/results/1ply/simulation_timings.pdf}
@@ -627,9 +639,7 @@
                 \caption{2D Histograms of the average times spent on the games during the simulations. \label{chart_cpu_times}}
             \end{figure}
 
-            % also need to plot time step
-            
-            The results suggest that the CPU time is very unstable, and is one of the downfalls of using a time-shared machine.
+            The results suggest that the CPU time is very unstable, and is one of the downfalls of using a time-shared machine. The performance increase does not show to correlate with the learning rate. 
 
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
@@ -646,34 +656,33 @@
     We now reflect back to the original research question: "is it possible to create a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks?".  We answer this through the examinations of the strengths and limitations of the system. 
 
     \subsection{Strengths}
-    - The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation.
-    - Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself.
-    - The statistics show that it is indeed showing signs that the system is learning over time. 
-    - Neuroevolution is a viable method for programs with vast search spaces. While this is where both genetic algorithsm can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the fitness function can be any function, whereas for a neural network, its function needs to be translatable to some form of a differential sum of partial derivatives. 
-    - embarrassingly parallel tournaments make it possible to reduce the overall system running time on the system.
+    The statistics indicate that the system is indeed learning over time. This suggests that  neuroevolution is a viable method for programs with vast search spaces. While this is where both genetic algorithsm can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the fitness function can be any function, whereas for a neural network, its function needs to be translatable to some form of a differential sum of partial derivatives. 
+
+    The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation. 
+    Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself.
+
+    embarrassingly parallel tournaments make it possible to reduce the overall system running time on the system.
+
+    The use of crossovers, which differentiates genetic algorithms and its other evolutionary algorithms has shown to improve the quality of the players, especially the case in the 3-ply.
 
     \subsection{Limitations}
-    - Difficult to evaluate moves
-    - The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament; hard to choose the best method
-    - Naturally slower learning rate than typical ventures as there is an immediate comparision to make against
+    The overall training rate is slow. Naturally slower learning rate than typical ventures as there is an immediate comparision to make against, and requires many more samples (often expoentially more) to get a weight of equivalent quality.
+    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficent (from a number of games played perspective, and not necessarily parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). It also computes the most number of games. 
     - creating a high quality fitness function is difficult and its domain specific, or rather, there is no universal fitness function for all problems. This poses as a benefit and a weakness for the neuroevolutionary approach.
         - the fitness function defines the size of the search space and how easily a globally optimal solution can be derived.
         - using a best of champions approach is quite difficult!
         - reality rarely fits into good fitness functions
-    - measuring the learning rate is quite difficult and arbitary.
-    - compared to other calculus based methods, neuroevolution requires many more samples (often expoentially more) to get a weight of equivalent quality.
-    As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to discourage learning.
-    - probabilistic approach to decision making could influence the quality of the moves, but the extent will need to be evaluated. 
+    The crossover mechanism is a hit and miss, and is shown to impede the learning rate for some of the longer ply-depths. This may be due to its disruptive nature, as heuristics are destroyed. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to discourage learning.
 
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
-    - Population size too small?
-    The majority of experiments required a sizable amount of games to be played, which negatively reduces the amount of time
-    The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
+        The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
 
-    Provided that there is a chance to repeat the experiment, GPU acceleration should be considered to improve running times. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
+        Measuring the learning rate is quite difficult and arbitary, and may best be compared to against systems that are classified to play at a particular level. 
 
-    Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. 
+        As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testings that can be measured, such as the population size, the number of generations and the learning rate. 
+        
+        Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
 
 % TODO (WAIT FOR RESULTS)
 
@@ -693,13 +702,8 @@
 
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
-    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Genetic Algorithms in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. 
-    % need to talk about immediate applications
-    One immediate implication is the use of 
+    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Neuroevolution in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. When applied in a successful manner, its applications can go towards the  understanding of biological neural networks and the evolution of intelligence itself.
 
-
-    
-% References
 \bibliography{zotero}
 
 \end{document}
