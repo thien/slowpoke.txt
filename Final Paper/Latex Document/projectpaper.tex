@@ -530,7 +530,7 @@
         \caption{A chart showing the cummulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
-    For all plys, we can see a cummulative growth such that returns are in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. As the champion is chosen from a tournament, it may be related to the quality of the following generations having a lower ability to evaluate the board than it's parent generation. This could potentially be prevented by reusing the previous champion and restarting a particular generation if a loss can be seen. This could however tunnel the system towards a local maximum in terms of learning. Further measurements are taken to understand the reasoning of the potential troughs in learning. 
+    A cummulative growth across all plys can be seen such that returns are in the net positive as more generations are added. However, even with safe mutations, we can also see that the learning is very volatile. As the champion is chosen from a tournament, it may be related to the quality of the following generations having a lower ability to evaluate the board than it's parent generation. This could potentially be prevented by reusing the previous champion and restarting a particular generation if a loss can be seen. This could however tunnel the system towards a local maximum in terms of learning. Further measurements are taken to understand the reasoning of the potential troughs in learning. 
     
     \subsection{Performance}
     To measure the system performance at the end of training, the champion of the final generation is compared against a subset of their predecessors. For each precessor, the trained system plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are also played against a random program to determine whether the system is evaluating moves properly. Fortunately, all agents successfully won every game.
@@ -631,17 +631,12 @@
     We now reflect back to the original research question: "is it possible to create a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks?".  We answer this through the examinations of the strengths and limitations of the system. 
 
     \subsection{Strengths}
-    The statistics indicate that the system is indeed learning over time. This suggests that  neuroevolution is a viable method for programs with vast search spaces. While this is where both genetic algorithsm can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the fitness function can be any function, whereas for a neural network, its function needs to be translatable to some form of a differential sum of partial derivatives. 
-
-    The system itself relies on a relatively simple learning heuristic that is open to domain specific adaptation. 
-    Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself.
-
-    embarrassingly parallel tournaments make it possible to reduce the overall system running time on the system.
-
-    The use of crossovers, which differentiates genetic algorithms and its other evolutionary algorithms has shown to improve the quality of the players, especially the case in the 3-ply.
+    The statistics indicate that the system is indeed learning over time. Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself. The use of crossovers, which differentiates genetic algorithms and its other evolutionary algorithms has shown to improve the quality of the players, especially the case in the 3-ply.
+    
+    This suggests that neuroevolution is a viable method for problems with vast search spaces, or problems where data is hard to access. While this is where both genetic algorithms can shine. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the system relies on a relatively simple learning heuristic that is open to domain specific adaptation. Gradient based leaarning requires the function  translatable to some form of a differential sum of partial derivatives, which may not be feasible in some circumstances.
 
     \subsection{Limitations}
-    The overall training rate is slow. Naturally slower learning rate than typical ventures as there is an immediate comparision to make against, and requires many more samples (often expoentially more) to get a weight of equivalent quality.
+    The results show a slow learning rate than typical ventures as there is an immediate comparision to make against, and requires many more samples (often expoentially more) to get a weight of equivalent quality.
     The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficent (from a number of games played perspective, and not necessarily parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). It also computes the most number of games. 
     - creating a high quality fitness function is difficult and its domain specific, or rather, there is no universal fitness function for all problems. This poses as a benefit and a weakness for the neuroevolutionary approach.
         - the fitness function defines the size of the search space and how easily a globally optimal solution can be derived.
@@ -657,7 +652,9 @@
 
         As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testings that can be measured, such as the population size, the number of generations and the learning rate. 
         
-        Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
+        Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. This could assist in the creation of safe crossovers which could also potentially accelerate the learning rate, by retaining the best aspects of two agents.
+        
+        There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuroscientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
 
 % TODO (WAIT FOR RESULTS)
 
@@ -677,7 +674,7 @@
 
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
     
-    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Neuroevolution in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. When applied in a successful manner, its applications can go towards the  understanding of biological neural networks and the evolution of intelligence itself.
+    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Neuroevolution in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. When applied in a successful manner, neuroevolution can be applied towards the understanding of biological neural networks and the evolution of intelligence itself.
 
 \bibliography{zotero}
 
