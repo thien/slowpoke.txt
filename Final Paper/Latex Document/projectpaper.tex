@@ -661,54 +661,45 @@
     We now reflect back to the original research question: "is it possible to create a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks?".  We answer this through examining of the strengths and limitations of the system. 
 
     \subsection{Strengths}
-    Because the agents are essentially playing itself to learn over time, no training data is necessary for the program to evolve itself. This relates to the fact that an infinite number of games can be simulated. The use of crossovers, which differentiates genetic algorithms and its other evolutionary algorithms has shown to improve the quality of the players, especially the case in the 3-ply.
+
+    Figures \ref{cum_growth}, \ref{net_stats} and \ref{champ_gen_dist} suggest that the system has improved in ability over time. This is pivotal to the research question, as no human intervention (i.e data suggested by humans) was used to help make the system learn. It also reinforces the idea that derivative based learning algorithms are not necessarily the only ways to train a neural network. This is possible for the case of playing Checkers, as an infinite number of games can be simulated. The use of crossovers suggested that it could potentially improve the quality of the system.
     
     This suggests that neuroevolution is a viable method for problems with vast search spaces, or problems where data is hard to access. Although this is the case for Deep learning and evolutionary computation in general, the benefit of using genetic algorithms is that the system relies on a relatively simple learning heuristic that is open to domain specific adaptation. Gradient based learning requires the function  translatable to some form of a differential sum of partial derivatives, which may not be feasible in some circumstances.
 
     \subsection{Limitations}
-    The results show a slow learning rate than typical ventures as there is an immediate comparison to make against, and requires many more samples (often exponentially more) to get a weight of equivalent quality.
-    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, and not necessarily parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. This was especially the case for the 1-ply program, where it performs worse than an randomly initialised agent. Creating a high quality fitness function is difficult and its domain specific, or rather, there is no universal fitness function for all problems. This poses as a benefit and a weakness for the neuroevolutionary approach.
+    Figure \ref{cpu_table} and \ref{chart_cpu_times} indicates a slow learning rate than typical ventures as there is an immediate comparison to make against, and requires many more samples (often exponentially more) to get a neural network of equivalent quality. For instance, research has shown to create an notably strong Chess AI within the span of 72 hours by training a neural network against pre-classified tactics problems and predetermined grandmaster tournament games. \cite{lai_giraffe:_2015}. A comparison between the two is fundamentally difficult, however, as the system was not tested against an AI that is universally recognised to be strong.
    
-    The crossover mechanism is a hit and miss, and is shown to impede the learning rate for some of the longer ply-depths. This may be due to its disruptive nature, as heuristics are destroyed. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to discourage learning.
+    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. Creating a high quality fitness function is difficult and domain specific, or rather, there is no universal fitness function for all problems.
 
-    % could not run for a larger population
-    % restricted to not strong computers
-    % lots of tweakable compomnents with not enough time to work on which could otherwise improve the performance
-    % did not experiment with other dicision making algos which could further speed up performance
-    % crossover had a wide range of values, and was on average shown to show no difference or negative difference, even though it was most likely able to become champions.
+    The crossover mechanism is a hit and miss, and is shown in figure \ref{champ_score_distribution}, on average, to show a negligible improvement in the learning rate. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to not necessarily improve learning. Crossovers however show a wide range of scores, which, if provided a well devised crossover mechanism, can dramatically improve the quality of the learning over time.
 
     % ---------------------
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
-        The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizeable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
-
-        Measuring the learning rate is quite difficult and arbitrary, and may best be compared to against systems that are classified to play at a particular level. 
+        Measuring the learning rate is quite difficult and arbitrary, and may best be compared to against systems that are classified to play at a particular level. This would have helped in determining how strong the system was against popular AI checkers programs. 
 
         As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testing that can be measured, such as the population size, the number of generations and the learning rate. 
         
         Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. This could assist in the creation of safe crossovers which could also potentially accelerate the learning rate, by retaining the best aspects of two agents.
         
-        There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce mutation, exercising other contemporary methods in machine learning. It may also be the case that more time could be spent in examining references outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuro-scientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
+        There is an incredibly vast scope of future work that would extend the project. One interesting avenue is to consider using a safer method to produce crossover mechanism, exercising other contemporary methods in machine learning. It may also be the case that more time could be spent exploring problem solving mechanisms  outside of computer science. In this particular example, the algorithms used are inspired by various biological and neuro-scientific understandings. More research into this field may assist in finding more creative methods of solving some of the issues concerning genetic crossover mechanisms and mutation rates.
+    
 
 % TODO (WAIT FOR RESULTS)
 
 \section{Conclusion}
     % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
-    In terms of fulfilling its objectives, the project was an overall success. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
-    
-    The main findings of this project is as follows:
+    The project was somewhat successful in terms of fulfilling its objectives. A system was implemented using evolutionary methods and it successfully plays checkers in a manner in which it can learn from over time. To the extent of its growth remains suspect however. Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner. The main findings of this project is as follows:
     \begin{enumerate}
-    \item It is evidently possible to create a checkers playing agent that learns to play itself, with little human intervention.
+    \item It is evidently possible somewhat to create a checkers playing agent that learns to play itself, with little human intervention.
     % - some of the the work is 
     \item  neuroevolution is inefficient compared to their gradient based counterparts. This however was understandable due to the heavy dependency of entropy disguised as learning.
     \item  The fitness function can be anything, but it is important to derive a high quality fitness function.
-    \item The quality of crossovers can be a deciding factor in how the agents learn to play over time.
+    \item The quality of crossovers can be a deciding factor in how the agents learn to play over time. The crossover method used has shown a negligible impact on average, but has produced a wide range of possible results, some of which could greatly increase the quality of the learning rate.
     \end{enumerate}
 
-    The major implication is that it is a possible contender for tasks that require unsupervised learning, and that the fitness function cannot be trivially decomposed into set of derivatives that allow regular derivative based learning to shine.
-    
-    Provided a high quality fitness function can be designed, the applications of neuroevolution expand beyond its applications in zero-sum games. Neuroevolution in general is useful based on its ability to solve problems without the use of training data, and generating evolving content over time. When applied in a successful manner, neuroevolution can be applied towards the understanding of biological neural networks and the evolution of intelligence itself.
+    The major implication is that it is a possible contender for tasks that require unsupervised learning, and that data needed to produce a strong classifier is hard to access. Provided a high quality fitness function can be designed, neuroevolution could be adapted to handle any simulation.
 
 \bibliography{zotero}
 
