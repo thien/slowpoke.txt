@@ -355,8 +355,8 @@
 
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=130mm]{images/subsquares.pdf}
-            \caption{A diagram visualising the processing of subsquares on board $x$ to create the preprocessed array $\widehat{x}$. Each index in $x$ represents a position on the board, such that each item in $x$ represents a value of the piece on the board. $\alpha$, $\beta$ and $\gamma$ are examples of 3x3 and 4x4 subsections. \label{subsquares}}
+            \includegraphics[width=110mm]{images/subsquares.pdf}
+            \caption{A diagram visualising the processing of subsquares on board (represented as the 1D array $x$) to create the array $\widehat{x}$. Each index in $x$ represents a position on the board, such that each item in $x$ represents a value of the piece on the board. $\alpha$, $\beta$ and $\gamma$ are examples of 3x3 and 4x4 subsections. \label{subsquares}}
         \end{figure}
 
         % Talk about the activation function
@@ -364,10 +364,10 @@
         % how does it work?
 
         % Tanh Diagram
-        \begin{wrapfigure}{r}{0.4\textwidth}
+        \begin{wrapfigure}{r}{0.3\textwidth}
             \centering
             \begin{tikzpicture}
-                \fontsize{8}{11}
+                \fontsize{6}{8}
                 \begin{axis}[
                     legend pos=north west,
                     axis x line=middle,
@@ -379,8 +379,8 @@
                                         /pgf/number format/fixed zerofill,
                                         /pgf/number format/precision=1},
                     grid = major,
-                    width=75mm,
-                    height=6cm,
+                    width=55mm,
+                    height=4cm,
                     grid style={dashed, gray!30},
                     xmin=-5,     % start the diagram at this x-coordinate
                     xmax= 5,    % end   the diagram at this x-coordinate
@@ -423,7 +423,7 @@
 
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=100mm]{images/montecarlo.png}
+            \includegraphics[width=90mm]{images/montecarlo.png}
             \caption{A diagram describing the MCTS process.}
         \end{figure}
 
@@ -511,9 +511,7 @@
        
     \subsection{Tools}
     % Description of tools used
-        The system was built using Python 3.6 and the \inlinecode{Python}{NumPy} library. Initial runs operated on a 1 and 2-ply load to determine the stability of the system. As the memory usage of the system was negligible, it was not considered when choosing hardware. This was run on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor. Development and debugging was also handled on this machine. Once testing has shown to be stable, the system was then configured to run on Durham's MIRA distributed system (Debian). MIRA contains 4 Intel Xeon E7-8860 CPUs (Each CPU contains 16 physical cores running in 2.2Ghz, with hyper-threading). This comes to a total of 64 Cores, and 128 threads. The \inlinecode{Python}{multiprocessing} library was used to run the tournaments in parallel. To interpret the results, charts are generated at the end of every generation using \inlinecode{Python}{pyplotlib}.
-        
-        A consistent SSH connection was used to ensure the simulations were kept alive for the duration of the simulation on MIRA. Once training was complete, performance measurements was also conducted on MIRA, alongside other statistical evaluations to reduce computational time. The end champion was then transferred to the initial testing machine to be played against human input.
+        The system was built using Python 3.6 and the \inlinecode{Python}{NumPy} library. Initial runs operated on a 1 and 2-ply load to determine the stability of the system. As the memory usage of the system was negligible, it was not considered when choosing hardware. This was run on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor. Development and debugging was also handled on this machine. Once testing has shown to be stable, the system was then configured to run on Durham's MIRA distributed system (Debian). MIRA contains 4 Intel Xeon E7-8860 CPUs (Each CPU contains 16 physical cores running in 2.2Ghz, with hyper-threading). This comes to a total of 64 Cores, and 128 threads. The \inlinecode{Python}{multiprocessing} library was used to run the tournaments in parallel. To interpret the results, charts are generated at the end of every generation using \inlinecode{Python}{pyplotlib}. A consistent SSH connection was used to ensure the simulations were kept alive for the duration of the simulation on MIRA. Once training was complete, performance measurements was also conducted on MIRA, alongside other statistical evaluations to reduce computational time. The end champion was then transferred to the initial testing machine to be played against human input.
 
     \subsection{Verification and Validation}
 
@@ -547,7 +545,7 @@
     
     \begin{figure}[!ht]
         \centering
-        \includegraphics[width=160mm]{images/results/combined_cummulative.pdf}
+        \includegraphics[width=140mm]{images/results/combined_cummulative.pdf}
         \caption{A chart showing the cumulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
@@ -668,9 +666,9 @@
 
     \subsection{Limitations}
     Figure \ref{cpu_table} and \ref{chart_cpu_times} indicates a slow learning rate than typical ventures as there is an immediate comparison to make against, and requires many more samples (often exponentially more) to get a neural network of equivalent quality. For instance, research has shown to create an notably strong Chess AI within the span of 72 hours by training a neural network against pre-classified tactics problems and predetermined grandmaster tournament games. \cite{lai_giraffe:_2015}. A comparison between the two is fundamentally difficult, however, as the system was not tested against an AI that is universally recognised to be strong.
-   
-    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. Creating a high quality fitness function is difficult and domain specific, or rather, there is no universal fitness function for all problems.
 
+    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. Creating a high quality fitness function is difficult and domain specific, or rather, there is no universal fitness function for all problems.
+   
     The crossover mechanism is a hit and miss, and is shown in figure \ref{champ_score_distribution}, on average, to show a negligible improvement in the learning rate. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to not necessarily improve learning. Crossovers however show a wide range of scores, which, if provided a well devised crossover mechanism, can dramatically improve the quality of the learning over time.
 
     % ---------------------
