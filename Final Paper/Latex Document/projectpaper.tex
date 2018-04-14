@@ -106,7 +106,7 @@
 
  	\subsection{Genetic Algorithms}
 
-    A subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created based on the improvement of their ancestors genetic information (genome). Genomes are analogical to a data structure, most commonly a 1D array. Evolutionary algorithms typically consist of a population of agents, a tournament selection process, and the introduction of probabilistic mutation on genomes. This in turn allows evolutionary algorithms to create genomes that increase in quality over time in regards to the tournament. Genetic algorithms distinguish themselves from evolutionary algorithms through their use of algorithmic crossover mechanisms, where two parent genomes are combined together to create offspring. The use of evolutionary algorithms to train neural networks is described as a type of machine learning called Neuroevolution.
+    A subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created based on the improvement of their ancestors genetic information (genome). Genomes are analogical to a data structure, most commonly a 1D array. Evolutionary algorithms typically consist of a population of agents, a tournament selection process (also known as a fitness function), and the introduction of probabilistic mutation on genomes. This in turn allows evolutionary algorithms to create genomes that increase in quality over time in regards to the tournament. Genetic algorithms distinguish themselves from evolutionary algorithms through their use of algorithmic crossover mechanisms, where two parent genomes are combined together to create offspring. The use of evolutionary algorithms to train neural networks is described as a type of machine learning called Neuroevolution.
 
     \subsection{Aims}
 
@@ -667,12 +667,10 @@
     \subsection{Limitations}
     Figure \ref{cpu_table} and \ref{chart_cpu_times} indicates a slow learning rate than typical ventures as there is an immediate comparison to make against, and requires many more samples (often exponentially more) to get a neural network of equivalent quality. For instance, research has shown to create an notably strong Chess AI within the span of 72 hours by training a neural network against pre-classified tactics problems and predetermined grandmaster tournament games. \cite{lai_giraffe:_2015}. A comparison between the two is fundamentally difficult, however, as the system was not tested against an AI that is universally recognised to be strong.
 
-    The quality of the neuroevolutionary algorithm boils down to the quality of the fitness function, which in our case is the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. Creating a high quality fitness function is difficult and domain specific, or rather, there is no universal fitness function for all problems.
+    The quality of the neuroevolutionary algorithm boils down to the quality of the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). One of the issues of the approaches taken in the paper is that when compared to agents from much earlier predecessors, some of the characteristics of the neural network used to win against them are lost. Creating a high quality tournament is difficult and domain specific, or rather, there is no universal fitness function for all problems.
    
     The crossover mechanism is a hit and miss, and is shown in figure \ref{champ_score_distribution}, on average, to show a negligible improvement in the learning rate. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to not necessarily improve learning. Crossovers however show a wide range of scores, which, if provided a well devised crossover mechanism, can dramatically improve the quality of the learning over time.
 
-    % ---------------------
-    % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
         Measuring the learning rate is quite difficult and arbitrary, and may best be compared to against systems that are classified to play at a particular level. This would have helped in determining how strong the system was against popular AI checkers programs. 
 
@@ -693,11 +691,11 @@
     \item It is evidently possible somewhat to create a checkers playing agent that learns to play itself, with little human intervention.
     % - some of the the work is 
     \item  neuroevolution is inefficient compared to their gradient based counterparts. This however was understandable due to the heavy dependency of entropy disguised as learning.
-    \item  The fitness function can be anything, but it is important to derive a high quality fitness function.
+    \item  The tournament can be anything, but it is important to derive a high quality tournament mechanism.
     \item The quality of crossovers can be a deciding factor in how the agents learn to play over time. The crossover method used has shown a negligible impact on average, but has produced a wide range of possible results, some of which could greatly increase the quality of the learning rate.
     \end{enumerate}
 
-    The major implication is that it is a possible contender for tasks that require unsupervised learning, and that data needed to produce a strong classifier is hard to access. Provided a high quality fitness function can be designed, neuroevolution could be adapted to handle any simulation.
+    The major implication is that it is a possible contender for tasks that require unsupervised learning, and that data needed to produce a strong classifier is hard to access. Provided a high quality tournament method can be designed, neuroevolution could be adapted to handle any simulation.
 
 \bibliography{zotero}
 
