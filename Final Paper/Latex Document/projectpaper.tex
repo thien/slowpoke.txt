@@ -133,18 +133,18 @@
     % This section presents a survey of existing work on the problems that this project addresses. it should be between 2 to 4 pages in length.  The rest of this section shows the formats of subsections as well as some general formatting information for tables, figures, references and equations.
 
     % Intro
-        Although Draughts is a perfect information game, it has been historically used as a testing ground for artificial intelligence and computational capabilities since the early introduction of computers. This is due to the relatively vast search space, making the game difficult to brute-force, until recently. Research has shown that it is possible in theory to solve the game, but the computational performance was not available to prove the method at the time of discovery \cite{schaeffer_solving_1996}. The same researchers however reinvestigated the research a decade later, eventually proving the game to be \emph{weakly-solved}. \cite{schaeffer_checkers_2007}. Weakly-solvable is defined such that ``the game-theoretic value for the initial position has been determined, and that a strategy exists for achieving the game-theoretic value from the opening position.'' \cite{allis_searching_1994} However, the premise of this paper is not necessarily to solve the game itself, but to rather see whether neuroevolution is a method that, when measured via its ability to play the game, shows that it can evolve in performance over time.
+        Although Draughts is a perfect information game, it was historically used as a testing ground for artificial intelligence and computational capabilities since the early introduction of computers. This was due to the relatively vast search space, making the game difficult to brute-force, until recently. Research has shown that it was possible in theory to solve the game, but the computational performance was not available to prove the method at the time of discovery \cite{schaeffer_solving_1996}. The same researchers however reinvestigated the research a decade later, eventually proving the game to be \emph{weakly-solved}. \cite{schaeffer_checkers_2007}. Weakly-solvable is defined such that ``the game-theoretic value for the initial position has been determined, and that a strategy exists for achieving the game-theoretic value from the opening position.'' \cite{allis_searching_1994} However, the premise of this paper was not necessarily to solve the game itself, but to rather see whether neuroevolution was a method that, when measured via its ability to play the game, shows that it can evolve in performance over time.
 
         Research in artificial intelligence alone has been active since, targeting games with a higher move space, notably Chess and, more recently, Go. This section will summarise specific and notable techniques relevant to the discussion of the task at hand.
 
     % DONE
     \subsection{Arthur Samuel}
-        In 1959, An early design of machine learning to play Draughts was devised by Arthur Samuel\cite{samuel_studies_1959}. His algorithm was based on the continual improvement of a linear combination of heuristics, which act as an evaluator function for a given state of the checker board. The heuristics represented different strategies one would have considered when playing Draughts. Some of these heuristics include the number of pieces on side (such that one side is shown to have a particular advantage given that they have more pieces), and the number of pieces positioned along the central diagonal. His evolutionary strategy consisted of agents, each of which represented coefficient values for the heuristics (initially random), and new agents are formed via the manipulation of its successor's coefficients with subtle mutations.
+        In 1959, An early design of machine learning to play Draughts was devised by Arthur Samuel\cite{samuel_studies_1959}. His algorithm was based on the continual improvement of a linear combination of heuristics, which act as an evaluator function for a given state of the checker board. The heuristics represented different strategies one would have considered when playing Draughts. Some of these heuristics include the number of pieces on side (such that one side was shown to have a particular advantage given that they have more pieces), and the number of pieces positioned along the central diagonal. His evolutionary strategy consisted of agents, each of which represented coefficient values for the heuristics (initially random), and new agents are formed via the manipulation of its successor's coefficients with subtle mutations.
         
         % The weights were then trained by the algorithm playing itself in a form of genetic programming. 
         
         % talk about minimax here.
-        Samuel's decision making algorithm primarily revolved around an early concept of the mini-max algorithm. This algorithm takes as input the present state of the checker board, and returns the best move to choose. Mini-max algorithm is described using the following instructions:
+        Samuel's decision making algorithm primarily revolved around an early concept of the mini-max algorithm. This algorithm takes as input the present state of the checker board, and returns the best move to choose. Mini-max algorithm can be described using the following instructions:
         
         \begin{enumerate}
             \item Each node represents a state of a checker board. Child nodes represent a future state of the checker board, given a move. Child nodes can only be produced from the parent node; i.e. a move from a parent node will produce a child node.
@@ -173,15 +173,15 @@
             \caption{The mutation formula in Blondie24, where $j=1,...,N_w$ represents individual weight of the neural network $w$, and $\mu$ representing a random decimal in the range of $[0-1]$. \label{blondieMutation}}
         \end{figure}
         
-        In each generation, every agent plays each other in a round robin style tournament. Agents plays an equal number of games, and successors are chosen based on their performance in the tournament. The best agents are chosen to mutate themselves, producing new agents in the chance that the new agents perform better than prior. Mutation is performed using the formula in Figure \ref{blondieMutation}. Like Samuel's program, Blondie24 also used Mini-Max with alpha-beta pruning.
+        In each generation, every agent plays each other in a round robin style tournament. Agents plays an equal number of games, and successors are chosen based on their performance in the tournament. The best agents are chosen to mutate themselves, producing new agents in the chance that the new agents perform better than prior. Mutation was performed using the formula in Figure \ref{blondieMutation}. Like Samuel's program, Blondie24 also used Mini-Max with alpha-beta pruning.
 
-        However, crossover mechanisms were not considered (and therefore cannot be classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and 1 output node. The output node representing a classifier value in the range of [-1, 1], representing a particular advantage for a given side of the board. One issue with this particular method is that spatial awareness could not be immediately interpreted as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness.
+        However, crossover mechanisms were not considered (and therefore cannot be classified as using genetic algorithms). Blondie24's neural network structure consists of a $\left\{ 32,40,10,1 \right\}$ set, such that the input layer consisted of 32 nodes, and 1 output node. The output node representing a classifier value in the range of [-1, 1], representing a particular advantage for a given side of the board. One issue with this particular method was that spatial awareness could not be immediately interpreted as it takes an immediate input of the positions on the board. This makes it inherently more difficult for the neural network to generate heuristics based on spatial awareness.
 
         We do not wish to repeat this work, but it is important to understand that we wish to abstract and modularise parts of the best features of this system to modify and extend them to the solution described in the paper.
 
     \subsection{Post Blondie24}
 
-        Blondie24 was influential in the field of neuroevolution during its time, leading to various studies on the theory behind its success. A notable example is the series of publications by Al-Khateeb and Kendall, where they explore in detail the different features that comprise Blondie24. One of their studies concerning the effects of the the ply depth, concluded that having a higher ply-depth unsurprisingly increases the overall performance of the player, and that agents trained at a higher ply performs significantly worse when playing at a lower ply. More importantly, the results in the paper suggest that a 4ply depth produces the best value function to start with during the learning phase, and increasing the ply depth for evaluations. \cite{al-khateeb_effect_2012} Their study in the influence of tournaments in Blondie24 concluded that the league structure seemed more appropriate to use as opposed to the round robin tournament. \cite{al-khateeb_introducing_2009} This is however more difficult to set up in parallel, which may be a largely contributing factor during the implementation of the system.
+        Blondie24 was influential in the field of neuroevolution during its time, leading to various studies on the theory behind its success. A notable example was the series of publications by Al-Khateeb and Kendall, where they explore in detail the different features that comprise Blondie24. One of their studies concerning the effects of the the ply depth, concluded that having a higher ply-depth unsurprisingly increases the overall performance of the player, and that agents trained at a higher ply performs significantly worse when playing at a lower ply. More importantly, the results in the paper suggest that a 4ply depth produces the best value function to start with during the learning phase, and increasing the ply depth for evaluations. \cite{al-khateeb_effect_2012} Their study in the influence of tournaments in Blondie24 concluded that the league structure seemed more appropriate to use as opposed to the round robin tournament. \cite{al-khateeb_introducing_2009} This is however more difficult to set up in parallel, which may be a largely contributing factor during the implementation of the system.
         
         % Alternative contemporary machine learning techniques have been exercised against Draughts. Franken et al. (2003) used draughtsboards as an evaluator for their rendition of an AI through Particle Swarm Optimisations.[14] 
         % Within research in the game of Draughts alone, A research by Toledo-Marin et al. looked at studies on attacking strategies using Draughts as a reference (which however can be applied to any other zero-sum game), where they mathematically prove that for an offensive player, maximising the offensive improves their probability to win.\cite{toledo-marin_is_2016} This could be considered to guide the system to lean towards attacking moves, which could potentially accelerate the learning rate of the system.
@@ -211,9 +211,9 @@
 
         However, they also do not consider the use of crossover techniques in their paper, but they briefly mention that it would very well be possible to produce a safe crossover method that exploits structures of a neural network, inspired by their research produced on safe mutations.
 
-        Unfortunately, it is unrealistic to apply the same techniques described in their paper into the proposed system. The machine used as the base (consisting of hundreds to thousands of cores) is of a magnitude greater than what is available for the task at hand, but a more simplistic and adapted model can be produced using similar ideas. 
+        Unfortunately, it was unrealistic to apply the same techniques described in their paper into the proposed system. The machine used as the base (consisting of hundreds to thousands of cores) was of a magnitude greater than what was available for the task at hand, but a more simplistic and adapted model can be produced using similar ideas. 
         
-        A popular trend between the contemporary research is the shared absence of the use of crossover algorithms. One paper describes the use of different crossover algorithms on neural networks having no clear advantage over each other, in comparison to a uniform crossover (uniform crossovers are also commonly defined as the textbook crossover) which disrupted the overall performance of the neural networks. This could be due to building blocks being disrupted as chunks of the sequential weights are swapped out of each other \cite{emmanouilidis_comparison_2000}. It is important to consider this when devising a crossover method, such that the effect it has on the neural network should be subtle enough that it should pose similar results to the network prior to crossovers.
+        A popular trend between the contemporary research was the shared absence of the use of crossover algorithms. One paper describes the use of different crossover algorithms on neural networks having no clear advantage over each other, in comparison to a uniform crossover (uniform crossovers are also commonly defined as the textbook crossover) which disrupted the overall performance of the neural networks. This could be due to building blocks being disrupted as chunks of the sequential weights are swapped out of each other \cite{emmanouilidis_comparison_2000}. It was important to consider this when devising a crossover method, such that the effect it has on the neural network should be subtle enough that it should pose similar results to the network prior to crossovers.
 
 % TODO: Write up everything..
 \section{Solution}
@@ -222,13 +222,13 @@
 
     % This section should be between 4 to 7 pages in length.
         
-    This section describes the implementation process of the system. Implementing the checker board interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered under the premise that the interface is built prior.
+    This section describes the implementation process of the system. Implementing the checker board interface is not included in the discussion as it is not one of our objectives. However, the sections below are considered under the premise that the interface was built prior to their development.
 
     \subsection{Evaluation Function}
         % Neural Net figure
         \begin{figure}[ht!]
             \centering
-            \caption{The chosen neural network model. The preprocessed values of the checker board are used as input. An output is produced after propagation that ranges from [-1,1]. \label{nnmodel}}
+            \caption{The chosen neural network model. The preprocessed values of the checker board are used as input. An output was produced after propagation that ranged from [-1,1]. \label{nnmodel}}
             \vspace{10pt}
             \tikzset{%
                 every neuron/.style={
@@ -246,63 +246,63 @@
 
             \begin{tikzpicture}[x=1.5cm, y=1.1cm, >=stealth]
 
-            % draw nodes
-                % % input values
-                % \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-                % 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+                % draw nodes
+                    % % input values
+                    % \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+                    % 	\node [every neuron/.try, neuron \m/.try] (input-\m) at (-0.5,2.5-\y) {};
+
+                    % input layer
+                    \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+                    \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+                    
+                    % layer 1
+                    \foreach \m [count=\y] in {1,missing,2}
+                    \node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+
+                    % layer 2
+                    \foreach \m [count=\y] in {1,missing,2}
+                    \node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+
+                    % output layer
+                    \foreach \m [count=\y] in {1}
+                    \node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
 
                 % input layer
-                \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-                \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-                
-                % layer 1
-                \foreach \m [count=\y] in {1,missing,2}
-                \node [every neuron/.try, neuron \m/.try ] (hidden1-\m) at (2,2-\y*1.25) {};
+                \foreach \l [count=\i] in {1,2,3,91}
+                    \draw [<-] (input-\i) -- ++(-1,0)
+                    node [above, midway] {$I_{\l}$};
 
-                % layer 2
-                \foreach \m [count=\y] in {1,missing,2}
-                \node [every neuron/.try, neuron \m/.try ] (hidden2-\m) at (4,2-\y*1.25) {};
+                % hidden 1
+                \foreach \l [count=\i] in {{(1,1)},{(1,40)}}
+                    \node [above] at (hidden1-\i.north) {$H_{\l}$};
+
+                % hidden 2
+                \foreach \l [count=\i] in {(2,1),(2,10)}
+                    \node [above] at (hidden2-\i.north) {$H_{\l}$};
 
                 % output layer
-                \foreach \m [count=\y] in {1}
-                \node [every neuron/.try, neuron \m/.try ] (output-\m) at (6,0.5-\y) {};
+                \foreach \l [count=\i] in {1}
+                    \draw [->] (output-\i) -- ++(1,0)
+                    node [above, midway] {$O_\l$};
 
-            % input layer
-            \foreach \l [count=\i] in {1,2,3,91}
-                \draw [<-] (input-\i) -- ++(-1,0)
-                node [above, midway] {$I_{\l}$};
-
-            % hidden 1
-            \foreach \l [count=\i] in {{(1,1)},{(1,40)}}
-                \node [above] at (hidden1-\i.north) {$H_{\l}$};
-
-            % hidden 2
-            \foreach \l [count=\i] in {(2,1),(2,10)}
-                \node [above] at (hidden2-\i.north) {$H_{\l}$};
-
-            % output layer
-            \foreach \l [count=\i] in {1}
-                \draw [->] (output-\i) -- ++(1,0)
-                node [above, midway] {$O_\l$};
-
-            % lines from input to hidden 1
-            \foreach \i in {1,...,4}
+                % lines from input to hidden 1
+                \foreach \i in {1,...,4}
+                    \foreach \j in {1,...,2}
+                        \draw [->] (input-\i) -- (hidden1-\j);
+                
+                % lines from hidden 1 to hidden 2
+                \foreach \i in {1,...,2}
                 \foreach \j in {1,...,2}
-                    \draw [->] (input-\i) -- (hidden1-\j);
-            
-            % lines from hidden 1 to hidden 2
-            \foreach \i in {1,...,2}
-            \foreach \j in {1,...,2}
-                \draw [->] (hidden1-\i) -- (hidden2-\j);
+                    \draw [->] (hidden1-\i) -- (hidden2-\j);
 
-            % lines from hidden 2 to output
-            \foreach \i in {1,...,2}
-                \foreach \j in {1}
-                    \draw [->] (hidden2-\i) -- (output-\j);
+                % lines from hidden 2 to output
+                \foreach \i in {1,...,2}
+                    \foreach \j in {1}
+                        \draw [->] (hidden2-\i) -- (output-\j);
 
-            % headings
-            \foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Output}
-                \node [align=center, above] at (\x*2,2) {\l \\ layer};
+                % headings
+                \foreach \l [count=\x from 0] in {Input, Hidden, Hidden, Output}
+                    \node [align=center, above] at (\x*2,2) {\l \\ layer};
 
             \end{tikzpicture}
             % \vspace{-25pt}
@@ -349,9 +349,9 @@
         
         A feed-forward multilayer perceptron neural network was used to evaluate the board. The network contained 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers had 40 and 10 nodes respectively, and the dimensions are based on the success of Blondie24's model \cite{chellapilla_evolving_1999}. Figure \ref{nnmodel} shows a visual representation of the network structure.
 
-        The inputs of the network is a preprocessed 1D array of the checker board. Preprocessing the input starts with retrieving the positions of the pieces on the checker board in the form of an 1D array, and calculating all possible individual subsquares of the board. A subsquare is a square subsection of the board. The subsquares kernel size range from a 3x3 to 8x8. Figure \ref{subsquares} visualises the retrieval of the subsquares. With the kernels, the number of pieces in each subsquare are summed up. A new array is formed, comprising of the sums of the different kernels that comprised the board. The resulting array (comprised of 91 entries) represents the preprocessed input, which is fed to the neural network.
+        The inputs of the network was a preprocessed 1D array of the checker board. Preprocessing the input starts with retrieving the positions of the pieces on the checker board in the form of an 1D array, and calculating all possible individual subsquares of the board. A subsquare is a square subsection of the board. The subsquares kernel size range from a 3x3 to 8x8. Figure \ref{subsquares} visualises the retrieval of the subsquares. With the kernels, the number of pieces in each subsquare are summed up. A new array was formed, comprising of the sums of the different kernels that comprised the board. The resulting array (comprised of 91 entries) represents the preprocessed input, which was fed to the neural network.
         
-        To create values for the subsquares, the black pawns were weighed with a value of $v=1$, and white pawns as $-v$. It is commonly understood that a king is worth more than a pawn piece, but it is disputed about its precise value advantage. This could be decided by the system such that could can evolve to understand that a King is eventually worth more than the pawn. For the sake of simplicity however, a king's piece value was weighted at $1.5v$. This value was chosen based on the results produced by Al-Khateeb's research on piece values, where evolution on the piece differentials plateau towards the value $1.5$. \cite{al-khateeb_importance_2010}.
+        To create values for the subsquares, the black pawns were weighed with a value of $v=1$, and white pawns as $-v$. It is commonly understood that a king is worth more than a pawn piece, but it is disputed about its precise value advantage. This could have been decided by the system such that it evolved to understand that a king was eventually worth more than the pawn. For the sake of simplicity however, a king's piece value was weighted at $1.5v$. This value was chosen based on the results produced by Al-Khateeb's research on piece values, where evolution on the piece differentials plateaued towards the value $1.5$. \cite{al-khateeb_importance_2010}.
 
         \begin{figure}[!ht]
             \centering
@@ -402,24 +402,24 @@
 
         Our choice for the activation function is tanh (a type of sigmoidal function), shown in figure \ref{sigmoid}. 
         % There exists inherent issues related to the properties of their derivatives, commonly known as the missing gradient problem. This is an issue  \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. 
-        The use of tanh facilitates the ability to simulate a zero sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
+        The use of tanh facilitated the ability to simulate a zero sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
         
-        Results are cached such that evaluations are saved such that they can be recalled immediately, in the event that the same input is evaluated. This has shown varying levels of time improvement dependent on the ply depth. As the ply increases, the size of the state space increases, and therefore the chances of recalling the same set of inputs decrease. The cache is also used for our safe mutations algorithm, described later on in Section \ref{coefficient_mutation}.
+        Results are cached such that evaluations are saved such that they can be recalled immediately, in the event that the same input was evaluated again. This showed  varying levels of time improvement based on the ply depth. As the ply increased, the size of the state space increased, and therefore the chances of recalling the same set of inputs decreased. The cache was also used for our safe mutations algorithm, described later on in Section \ref{coefficient_mutation}.
 
         The neural network was implemented manually via NumPy to allow direct access to the weights, allowing the genetic algorithm access to manipulate them.
     
     % DONE
     \subsection{Decision Making Algorithm}
-        Initially, the decision making algorithm implemented was the same mini-max approach as in Samuel's program \cite{samuel_studies_1959}, but was then progressed to a modified Monte-Carlo Tree Search (MCTS). A basic MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. A survey found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS is played in rounds which consist of four operations:
+        Initially, the decision making algorithm implemented was the same mini-max approach as in Samuel's program \cite{samuel_studies_1959}, but was then progressed to a modified Monte-Carlo Tree Search (MCTS). A basic MCTS differs from mini-max where future moves are randomly played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. A survey found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS was played in rounds which consist of four operations:
 
         \begin{itemize}
-            \item Selection: A selection strategy is played recursively until some position is reached. 
-            \item Play-Out: A simulated game is played. Again, a basic form of MCTS would play until an end-game is reached.
-            \item Expansion: A node is added to the tree.
-            \item Back-propagation: The result of the game is back-propagated in the tree of moves.
+            \item Selection: A selection strategy was played recursively until some position was reached. 
+            \item Play-Out: A simulated game was played. Again, a basic form of MCTS would play until an end-game was reached.
+            \item Expansion: A node was added to the tree.
+            \item Back-propagation: The result of the game was back-propagated in the tree of moves.
         \end{itemize}
 
-        These rounds are repeated until a certain period of time is met or a certain number of rounds are computed. Once finished, a node is chosen based on its total probability of reaching an winning outcome.
+        These rounds are repeated until a certain period of time was met or a certain number of rounds are computed. Once finished, a node was chosen based on its total probability of reaching an winning outcome.
 
         \begin{figure}[!ht]
             \centering
@@ -427,7 +427,7 @@
             \caption{A diagram describing the MCTS process.}
         \end{figure}
 
-        MCTS-EPT (or MCTS with early playout termination) modifies the MCTS random play-out approach. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function (which in our case is the neural network) is applied at that future state instead. \cite{lorentz_using_2016} The model was adapted such that when the number of possible moves is less than 4, the ply depth would extend by the number of moves. This reduces the need to depend on random playouts of moves to the end state, and ensures that the quality of the moves is contingent on the evaluation function. For our results, we use the ply depths 1,3 and 6 to determine whether the system plays in a consistent fashion. As opposed to using a time threshold, the number of MCTS rounds $r$ was based on the ply depth $p$, such that $r=300p$. This allows the system to process moves in a manner that the performance of the system is hardware-independent, as faster machines could process more rounds within a fixed set of time.
+        MCTS-EPT (or MCTS with early playout termination) modifies the MCTS random play-out approach. Instead of allowing the random moves play to the end of the game, the number of moves traversed are capped and an evaluation function (which was the neural network) was applied at that future state instead. \cite{lorentz_using_2016} The model was then adapted such that when the number of possible moves was less than 4, the ply depth would extend by the number of moves. This reduced the need to depend on random playouts of moves to the end state, and ensures that the quality of the moves was contingent on the evaluation function. For our results, we use the ply depths 1,3 and 6 to determine whether the system plays in a consistent fashion. As opposed to using a time threshold, the number of MCTS rounds $r$ was based on the ply depth $p$, such that $r=300p$. This allows the system to process moves in a manner that the performance of the system was hardware-independent, as faster machines could have processed more rounds within the same fixed set of time.
 
         % talk about the fact that this is a probabilistic strategy
 
@@ -437,11 +437,11 @@
         % talk about generation of population
         % talk about tournmanent
         % talk about 
-        The genetic algorithm (GA) is the premise of the system's learning strategy. GAs are used to train the neural network. We discuss the various algorithms that form the collection of GA strategies below. For the system, a population size of 15 was chosen, due to the restraints on available computational performance.
+        The genetic algorithm (GA) was the premise of the system's learning strategy. GAs are used to train the neural network. We discuss the various algorithms that form the collection of GA strategies below. For the system, a population size of 15 was chosen, due to the restraints on available computational performance.
 
         \subsubsection{Population Generation} \label{population_generation}
             % Introduce what its for
-            In genetic algorithms, the population serves as a base that allows agents in the pool to play each other. Every generation has its own population of agents, and the population size is consistent of the generations. The initial population consisted of randomly generated weights and biases of the neural network, with values from [-1,1]. 
+            In genetic algorithms, the population serves as a base that allows agents in the pool to play each other. Every generation has its own population of agents, and the population size was consistent across the generations. The initial population consisted of randomly generated weights and biases of the neural network, with values from [-1,1]. 
             
             For a population size of 15, the next generation was created using the best five agents from the current generation (discussed in {\it{\ref{tournament_selection} Tournament Selection}}.) They would continue to play in the next generation; this strategy is described as elitism. The next eight players were generated through the use of crossover strategies (see {\it{\ref{crossover_strategy} Crossover Strategy}}). The weights of the $1^{st}$ and $2^{nd}$ place agents are used as inputs to the crossover strategy and generated 4 off-springs. Two were reciprocal crossover representations of each other, and the other two being directly mutated from the parents themselves. Another four children are created using the same strategy, with the 2nd and 3rd agent's weights. The remaining two were direct mutations of the 4th and 5th place agents.
 
@@ -449,7 +449,7 @@
 
             To sort the quality of the players in a population, a tournament selection process was deduced. This allows us to choose the best players who will continue to play in the next generation.
 
-            Each agent in the population plays a minimum of 5 games as Black, against randomly selected opponents. Each game lasts a maximum of 100 moves from both players. If a winner is not deduced at this stage, a draw is called. Draws are also called when there is a three-fold move repetition from both players. A win is worth $2$ points, a draw being none and a loss being $-1$ point. Both the agent and its opponent receives a score from the game.
+            Each agent in the population plays a minimum of 5 games as Black, against randomly selected opponents. Each game lasts a maximum of 100 moves from both players. If a winner was not deduced at this stage, a draw was called. Draws are also called when there was a three-fold move repetition from both players. A win was worth $2$ points, a draw being none and a loss being $-1$ point. Both the agent and its opponent receives a score from the game.
             Scores were then tallied up at the end of the tournament. Players were sorted by the number of points they scored. The best players had the highest number of points.
   
             All of the games were run in an 'embarrassingly parallel' fashion through the use of Python's multiprocessing library. Whilst the league structure was found as the better approach \cite{al-khateeb_introducing_2009} it would increase the overall running time as the initialisation of some games are dependent on the outcomes of other games. This lead to a longer overall running time even though less games are played, whereas the embarrassingly parallel method allowed every game to play simultaneously.
@@ -464,11 +464,11 @@
             \caption{The mutation formula, where $w_p$ is the current weight, $K$ represents the number of weights and biases in the neural network, and $m$ representing a random floating point in the range of [-1,1].\label{mutation}}
             \end{figure}
 
-            To create variation between agents and their offspring, statistical anomalies are made through the use of mutations. This is used as one of the learning mechanisms that help change the decision factors of the neural network. Weight and biases of an agent's neural network would increment by a random value that is created using the equation in Figure \ref{mutation}.
+            To create variation between agents and their offspring, statistical anomalies are made through the use of mutations. This was used as one of the learning mechanisms that help change the decision factors of the neural network. Weight and biases of an agent's neural network would increment by a random value that was created using the equation in Figure \ref{mutation}.
 
             Like the activation function,
             % (in \ref{sigmoid})
-            the weights would have a soft maximum of [-1, 1]. This consequently meant that the mutation was not controlled, but rather dependent on the number of weights in the system; The more weights in the network implies a less significant mutation. Soft mutation \cite{lehman_safe_2017} is also used. We use a subset of historical neural network calculations as a premise to guide our mutation. The method is as follows:
+            the weights would have a soft maximum of [-1, 1]. This consequently meant that the mutation was not controlled, but rather dependent on the number of weights in the system; The more weights in the network implies a less significant mutation. Soft mutation \cite{lehman_safe_2017} was also used. We use a subset of historical neural network calculations as a premise to guide our mutation. The method is as follows:
              
              \begin{enumerate}
              \item With the current set of weights $w$, choose a subset of pre-calculated input and output tuples $\phi_{w} = (I, \lambda_{I,w})$ where $I$ represents the input values of the network, and $\lambda_{I,w}$ as the output.
@@ -479,7 +479,7 @@
              \item Repeat parts 2-5 some $n$ times, keeping note of the the best $y$. 
              \end{enumerate}
 
-            The intuition behind this is that if $\phi_{w}$ is a subset of moves that led to a winning game, then the manipulation of the weights is left open as long as it can replicate the performance of winning games.
+            The intuition behind this was that if $\phi_{w}$ was a subset of moves that led to a winning game, then the manipulation of the weights was left open as long as it can replicate the performance of winning games.
             
         \subsubsection{Crossover Strategy} \label{crossover_strategy}
       
@@ -489,13 +489,13 @@
                 \caption{A diagram visualising the crossover process.\label{crossoverpic}}
             \end{figure}
 
-            The distinct learning mechanism unique to genetic algorithms is the use of crossovers. This combines the traits that build two parent agents to create children. In our scenario we use the weights and biases of the parent's neural networks.
+            The distinct learning mechanism unique to genetic algorithms was the use of crossovers. This combines the traits that build two parent agents to create children. In our scenario we use the weights and biases of the parent's neural networks.
 
             Two off-springs were created from a pair of parents, with each offspring being the reciprocal crossover of each other. 
             % The weights of both parents (now each treated as a 1D array of coefficients), are divided contingent on the number of weights and biases for a given layer. Each layer should be treated separately to reduce the potential dependency on a purely randomly generated neural network. For each set of weights in a given layer, Algorithm \ref{crossover} describes the crossover process in pseudocode.
-            A random node from the dominant parent is chosen. A dominant parent is the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced, it would be randomly chosen. 
+            A random node from the dominant parent was chosen. A dominant parent was the agent who gained more points in the tournament round than the other (who would be the submissive parent). If a dominant parent cannot be deduced, it would be randomly chosen. 
 
-            Once a node was chosen, a subset of weights and biases that are fed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than -0.75. Figure \ref{crossoverpic} visualises the process. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A is the dominant network, and A's node with the red inputs is chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C is formed with Network B's dominant weights, with the rest being composed from A. Network D is the reciprocal, having Network A's dominant weights and the rest from B.
+            Once a node was chosen, a subset of weights and biases that are fed into the chosen node are swapped with the submissive parents values at the same positions. As values in the weights can range from -1 to 1, dominant input weights are values that are greater than 0.75 or less than -0.75. Figure \ref{crossoverpic} visualises the process. In the diagram, Network A and B are parents, creating reciprocal offspring networks C and D. A was the dominant network, and A's node with the red inputs was chosen. The weights and biases of the red inputs are swapped with the values at the same position in network B. Network C was formed with Network B's dominant weights, with the rest being composed from A. Network D was the reciprocal, having Network A's dominant weights and the rest from B.
 
             The crossover should create a subtle modification to a neural network, by swapping a small subset of weights and biases at a time. Having a more dramatic crossover could potentially change the structure of the network flow, reducing its effectiveness. 
             
@@ -503,17 +503,17 @@
 
     \subsection{Testing}
 
-        At the end of a given generation, we measure growth of performance by using the generation's champion. When a new champion is generated, it is played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score is calculated from those 6 games. The overall performance of the current champion is the mean of the 5 sets of games. A positive improvement is when the mean of means are greater than 0. Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point, 0 for a draw, and -1 for a loss. The weights are scaled differently to the regular tournament in order to portray an even distribution of the learning rate.
+        At the end of a given generation, we measure growth of performance by using the generation's champion. When a new champion was generated, it was played against the previous 5 champions from earlier generations. 6 games are played for each previous champion, with 3 being as Black, and 3 being White. A mean score was calculated from those 6 games. The overall performance of the current champion was the mean of the 5 sets of games. A positive improvement was when the mean of means are greater than 0. Point Score for the champion games are measured by {1,0,-1} where a Win counts as 1 point, 0 for a draw, and -1 for a loss. The weights are scaled differently to the regular tournament in order to portray an even distribution of the learning rate.
     
         \subsubsection*{Evaluation Method}
     
-        The end player, representing the champion at the last generation, was used to create comparison games against its ancestors. This player is to be first tested against an agent who is choosing random moves to verify that the system is not playing in some random fashion. Measurements from these games, alongside its champion scores be used as evidence to determine whether the agent is learning over time, is used to answer to answer the research question.
+        The end player, representing the champion at the last generation, was used to create comparison games against its ancestors. This player was to be first tested against an agent who was choosing random moves to verify that the system was not playing in some random fashion. Measurements from these games, alongside its champion scores be used as evidence to determine whether the agent was learning over time, was used to answer to answer the research question.
        
     \subsection{Tools}
     % Description of tools used
-        The system was built using Python 3.6 and the \inlinecode{Python}{NumPy} library. Initial runs operated on a 1 and 2-ply load to determine the stability of the system. As the memory usage of the system is negligible, it is not considered when choosing hardware. This was run on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor. Development and debugging was also handled on this machine. Once testing has shown to be stable, the system was then configured to run on Durham's MIRA distributed system (Debian). MIRA contains 4 Intel Xeon E7-8860 CPUs (Each CPU contains 16 physical cores running in 2.2Ghz, with hyper-threading). This comes to a total of 64 Cores, and 128 threads. The \inlinecode{Python}{multiprocessing} library was used to run the tournaments in parallel. To interpret the results, charts are generated at the end of every generation using \inlinecode{Python}{pyplotlib}.
+        The system was built using Python 3.6 and the \inlinecode{Python}{NumPy} library. Initial runs operated on a 1 and 2-ply load to determine the stability of the system. As the memory usage of the system was negligible, it was not considered when choosing hardware. This was run on a linux (Ubuntu) machine containing a 4-core Intel i5 6600u processor. Development and debugging was also handled on this machine. Once testing has shown to be stable, the system was then configured to run on Durham's MIRA distributed system (Debian). MIRA contains 4 Intel Xeon E7-8860 CPUs (Each CPU contains 16 physical cores running in 2.2Ghz, with hyper-threading). This comes to a total of 64 Cores, and 128 threads. The \inlinecode{Python}{multiprocessing} library was used to run the tournaments in parallel. To interpret the results, charts are generated at the end of every generation using \inlinecode{Python}{pyplotlib}.
         
-        A consistent SSH connection was used to ensure the simulations were kept alive for the duration of the simulation on MIRA. Once training is done, performance measurements was also conducted on MIRA, alongside other statistical evaluations to reduce computational time. The end champion is then transferred to the initial testing machine in order to be played against by human input.
+        A consistent SSH connection was used to ensure the simulations were kept alive for the duration of the simulation on MIRA. Once training was complete, performance measurements was also conducted on MIRA, alongside other statistical evaluations to reduce computational time. The end champion was then transferred to the initial testing machine to be played against human input.
 
     \subsection{Verification and Validation}
 
@@ -524,9 +524,9 @@
     % Issues
     \subsection{Issues}
     %   discussion and testing
-        Verifying that the moves are properly chosen was difficult and slow, as games need to be played out first, with the quality assurance handled afterwards. The main issue with implementing the system were two-fold. The main issue is sensitivity of the program, which is compounded by the time spent in terms of realising issues with the implementation. There are no obvious clues to analysing why the system may not perform as expected due to the scale of the system, and the issues are not realised until some time is spent during simulations. 
+        Verifying that the moves are properly chosen was difficult and slow, as games need to be played out first, with the quality assurance handled afterwards. The main issue with implementing the system were two-fold. The main issue was the sensitivity of the program, which was compounded by the time spent in terms of realising issues with the implementation. There are no obvious clues to analysing why the system may not perform as expected due to the scale of the system, and the issues are not realised until some time was spent during simulations. 
 
-        Although the system is built such that the games in the tournaments are "embarrassingly parallel", the machine used for training did not scale as efficiently as expected. Most of the computation is spent on calculating floating point matrix operations (Which represents the neural network evaluations.) Later research has shown that the use of hyper-threading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This is due to the shared floating point arithmetic registers in the CPU, where two threads utilise the registers of one physical core. The use of GPU acceleration is not considered due to the lack of access. 
+        Although the system was built where the games in the tournaments are "embarrassingly parallel", the machine used for training did not scale as efficiently as expected. Most of the computation was spent on calculating floating point matrix operations (Which represents the neural network evaluations.) Later research has shown that the use of hyper-threading does not necessarily show to scale the performance, even though more threads exist. \cite{leng_empirical_2002} This was due to the shared floating point arithmetic registers in the CPU, where two threads utilise the registers of one physical core. The use of GPU acceleration was not considered due to the lack of availability, and the added complexity involved for its implementation. 
     
 % TODO (WAIT FOR RESULTS)
 \section{Results}
@@ -543,7 +543,7 @@
     \subsection{Learning Rate}
     % chart of performance over time
     
-    The learning rate is derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes is deduced, representing the learning rate. The learning rate of the first 2 champions were not measured due to insufficient comparisons. This measurement is performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time, i.e. whether the new champion is better than its predecessors. These results are plotted cumulatively to show the overall learning rate.
+    The learning rate was derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes was deduced, representing the learning rate. The learning rate of the first 2 champions were not measured due to insufficient comparisons. This measurement was performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but was used as one of the indicators of whether the system was learning in ability over time, i.e. whether the new champion was better than its predecessors. These results are plotted cumulatively to show the overall learning rate.
     
     \begin{figure}[!ht]
         \centering
@@ -551,10 +551,10 @@
         \caption{A chart showing the cumulative learning rate across the generations for the different ply depths.\label{cum_growth}}
     \end{figure}
     
-    A cumulative growth across all ply depths can be seen such that returns are in the net positive as more generations are added. Interestingly, the 3-ply shows a slower learning rate than the other plys. However, even with safe mutations, we can also see that the performance over time is very volatile for all plys. This could potentially be prevented by creating a new set of agents and restarting the generation's tournament when a loss is seen. Further measurements are taken to understand the reasoning of the potential troughs in performance. 
+    A cumulative growth across all ply depths can be seen such that returns are in the net positive as more generations are added. Interestingly, the 3-ply shows a slower learning rate than the other plys. However, even with safe mutations, we can also see that the performance over time was very volatile for all plys. This could potentially be prevented by creating a new set of agents and restarting the generation's tournament when a loss was seen. Further measurements are taken to understand the reasoning of the potential troughs in performance. 
     
     \subsection{Performance}
-    To measure the overall system performance, the champion of the final generation is compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system played 128 games (half as black and the other for white), and the number of wins, losses and draws were counted. For debugging purposes, all agents played against a randomly playing program to determine whether the system correctly evaluated moves. A trend line was produced (with a cubic best fit equation) for the non random games.
+    To measure the overall system performance, the champion of the final generation was compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system played 128 games (half as black and the other for white), and the number of wins, losses and draws were counted. For debugging purposes, all agents played against a randomly playing program to determine whether the system correctly evaluated moves. A trend line was produced (with a cubic best fit equation) for the non random games.
     % compare the bots against a minimax agent
     % chart of previous champions
     \begin{figure}[!ht]
@@ -574,7 +574,7 @@
 
     \subsection{Champion Distribution}
         Measurements are taken to show the genome type distribution of the champions across the generations.
-        This was to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations are classed as persistent. Well performing agents from previous generations (but not champions) are classed as elitism. Typically, elitism would encompass the persistent agents but for the sake of measurements they were taken separately. This is also the case for mutations; while every offspring is mutated, some of the offspring are created using genomic crossovers (which are also classed independently), described in section \ref{crossover_strategy}.  
+        This was to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations are classed as persistent. Well performing agents from previous generations (but not champions) are classed as elitism. Typically, elitism would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; Although every offspring was mutated, some of the offspring were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
 
         \begin{figure}[!ht]
             \centering
@@ -612,8 +612,8 @@
             \end{figure}
 
             % The number of moves is consistent throughout as the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
-            From the charts, the median number of moves in a game for 1-ply is around 50. 
-            For the higher plys, the median is not as tightly grouped together. When combined with the mean number of moves, suggests that when both players were creating stronger quality decisions when playing the game, the games lasted longer. The mean number of games for both 3 and 6 plys are very similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules, where draws were forced when a piece was not taken after 100 moves. 
+            From the charts, the median number of moves in a game for 1-ply was around 50. 
+            For the higher plys, the median was not as tightly grouped together. When combined with the mean number of moves, suggests that when both players were creating stronger quality decisions when playing the game, the games lasted longer. The mean number of games for both 3 and 6 plys are very similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules, where draws were forced when a piece was not taken after 100 moves. 
             As the system was shown to scale in quality of moves across the generations, this verified that the system was choosing moves at a consistent quality throughout. This consequently confirmed that the decision making algorithm was implemented correctly, reducing the unknowns considered during evaluation.
 
         \subsubsection{CPU Times}
@@ -632,10 +632,9 @@
             \end{figure}
 
 
-            To measure the efficiency of the program, time measurements are taken for every game played, and the time length for a generation to finish the tournament. As expected, 
+            To measure the time complexity of the program, time measurements were taken for every game played, and the time length for a generation to finish the tournament. As expected, 
             % rewrite it doesn't even make sense
-            the system is shown to run running time linearly according to Figure \ref{cpu_table}. This is caused by of growing the search limit for MCTS in a linear fashion based on the ply-depth.
-
+            the system was shown to scale in a relatively linear fashion according to Figure \ref{cpu_table}. This was most likely caused by growing the search limit for MCTS in a linear fashion based on the ply-depth.
 
             \begin{figure}[!ht]
                 \centering
@@ -645,7 +644,7 @@
                 \caption{2D Histograms of the average times spent on the games during the simulations. \label{chart_cpu_times}}
             \end{figure}
 
-            Figure \ref{chart_cpu_times} suggests that the CPU time is very unstable, but it does not correlate with the performance of the system. This is most likely related to the use of a  time-shared machine (Durham's MIRA). %so what?
+            Figure \ref{chart_cpu_times} suggests that the CPU time was very unstable during training, but further analysis suggested that it did not correlate with the performance of the system. This was most likely related to the use of a time-shared machine (Durham's MIRA) to run the simulations, which may throttle the amount of resources for the system for other users with their own programs. %so what?
 
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
@@ -672,6 +671,13 @@
    
     The crossover mechanism is a hit and miss, and is shown to impede the learning rate for some of the longer ply-depths. This may be due to its disruptive nature, as heuristics are destroyed. As feared by findings by \cite{emmanouilidis_comparison_2000}, we can see the potential fears of the negative influence of the textbook crossover mechanism, where it has shown in the results to discourage learning.
 
+    % could not run for a larger population
+    % restricted to not strong computers
+    % lots of tweakable compomnents with not enough time to work on which could otherwise improve the performance
+    % did not experiment with other dicision making algos which could further speed up performance
+    % crossover had a wide range of values, and was on average shown to show no difference or negative difference, even though it was most likely able to become champions.
+
+    % ---------------------
     % The challenge with all GA work is finding the right fitness function. If you don't understand your domain well enough to define a good fitness function you're going to be wasting your time, and no amount of algorithmic and/or AI magic is going to help you.
     \subsection{Approach}
         The modularity of the system implementation was pivotal to debugging the system. The program itself is quite sizeable, and it helps that individual tests can be conducted in most cases. It also helps that the order of the implementation helps.
