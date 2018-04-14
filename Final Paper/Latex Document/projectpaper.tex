@@ -543,7 +543,7 @@
     \subsection{Learning Rate}
     % chart of performance over time
     
-    The learning rate is derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes is deduced, representing the learning rate. We do not take the learning rate of the first 2 champions as this would not produce a sufficient comparison. This measurement is performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time, i.e. whether the new champion is better than its predecessors. These results are plotted cumulatively to show the overall learning rate.
+    The learning rate is derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games are played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes is deduced, representing the learning rate. The learning rate of the first 2 champions were not measured due to insufficient comparisons. This measurement is performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but is used as one of the indicators of whether the system is learning in ability over time, i.e. whether the new champion is better than its predecessors. These results are plotted cumulatively to show the overall learning rate.
     
     \begin{figure}[!ht]
         \centering
@@ -554,7 +554,7 @@
     A cumulative growth across all ply depths can be seen such that returns are in the net positive as more generations are added. Interestingly, the 3-ply shows a slower learning rate than the other plys. However, even with safe mutations, we can also see that the performance over time is very volatile for all plys. This could potentially be prevented by creating a new set of agents and restarting the generation's tournament when a loss is seen. Further measurements are taken to understand the reasoning of the potential troughs in performance. 
     
     \subsection{Performance}
-    To measure the overall system performance, the champion of the final generation is compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system plays 128 games (half as black and the other for white), and the number of wins, losses and draws are counted to produce the following statistics. For debugging purposes, all agents are also played against a randomly playing program to determine whether the system is evaluating moves properly. A trend line  is produced (using a cubic best fit equation) for the non random games.
+    To measure the overall system performance, the champion of the final generation is compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system played 128 games (half as black and the other for white), and the number of wins, losses and draws were counted. For debugging purposes, all agents played against a randomly playing program to determine whether the system correctly evaluated moves. A trend line was produced (with a cubic best fit equation) for the non random games.
     % compare the bots against a minimax agent
     % chart of previous champions
     \begin{figure}[!ht]
@@ -565,15 +565,16 @@
         \caption{Charts showing the performance of the trained systems against their ancestral counterparts.\label{net_stats}}
     \end{figure}
     
-    For the ply depth of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. 
-    % bollocks
-    This makes sense, as heuristic retention would be lost as the search depth is so low. This does however suggest that the system is worse off than playing with an initialised system (without training). For the higher ply depths (3,6) however, the agents managed to consistently maintain a higher chance of winning/drawing against their earlier counterparts. It is difficult to see a trend line that suggests the growing performance of the systems over time. 
+    For all systems, it appears that the winning rate increased over time, with the draw rate and loss decreased over time. For ply depths 3 and 6, it performed significantly better than it's generation 0 counterpart (when considering the percentage of losses). This was not the case for the 1-ply - where it lost more frequently than its wins and draws combined - against its generation 0 counterpart. This would be caused by the lack of oversight heuristics retained as the system does not look ahead further enough to decide what heuristics would be kept by the neural network model.
+    % For the ply depth of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. 
+    % % bollocks
+    % This makes sense, as heuristic retention would be lost as the search depth is so low. This does however suggest that the system is worse off than playing with an initialised system (without training). For the higher ply depths (3,6) however, the agents managed to consistently maintain a higher chance of winning/drawing against their earlier counterparts. It is difficult to see a trend line that suggests the growing performance of the systems over time. 
     % A decreasing trend line for draws 
     % Need to talk about losses for the 6-ply
 
     \subsection{Champion Distribution}
-        The following charts shows the distributions of the champions genome types across the generations.
-        These are measured to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Measurements are taken such that the champion of each generation is looked at, and their genomic properties are collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations are classed as persistent. Well performing agents from previous generations (but not champions) are classed as elitism. In theory, elitism would encompass the persistent concept but for the sake of measurements they are separated. This is also the case for mutations; while every offspring is mutated, some of the offspring are created using genomic crossovers (which are also classed independently), described in section \ref{crossover_strategy}.  
+        Measurements are taken to show the genome type distribution of the champions across the generations.
+        This was to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations are classed as persistent. Well performing agents from previous generations (but not champions) are classed as elitism. Typically, elitism would encompass the persistent agents but for the sake of measurements they were taken separately. This is also the case for mutations; while every offspring is mutated, some of the offspring are created using genomic crossovers (which are also classed independently), described in section \ref{crossover_strategy}.  
 
         \begin{figure}[!ht]
             \centering
@@ -583,10 +584,10 @@
             \caption{Distributions of the different genomic identities across the tournament champions. \label{champ_gen_dist}}
         \end{figure}
 
-        The influence of offspring become more apparent for larger plys, with mutation and crossover appearing more frequently, coming at a combined 65.1\% of the distribution (6 ply). Interestingly, for ply depths 1 and 6, crossovers tend to be the most frequent occurrence when it comes to producing champions at every generation. This suggests that crossover methods tend to produce better agents than their counterparts.
+        Interestingly, the influence of crossovers reduced when the ply depth increased, and the influence of mutations increased across the generations. Overall however, crossover holds the highest probability across the ply depths which would suggest that the use of crossover methods (the distinctive feature of genetic algorithms opposed to other evolutionary methods) combined with mutation, would increase the chances of producing champions. The influence of the learning components of genetic algorithms (crossover and mutation) increased in relation to the increasing ply. (representing 59.5\%, 59.7\% and 65.1\% of the distributions, respectively.)
 
-    \subsection{Influence of Inheritance Methods}
-        Building on from the chart provided by Figure \ref{champ_gen_dist}, we look into the scores retrieved by the different genomic identities when they are compared against their earlier counterparts. This determines whether the use of genetic algorithms can overall improve the quality of neural networks. To measure this, we correlate the generation's champion with their score (the same measurement used to evaluate the learning rate in Figure \ref{cum_growth} produced when measured against their predecessors. The results are shown in Figure \ref{champ_score_distribution}.
+    \subsection{Quality of Inheritance Methods}
+        Building on from the chart provided by Figure \ref{champ_gen_dist}, we look into the scores retrieved by the different genomic identities when they are compared against their earlier counterparts. This determines whether the use of genetic algorithms can overall improve the quality of neural networks. To measure this, we correlate the generation's champion with their score (the same measurement used to evaluate the learning rate in Figure \ref{cum_growth} produced when measured against their predecessors. The results are shown in Figure \ref{champ_score_distribution}. Red circles indicate individual values for their classes.
 
         \begin{figure}[!ht]
             \centering
@@ -596,11 +597,11 @@
             \caption{Box-Plots of the different genomic identities and their distribution of scores. The yellow line in the box represents the mean score. \label{champ_score_distribution}}
         \end{figure}
 
-        Interestingly, for the 3-ply, the crossover method is most likely to produce a growing system, producing the highest mean. However, across all of the ply depth agents, we can see that the use of mutation produces the best possible agents. For the higher 6-ply depth we can see that it did not significantly influence the learning rate of the system.
+        Unsurprisingly, crossovers had a larger range of possible values compared to its mutation counterparts. This was most likely due to the weights being placed at different positions on the neural network, disrupting any heuristics it would have otherwise devised. However, the mean crossover score suggested that it negatively impacted the learning rate. Furthermore, the range and mean scores for the elitism genomes (Persistent agents and elitism) suggests that they were more likely to increase the learning rate.
 
     \subsection{Other Observations}
         \subsubsection{Number of Moves}
-            The number of moves is measured to verify the system is able to produce quality moves across the training phase. Figure \ref{move_chart} show the distribution of moves for the games played over the generations, alongside the mean. The results are shown in Figure \ref{move_chart}:
+            The number of moves was measured to verify the system was able to produce quality moves across the training phase. Figure \ref{move_chart} show the distribution of moves for the games played over the generations.
 
             \begin{figure}[!ht]
                 \centering
@@ -611,10 +612,9 @@
             \end{figure}
 
             % The number of moves is consistent throughout as the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
-
-            For the 1-ply simulations, the average mean of moves is lower, but is counteracted by the much larger range of games that have a large number of moves. Understandably, the lower quartile for the 1-ply is lower than the others. This may be due to the level of precision, where it does not think further ahead enough to make better moves. This explanation applies inversely for the larger ply-depths, notably the 6-ply chart, where the level of precision is higher, leading to a tighter distribution of games having similar numbers of moves played.
-
-            As the system is shown to play fairly consistently across the generations, this verifies that the system is choosing consistent decisions across the board. This confirms that the decision making algorithm is implemented precisely, reducing the number of unknowns to consider for evaluation.
+            From the charts, the median number of moves in a game for 1-ply is around 50. 
+            For the higher plys, the median is not as tightly grouped together. When combined with the mean number of moves, suggests that when both players were creating stronger quality decisions when playing the game, the games lasted longer. The mean number of games for both 3 and 6 plys are very similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules, where draws were forced when a piece was not taken after 100 moves. 
+            As the system was shown to scale in quality of moves across the generations, this verified that the system was choosing moves at a consistent quality throughout. This consequently confirmed that the decision making algorithm was implemented correctly, reducing the unknowns considered during evaluation.
 
         \subsubsection{CPU Times}
 
