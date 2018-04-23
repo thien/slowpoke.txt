@@ -71,8 +71,7 @@
     {\bf Aims}
 
     % The objective of this project is to explore how well a neuroevolutionary approach can tackle the game of English Draughts. First, previous historical successes in the field and the components that helped build their systems are studied. Then, the components are looked to see how they can be adapted to suit the objective at hand. 
-    
-    The aim of this work was to explore whether it is possible to train the weights of a neural network using genetic algorithms. The effectiveness of this approach was measured when it was trained to play Draughts.
+    Traditionally, Neural Networks are trained with some form of backpropagation, but the aim of this work was to explore whether it was possible to also train a neural network by using genetic algorithms to manipulate its weights. The effectiveness of this approach was measured when it was trained to play Draughts.
     % Whilst the use of evolutionary algorithms and neural networks have been explored independently of one another to create draughts players, the intention is to explore the effectiveness of the combined methods in terms of developing an artificially intelligent draughts playing agent. 
 
     {\bf Method}
@@ -409,7 +408,7 @@
     
     % DONE
     \subsection{Tree-Search Algorithm}
-        Initially, the tree-search algorithm implemented was the same mini-max approach as in Samuel's program \cite{samuel_studies_1959}, but was then progressed to a modified Monte-Carlo Tree Search (MCTS). A basic MCTS differs from mini-max where future moves are probabilistically played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. A survey found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS was played in rounds which consist of four operations:
+        Tree-search algorithms allows the system to consider the future positions by allowing the neural network to evaluate states of the game further ahead from its current position. Initially, the tree-search algorithm implemented was the same mini-max approach as in Samuel's program \cite{samuel_studies_1959}, but was then progressed to a modified Monte-Carlo Tree Search (MCTS). A basic MCTS differs from mini-max where future moves are probabilistically played to the end of the game. It acts as a sampling of possible outcomes, and does not depend on an evaluation function at all. A survey found that MCTS can dramatically outperform mini-max based search engines in games where evaluation functions are otherwise difficult to obtain \cite{browne_survey_2012}. MCTS was played in rounds which consist of four operations:
 
         \begin{itemize}
             \item Selection: A selection strategy was played recursively until some position was reached. 
@@ -465,7 +464,7 @@
 
             Similarly to the activation function,
             % (in \ref{sigmoid})
-            the weights would have a soft maximum of [-1, 1]. This consequently meant that the mutation was not controlled, but rather dependent on the number of weights in the system. The more weights in the network implies a less significant mutation. Safe mutation \cite{lehman_safe_2017} was also used. A subset of historical neural network calculations was used as a premise to guide the mutation. The method is as follows:
+            the weights would have a soft maximum of [-1, 1]. This consequently meant that the mutation was not controlled, but rather dependent on the number of weights in the system. The more weights in the network implies a less significant mutation. A novel safe-mutation, inspired by Uber Lab's approach \cite{lehman_safe_2017} was also used. A subset of historical neural network calculations was used as a premise to guide the mutation. The method is as follows:
              
              \begin{enumerate}
              \item With the current set of weights $w$, choose a subset of pre-calculated input and output tuples $\phi_{w} = (I, \lambda_{I,w})$ where $I$ represents the input values of the network, and $\lambda_{I,w}$ as the output.
@@ -500,7 +499,7 @@
 
     \subsection{Testing}
 
-        Each component of the system, such as the neural network, MCTS, and genetic algorithms, were built in their own classes. This helped to achieve two things; unit testing, and modularisation. The use of unit testing (performed per class) helped to verify that individual components worked as expected, especially with a project of this scale. Components that are shown to work are then added to the system. Training the system required time (discussed further in Figure \ref{cpu_table}), and realising errors was a notably labourious task. Modularisation of the code allowed for quick deployment of new features, such as migrating tree-search algorithms.
+        Each component of the system, such as the neural network, MCTS, and genetic algorithms, were built in their own classes. This helped to achieve two things; unit testing, and modularisation. The use of unit testing (performed per class) helped to verify that individual components worked as expected, especially with a project of this scale. Components that are shown to work are then added to the system. Training the system required time (discussed further in Figure \ref{cpu_table}), and realising errors was a notably laborious task. Modularisation of the code allowed for quick deployment of new features, such as migrating tree-search algorithms.
     
     \subsection{Evaluation Method}
         % this stuff is measured in the results
@@ -512,7 +511,7 @@
 
         The genomic properties that were involved in creating the champion were also measured. This was combined with the score the champion produced from the learning value to determine the likelihood of creating a champion based on the genomic properties, and the score distribution it was likely to produce.
     
-        The end player, representing the champion at the last generation, was used to create comparison games against its ancestors. This player was to be first tested against an agent who was choosing random moves to verify that the system was not playing in some random fashion. Measurements from these games, alongside its champion scores were used as evidence to determine whether the agent was learning over time, thus leadning to an answer to the research question.
+        The end player, representing the champion at the last generation, was used to create comparison games against its ancestors. This player was to be first tested against an agent who was choosing random moves to verify that the system was not playing in some random fashion. Measurements from these games, alongside its champion scores were used as evidence to determine whether the agent was learning over time, thus leading to an answer to the research question.
 
         Other measurements include the number of moves played in a game, and the CPU time utilised for system training. These statistics measured the success of the tree search implementation, and its relationship with the CPU timing. The two statistics were then correlated against each other to determine any spurious relationships between the two.
 
@@ -546,7 +545,7 @@
     \subsection{Learning Rate}
     % chart of performance over time
     
-    The learning rate was derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games were played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes was deduced, representing the learning rate. The learning rates of the first 2 champions were not measured due to insufficient comparisons. This measurement was performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but were used as one of the indicators of whether the system was learning in ability over time, i.e. whether the new champion was better than its predecessors. These results were plotted cumulatively to show the overall learning rate.
+    The learning rate was derived by comparing the i$^{th}$ generation's champions with its predecessor champions from the previous five generations [$i-1, \cdots, i-5$]. For each previous champion, six games were played, with the outcome of the current champion's performance scored and tallied up. An average of the outcomes was deduced, representing the learning rate. The learning rates of the first 2 champions were not measured due to insufficient comparisons. This measurement was performed for every generation until the end of training. These measurements do not influence the actual learning process of the system, but were used as one of the indicators of whether the system was learning in ability over time, i.e. whether the new champion was better than its predecessors. These results were plotted cumulatively to show the overall learning rate. A trend line was produced using a least squares linear polynomial fit.
     
     \begin{figure}[!ht]
         \centering
@@ -557,7 +556,7 @@
     A cumulative growth across all ply-depths can be seen such that returns are in the net positive as more generations are added. Furthermore, all ply-depths show a positive trend line. This suggests that the system was more likely to show an increase in ability at every generation as opposed to a reduction. Interestingly, the 3-ply shows a slower learning rate than the other plys. However, even with safe mutations, it is shown that the performance over time was volatile for all ply-depths. This could potentially be prevented by creating a new set of agents and restarting the generation's tournament when a loss was seen. Further measurements were taken to understand the reasoning of the potential troughs in performance. 
     
     \subsection{Performance}
-    To measure the overall system performance, the champion of the final generation was compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system played 128 games (half as black and the other for white), and the number of wins, losses and draws were counted. For debugging purposes, all agents played against a randomly playing program to determine whether the system correctly evaluated moves. A trend line was produced (with a cubic best fit equation) for the non-random games.
+    To measure the overall system performance, the champion of the final generation was compared against a subset of their much earlier predecessors to measure the retention of move heuristics over time. For each predecessor, the trained system played 128 games (half as black and the other for white), and the number of wins, losses and draws were counted. For debugging purposes, all agents played against a randomly playing program to determine whether the system correctly evaluated moves. As there was a limited selection of ancestral agents tested against the systems, a trend line was produced (with a least squares cubic polynomial fit) for the non-random games.
     % compare the bots against a minimax agent
     % chart of previous champions
     \begin{figure}[!ht]
@@ -576,7 +575,8 @@
     % Need to talk about losses for the 6-ply
 
     \subsection{Champion Distribution}
-        Measurements were taken to show the genome type distribution of the champions across the generations, to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations were classed as persistent. Well performing agents from previous generations (but not champions) were classed as elite. Typically, elite agents would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; although every offspring was mutated, some offsprings were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
+    % mention novel somewhere!!!!!!!!!
+        A novel approach was devised to determine the influence of genetic algorithms. Measurements were taken to show the genome type distribution of the champions across the generations, to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations were classed as persistent. Well performing agents from previous generations (but not champions) were classed as elite. Typically, elite agents would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; although every offspring was mutated, some offsprings were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
 
         \begin{figure}[!ht]
             \centering
@@ -589,7 +589,7 @@
         Interestingly, the influence of crossovers reduced when the ply increased, and the influence of mutations increased across the generations. Overall however, crossover holds the highest probability across the plys which would suggest that the use of crossover methods (the distinctive feature of genetic algorithms opposed to other evolutionary methods) combined with mutation, would increase the chances of producing champions. The influence of the learning components of genetic algorithms (crossover and mutation) increased in relation to the increasing ply. (representing 59.5\%, 59.7\% and 65.1\% of the distributions, respectively.)
 
     \subsection{Quality of Inheritance Methods}
-        Building on from the chart provided by Figure \ref{champ_gen_dist}, the scores retrieved by the different genomic identities were compared against their earlier counterparts. This determined whether the use of genetic algorithms can overall improve the quality of neural networks. To measure this, a generation's champion was correlated with their score (the same measurement used to evaluate the learning rate in Figure \ref{cum_growth})produced when measured against their predecessors. The results are shown in Figure \ref{champ_score_distribution}. Red circles indicate individual values for their classes.
+        Building on from the chart provided by Figure \ref{champ_gen_dist}, the scores retrieved by the different genomic identities were compared against their earlier counterparts. This determined whether the use of genetic algorithms can overall improve the quality of neural networks. To measure this, a generation's champion was correlated with their score (the same measurement used to evaluate the learning rate in Figure \ref{cum_growth}) produced when measured against their predecessors. The results are shown in Figure \ref{champ_score_distribution}. Red circles indicate individual values for their classes.
 
         \begin{figure}[!ht]
             \centering
@@ -614,9 +614,9 @@
             \end{figure}
 
             % The number of moves is consistent throughout as the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
-            From the charts, the median number of moves in a game for 1-ply was around 50. 
-            For the higher plys, the median was not as tightly grouped together. When combined with the mean number of moves, suggested that when both players chose stronger quality moves, their games lasted longer. The mean number of games for both 3 and 6 plys were similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules (see \textit{\ref{tournament_selection} Tournament Selection}), where draws were forced when a piece was not taken after 100 moves. 
-            As the system was shown to scale in quality of moves across the generations, this verified that the system was choosing moves at a consistent quality throughout. This consequently confirmed that the tree-search algorithm was implemented correctly, reducing the unknowns considered during evaluation.
+            From the charts, the median number of moves in a game for 1-ply was around 50. For the higher plys, the median was not as tightly grouped together. When combined with the mean number of moves, suggested that when both players chose stronger quality moves, their games lasted longer. The mean number of games for both 3 and 6 plys were similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules (see \textit{\ref{tournament_selection} Tournament Selection}), where draws were forced when a piece was not taken after 100 moves. 
+
+            The number of moves for the higher ply depths was compared to other known level of abilities. Data scraped from the US National 1952 ACF Tournament \cite{loy_us_1952} showed that the average number of moves in the tournament games was 54.74. 10000 randomly played Draughts simulations showed an average of 69.69 moves. With players in plys 3 and 6 playing to somewhat equal ability (relative to their population), the increased number of moves suggested that it was more difficult to see a disparity between the agents in their respective populations. This consequently confirmed that the tree-search algorithm was implemented correctly, reducing the unknowns considered during evaluation.
 
         \subsubsection{CPU Times}
 
@@ -625,8 +625,8 @@
     
                 \begin{tabular}{ccccc}
                        & 1-Ply        & 3-Ply          & 6-Ply          & \\ \cline{2-4}
-                \multicolumn{1}{c|}{Mean} & \multicolumn{1}{r|}{0:04:24} & \multicolumn{1}{r|}{0:17:32}  & \multicolumn{1}{r|}{0:38:45}   & \\ \cline{2-4}
-                \multicolumn{1}{c|}{Net} & \multicolumn{1}{r|}{7:21:25} & \multicolumn{1}{r|}{1 day, 5:14:41} & \multicolumn{1}{r|}{5 days, 9:12:25} & \\ \cline{2-4}
+                \multicolumn{1}{c|}{Generation Mean} & \multicolumn{1}{r|}{0:04:24} & \multicolumn{1}{r|}{0:17:32}  & \multicolumn{1}{r|}{0:38:45}   & \\ \cline{2-4}
+                \multicolumn{1}{c|}{Net (All Generations)} & \multicolumn{1}{r|}{7:21:25} & \multicolumn{1}{r|}{1 day, 5:14:41} & \multicolumn{1}{r|}{5 days, 9:12:25} & \\ \cline{2-4}
                        &          &           &            & 
                 \end{tabular}
     
@@ -646,7 +646,7 @@
                 \caption{2D Histograms of the average times spent on the games during the simulations. \label{chart_cpu_times}}
             \end{figure}
 
-            Figure \ref{chart_cpu_times} suggests that the CPU time was unstable during training, but further analysis suggests that it did not correlate with the performance of the system. This was most likely related to the use of a time-shared machine (Durham's MIRA) to run the simulations, which may throttle the amount of resources for the system for other users with their own programs. %so what?
+            Figure \ref{chart_cpu_times} suggests that the CPU time was unstable during training, but further analysis was shown that it did not correlate with the performance of the system. This was most likely related to the use of a time-shared machine (Durham's MIRA) to run the simulations, which may have throttled the resources for the system for enable other users to run their own programs. %so what?
 
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
@@ -678,7 +678,7 @@
     \subsection{Approach}
         The mechanism for devising the learning rate was more efficent than comparing the present champion against a hollistic comparison of the rest of the system. This measurement of learning rate was somewhat arbitary, as the learning rate is deduced against the population and not necessarily the system as a whole, and may best be compared against systems that are classified to play at a particular level. This would have helped in determining how strong the system was against popular AI checkers programs.
 
-        As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testing that can be measured, such as the population size, the number of generations and the learning rate. 
+        As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testing that can be measured, such as the population size, the number of generations, the dimensions of the neural network, and the learning rate.
         
         Another consideration for the project is to experiment with different crossover algorithms that utilise the temporal difference between inputs and outputs. This could assist in the creation of safe crossovers which could also potentially accelerate the learning rate, by retaining the best aspects of two agents.
         
@@ -690,7 +690,7 @@
 \section{Conclusion}
     % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
-    The project was somewhat successful in terms of fulfilling its objectives. A system was implemented using evolutionary methods, and it successfully plays checkers in a manner in which it learnt from over time. To the extent of its growth remains suspect however. 
+    The project was successful in terms of fulfilling its objectives and Aims. A system was implemented using evolutionary methods, and it successfully plays checkers in a manner in which it learnt from over time. To the extent of its growth remains suspect however. 
     % Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
     The main findings of this project is as follows:
 
@@ -705,6 +705,6 @@
     The major implication is that it is a possible contender for tasks that require unsupervised learning, and that data needed to produce a strong classifier is hard to access. Provided a high quality tournament method can be designed, neuroevolution could be adapted to handle any simulation based problem, where the objective can be adapted to fit into some optimisable classifier.
 
 \footnotesize{\bibliography{zotero}}
-
+% \bibliography{zotero}
 
 \end{document}
