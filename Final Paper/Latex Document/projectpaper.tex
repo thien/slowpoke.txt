@@ -66,18 +66,18 @@
 
     {\bf Background}
 
-    Presently, competitive Draughts AI players are designed to play at a fixed ability. While it has produced very competitive and intelligent players, they require human intervention to improve their performance. This is mainly due to their dependency on pre-defined move databases. Through neuroevolution (Combining Genetic Algorithms and Neural Networks), this issue can be solved by creating a player that can grow in ability over time, by learning to play itself.
+    Presently, competitive Draughts AI players require human intervention to improve their performance. This is mainly due to their dependency on human-defined move databases and heuristics. Through neuroevolution (combining Genetic Algorithms and Neural Networks), this issue can be solved by creating a player that can grow in ability over time, by learning to play itself.
     
     {\bf Aims}
 
     % The objective of this project is to explore how well a neuroevolutionary approach can tackle the game of English Draughts. First, previous historical successes in the field and the components that helped build their systems are studied. Then, the components are looked to see how they can be adapted to suit the objective at hand. 
-    Traditionally, Neural Networks are trained with some form of backpropagation, but the aim of this work was to explore whether it was possible to also train a neural network by using genetic algorithms to manipulate its weights. The effectiveness of this approach was measured when it was trained to play Draughts.
+    Neural Networks are commonly trained with backpropagation, but the aim of this work was to explore whether it was possible to also train a neural network by using genetic algorithms to manipulate its weights. The effectiveness of this approach was measured when it was trained to play Draughts.
     % Whilst the use of evolutionary algorithms and neural networks have been explored independently of one another to create draughts players, the intention is to explore the effectiveness of the combined methods in terms of developing an artificially intelligent draughts playing agent. 
 
     {\bf Method}
 
     % The initial population consists of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropriate algorithms are implemented to determine the overall development of the system's ability to play Draughts.
-    The method started with designing a feed-forward neural network that took as input, the state of a checker board, and would output an evaluation of the players advantage. This was combined with a tree-search algorithm that chooses the best move from a set of possible outcomes. Finally, the system was used on an existing Draughts framework that provided it the ability to play Draughts. Genetic algorithms were used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checker boards more effectively. 
+    The method started with designing a feed-forward neural network that took as input, the state of a checker board, and would output an evaluation of the players advantage. This was combined with a tree-search algorithm that chose the best move from a set of possible outcomes. Finally, the system was used on an existing Draughts framework that provided it the ability to play Draughts. Genetic algorithms were used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checker boards more effectively. 
     
     {\bf Results}
 
@@ -85,7 +85,7 @@
 
     {\bf Conclusion}
 
-    Under the premise that the tournament requirements are well-defined, neuroevolution can be considered as an option to create a draughts-playing AI. However, the robustness of the system is quite volatile. To counteract this, extra precautions should be taken in producing a crossover mechanism that is both safe but exploratory as this could otherwise negatively impact the learning rate.
+    Neuroevolution can be considered as an option to create a draughts-playing AI, but the robustness of the system is quite volatile. To counteract this, extra precautions should be taken in producing a crossover mechanism that is both safe but exploratory as this could otherwise negatively impact the learning rate.
 
 \end{abstract}
 % Done
@@ -95,6 +95,7 @@
 % DONE
 \section{Introduction}
     % This section briefly introduces the general project background, the research question you are addressing, and the project objectives.  It should be between 2 to 3 pages in length.  Do not change the font sizes or line spacing in order to put in more text.
+    
     The motivation behind this project is to explore the effectiveness of genetic algorithms to train a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of Draughts. The use of genetic algorithms was used to increase the quality of the neurons. The combined mechanisms would create a Draughts playing agent that, when provided with the option to consider a set of moves, would have the potential to play and learn without human intervention.
 
     \subsection{Draughts}
