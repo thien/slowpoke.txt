@@ -66,17 +66,16 @@
 
     {\bf Background}
 
-    Presently, competitive Draughts AI players require human intervention to improve their performance. This is mainly due to their dependency on human-defined move databases and heuristics. Through neuroevolution (combining Genetic Algorithms and Neural Networks), this issue can be solved by creating a player that can grow in ability over time, by learning to play itself.
+    Neural Networks are commonly used to solve a variety of complex problems, but doing so involves a magnitude of manually labelled data. Through neuroevolution (combining Genetic Algorithms and Neural Networks), this issue can be solved by creating a system that can grow in ability over time. It's ability is measured by allowing the system to play against itself in the game of Draughts.
     
     {\bf Aims}
 
     % The objective of this project is to explore how well a neuroevolutionary approach can tackle the game of English Draughts. First, previous historical successes in the field and the components that helped build their systems are studied. Then, the components are looked to see how they can be adapted to suit the objective at hand. 
-    Neural Networks are commonly trained with backpropagation, but the aim of this work was to explore whether it was possible to also train a neural network by using genetic algorithms to manipulate its weights. The effectiveness of this approach was measured when it was trained to play Draughts.
+    Neural Networks are commonly trained with back-propagation, but the aim of this work was to explore whether it was possible to also train a neural network by using genetic algorithms to manipulate its weights. The effectiveness of this approach was measured when it was trained to play Draughts.
     % Whilst the use of evolutionary algorithms and neural networks have been explored independently of one another to create draughts players, the intention is to explore the effectiveness of the combined methods in terms of developing an artificially intelligent draughts playing agent. 
 
     {\bf Method}
 
-    % The initial population consists of randomly generated AI players, which will play each other to determine the best player out of the population. The performance of championing AI players at every generation of the genetic algorithm are measured against previous champions. Appropriate algorithms are implemented to determine the overall development of the system's ability to play Draughts.
     The method started with designing a feed-forward neural network that took as input, the state of a checker board, and would output an evaluation of the players advantage. This was combined with a tree-search algorithm that chose the best move from a set of possible outcomes. Finally, the system was used on an existing Draughts framework that provided it the ability to play Draughts. Genetic algorithms were used to adjust the weights of the neural network, with the intention of making the system learn to evaluate checker boards more effectively. 
     
     {\bf Results}
@@ -95,8 +94,7 @@
 % DONE
 \section{Introduction}
     % This section briefly introduces the general project background, the research question you are addressing, and the project objectives.  It should be between 2 to 3 pages in length.  Do not change the font sizes or line spacing in order to put in more text.
-    
-    The motivation behind this project is to explore the effectiveness of genetic algorithms to train a neural network. Neural networks can be used to evaluate the performance of two players in a zero-sum game of Draughts. The use of genetic algorithms was used to increase the quality of the neurons. The combined mechanisms would create a Draughts playing agent that, when provided with the option to consider a set of moves, would have the potential to play and learn without human intervention.
+    Contemporary Machine Learning is commonly revolved around the use of Neural Networks to deduce abstract relationships to solve different types of problems. This is made possible through the use of a back-propagation algorithm that allows the neural network to learn by comparing errors between it's predicted outcome against the actual outcome. \cite{rumelhart_learning_1986} However, this involves a multitude of data, generally classified with some manual labour. The motivation behind this project is to explore the effectiveness of genetic algorithms as an alternative to train a neural network, which could allow the system to learn without using any data. The effectiveness of this approach is tested by its ability to play Draughts.
 
     \subsection{Draughts}
 
@@ -175,11 +173,11 @@
 
         Blondie24 was influential in the field of neuroevolution during its time, which led to various studies on the theory behind their success. A notable example was the series of publications by Al-Khateeb and Kendall, where they explored in detail the different features that comprise Blondie24. One of their studies concerning the effects of the ply depth, concluded that having a higher ply unsurprisingly increases the overall performance of the player, and that agents trained at a higher ply performed significantly worse when playing at a lower ply. More importantly, the results in the paper suggested that training with a 4-ply produced the best value function to start with during the learning phase, and then extending the ply for evaluations. \cite{al-khateeb_effect_2012} This was considered in the final implementation, where the system was tested with ply depths around this value. 
         Their study on the influence of tournaments in Blondie24 concluded that the league structure (commonly seen in standard tournaments) seemed more appropriate to use as opposed to the round robin tournament. \cite{al-khateeb_introducing_2009} Round Robin tournaments refers to having each participant play every other participant. This was however more difficult to set up in parallel, which was a large contributing factor in the runtime of the system.
-        
+    
     \subsection{Return of "Genetic" Algorithms}
 
         Since then, there has been an increasing number of published papers describing the promising utility of GAs and NNs in general. GAs have been shown to evolve weights for a convolutional-NN in a classification task better than back-propagation, in nearly all situations, other than when the number of generations generated for NNs are small. \cite{perez_apply_nodate} Another research showed GAs ability to compute optimal structures for deep NNs, using an image recognition dataset as the benchmark for competitiveness against the networks. \cite{xie_genetic_2017}
-        
+
         % Uber's revival of genetic algorithms and safe mutations
         However, one recent paper by Clune et al. on behalf of Uber Labs returned to the use of GAs as the premise to train especially deep convolutional networks with success. \cite{such_deep_2017} Their neuroevolutionary system was used to play popular Atari games on the OpenAI framework, and was found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
 
@@ -303,46 +301,45 @@
         % how does it work?
 
         % Tanh Diagram
-        % \begin{wrapfigure}{r}{0.3\textwidth}
-        %     \centering
-        %     \begin{tikzpicture}
-        %         \fontsize{6}{8}
-        %         \begin{axis}[
-        %             legend pos=north west,
-        %             axis x line=middle,
-        %             axis y line=middle,
-        %             x tick label style={/pgf/number format/fixed,
-        %                                 /pgf/number format/fixed zerofill,
-        %                                 /pgf/number format/precision=1},
-        %             y tick label style={/pgf/number format/fixed,
-        %                                 /pgf/number format/fixed zerofill,
-        %                                 /pgf/number format/precision=1},
-        %             grid = major,
-        %             width=55mm,
-        %             height=4cm,
-        %             grid style={dashed, gray!30},
-        %             xmin=-5,     % start the diagram at this x-coordinate
-        %             xmax= 5,    % end   the diagram at this x-coordinate
-        %             ymin= -1,     % start the diagram at this y-coordinate
-        %             ymax= 1,   % end   the diagram at this y-coordinate
-        %             %axis background/.style={fill=white},
-        %             xlabel=x,
-        %             ylabel=y,
-        %             tick align=outside,
-        %             enlargelimits=false]
-        %         % plot the stirling-formulae
-        %         \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
-        %         % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
-        %         \end{axis}
-        %     \end{tikzpicture}
-        %     \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$. \label{sigmoid}}
-        %     \vspace{-10pt}
-        %     \end{wrapfigure}
+        \begin{wrapfigure}{r}{0.3\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \fontsize{6}{8}
+                \begin{axis}[
+                    legend pos=north west,
+                    axis x line=middle,
+                    axis y line=middle,
+                    x tick label style={/pgf/number format/fixed,
+                                        /pgf/number format/fixed zerofill,
+                                        /pgf/number format/precision=1},
+                    y tick label style={/pgf/number format/fixed,
+                                        /pgf/number format/fixed zerofill,
+                                        /pgf/number format/precision=1},
+                    grid = major,
+                    width=55mm,
+                    height=4cm,
+                    grid style={dashed, gray!30},
+                    xmin=-5,     % start the diagram at this x-coordinate
+                    xmax= 5,    % end   the diagram at this x-coordinate
+                    ymin= -1,     % start the diagram at this y-coordinate
+                    ymax= 1,   % end   the diagram at this y-coordinate
+                    %axis background/.style={fill=white},
+                    xlabel=x,
+                    ylabel=y,
+                    tick align=outside,
+                    enlargelimits=false]
+                % plot the stirling-formulae
+                \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
+                % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+                \end{axis}
+            \end{tikzpicture}
+            \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$. \label{sigmoid}}
+            \vspace{-10pt}
+            \end{wrapfigure}
 
-        The choice for the activation function is tanh (a type of sigmoidal function).
-        % , shown in figure \ref{sigmoid}. 
+        The choice for the activation function is tanh (a type of sigmoidal function), shown in figure \ref{sigmoid}. 
         % There exists inherent issues related to the properties of their derivatives, commonly known as the missing gradient problem. This is an issue  \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. 
-        tanh facilitated the ability to simulate a zero-sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
+        This facilitated the ability to simulate a zero-sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
         
         Results are cached, such that evaluations are saved and then can be recalled immediately, in the event that the same input was requested to be  evaluated again. This showed  varying levels of time improvement based on the ply. As the ply increased, the size of the state space increased, and therefore the chances of recalling the same set of inputs decreased. The cache was also used for our safe mutations algorithm, described later on in Section \ref{coefficient_mutation}.
 
@@ -509,7 +506,7 @@
     \end{figure}
     
     For all systems, it appears that the winning rate increased over time, with the draw rate and loss decreased over time. For plys 3 and 6, it performed significantly better than its generation 0 counterpart (when considering the percentage of losses). This was not the case for the 1-ply - where it lost more frequently than its wins and draws combined - against its generation 0 counterpart. This would be caused by the lack of oversight heuristics retained as the system does not look ahead further enough to decide what heuristics would be kept by the neural network model.
-
+ 
     \subsection{Champion Distribution}
         A novel approach was devised to determine the influence of genetic algorithms. Measurements were taken to show the genome type distribution of the champions across the generations, to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations were classed as persistent. Well performing agents from previous generations (but not champions) were classed as elite. Typically, elite agents would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; although every offspring was mutated, some offspring were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
 
