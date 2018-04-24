@@ -108,7 +108,7 @@
 
  	\subsection{Genetic Algorithms}
 
-    A subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by Charles Darwin's evolutionism theory; individuals are created based on the improvement of their ancestors' genetic information (genome). Genomes are analogical to a data structure, most commonly a 1D array. Evolutionary algorithms typically consist of a population of agents, a tournament selection process (also known as a fitness function), and the introduction of probabilistic mutation on genomes. This in turn allows evolutionary algorithms to create genomes that increase in quality over time with regards to the tournament. Genetic algorithms distinguish themselves from evolutionary algorithms through their use of algorithmic crossover mechanisms, where two parent genomes are combined together to create offspring. The use of evolutionary algorithms to train neural networks is described as a type of machine learning called Neuroevolution.
+    A subset of evolutionary algorithms in general, Genetic algorithms (GAs) are a group of search techniques used to find exact or approximate solutions to optimisation and search problems. The methodology is inspired by evolutionism theory; individuals are created based on the improvement of their ancestors' genetic information (genome). Genomes are analogical to a data structure, most commonly a 1D array. Evolutionary algorithms typically consist of a population of agents, a tournament selection process (also known as a fitness function), and the introduction of probabilistic mutation on genomes. This in turn allows evolutionary algorithms to create genomes that increase in quality over time with regards to the tournament. Genetic algorithms distinguish themselves from evolutionary algorithms through their use of algorithmic crossover mechanisms, where two parent genomes are combined together to create offspring. The use of evolutionary algorithms to train neural networks is described as a type of machine learning called Neuroevolution.
 
     \subsection{Aims}
 
@@ -121,7 +121,7 @@
 
     \subsubsection{Intermediate Objective}
         % The intermediate objective of this project was to create and incorporate the algorithms for the calculation of triangle surface normals, vertex normals and gradient (following our definition) in the initial programme, and enable visualisation of the “interesting” gradient changes and vertex normals on the mesh displayed by the programme.
-        The intermediate objective involved the implementation of an interface to play against the trained result, and the implementation of a Monte-Carlo Tree-Search (MCTS) algorithm. This allowed the system to think ahead, which would further allow it to determine better quality moves. Also, as the genetic algorithm included a tournament mechanism which would play games simultaneously, this needed to be implemented to run in parallel. The implementation of the tournament mechanism was made possible via the use of a round robin approach and the use of the multiprocessing Python library. MCTS was successfully implemented manually, which improved the quality of the moves the system made.
+        The intermediate objective involved the implementation of an interface to play against the trained result, and the implementation of a Monte-Carlo Tree-Search (MCTS) algorithm. This allowed the system to think ahead, which would further allow it to determine better quality moves. Also, as the genetic algorithm included a tournament mechanism which would play games simultaneously, this needed to be implemented to run in parallel. The implementation of the tournament mechanism was made possible via the use of a round robin approach and the use of the multiprocessing Python library. MCTS was successfully implemented, which improved the quality of the moves the system made.
         
     \subsubsection{Advanced Objective}
         % The advanced objective of this project was to evaluate the speed of the algorithms and compare it to the time complexity that we obtained from theoretical analysis of the algorithms. The final sections of this paper will show the results acquired and the analysis and evaluation of the work we carried out. 
@@ -176,27 +176,10 @@
         Blondie24 was influential in the field of neuroevolution during its time, which led to various studies on the theory behind their success. A notable example was the series of publications by Al-Khateeb and Kendall, where they explored in detail the different features that comprise Blondie24. One of their studies concerning the effects of the ply depth, concluded that having a higher ply unsurprisingly increases the overall performance of the player, and that agents trained at a higher ply performed significantly worse when playing at a lower ply. More importantly, the results in the paper suggested that training with a 4-ply produced the best value function to start with during the learning phase, and then extending the ply for evaluations. \cite{al-khateeb_effect_2012} This was considered in the final implementation, where the system was tested with ply depths around this value. 
         Their study on the influence of tournaments in Blondie24 concluded that the league structure (commonly seen in standard tournaments) seemed more appropriate to use as opposed to the round robin tournament. \cite{al-khateeb_introducing_2009} Round Robin tournaments refers to having each participant play every other participant. This was however more difficult to set up in parallel, which was a large contributing factor in the runtime of the system.
         
-        % Alternative contemporary machine learning techniques have been exercised against Draughts. Franken et al. (2003) used draughtsboards as an evaluator for their rendition of an AI through Particle Swarm Optimisations.[14] 
-        % Within research in the game of Draughts alone, A research by Toledo-Marin et al. looked at studies on attacking strategies using Draughts as a reference (which however can be applied to any other zero-sum game), where they mathematically prove that for an offensive player, maximising the offensive improves their probability to win.\cite{toledo-marin_is_2016} This could be considered to guide the system to lean towards attacking moves, which could potentially accelerate the learning rate of the system.
-
-        % Stanford's SVM method of improving Blondie
-        % Cobbe, et al. improves Blondie24 by using an evaluation function that consists of Support Vector Machines, which achieves locally optimal performance in approximately a third as many generations than its typical evolution. \cite{cobbe_accelerating_nodate} 
-        
-    % TODO: fix write up of everything, talk about monte-carlo
-    % \subsection{Neural Networks}
-    %     % need to mention regular gradient based learning
-    %     Lai's Giraffe \cite{lai_giraffe:_2015} program used a deep reinforcement learning technique to play Chess to an advanced level in a relatively quick time-period. Giraffe's decision function involved using Temporal Difference Learning (TD-Leaf), an improvement on MiniMax, by Baxter et al. \cite{baxter_tdleaflambda_1999} However, Giraffe has been trained on previously played games from grandmaster tournaments as a reference, and was not entirely self-taught.
-        % Lai then moved on to join DeepMind, 
-
-        % talk about monte-carlo
-
-    % TODO: fix writeup of everything
     \subsection{Return of "Genetic" Algorithms}
 
         Since then, there has been an increasing number of published papers describing the promising utility of GAs and NNs in general. GAs have been shown to evolve weights for a convolutional-NN in a classification task better than back-propagation, in nearly all situations, other than when the number of generations generated for NNs are small. \cite{perez_apply_nodate} Another research showed GAs ability to compute optimal structures for deep NNs, using an image recognition dataset as the benchmark for competitiveness against the networks. \cite{xie_genetic_2017}
         
-        % Kusiak et al. (2007) have devised the use of pure genetic algorithms as the premise to evaluate the board. [16] they describe the use of 25 heuristics that, when used in unison, can determine the evaluation of a given board. They continue to go further on and specify that various combinations of heuristics, when used in different stages of the game, prove to be the most promising of outcomes.
-
         % Uber's revival of genetic algorithms and safe mutations
         However, one recent paper by Clune et al. on behalf of Uber Labs returned to the use of GAs as the premise to train especially deep convolutional networks with success. \cite{such_deep_2017} Their neuroevolutionary system was used to play popular Atari games on the OpenAI framework, and was found to perform as well as other contemporary evolution strategies and reinforcement learning algorithms. 
 
@@ -218,45 +201,6 @@
     This section describes the implementation process of the system. Implementing the checker board interface is not included in the discussion as it is not one of the objectives. However, the sections below are considered under the premise that the interface was built prior to their development.
 
     \subsection{Evaluation Function}
-        
-        % \begin{wrapfigure}{r}{0.37 \textwidth}
-            %     % \begin{center}
-            %     \fontsize{8}{11}
-            %     % \vspace{-40pt}
-            %     \centering
-            %         \caption{The indexes of the 32 pieces of the input layer are the immediate values of the positions on the board. \label{boardarray}}
-            %         \vspace{5pt}
-            %         \begin{tikzpicture}
-            %         \color{white}
-            %         \matrix (m) [matrix of nodes, nodes in empty cells, label skeleton, nodes={minimum size = 0.4cm}] {
-            %         & 31 &&30&&29&&28 \\
-            %         27 &&26&&25&&24&&\\
-            %         &23&&22&&21&&20\\   
-            %             19&&18&&17&&16&&\\
-            %         &15&&14&&13&&12\\
-            %         11&&10&&9&&8&&\\
-            %         &7&&6&&5&&4\\
-            %         3&&2&&1&&0\\
-            %         % \bl &     & \bl &     &     &     & \bl &     \\
-            %         %     &     &     & \bl &     &     &     &     \\
-            %         % \wh &     &     &     &     &     &     &     \\
-            %         %     &     &     & \wh &     & \wh &     & \wh \\
-            %         % \wh &     & \wh &     & \wh &     & \wh &     \\
-            %         %     & \wh &     & \wh &     & \wh &     & \wh \\
-            %         };
-            %         \foreach \row in {1, ..., 8} {
-            %         \foreach \col in {1, ..., 8} {
-            %             \pgfmathparse{Mod(\row + \col, 2) ? "black" : "white"}
-            %             \colorlet{squarebg}{\pgfmathresult}
-            %             \fitandstyle[background]{(m-cell-\row-\col)}{fill = squarebg}
-            %         }
-            %         }
-            %         \end{tikzpicture}
-            %     % \end{center}
-            %     \vspace{-20pt}
-            % \end{wrapfigure}
-            % % talk about how it works
-            % % talk about the preprocessing
         
         A feed-forward multilayer perceptron neural network was used to evaluate the board. The network contained 4 layers; the input layer consists of 91 nodes, with the output node having 1. Hidden layers had 40 and 10 nodes respectively, and the dimensions are based on the success of Blondie24's model \cite{chellapilla_evolving_1999}. Figure \ref{nnmodel} shows a visual representation of the network structure.
 
@@ -359,45 +303,46 @@
         % how does it work?
 
         % Tanh Diagram
-        \begin{wrapfigure}{r}{0.3\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \fontsize{6}{8}
-                \begin{axis}[
-                    legend pos=north west,
-                    axis x line=middle,
-                    axis y line=middle,
-                    x tick label style={/pgf/number format/fixed,
-                                        /pgf/number format/fixed zerofill,
-                                        /pgf/number format/precision=1},
-                    y tick label style={/pgf/number format/fixed,
-                                        /pgf/number format/fixed zerofill,
-                                        /pgf/number format/precision=1},
-                    grid = major,
-                    width=55mm,
-                    height=4cm,
-                    grid style={dashed, gray!30},
-                    xmin=-5,     % start the diagram at this x-coordinate
-                    xmax= 5,    % end   the diagram at this x-coordinate
-                    ymin= -1,     % start the diagram at this y-coordinate
-                    ymax= 1,   % end   the diagram at this y-coordinate
-                    %axis background/.style={fill=white},
-                    xlabel=x,
-                    ylabel=y,
-                    tick align=outside,
-                    enlargelimits=false]
-                % plot the stirling-formulae
-                \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
-                % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
-                \end{axis}
-            \end{tikzpicture}
-            \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$. \label{sigmoid}}
-            \vspace{-10pt}
-            \end{wrapfigure}
+        % \begin{wrapfigure}{r}{0.3\textwidth}
+        %     \centering
+        %     \begin{tikzpicture}
+        %         \fontsize{6}{8}
+        %         \begin{axis}[
+        %             legend pos=north west,
+        %             axis x line=middle,
+        %             axis y line=middle,
+        %             x tick label style={/pgf/number format/fixed,
+        %                                 /pgf/number format/fixed zerofill,
+        %                                 /pgf/number format/precision=1},
+        %             y tick label style={/pgf/number format/fixed,
+        %                                 /pgf/number format/fixed zerofill,
+        %                                 /pgf/number format/precision=1},
+        %             grid = major,
+        %             width=55mm,
+        %             height=4cm,
+        %             grid style={dashed, gray!30},
+        %             xmin=-5,     % start the diagram at this x-coordinate
+        %             xmax= 5,    % end   the diagram at this x-coordinate
+        %             ymin= -1,     % start the diagram at this y-coordinate
+        %             ymax= 1,   % end   the diagram at this y-coordinate
+        %             %axis background/.style={fill=white},
+        %             xlabel=x,
+        %             ylabel=y,
+        %             tick align=outside,
+        %             enlargelimits=false]
+        %         % plot the stirling-formulae
+        %         \addplot[domain=-5:5, red, ultra thick,samples=500] {2*(1/(1+e^-x))-1};
+        %         % \addlegendentry{$f(x)=\frac{1}{1+e^{-5x}}$}
+        %         \end{axis}
+        %     \end{tikzpicture}
+        %     \caption{Graph of tanh function $f(x)={\frac{2}{1+e^{-x}}- 1}$. \label{sigmoid}}
+        %     \vspace{-10pt}
+        %     \end{wrapfigure}
 
-        The choice for the activation function is tanh (a type of sigmoidal function), shown in figure \ref{sigmoid}. 
+        The choice for the activation function is tanh (a type of sigmoidal function).
+        % , shown in figure \ref{sigmoid}. 
         % There exists inherent issues related to the properties of their derivatives, commonly known as the missing gradient problem. This is an issue  \cite{nair_rectified_2010}, described as the missing gradient problem. However, since this issue is related to the properties of a gradient based learning method and not through a stochastic learning method (of which genetic algorithms are), this is not a concern for the project. 
-        The use of tanh facilitated the ability to simulate a zero-sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
+        tanh facilitated the ability to simulate a zero-sum formula (for a range of [-1 to 1]) due to its symmetric properties around the origin.
         
         Results are cached, such that evaluations are saved and then can be recalled immediately, in the event that the same input was requested to be  evaluated again. This showed  varying levels of time improvement based on the ply. As the ply increased, the size of the state space increased, and therefore the chances of recalling the same set of inputs decreased. The cache was also used for our safe mutations algorithm, described later on in Section \ref{coefficient_mutation}.
 
@@ -536,7 +481,6 @@
     
 
     % This section should be between 2 to 3 pages in length.
-    % need to talk about how we mwasure the success of the system
     For the experiment, three different neuroevolutionary systems were created, each running at different ply-depths. All systems run for 200 generations. For Figures containing three charts, each chart represents the results of the agents playing at 1-ply, 3-ply, and 6-ply, respectively. Each simulation utilised a population of 15 agents.
 
     \subsection{Learning Rate}
@@ -547,7 +491,7 @@
     \begin{figure}[!ht]
         \centering
         \includegraphics[width=140mm]{images/results/combined_cummulative.pdf}
-        \caption{A chart showing the cumulative learning rate across the generations for the different plys.\label{cum_growth}}
+        \caption{A chart showing the cumulative learning rate across the generations for the different ply-depths.\label{cum_growth}}
     \end{figure}
     
     A cumulative growth across all ply-depths can be seen such that returns are in the net positive as more generations are added. Furthermore, all ply-depths show a positive trend line. This suggests that the system was more likely to show an increase in ability at every generation as opposed to a reduction. Interestingly, the 3-ply shows a slower learning rate than the other plys. However, even with safe mutations, it is shown that the performance over time was volatile for all ply-depths. This could potentially be prevented by creating a new set of agents and restarting the generation's tournament when a loss was seen. Further measurements were taken to understand the reasoning of the potential troughs in performance. 
@@ -565,15 +509,9 @@
     \end{figure}
     
     For all systems, it appears that the winning rate increased over time, with the draw rate and loss decreased over time. For plys 3 and 6, it performed significantly better than its generation 0 counterpart (when considering the percentage of losses). This was not the case for the 1-ply - where it lost more frequently than its wins and draws combined - against its generation 0 counterpart. This would be caused by the lack of oversight heuristics retained as the system does not look ahead further enough to decide what heuristics would be kept by the neural network model.
-    % For the ply of 1, we can see an immediate net trend, with the end system beating earlier generations except for the first generation. 
-    % % bollocks
-    % This makes sense, as heuristic retention would be lost as the search depth is so low. This does however suggest that the system is worse off than playing with an initialised system (without training). For the higher plys (3,6) however, the agents managed to consistently maintain a higher chance of winning/drawing against their earlier counterparts. It is difficult to see a trend line that suggests the growing performance of the systems over time. 
-    % A decreasing trend line for draws 
-    % Need to talk about losses for the 6-ply
 
     \subsection{Champion Distribution}
-    % mention novel somewhere!!!!!!!!!
-        A novel approach was devised to determine the influence of genetic algorithms. Measurements were taken to show the genome type distribution of the champions across the generations, to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations were classed as persistent. Well performing agents from previous generations (but not champions) were classed as elite. Typically, elite agents would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; although every offspring was mutated, some offsprings were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
+        A novel approach was devised to determine the influence of genetic algorithms. Measurements were taken to show the genome type distribution of the champions across the generations, to determine whether the champions were more likely to be chosen based on the influence of mutations and crossovers. Each of the champions were looked at, and their genomic properties were collated to show a distribution of the chances of a particular agent being the champion. Champions that were also champions from prior generations were classed as persistent. Well performing agents from previous generations (but not champions) were classed as elite. Typically, elite agents would encompass the persistent agents but for the sake of measurements they were taken separately. This was also the case for mutations; although every offspring was mutated, some offspring were created using genomic crossovers (which were also classed separately), described in section \ref{crossover_strategy}.  
 
         \begin{figure}[!ht]
             \centering
@@ -610,7 +548,6 @@
                 \caption{2D Histograms representing the number of moves played in the games played in the generations. \label{move_chart}}
             \end{figure}
 
-            % The number of moves is consistent throughout as the players are evaluating by projecting their own abilities to the opponment, leading to a fairly even distribution of moves across the generations. 
             From the charts, the median number of moves in a game for 1-ply was around 50. For the higher plys, the median was not as tightly grouped together. When combined with the mean number of moves, suggested that when both players chose stronger quality moves, their games lasted longer. The mean number of games for both 3 and 6 plys were similar. However, the similarity of the two charts was most likely caused by the hard limit imposed by the game rules (see \textit{\ref{tournament_selection} Tournament Selection}), where draws were forced when a piece was not taken after 100 moves. 
 
             The number of moves for the higher ply depths was compared to other known level of abilities. Data scraped from the US National 1952 ACF Tournament \cite{loy_us_1952} showed that the average number of moves in the tournament games was 54.74. 10000 randomly played Draughts simulations showed an average of 69.69 moves. With players in plys 3 and 6 playing to somewhat equal ability (relative to their population), the increased number of moves suggested that it was more difficult to see a disparity between the agents in their respective populations. This consequently confirmed that the tree-search algorithm was implemented correctly, reducing the unknowns considered during evaluation.
@@ -647,15 +584,6 @@
 
 % TODO (WAIT FOR RESULTS)
 \section{Evaluation}
-    % Structure and content very project-dependent.
-    % Follow the Design Report. Use the feedback.
-    % Rule of thumb:
- 
-    %   Evaluation:
-    %   - How well does it work?
-    %   - Does it do what you wanted it to do?
-    %   - How well did you do?
-    %   - Did the plans pan out?
 
     The original research question is now reflected upon: ``is it possible to create a performing draughts playing agent by the use of Genetic Algorithms and Neural Networks?".  The question is answered through the examination of the strengths and limitations of the system.
 
@@ -673,7 +601,7 @@
     The quality of the neuroevolutionary algorithm boils down to the quality of the tournament method. Round-Robin is not necessarily the most efficient (from a number of games played perspective, ignoring  parallelism) and does not eliminate cases where there is an ambiguous decision between the champions (which could be due to several players having an equal number of points). This could also relate to the fact that the retention of heuristics necessary to win against much older predecessors were lost. This may be a fault of the tournament mechanism, where the population were made to optimise against each other, as opposed to having a common premise such as optimising the previous champion. Creating a high-quality tournament is difficult and domain specific, or rather, there is no universal fitness function for all problems.
 
     \subsection{Approach}
-        The mechanism for devising the learning rate was more efficent than comparing the present champion against a hollistic comparison of the rest of the system. This measurement of learning rate was somewhat arbitary, as the learning rate is deduced against the population and not necessarily the system as a whole, and may best be compared against systems that are classified to play at a particular level. This would have helped in determining how strong the system was against popular AI checkers programs.
+        The mechanism for devising the learning rate was more efficient than comparing the present champion against a holistic comparison of the rest of the system. This measurement of learning rate was somewhat arbitrary, as the learning rate is deduced against the population and not necessarily the system as a whole, and may best be compared against systems that are classified to play at a particular level. This would have helped in determining how strong the system was against popular AI checkers programs.
 
         As most of the experiments are constrained by computational power and time, it may be best to re-evaluate this concept until either computational resources are more available, such as the use of GPU acceleration. The system should also be left to run for longer generations as presently the results do not show a notably strong correlation. The lack of computational resources also influenced the number of experimental testing that can be measured, such as the population size, the number of generations, the dimensions of the neural network, and the learning rate.
         
@@ -685,11 +613,8 @@
 % TODO (WAIT FOR RESULTS)
 
 \section{Conclusion}
-    % This section summarises the main points of this paper.  Do not replicate the abstract as the conclusion.  A conclusion might elaborate on the importance of the work or suggest applications and extensions.  This section should be no more than 1 page in length.
 
-    The project was successful in terms of fulfilling its objectives and Aims. A system was implemented using evolutionary methods, and it successfully plays checkers in a manner in which it learnt from over time. To the extent of its growth remains suspect however. 
-    % Efforts to measure the learning rate is one of the non-trivial challenges that makes neuroevolution a particular field of interest, as it is inherent that it can tackle problems in a somewhat novel manner.
-    The main findings of this project is as follows:
+    The project was successful in terms of fulfilling its objectives and Aims. A system was implemented using evolutionary methods, and it successfully plays checkers in a manner in which it learnt from over time. To the extent of its growth remains suspect however. The main findings of this project is as follows:
 
     \begin{enumerate}
     \item It is evidently possible to create a checkers playing agent that learns to play itself, using genetic algorithms and neural networks.
