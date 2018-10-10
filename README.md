@@ -1,3 +1,3 @@
-# zephyr.txt
+# Slowpoke.txt
 
-Documents related to the development of Zephyr.
+Documents and reports related to the development of [Slowpoke](https://github.com/thien/slowpoke)
